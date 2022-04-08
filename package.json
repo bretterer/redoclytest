@@ -1,0 +1,17 @@
+{
+  "name": "okta-api-reference",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Okta API Reference built on the Redocly Developer Portal",
+  "license": "MIT",
+  "scripts": {
+    "start": "redocly-portal develop -p 3000",
+    "build": "echo a && redocly-portal build",
+    "clean": "redocly-portal clean"
+  },
+  "dependencies": {
+    "@okta/odyssey-design-tokens": "^0.11.1",
+    "@redocly/developer-portal": "1.1.0-beta.57",
+    "js-yaml": "^4.1.0"
+  }
+}
