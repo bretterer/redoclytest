@@ -1,0 +1,52 @@
+@font-face {
+  font-family: 'Whyte';
+  font-style: normal;
+  font-weight: normal;
+  src:
+    url('/fonts/ABCWhyte-Book.woff') format('woff'),
+    url('/fonts/ABCWhyte-Book.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Whyte';
+  font-style: italic;
+  font-weight: normal;
+  src:
+    url('/fonts/ABCWhyte-BookItalic.woff') format('woff'),
+    url('/fonts/ABCWhyte-BookItalic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Whyte';
+  font-style: normal;
+  font-weight: bold;
+  src:
+    url('/fonts/ABCWhyte-Medium.woff') format('woff'),
+    url('/fonts/ABCWhyte-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Whyte';
+  font-style: normal;
+  font-weight: 600;
+  src:
+    url('/fonts/ABCWhyte-Medium.woff') format('woff'),
+    url('/fonts/ABCWhyte-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Whyte';
+  font-style: italic;
+  font-weight: bold;
+  src:
+    url('/fonts/ABCWhyte-MediumItalic.woff') format('woff'),
+    url('/fonts/ABCWhyte-MediumItalic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Whyte';
+  font-style: italic;
+  font-weight: 600;
+  src:
+    url('/fonts/ABCWhyte-MediumItalic.woff') format('woff'),
+    url('/fonts/ABCWhyte-MediumItalic.woff2') format('woff2');
+}
+
+nav img {
+  color: #00297a;
+}

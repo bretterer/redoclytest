@@ -1,4 +1,6 @@
-![LGA](https://i.imgur.com/3HZpWHE.png)
+<span class="api-label api-label-ie">
+    Identity Engine
+</span>
 
 > **Note:** This feature is only available as a part of Okta Identity Engine. [Contact support](mailto:dev-inquiries@okta.com) for further information.
 

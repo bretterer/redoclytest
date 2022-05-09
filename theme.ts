@@ -1,6 +1,8 @@
 import { lighten, darken, readableColor } from 'polished';
 import * as Tokens from "@okta/odyssey-design-tokens";
 
+const fontFamily = 'Whyte,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif';
+
 export const theme = {
   // spacing: {
     // unit: Tokens.SpaceScale1,
@@ -16,7 +18,9 @@ export const theme = {
   colors: {
     // tonalOffset: 0.2,
     primary: {
-      main: '#00297a',
+      main: Tokens.ColorPaletteBlue500,
+      light: Tokens.ColorPaletteBlue300,
+      dark: Tokens.ColorPaletteBlue900,
       // light: ({ colors }) => lighten(colors.tonalOffset, colors.primary.main),
       // dark: ({ colors }) => darken(colors.tonalOffset, colors.primary.main),
       // contrastText: ({ colors }) => readableColor(colors.primary.main),
@@ -47,7 +51,7 @@ export const theme = {
     // },
     text: {
       primary: Tokens.ColorTextBody,
-      // secondary: '#4e566d',
+      secondary: Tokens.ColorTextSub
     },
     border: {
       dark: Tokens.ColorBorderPrimaryDark,
@@ -82,35 +86,36 @@ export const theme = {
       link: '#31bbb6',
       head: '#c167e4',
     },
-    // navbar: {
-    //   main: ({ colors }) => colors.primary.main,
-    //   gradient: ({ colors }) => darken(colors.tonalOffset / 2, colors.navbar.main),
-    //   contrastText: 'white'
-    // },
-    // footer: {
-      // main: ({ colors }) => colors.primary.main,
-      // contrastText: 'white'
-    // },
+    navbar: {
+      main: ({ colors }) => Tokens.ColorPaletteBlue900,
+      gradient: ({ colors }) => Tokens.ColorPaletteBlue900,
+      contrastText: Tokens.ColorTextBodyInverse,
+      activeBgColor: Tokens.ColorBackgroundPrimaryLight,
+      fontSize: Tokens.FontSizeBody
+    },
+    footer: {
+      main: ({ colors }) => Tokens.ColorPaletteBlue900,
+      contrastText: Tokens.ColorTextBodyInverse
+    },
   },
 
   sidebar: {
     backgroundColor: Tokens.ColorBackgroundBase,
-    width: '260px',
   },
   // tocPanel: {
   //   width: '240px',
   // },
 
   typography: {
-    fontSize: Tokens.FontSizeBase,
+    fontSize: Tokens.FontSizeBody,
     lineHeight: Tokens.FontLineHeightUi,
     fontWeightRegular: Tokens.FontWeightNormal,
     fontWeightBold: Tokens.FontWeightBold,
     fontWeightLight: '300',
-    fontFamily: Tokens.FontFamilyBase,
+    fontFamily: fontFamily,
     headings: {
-      fontFamily: '"Source Sans Pro", sans-serif',
       fontWeight: Tokens.FontWeightNormal,
+      color: ({ colors }) => Tokens.ColorTextHeading,
     },
     heading1: {
       fontSize: Tokens.FontSizeHeading1,
@@ -150,7 +155,7 @@ export const theme = {
     // // ...
     },
     code: {
-      fontSize: '13px',
+      fontSize: Tokens.FontSizeBody,
       fontFamily: Tokens.FontFamilyMono,
       // fontWeight: ({ typography }) => typography.fontWeightRegular,
       color: '#e53935',

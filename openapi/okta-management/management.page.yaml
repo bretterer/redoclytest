@@ -1,6 +1,7 @@
 type: reference-docs
 definitionId: okta-management-api
 settings:
+  pagination: section
   generateCodeSamples:
     languages:
       - lang: curl

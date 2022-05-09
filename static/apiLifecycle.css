@@ -1,0 +1,40 @@
+.api-label {
+  color: white;
+  font-weight: normal;
+  padding: 3px 10px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+  display: inline-block;
+  margin-bottom:  24px;
+}
+
+.api-label-beta {
+  background: #ebd551;
+  color: #1d1d21;
+}
+
+.api-label-ea {
+  background: #8d6e97;
+}
+
+.api-label-deprecated {
+  background: #cb5500;
+}
+
+.api-label-cors {
+  background: #dcdcdc;
+}
+
+.api-label-ie {
+  background: #00297a;
+}
+
+.api-label-classic-engine {
+  background: #1d1d21;
+}
+
+.api-label-limited-ga {
+  background: #2d8c9e;
+}

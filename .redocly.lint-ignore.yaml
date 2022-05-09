@@ -1,0 +1,484 @@
+# This file instructs Redocly's linter to ignore the rules contained for specific parts of your API.
+# See https://redoc.ly/docs/cli/ for more information.
+openapi/okta-management/management.yaml:
+  tag-description:
+    - '#/tags/0/description'
+    - '#/tags/1/description'
+    - '#/tags/2/description'
+    - '#/tags/3/description'
+    - '#/tags/5/description'
+    - '#/tags/6/description'
+    - '#/tags/7/description'
+    - '#/tags/8/description'
+    - '#/tags/9/description'
+    - '#/tags/10/description'
+    - '#/tags/11/description'
+    - '#/tags/12/description'
+    - '#/tags/13/description'
+    - '#/tags/14/description'
+    - '#/tags/15/description'
+    - '#/tags/16/description'
+    - '#/tags/17/description'
+    - '#/tags/18/description'
+    - '#/tags/19/description'
+    - '#/tags/20/description'
+    - '#/tags/21/description'
+    - '#/tags/22/description'
+    - '#/tags/23/description'
+    - '#/tags/24/description'
+    - '#/tags/25/description'
+  no-ambiguous-paths:
+    - '#/paths/~1api~1v1~1groups~1{groupId}~1apps'
+    - '#/paths/~1api~1v1~1groups~1{groupId}~1roles'
+    - '#/paths/~1api~1v1~1groups~1{groupId}~1users'
+  operation-4xx-response:
+    - '#/paths/~1api~1v1~1apps/get/responses'
+    - '#/paths/~1api~1v1~1apps/post/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}/get/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}/put/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}/delete/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1credentials~1csrs/get/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1credentials~1csrs/post/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1credentials~1csrs~1{csrId}/get/responses'
+    - >-
+      #/paths/~1api~1v1~1apps~1{appId}~1credentials~1csrs~1{csrId}/delete/responses
+    - >-
+      #/paths/~1api~1v1~1apps~1{appId}~1credentials~1csrs~1{csrId}~1lifecycle~1publish/post/responses
+    - '#/paths/~1api~1v1~1apps~1{appId}~1credentials~1keys/get/responses'
+    - >-
+      #/paths/~1api~1v1~1apps~1{appId}~1credentials~1keys~1generate/post/responses
+    - '#/paths/~1api~1v1~1apps~1{appId}~1credentials~1keys~1{keyId}/get/responses'
+    - >-
+      #/paths/~1api~1v1~1apps~1{appId}~1credentials~1keys~1{keyId}~1clone/post/responses
+    - '#/paths/~1api~1v1~1apps~1{appId}~1grants/get/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1grants/post/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1grants~1{grantId}/get/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1grants~1{grantId}/delete/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1groups/get/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1groups~1{groupId}/get/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1groups~1{groupId}/put/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1groups~1{groupId}/delete/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1lifecycle~1activate/post/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1lifecycle~1deactivate/post/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1tokens/get/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1tokens/delete/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1tokens~1{tokenId}/get/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1tokens~1{tokenId}/delete/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1users/get/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1users/post/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1users~1{userId}/get/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1users~1{userId}/post/responses'
+    - '#/paths/~1api~1v1~1apps~1{appId}~1users~1{userId}/delete/responses'
+    - '#/paths/~1api~1v1~1authenticators/get/responses'
+    - '#/paths/~1api~1v1~1authenticators~1{authenticatorId}/get/responses'
+    - '#/paths/~1api~1v1~1authenticators~1{authenticatorId}/put/responses'
+    - >-
+      #/paths/~1api~1v1~1authenticators~1{authenticatorId}~1lifecycle~1activate/post/responses
+    - >-
+      #/paths/~1api~1v1~1authenticators~1{authenticatorId}~1lifecycle~1deactivate/post/responses
+    - '#/paths/~1api~1v1~1authorizationServers/get/responses'
+    - '#/paths/~1api~1v1~1authorizationServers/post/responses'
+    - '#/paths/~1api~1v1~1authorizationServers~1{authServerId}/get/responses'
+    - '#/paths/~1api~1v1~1authorizationServers~1{authServerId}/put/responses'
+    - '#/paths/~1api~1v1~1authorizationServers~1{authServerId}/delete/responses'
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1claims/get/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1claims/post/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1claims~1{claimId}/get/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1claims~1{claimId}/put/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1claims~1{claimId}/delete/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1clients/get/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1clients~1{clientId}~1tokens/get/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1clients~1{clientId}~1tokens/delete/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1clients~1{clientId}~1tokens~1{tokenId}/get/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1clients~1{clientId}~1tokens~1{tokenId}/delete/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1credentials~1keys/get/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1credentials~1lifecycle~1keyRotate/post/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1lifecycle~1activate/post/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1lifecycle~1deactivate/post/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1policies/get/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1policies/post/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1policies~1{policyId}/get/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1policies~1{policyId}/put/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1policies~1{policyId}/delete/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1policies~1{policyId}~1lifecycle~1activate/post/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1policies~1{policyId}~1lifecycle~1deactivate/post/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1policies~1{policyId}~1rules/get/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1policies~1{policyId}~1rules/post/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1policies~1{policyId}~1rules~1{ruleId}/get/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1policies~1{policyId}~1rules~1{ruleId}/put/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1policies~1{policyId}~1rules~1{ruleId}/delete/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1policies~1{policyId}~1rules~1{ruleId}~1lifecycle~1activate/post/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1policies~1{policyId}~1rules~1{ruleId}~1lifecycle~1deactivate/post/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1scopes/get/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1scopes/post/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1scopes~1{scopeId}/get/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1scopes~1{scopeId}/put/responses
+    - >-
+      #/paths/~1api~1v1~1authorizationServers~1{authServerId}~1scopes~1{scopeId}/delete/responses
+    - '#/paths/~1api~1v1~1brands/get/responses'
+    - '#/paths/~1api~1v1~1brands~1{brandId}~1templates~1email/get/responses'
+    - >-
+      #/paths/~1api~1v1~1brands~1{brandId}~1templates~1email~1{templateName}/get/responses
+    - >-
+      #/paths/~1api~1v1~1brands~1{brandId}~1templates~1email~1{templateName}~1customizations/get/responses
+    - >-
+      #/paths/~1api~1v1~1brands~1{brandId}~1templates~1email~1{templateName}~1customizations/delete/responses
+    - >-
+      #/paths/~1api~1v1~1brands~1{brandId}~1templates~1email~1{templateName}~1customizations~1{customizationId}/get/responses
+    - >-
+      #/paths/~1api~1v1~1brands~1{brandId}~1templates~1email~1{templateName}~1customizations~1{customizationId}~1preview/get/responses
+    - >-
+      #/paths/~1api~1v1~1brands~1{brandId}~1templates~1email~1{templateName}~1default-content/get/responses
+    - >-
+      #/paths/~1api~1v1~1brands~1{brandId}~1templates~1email~1{templateName}~1default-content~1preview/get/responses
+    - >-
+      #/paths/~1api~1v1~1brands~1{brandId}~1templates~1email~1{templateName}~1test/post/responses
+    - '#/paths/~1api~1v1~1brands~1{brandId}~1themes/get/responses'
+    - '#/paths/~1api~1v1~1brands~1{brandId}~1themes~1{themeId}/get/responses'
+    - '#/paths/~1api~1v1~1captchas/get/responses'
+    - '#/paths/~1api~1v1~1domains/get/responses'
+    - '#/paths/~1api~1v1~1domains/post/responses'
+    - '#/paths/~1api~1v1~1domains~1{domainId}/get/responses'
+    - '#/paths/~1api~1v1~1domains~1{domainId}/delete/responses'
+    - '#/paths/~1api~1v1~1domains~1{domainId}~1certificate/put/responses'
+    - '#/paths/~1api~1v1~1domains~1{domainId}~1verify/post/responses'
+    - '#/paths/~1api~1v1~1eventHooks/get/responses'
+    - '#/paths/~1api~1v1~1eventHooks/post/responses'
+    - '#/paths/~1api~1v1~1eventHooks~1{eventHookId}/get/responses'
+    - '#/paths/~1api~1v1~1eventHooks~1{eventHookId}/put/responses'
+    - '#/paths/~1api~1v1~1eventHooks~1{eventHookId}/delete/responses'
+    - >-
+      #/paths/~1api~1v1~1eventHooks~1{eventHookId}~1lifecycle~1activate/post/responses
+    - >-
+      #/paths/~1api~1v1~1eventHooks~1{eventHookId}~1lifecycle~1deactivate/post/responses
+    - >-
+      #/paths/~1api~1v1~1eventHooks~1{eventHookId}~1lifecycle~1verify/post/responses
+    - '#/paths/~1api~1v1~1features/get/responses'
+    - '#/paths/~1api~1v1~1features~1{featureId}/get/responses'
+    - '#/paths/~1api~1v1~1features~1{featureId}~1dependencies/get/responses'
+    - '#/paths/~1api~1v1~1features~1{featureId}~1dependents/get/responses'
+    - '#/paths/~1api~1v1~1features~1{featureId}~1{lifecycle}/post/responses'
+    - '#/paths/~1api~1v1~1groups/get/responses'
+    - '#/paths/~1api~1v1~1groups/post/responses'
+    - '#/paths/~1api~1v1~1groups~1rules/get/responses'
+    - '#/paths/~1api~1v1~1groups~1rules/post/responses'
+    - '#/paths/~1api~1v1~1groups~1rules~1{ruleId}/get/responses'
+    - '#/paths/~1api~1v1~1groups~1rules~1{ruleId}/put/responses'
+    - '#/paths/~1api~1v1~1groups~1rules~1{ruleId}/delete/responses'
+    - >-
+      #/paths/~1api~1v1~1groups~1rules~1{ruleId}~1lifecycle~1activate/post/responses
+    - >-
+      #/paths/~1api~1v1~1groups~1rules~1{ruleId}~1lifecycle~1deactivate/post/responses
+    - '#/paths/~1api~1v1~1groups~1{groupId}/get/responses'
+    - '#/paths/~1api~1v1~1groups~1{groupId}/put/responses'
+    - '#/paths/~1api~1v1~1groups~1{groupId}/delete/responses'
+    - '#/paths/~1api~1v1~1groups~1{groupId}~1apps/get/responses'
+    - '#/paths/~1api~1v1~1groups~1{groupId}~1roles/get/responses'
+    - '#/paths/~1api~1v1~1groups~1{groupId}~1roles/post/responses'
+    - '#/paths/~1api~1v1~1groups~1{groupId}~1roles~1{roleId}/get/responses'
+    - '#/paths/~1api~1v1~1groups~1{groupId}~1roles~1{roleId}/delete/responses'
+    - >-
+      #/paths/~1api~1v1~1groups~1{groupId}~1roles~1{roleId}~1targets~1catalog~1apps/get/responses
+    - >-
+      #/paths/~1api~1v1~1groups~1{groupId}~1roles~1{roleId}~1targets~1catalog~1apps~1{appName}/put/responses
+    - >-
+      #/paths/~1api~1v1~1groups~1{groupId}~1roles~1{roleId}~1targets~1catalog~1apps~1{appName}/delete/responses
+    - >-
+      #/paths/~1api~1v1~1groups~1{groupId}~1roles~1{roleId}~1targets~1catalog~1apps~1{appName}~1{applicationId}/put/responses
+    - >-
+      #/paths/~1api~1v1~1groups~1{groupId}~1roles~1{roleId}~1targets~1catalog~1apps~1{appName}~1{applicationId}/delete/responses
+    - >-
+      #/paths/~1api~1v1~1groups~1{groupId}~1roles~1{roleId}~1targets~1groups/get/responses
+    - >-
+      #/paths/~1api~1v1~1groups~1{groupId}~1roles~1{roleId}~1targets~1groups~1{targetGroupId}/put/responses
+    - >-
+      #/paths/~1api~1v1~1groups~1{groupId}~1roles~1{roleId}~1targets~1groups~1{targetGroupId}/delete/responses
+    - '#/paths/~1api~1v1~1groups~1{groupId}~1users/get/responses'
+    - '#/paths/~1api~1v1~1groups~1{groupId}~1users~1{userId}/put/responses'
+    - '#/paths/~1api~1v1~1groups~1{groupId}~1users~1{userId}/delete/responses'
+    - '#/paths/~1api~1v1~1idps/get/responses'
+    - '#/paths/~1api~1v1~1idps/post/responses'
+    - '#/paths/~1api~1v1~1idps~1credentials~1keys/get/responses'
+    - '#/paths/~1api~1v1~1idps~1credentials~1keys/post/responses'
+    - '#/paths/~1api~1v1~1idps~1credentials~1keys~1{keyId}/get/responses'
+    - '#/paths/~1api~1v1~1idps~1credentials~1keys~1{keyId}/delete/responses'
+    - '#/paths/~1api~1v1~1idps~1{idpId}/get/responses'
+    - '#/paths/~1api~1v1~1idps~1{idpId}/put/responses'
+    - '#/paths/~1api~1v1~1idps~1{idpId}/delete/responses'
+    - '#/paths/~1api~1v1~1idps~1{idpId}~1credentials~1csrs/get/responses'
+    - '#/paths/~1api~1v1~1idps~1{idpId}~1credentials~1csrs/post/responses'
+    - '#/paths/~1api~1v1~1idps~1{idpId}~1credentials~1csrs~1{csrId}/get/responses'
+    - >-
+      #/paths/~1api~1v1~1idps~1{idpId}~1credentials~1csrs~1{csrId}/delete/responses
+    - >-
+      #/paths/~1api~1v1~1idps~1{idpId}~1credentials~1csrs~1{csrId}~1lifecycle~1publish/post/responses
+    - '#/paths/~1api~1v1~1idps~1{idpId}~1credentials~1keys/get/responses'
+    - >-
+      #/paths/~1api~1v1~1idps~1{idpId}~1credentials~1keys~1generate/post/responses
+    - '#/paths/~1api~1v1~1idps~1{idpId}~1credentials~1keys~1{keyId}/get/responses'
+    - >-
+      #/paths/~1api~1v1~1idps~1{idpId}~1credentials~1keys~1{keyId}~1clone/post/responses
+    - '#/paths/~1api~1v1~1idps~1{idpId}~1lifecycle~1activate/post/responses'
+    - '#/paths/~1api~1v1~1idps~1{idpId}~1lifecycle~1deactivate/post/responses'
+    - '#/paths/~1api~1v1~1idps~1{idpId}~1users/get/responses'
+    - '#/paths/~1api~1v1~1idps~1{idpId}~1users~1{userId}/get/responses'
+    - '#/paths/~1api~1v1~1idps~1{idpId}~1users~1{userId}/post/responses'
+    - '#/paths/~1api~1v1~1idps~1{idpId}~1users~1{userId}/delete/responses'
+    - >-
+      #/paths/~1api~1v1~1idps~1{idpId}~1users~1{userId}~1credentials~1tokens/get/responses
+    - '#/paths/~1api~1v1~1inlineHooks/get/responses'
+    - '#/paths/~1api~1v1~1inlineHooks/post/responses'
+    - '#/paths/~1api~1v1~1inlineHooks~1{inlineHookId}/get/responses'
+    - '#/paths/~1api~1v1~1inlineHooks~1{inlineHookId}/put/responses'
+    - '#/paths/~1api~1v1~1inlineHooks~1{inlineHookId}/delete/responses'
+    - '#/paths/~1api~1v1~1inlineHooks~1{inlineHookId}~1execute/post/responses'
+    - >-
+      #/paths/~1api~1v1~1inlineHooks~1{inlineHookId}~1lifecycle~1activate/post/responses
+    - >-
+      #/paths/~1api~1v1~1inlineHooks~1{inlineHookId}~1lifecycle~1deactivate/post/responses
+    - '#/paths/~1api~1v1~1logs/get/responses'
+    - '#/paths/~1api~1v1~1mappings/get/responses'
+    - '#/paths/~1api~1v1~1mappings~1{mappingId}/get/responses'
+    - '#/paths/~1api~1v1~1mappings~1{mappingId}/post/responses'
+    - >-
+      #/paths/~1api~1v1~1meta~1schemas~1apps~1{appInstanceId}~1default/get/responses
+    - >-
+      #/paths/~1api~1v1~1meta~1schemas~1apps~1{appInstanceId}~1default/post/responses
+    - '#/paths/~1api~1v1~1meta~1schemas~1group~1default/get/responses'
+    - '#/paths/~1api~1v1~1meta~1schemas~1group~1default/post/responses'
+    - '#/paths/~1api~1v1~1meta~1schemas~1user~1linkedObjects/get/responses'
+    - '#/paths/~1api~1v1~1meta~1schemas~1user~1linkedObjects/post/responses'
+    - >-
+      #/paths/~1api~1v1~1meta~1schemas~1user~1linkedObjects~1{linkedObjectName}/get/responses
+    - >-
+      #/paths/~1api~1v1~1meta~1schemas~1user~1linkedObjects~1{linkedObjectName}/delete/responses
+    - '#/paths/~1api~1v1~1meta~1schemas~1user~1{schemaId}/get/responses'
+    - '#/paths/~1api~1v1~1meta~1schemas~1user~1{schemaId}/post/responses'
+    - '#/paths/~1api~1v1~1meta~1types~1user/get/responses'
+    - '#/paths/~1api~1v1~1meta~1types~1user/post/responses'
+    - '#/paths/~1api~1v1~1meta~1types~1user~1{typeId}/get/responses'
+    - '#/paths/~1api~1v1~1meta~1types~1user~1{typeId}/put/responses'
+    - '#/paths/~1api~1v1~1meta~1types~1user~1{typeId}/post/responses'
+    - '#/paths/~1api~1v1~1meta~1types~1user~1{typeId}/delete/responses'
+    - '#/paths/~1api~1v1~1org/get/responses'
+    - '#/paths/~1api~1v1~1org/put/responses'
+    - '#/paths/~1api~1v1~1org/post/responses'
+    - '#/paths/~1api~1v1~1org~1contacts/get/responses'
+    - '#/paths/~1api~1v1~1org~1contacts~1{contactType}/get/responses'
+    - '#/paths/~1api~1v1~1org~1contacts~1{contactType}/put/responses'
+    - '#/paths/~1api~1v1~1org~1email~1bounces~1remove-list/post/responses'
+    - '#/paths/~1api~1v1~1org~1logo/post/responses'
+    - '#/paths/~1api~1v1~1org~1preferences/get/responses'
+    - '#/paths/~1api~1v1~1org~1preferences~1hideEndUserFooter/post/responses'
+    - '#/paths/~1api~1v1~1org~1preferences~1showEndUserFooter/post/responses'
+    - '#/paths/~1api~1v1~1org~1privacy~1oktaCommunication/get/responses'
+    - '#/paths/~1api~1v1~1org~1privacy~1oktaCommunication~1optIn/post/responses'
+    - '#/paths/~1api~1v1~1org~1privacy~1oktaCommunication~1optOut/post/responses'
+    - '#/paths/~1api~1v1~1org~1privacy~1oktaSupport/get/responses'
+    - '#/paths/~1api~1v1~1org~1privacy~1oktaSupport~1extend/post/responses'
+    - '#/paths/~1api~1v1~1org~1privacy~1oktaSupport~1grant/post/responses'
+    - '#/paths/~1api~1v1~1org~1privacy~1oktaSupport~1revoke/post/responses'
+    - '#/paths/~1api~1v1~1policies/get/responses'
+    - '#/paths/~1api~1v1~1policies/post/responses'
+    - '#/paths/~1api~1v1~1policies~1{policyId}/get/responses'
+    - '#/paths/~1api~1v1~1policies~1{policyId}/put/responses'
+    - '#/paths/~1api~1v1~1policies~1{policyId}/delete/responses'
+    - >-
+      #/paths/~1api~1v1~1policies~1{policyId}~1lifecycle~1activate/post/responses
+    - >-
+      #/paths/~1api~1v1~1policies~1{policyId}~1lifecycle~1deactivate/post/responses
+    - '#/paths/~1api~1v1~1policies~1{policyId}~1rules/get/responses'
+    - '#/paths/~1api~1v1~1policies~1{policyId}~1rules/post/responses'
+    - '#/paths/~1api~1v1~1policies~1{policyId}~1rules~1{ruleId}/get/responses'
+    - '#/paths/~1api~1v1~1policies~1{policyId}~1rules~1{ruleId}/put/responses'
+    - '#/paths/~1api~1v1~1policies~1{policyId}~1rules~1{ruleId}/delete/responses'
+    - >-
+      #/paths/~1api~1v1~1policies~1{policyId}~1rules~1{ruleId}~1lifecycle~1activate/post/responses
+    - >-
+      #/paths/~1api~1v1~1policies~1{policyId}~1rules~1{ruleId}~1lifecycle~1deactivate/post/responses
+    - '#/paths/~1api~1v1~1sessions~1{sessionId}/delete/responses'
+    - '#/paths/~1api~1v1~1templates~1sms/get/responses'
+    - '#/paths/~1api~1v1~1templates~1sms/post/responses'
+    - '#/paths/~1api~1v1~1templates~1sms~1{templateId}/get/responses'
+    - '#/paths/~1api~1v1~1templates~1sms~1{templateId}/put/responses'
+    - '#/paths/~1api~1v1~1templates~1sms~1{templateId}/post/responses'
+    - '#/paths/~1api~1v1~1templates~1sms~1{templateId}/delete/responses'
+    - '#/paths/~1api~1v1~1threats~1configuration/get/responses'
+    - '#/paths/~1api~1v1~1threats~1configuration/post/responses'
+    - '#/paths/~1api~1v1~1trustedOrigins/get/responses'
+    - '#/paths/~1api~1v1~1trustedOrigins/post/responses'
+    - '#/paths/~1api~1v1~1trustedOrigins~1{trustedOriginId}/get/responses'
+    - '#/paths/~1api~1v1~1trustedOrigins~1{trustedOriginId}/put/responses'
+    - '#/paths/~1api~1v1~1trustedOrigins~1{trustedOriginId}/delete/responses'
+    - >-
+      #/paths/~1api~1v1~1trustedOrigins~1{trustedOriginId}~1lifecycle~1activate/post/responses
+    - >-
+      #/paths/~1api~1v1~1trustedOrigins~1{trustedOriginId}~1lifecycle~1deactivate/post/responses
+    - '#/paths/~1api~1v1~1users/get/responses'
+    - '#/paths/~1api~1v1~1users/post/responses'
+    - >-
+      #/paths/~1api~1v1~1users~1{associatedUserId}~1linkedObjects~1{primaryRelationshipName}~1{primaryUserId}/put/responses
+    - '#/paths/~1api~1v1~1users~1{userId}/get/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}/put/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}/post/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}/delete/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1appLinks/get/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1clients/get/responses'
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1clients~1{clientId}~1grants/get/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1clients~1{clientId}~1grants/delete/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1clients~1{clientId}~1tokens/get/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1clients~1{clientId}~1tokens/delete/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1clients~1{clientId}~1tokens~1{tokenId}/get/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1clients~1{clientId}~1tokens~1{tokenId}/delete/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1credentials~1change_password/post/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1credentials~1change_recovery_question/post/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1credentials~1forgot_password/post/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1credentials~1forgot_password_recovery_question/post/responses
+    - '#/paths/~1api~1v1~1users~1{userId}~1factors/get/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1factors/post/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1factors~1catalog/get/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1factors~1questions/get/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1factors~1{factorId}/get/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1factors~1{factorId}/delete/responses'
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1factors~1{factorId}~1lifecycle~1activate/post/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1factors~1{factorId}~1transactions~1{transactionId}/get/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1factors~1{factorId}~1verify/post/responses
+    - '#/paths/~1api~1v1~1users~1{userId}~1grants/get/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1grants/delete/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1grants~1{grantId}/get/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1grants~1{grantId}/delete/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1groups/get/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1idps/get/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1lifecycle~1activate/post/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1lifecycle~1deactivate/post/responses'
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1lifecycle~1expire_password/post/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1lifecycle~1expire_password_with_temp_password/post/responses
+    - '#/paths/~1api~1v1~1users~1{userId}~1lifecycle~1reactivate/post/responses'
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1lifecycle~1reset_factors/post/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1lifecycle~1reset_password/post/responses
+    - '#/paths/~1api~1v1~1users~1{userId}~1lifecycle~1suspend/post/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1lifecycle~1unlock/post/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1lifecycle~1unsuspend/post/responses'
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1linkedObjects~1{relationshipName}/get/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1linkedObjects~1{relationshipName}/delete/responses
+    - '#/paths/~1api~1v1~1users~1{userId}~1roles/get/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1roles/post/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1roles~1{roleId}/get/responses'
+    - '#/paths/~1api~1v1~1users~1{userId}~1roles~1{roleId}/delete/responses'
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1roles~1{roleId}~1targets~1catalog~1apps/get/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1roles~1{roleId}~1targets~1catalog~1apps/put/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1roles~1{roleId}~1targets~1catalog~1apps~1{appName}/put/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1roles~1{roleId}~1targets~1catalog~1apps~1{appName}/delete/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1roles~1{roleId}~1targets~1catalog~1apps~1{appName}~1{applicationId}/put/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1roles~1{roleId}~1targets~1catalog~1apps~1{appName}~1{applicationId}/delete/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1roles~1{roleId}~1targets~1groups/get/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1roles~1{roleId}~1targets~1groups~1{groupId}/put/responses
+    - >-
+      #/paths/~1api~1v1~1users~1{userId}~1roles~1{roleId}~1targets~1groups~1{groupId}/delete/responses
+    - '#/paths/~1api~1v1~1users~1{userId}~1sessions/delete/responses'
+    - '#/paths/~1api~1v1~1zones/get/responses'
+    - '#/paths/~1api~1v1~1zones/post/responses'
+    - '#/paths/~1api~1v1~1zones~1{zoneId}/get/responses'
+    - '#/paths/~1api~1v1~1zones~1{zoneId}/put/responses'
+    - '#/paths/~1api~1v1~1zones~1{zoneId}/delete/responses'
+    - '#/paths/~1api~1v1~1zones~1{zoneId}~1lifecycle~1activate/post/responses'
+    - '#/paths/~1api~1v1~1zones~1{zoneId}~1lifecycle~1deactivate/post/responses'
+  no-invalid-media-type-examples:
+    - '#/components/examples/ListEmailCustomizationResponse/value/0/language'
+    - '#/components/examples/ListEmailCustomizationResponse/value/0/isDefault'
+    - '#/components/examples/ListEmailCustomizationResponse/value/0/id'
+    - '#/components/examples/ListEmailCustomizationResponse/value/0/created'
+    - '#/components/examples/ListEmailCustomizationResponse/value/0/lastUpdated'
+    - '#/components/examples/ListEmailCustomizationResponse/value/0/_links'
+    - '#/components/examples/ListEmailCustomizationResponse/value/0/subject'
+    - '#/components/examples/ListEmailCustomizationResponse/value/0/body'
+    - '#/components/examples/CreateUpdateEmailCustomizationRequest/value/language'
+    - >-
+      #/components/examples/CreateUpdateEmailCustomizationRequest/value/isDefault
+    - '#/components/examples/CreateUpdateEmailCustomizationRequest/value/subject'
+    - '#/components/examples/CreateUpdateEmailCustomizationRequest/value/body'
+    - >-
+      #/components/examples/CreateUpdateEmailCustomizationResponse/value/language
+    - >-
+      #/components/examples/CreateUpdateEmailCustomizationResponse/value/isDefault
+    - '#/components/examples/CreateUpdateEmailCustomizationResponse/value/id'
+    - '#/components/examples/CreateUpdateEmailCustomizationResponse/value/created'
+    - >-
+      #/components/examples/CreateUpdateEmailCustomizationResponse/value/lastUpdated
+    - '#/components/examples/CreateUpdateEmailCustomizationResponse/value/_links'
+    - '#/components/examples/CreateUpdateEmailCustomizationResponse/value/subject'
+    - '#/components/examples/CreateUpdateEmailCustomizationResponse/value/body'
+    - '#/components/examples/EmailCustomizationResponse/value/language'
+    - '#/components/examples/EmailCustomizationResponse/value/isDefault'
+    - '#/components/examples/EmailCustomizationResponse/value/id'
+    - '#/components/examples/EmailCustomizationResponse/value/created'
+    - '#/components/examples/EmailCustomizationResponse/value/lastUpdated'
+    - '#/components/examples/EmailCustomizationResponse/value/_links'
+    - '#/components/examples/EmailCustomizationResponse/value/subject'
+    - '#/components/examples/EmailCustomizationResponse/value/body'
+    - '#/components/examples/EmailTemplateDefaultContentResponse/value/_links'
+    - '#/components/examples/EmailTemplateDefaultContentResponse/value/subject'
+    - '#/components/examples/EmailTemplateDefaultContentResponse/value/body'
+    - >-
+      #/components/examples/PreviewEmailTemplateDefaultContentResponse/value/_links/defaultContent
+  no-unused-components:
+    - '#/components/schemas/UserIdString'

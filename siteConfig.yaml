@@ -21,6 +21,8 @@ oasDefinitions:
 stylesheets:
   - https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap
   - https://fonts.googleapis.com/css?family=Source+Code+Pro:300,400,600,700&display=swap
+  - './static/main.css'
+  - './static/apiLifecycle.css'
 #analytics:
   # ga:
   # note that GA doesn't work in the development environment
