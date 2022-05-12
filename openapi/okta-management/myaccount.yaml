@@ -50,6 +50,12 @@ paths:
       responses:
         '201':
           $ref: '#/components/responses/Unverified-Email-Response'
+        '400':
+          $ref: '#/components/responses/Error-InvalidEmail-Response-400'
+        '403':
+          $ref: '#/components/responses/Error-Email-Response-403'
+        '409':
+          $ref: '#/components/responses/Error-EmailConflict-Response-409'
       operationId: post-idp-myaccount-emails
       security:
         - oauth2:
@@ -139,6 +145,14 @@ paths:
       responses:
         '204':
           description: No Content
+          content:
+            'application/json;okta-version=1.0.0': { }
+        '400':
+          $ref: '#/components/responses/Error-InvalidEmailDeletion-400'
+        '403':
+          $ref: '#/components/responses/Error-NoAccessForAdminUser-Response-403'
+        '404':
+          $ref: '#/components/responses/Error-EmailResourceNotFound-Response-404'
       security:
         - oauth2:
             - okta.myaccount.email.manage
@@ -165,21 +179,14 @@ paths:
       responses:
         '200':
           description: OK
-        '401':
-          description: Unauthorized
           content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                Invalid OTP:
-                  value:
-                    errorCode: E0000004
-                    errorSummary: Authentication failed
-                    errorLink: E0000004
-                    errorId: oaemLalkv4pT2WUHhqEuNLoDw
-                    errorCauses:
-                      - errorSummary: User is not authorized.
+            'application/json;okta-version=1.0.0': { }
+        '401':
+          $ref: '#/components/responses/Error-UnauthorizedUser-Response-401'
+        '403':
+          $ref: '#/components/responses/Error-Email-Response-403'
+        '404':
+          $ref: '#/components/responses/Error-EmailChallengeResourceNotFound-Response-404'
       security:
         - oauth2:
             - okta.myaccount.email.manage
@@ -238,7 +245,7 @@ paths:
           description: Created
           headers: { }
           content:
-            application/json:
+            'application/json;okta-version=1.0.0':
               schema:
                 description: ''
                 type: object
@@ -344,6 +351,10 @@ paths:
                         hints:
                           allow:
                             - GET
+        '403':
+          $ref: '#/components/responses/Error-Email-Response-403'
+        '404':
+          $ref: '#/components/responses/Error-EmailResourceNotFound-Response-404'
   '/idp/myaccount/emails/{id}/challenge/{challengeId}':
     parameters:
       - schema:
@@ -367,7 +378,7 @@ paths:
         '200':
           description: OK
           content:
-            application/json:
+            'application/json;okta-version=1.0.0':
               schema:
                 description: ''
                 type: object
@@ -474,7 +485,7 @@ paths:
                           allow:
                             - GET
         '404':
-          description: Not Found
+          $ref: '#/components/responses/Error-EmailChallengeResourceNotFound-Response-404'
       operationId: get-idp-myaccount-emails-id-challenge-challengeId
       security:
         - oauth2:
@@ -501,6 +512,14 @@ paths:
       responses:
         '201':
           $ref: '#/components/responses/Unverified-Phone-Response'
+        '400':
+          $ref: '#/components/responses/Error-Create-Phone-Response-400'
+        '403':
+          $ref: '#/components/responses/Error-CreateChallengeVerify-Phone-Response-403'
+        '409':
+          $ref: '#/components/responses/Error-PhoneNumberExists-Response-409'
+        '500':
+          $ref: '#/components/responses/Error-FailedToSendOutOfBandChallenge-Response-500'
       security:
         - oauth2:
             - okta.myaccount.phone.manage
@@ -549,6 +568,8 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/Verified-Phone-Response'
+        '404':
+          $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
       operationId: get-idp-myaccount-phones-id
       security:
         - oauth2:
@@ -562,6 +583,12 @@ paths:
       responses:
         '204':
           description: No Content
+          content:
+            'application/json;okta-version=1.0.0': { }
+        '403':
+          $ref: '#/components/responses/Error-Delete-Phone-Response-403'
+        '404':
+          $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
       security:
         - oauth2:
             - okta.myaccount.phone.manage
@@ -581,7 +608,15 @@ paths:
         - MyAccount Phone
       responses:
         '200':
-          description: OK
+          $ref: '#/components/responses/Challenged-Phone-Response'
+        '400':
+          $ref: '#/components/responses/Error-Challenge-Phone-Response-400'
+        '403':
+          $ref: '#/components/responses/Error-CreateChallengeVerify-Phone-Response-403'
+        '404':
+          $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
+        '500':
+          $ref: '#/components/responses/Error-FailedToSendOutOfBandChallenge-Response-500'
       security:
         - oauth2:
             - okta.myaccount.phone.manage
@@ -627,21 +662,18 @@ paths:
       responses:
         '204':
           description: No Content
-        '400':
-          description: Bad Request
           content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                Invalid-OTP:
-                  value:
-                    errorCode: E0000001
-                    errorSummary: 'Api validation failed: factorId and/or verificationCode'
-                    errorLink: E0000001
-                    errorId: oaeexs0s-ruRcivXBTGXdv41A
-                    errorCauses:
-                      - errorSummary: 'Invalid factor id, no phone factor found.'
+            'application/json;okta-version=1.0.0': { }
+        '400':
+          $ref: '#/components/responses/Error-Verify-Phone-Response-400'
+        '401':
+          $ref: '#/components/responses/Error-UserFailedToAnswerChallenge-Response-401'
+        '403':
+          $ref: '#/components/responses/Error-CreateChallengeVerify-Phone-Response-403'
+        '404':
+          $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
+        '409':
+          $ref: '#/components/responses/Error-InvalidTransaction-Response-409'
       security:
         - oauth2:
             - okta.myaccount.phone.manage
@@ -672,7 +704,7 @@ paths:
         '200':
           description: OK
           content:
-            application/json:
+            'application/json;okta-version=1.0.0':
               schema:
                 $ref: '#/components/schemas/Profile'
               examples:
@@ -706,7 +738,7 @@ paths:
         '200':
           description: OK
           content:
-            application/json:
+            'application/json;okta-version=1.0.0':
               schema:
                 $ref: '#/components/schemas/Profile'
               examples:
@@ -725,6 +757,10 @@ paths:
                         href: 'https://example.okta.com/idp/myaccount/profile'
                       describedBy:
                         href: 'https://example.okta.com/idp/myaccount/profile/schema'
+        '400':
+          $ref: '#/components/responses/Error-UpdateProfile-Response-400'
+        '403':
+          $ref: '#/components/responses/Error-NoAccessForAdminUser-Response-403'
       security:
         - oauth2:
             - okta.myaccount.profile.manage
@@ -755,7 +791,7 @@ paths:
         '200':
           description: OK
           content:
-            application/json:
+            'application/json;okta-version=1.0.0':
               schema:
                 $ref: '#/components/schemas/Schema'
               examples:
@@ -1043,7 +1079,7 @@ components:
     Verified-Email-Response:
       description: Example response
       content:
-        application/json:
+        'application/json;okta-version=1.0.0':
           schema:
             $ref: '#/components/schemas/Email'
           examples:
@@ -1069,7 +1105,7 @@ components:
     Unverified-Email-Response:
       description: Example response
       content:
-        application/json:
+        'application/json;okta-version=1.0.0':
           schema:
             $ref: '#/components/schemas/Email'
           examples:
@@ -1106,7 +1142,7 @@ components:
     Email-Array-Response:
       description: Example response
       content:
-        application/json:
+        'application/json;okta-version=1.0.0':
           schema:
             type: array
             items:
@@ -1162,7 +1198,7 @@ components:
     Phone-Array-Response:
       description: Example response
       content:
-        application/json:
+        'application/json;okta-version=1.0.0':
           schema:
             type: array
             items:
@@ -1210,7 +1246,7 @@ components:
     Unverified-Phone-Response:
       description: Example response
       content:
-        application/json:
+        'application/json;okta-version=1.0.0':
           schema:
             $ref: '#/components/schemas/Phone'
           examples:
@@ -1240,7 +1276,7 @@ components:
     Verified-Phone-Response:
       description: Example response
       content:
-        application/json:
+        'application/json;okta-version=1.0.0':
           schema:
             $ref: '#/components/schemas/Phone'
           examples:
@@ -1262,6 +1298,462 @@ components:
                     hints:
                       allow:
                         - POST
+    Challenged-Phone-Response:
+      description: Example response after challenging a phone
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            type: object
+            properties:
+              _links:
+                type: object
+                properties:
+                  verify:
+                    type: object
+                    required:
+                      - href
+                      - hints
+                    properties:
+                      href:
+                        type: string
+                        minLength: 1
+                      hints:
+                        type: object
+                        required:
+                          - allow
+                        properties:
+                          allow:
+                            type: array
+                            items:
+                              type: string
+          examples:
+            Success Response:
+              value:
+                _links:
+                  verify:
+                    href: 'https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.2wdtXPtmS0WpKq4bnjlYIw/verify'
+                    hints:
+                      allow:
+                        - POST
+    Error-InvalidFactorId-Response-404:
+      description: Not Found
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Invalid Phone Factor Id - 404:
+              value:
+                errorCode: E0000008
+                errorSummary: The requested path was not found
+                errorLink: E0000008
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid factor id, no phone factor found.
+    Error-UserFailedToAnswerChallenge-Response-401:
+      description: Unauthorized
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            User Failed To Answer Challenge - 401:
+              value:
+                errorCode: E0000004
+                errorSummary: Authentication failed
+                errorLink: E0000004
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: The verification challenge failed due to an invalid code.
+    Error-NoAccessForAdminUser-Response-403:
+      description: Forbidden
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            No Access For Admin User - 403:
+              value:
+                errorCode: E0000038
+                errorSummary: This operation is not allowed in the user's current status.
+                errorLink: E0000038
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: An admin user cannot access a non-admin endpoint.
+    Error-FailedToSendOutOfBandChallenge-Response-500:
+      description: Internal Server Error
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Failed To Send Out Of Band Challenge - 500:
+              value:
+                errorCode: E0000138
+                errorSummary: 'There was an internal error with call provider(s).'
+                errorLink: E0000138
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Failed to send the out of band OTP challenge. Set "retry" to "true" in the API request body and resubmit the API call to the endpoint.
+    Error-InvalidTransaction-Response-409:
+      description: Conflict
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Invalid Transaction - 409:
+              value:
+                errorCode: E0000157
+                errorSummary: 'Another authenticator with key: transactionHandle is already active.'
+                errorLink: E0000157
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Failed to find a transaction. Either the challenge was answered or the factor id is invalid.
+    Error-UpdateProfile-Response-400:
+      description: Bad Request
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Invalid Email Update From Profile:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: forUpdate'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: You cannot update email attributes using the profile endpoint. Use the emails endpoint to make any required changes.
+            Invalid Value Type For Property:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: forUpdate'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid value data type for property 'some-property'
+            Missing Property Value For Self Update:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: forUpdate'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Property 'some-property' needs a value passed.  To unset it, explicitly set it to null.
+            Read Only Property Changed For Self Update:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: forUpdate'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Property 'some-property' is read only.  The value supplied must exactly match the existing value.
+            Corrupt Profile Prevents Self Update:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: forUpdate'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Your profile is corrupt in a way that requires administrative intervention.  Please contact support.
+            Concealed Or Unknown Property For Self Update:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: forUpdate'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Property 'some-property' does not exist or is not accessible.
+    Error-PhoneNumberExists-Response-409:
+      description: Conflict
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Phone Number Exists - 409:
+              value:
+                errorCode: E0000157
+                errorSummary: 'Another authenticator with key: +14161111111 is already active.'
+                errorLink: E0000157
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: This phone number already exists in the user account.
+    Error-InvalidEmailDeletion-400:
+      description: Bad Request
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Invalid Email Deletion - 400:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Email'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: "Can't delete a verified email address: example@email.com, role=PRIMARY"
+    Error-UnauthorizedUser-Response-401:
+      description: Unauthorized
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Unauthorized User - 401:
+              value:
+                errorCode: E0000004
+                errorSummary: Authentication failed
+                errorLink: E0000004
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: User is not authorized.
+    Error-InvalidEmail-Response-400:
+      description: Bad Request
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Invalid Email - 400:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Email'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid email address.
+    Error-EmailConflict-Response-409:
+      description: Conflict
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Email Conflict - 409:
+              value:
+                errorCode: E0000157
+                errorSummary: 'Another authenticator with key: Email is already active.'
+                errorLink: E0000157
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: The email example@email.com is already registered to the current user profile.
+    Error-EmailResourceNotFound-Response-404:
+      description: Not Found
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Email Resource Not Found - 404:
+              value:
+                errorCode: E0000007
+                errorSummary: 'Not found: Resource not found: 796bc844c1802c5ad5a65e1dbd26c30a (UserProfileEmail)'
+                errorLink: E0000007
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses: []
+    Error-EmailChallengeResourceNotFound-Response-404:
+      description: Not Found
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Email Challenge Resource Not Found - 404:
+              value:
+                errorCode: E0000007
+                errorSummary: 'Not found: Resource not found: myaccount.WJLzOhehQwSVUFLVTy2ywb (IdpMyAccountChallenge)'
+                errorLink: E0000007
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses: []
+    Error-Email-Response-403:
+      description: Forbidden
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            No Access For Admin User:
+              value:
+                errorCode: E0000038
+                errorSummary: This operation is not allowed in the user's current status.
+                errorLink: E0000038
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: An admin user cannot access a non-admin endpoint.
+            Secondary Email:
+              value:
+                errorCode: E0000038
+                errorSummary: This operation is not allowed in the user's current status.
+                errorLink: E0000038
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Secondary email is not enabled as an authenticator for your org.
+    Error-Create-Phone-Response-400:
+      description: Bad Request
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Invalid Method:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Method'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid method some_invalid_method in the request.
+            Not A Number:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Error type: NOT_A_NUMBER. The string supplied did not seem to be a phone number.'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid phone number.
+            Invalid Country Code:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Error type: INVALID_COUNTRY_CODE. Could not interpret numbers after plus-sign.'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid phone number.
+            Too Long:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Error type: TOO_LONG. The string supplied is too long to be a phone number.'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid phone number.
+            Invalid Transaction Data Type:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Transaction'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid transaction.
+            Cardinality Max Reached:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Exceeded cardinality max'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: This user account has reached the maximum number of enrolled phone numbers.
+    Error-Challenge-Phone-Response-400:
+      description: Bad Request
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Invalid Method:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Method'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid method some_invalid_method in the request.
+            Invalid Transaction Data Type:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Transaction'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid transaction.
+    Error-Verify-Phone-Response-400:
+      description: Bad Request
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Invalid Method:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Method'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid method some_invalid_method in the request.
+            Invalid Transaction Data Type:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: Transaction'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid transaction.
+            Invalid Phone Factor Id:
+              value:
+                errorCode: E0000001
+                errorSummary: 'Api validation failed: factorId and/or verificationCode'
+                errorLink: E0000001
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Invalid factor id, no phone factor found.
+    Error-CreateChallengeVerify-Phone-Response-403:
+      description: Forbidden
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            No Access For Admin User:
+              value:
+                errorCode: E0000038
+                errorSummary: This operation is not allowed in the user's current status.
+                errorLink: E0000038
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: An admin user cannot access a non-admin endpoint.
+            Phone Authenticator Disabled:
+              value:
+                errorCode: E0000038
+                errorSummary: This operation is not allowed in the user's current status.
+                errorLink: E0000038
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Phone authenticator is not enabled for your org.
+            Invalid Authentication Method Type:
+              value:
+                errorCode: E0000038
+                errorSummary: This operation is not allowed in the user's current status.
+                errorLink: E0000038
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Method some_invalid_method is not enabled for your org.
+    Error-Delete-Phone-Response-403:
+      description: Forbidden
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            No Access For Admin User:
+              value:
+                errorCode: E0000038
+                errorSummary: This operation is not allowed in the user's current status.
+                errorLink: E0000038
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: An admin user cannot access a non-admin endpoint.
+            Phone Authenticator Disabled:
+              value:
+                errorCode: E0000038
+                errorSummary: This operation is not allowed in the user's current status.
+                errorLink: E0000038
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: Phone authenticator is not enabled for your org.
   securitySchemes:
     api_token:
       description: "Pass the API token as the Authorization header value prefixed with SSWS: 'Authorizaion: SSWS {API Token}'"

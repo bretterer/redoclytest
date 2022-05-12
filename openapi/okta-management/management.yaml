@@ -37,35 +37,512 @@ servers:
         default: auth.your-custom-domain.com
         description: The custom domain configured for your organization
 tags:
+  - name: AgentPools
+    x-displayName: Agent Pools
+  - name: ApiToken
+    x-displayName: API Tokens
   - name: Application
+    x-displayName: Applications
   - name: Authenticator
+    x-displayName: Authenticators
   - name: AuthorizationServer
+    x-displayName: Authorization Servers
+  - name: Behavior
+    x-displayName: Behavior Rules
   - name: Customization
+    x-displayName: Customizations
   - name: CAPTCHA
-    description:
-      $ref: ./tags/CAPTCHA.md
+    x-displayName: CAPTCHAs
   - name: Domain
+    x-displayName: Domains
   - name: EventHook
+    x-displayName: Event Hooks
   - name: Feature
+    x-displayName: Features
   - name: Group
+    x-displayName: Groups
   - name: IdentityProvider
+    x-displayName: Identity Providers
   - name: InlineHook
+    x-displayName: Inline Hooks
   - name: SystemLog
+    x-displayName: System Log
   - name: ProfileMapping
+    x-displayName: Profile Mappings
   - name: UserType
+    x-displayName: User Types
   - name: Schema
+    x-displayName: Schemas
   - name: LinkedObject
+    x-displayName: Linked Objects
   - name: OrgSetting
+    x-displayName: Org Settings
   - name: Policy
+    x-displayName: Policies
   - name: Session
+    x-displayName: Sessions
   - name: Subscription
+    x-displayName: Subscriptions
   - name: Template
+    x-displayName: SMS Templates
   - name: ThreatInsight
+    x-displayName: ThreatInsight
   - name: TrustedOrigin
+    x-displayName: Trusted Origins
   - name: User
+    x-displayName: Users
   - name: UserFactor
+    x-displayName: Factors
   - name: NetworkZone
+    x-displayName: Network Zones
+x-tagGroups:
+  - name: User Directory
+    tags:
+      - User
+      - Group
+      - UserType
+      - Schema
+      - LinkedObject
+      - ProfileMapping
+  - name: Security
+    tags:
+      - ApiToken
+      - Application
+      - Authenticator
+      - AuthorizationServer
+      - Behavior
+      - CAPTCHA
+      - IdentityProvider
+      - Policy
+      - Session
+      - ThreatInsight
+      - TrustedOrigin
+      - UserFactor
+      - NetworkZone
+  - name: Customization
+    tags:
+      - Customization
+      - Domain
+      - Template
+  - name: Other
+    tags:
+      - AgentPools
+      - EventHook
+      - Feature
+      - InlineHook
+      - OrgSetting
+      - SystemLog
+      - Subscription
 paths:
+  /api/v1/agentPools:
+    get:
+      summary: Fetch AgentPools
+      description: Fetches AgentPools based on request parameters for a given org
+      operationId: getAgentPools
+      parameters:
+        - $ref: '#/components/parameters/queryLimitPerPoolType'
+        - $ref: '#/components/parameters/queryPoolType'
+        - $ref: '#/components/parameters/queryAfter'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AgentPool'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.agentPools.read
+      tags:
+        - AgentPools
+  /api/v1/agentPools/{poolId}/updates:
+    get:
+      summary: List Agent pool updates
+      description: Gets List of Agent pool updates
+      operationId: getAgentPoolsUpdates
+      parameters:
+        - $ref: '#/components/parameters/pathPoolId'
+        - $ref: '#/components/parameters/queryScheduled'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AgentPoolUpdate'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.agentPools.read
+      tags:
+        - AgentPools
+    post:
+      summary: Create an Agent pool update
+      description: Creates an Agent pool update \n For user flow 2 manual update, starts the update immediately. \n For user flow 3, schedules the update based on the configured update window and delay.
+      operationId: createAgentPoolsUpdate
+      parameters:
+        - $ref: '#/components/parameters/pathPoolId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentPoolUpdate'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentPoolUpdate'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.agentPools.manage
+      tags:
+        - AgentPools
+  /api/v1/agentPools/{poolId}/updates/settings:
+    parameters:
+      - $ref: '#/components/parameters/pathPoolId'
+    get:
+      summary: Get Agent pool update settings
+      description: Gets the current state of the agent pool update instance settings
+      operationId: getAgentPoolsUpdateSettings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentPoolUpdateSetting'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.agentPools.read
+      tags:
+        - AgentPools
+    post:
+      summary: Update Agent pool update settings
+      description: Updates Agent pool update settings
+      operationId: setAgentPoolsUpdateSettings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentPoolUpdateSetting'
+        required: true
+      responses:
+        '201':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentPoolUpdateSetting'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.agentPools.manage
+      tags:
+        - AgentPools
+  /api/v1/agentPools/{poolId}/updates/{updateId}:
+    parameters:
+      - $ref: '#/components/parameters/pathPoolId'
+      - $ref: '#/components/parameters/pathUpdateId'
+    get:
+      summary: Get Agent pool update by id
+      description: Gets Agent pool update from updateId
+      operationId: getAgentPoolsUpdateInstance
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentPoolUpdate'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.agentPools.read
+      tags:
+        - AgentPools
+    post:
+      summary: Change Agent pool update by id
+      description: Updates Agent pool update and return latest agent pool update
+      operationId: updateAgentPoolsUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentPoolUpdate'
+        required: true
+      responses:
+        '201':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentPoolUpdate'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.agentPools.manage
+      tags:
+        - AgentPools
+    delete:
+      summary: Delete Agent pool update
+      description: Deletes Agent pool update
+      operationId: deleteAgentPoolsUpdate
+      responses:
+        '204':
+          description: Deleted
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.agentPools.manage
+      tags:
+        - AgentPools
+  /api/v1/agentPools/{poolId}/updates/{updateId}/activate:
+    parameters:
+      - $ref: '#/components/parameters/pathPoolId'
+      - $ref: '#/components/parameters/pathUpdateId'
+    post:
+      summary: Activate Agent pool update
+      description: Activates scheduled Agent pool update
+      operationId: activateAgentPoolsUpdate
+      responses:
+        '201':
+          description: Activated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentPoolUpdate'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.agentPools.manage
+      tags:
+        - AgentPools
+  /api/v1/agentPools/{poolId}/updates/{updateId}/deactivate:
+    parameters:
+      - $ref: '#/components/parameters/pathPoolId'
+      - $ref: '#/components/parameters/pathUpdateId'
+    post:
+      summary: Deactivate Agent pool update
+      description: Deactivates scheduled Agent pool update
+      operationId: deactivateAgentPoolsUpdate
+      responses:
+        '201':
+          description: Deactivated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentPoolUpdate'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.agentPools.manage
+      tags:
+        - AgentPools
+  /api/v1/agentPools/{poolId}/updates/{updateId}/pause:
+    parameters:
+      - $ref: '#/components/parameters/pathPoolId'
+      - $ref: '#/components/parameters/pathUpdateId'
+    post:
+      summary: Pause Agent pool update
+      description: Pauses running or queued Agent pool update
+      operationId: pauseAgentPoolsUpdate
+      responses:
+        '201':
+          description: Paused
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentPoolUpdate'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.agentPools.manage
+      tags:
+        - AgentPools
+  /api/v1/agentPools/{poolId}/updates/{updateId}/resume:
+    parameters:
+      - $ref: '#/components/parameters/pathPoolId'
+      - $ref: '#/components/parameters/pathUpdateId'
+    post:
+      summary: Resume Agent pool update
+      description: Resumes running or queued Agent pool update
+      operationId: resumeAgentPoolsUpdate
+      responses:
+        '201':
+          description: Resumed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentPoolUpdate'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.agentPools.manage
+      tags:
+        - AgentPools
+  /api/v1/agentPools/{poolId}/updates/{updateId}/retry:
+    parameters:
+      - $ref: '#/components/parameters/pathPoolId'
+      - $ref: '#/components/parameters/pathUpdateId'
+    post:
+      summary: Retry Agent pool update
+      description: Retries Agent pool update
+      operationId: retryAgentPoolsUpdate
+      responses:
+        '201':
+          description: Retried
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentPoolUpdate'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.agentPools.manage
+      tags:
+        - AgentPools
+  /api/v1/agentPools/{poolId}/updates/{updateId}/stop:
+    parameters:
+      - $ref: '#/components/parameters/pathPoolId'
+      - $ref: '#/components/parameters/pathUpdateId'
+    post:
+      summary: Stop Agent pool update
+      description: Stops Agent pool update
+      operationId: stopAgentPoolsUpdate
+      responses:
+        '201':
+          description: Stopped
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentPoolUpdate'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.agentPools.manage
+      tags:
+        - AgentPools
+  /api/v1/api-tokens:
+    get:
+      summary: List API Token Metadata
+      description: Enumerates the metadata of the active API tokens in your organization.
+      operationId: listApiTokens
+      parameters:
+        - $ref: '#/components/parameters/queryAfter'
+        - $ref: '#/components/parameters/queryLimit'
+        - name: q
+          in: query
+          description: Finds a token that matches the name or clientName.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApiToken'
+              examples:
+                List Tokens:
+                  $ref: '#/components/examples/ApiTokenListMetadataResponse'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.apiTokens.read
+      tags:
+        - ApiToken
+  /api/v1/api-tokens/current:
+    delete:
+      summary: Revoke the Current API Token
+      description: Revokes the API token provided in the Authorization header.
+      operationId: revokeCurrentApiToken
+      responses:
+        '204':
+          description: No Content
+        '403':
+          description: Forbidden
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - api_token: []
+      tags:
+        - ApiToken
+  /api/v1/api-tokens/{apiTokenId}:
+    parameters:
+      - $ref: '#/components/parameters/pathApiTokenId'
+    get:
+      summary: Get the Metadata for an API Token
+      description: Get the metadata for an active API token by id.
+      operationId: getApiToken
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiToken'
+              examples:
+                HCaptcha:
+                  $ref: '#/components/examples/ApiTokenMetadataResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Resource Not Found:
+                  $ref: '#/components/examples/ErrorResourceNotFound'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.apiTokens.read
+      tags:
+        - ApiToken
+    delete:
+      summary: Revoke an API Token
+      description: Revoke an API token by id.
+      operationId: revokeApiToken
+      responses:
+        '204':
+          description: No Content
+        '403':
+          description: Forbidden
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Resource Not Found:
+                  $ref: '#/components/examples/ErrorResourceNotFound'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.apiTokens.manage
+      tags:
+        - ApiToken
   /api/v1/apps:
     get:
       summary: List Applications
@@ -2606,6 +3083,212 @@ paths:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
+  /api/v1/behaviors:
+    get:
+      summary: List Behavior Detection Rules
+      description: Enumerates Behavior Detection Rules in your organization with pagination.
+      operationId: listBehaviorDetectionRules
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BehaviorRule'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.behaviors.read
+      tags:
+        - Behavior
+    post:
+      summary: Create new Behavior Detection Rule
+      description: Adds a new Behavior Detection Rule to your organization.
+      operationId: createBehaviorDetectionRule
+      x-codegen-request-body-name: rule
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BehaviorRule'
+            examples:
+              BehaviorRuleRequest:
+                $ref: '#/components/examples/BehaviorRuleRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BehaviorRule'
+              examples:
+                BehaviorRuleReSponse:
+                  $ref: '#/components/examples/BehaviorRuleResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                API Validation Failed:
+                  $ref: '#/components/examples/ErrorApiValidationFailed'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.behaviors.manage
+      tags:
+        - Behavior
+  /api/v1/behaviors/{behaviorId}:
+    parameters:
+      - $ref: '#/components/parameters/pathBehaviorId'
+    get:
+      summary: Get Behavior Detection Rule
+      description: Fetches a Behavior Detection Rule by `behaviorId`.
+      operationId: getBehaviorDetectionRule
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BehaviorRule'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Resource Not Found:
+                  $ref: '#/components/examples/ErrorResourceNotFound'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.behavior.read
+      tags:
+        - Behavior
+    put:
+      summary: Update Behavior Detection Rule
+      description: Update a Behavior Detection Rule by `behaviorId`.
+      operationId: updateBehaviorDetectionRule
+      x-codegen-request-body-name: rule
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BehaviorRule'
+            examples:
+              BehaviorRuleRequest:
+                $ref: '#/components/examples/BehaviorRuleRequest'
+        required: true
+      responses:
+        '200':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BehaviorRule'
+              examples:
+                BehaviorRuleReSponse:
+                  $ref: '#/components/examples/BehaviorRuleResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                API Validation Failed:
+                  $ref: '#/components/examples/ErrorApiValidationFailed'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Resource Not Found:
+                  $ref: '#/components/examples/ErrorResourceNotFound'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.behaviors.manage
+      tags:
+        - Behavior
+    delete:
+      summary: Delete Behavior Detection Rule
+      description: Delete a Behavior Detection Rule by `behaviorId`.
+      operationId: deleteBehaviorDetectionRule
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Resource Not Found:
+                  $ref: '#/components/examples/ErrorResourceNotFound'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.behaviors.manage
+      tags:
+        - Behavior
+  /api/v1/behaviors/{behaviorId}/lifecycle/activate:
+    post:
+      summary: Activate Behavior Detection Rule
+      description: Activate Behavior Detection Rule
+      operationId: activateBehaviorDetectionRule
+      parameters:
+        - $ref: '#/components/parameters/pathBehaviorId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BehaviorRule'
+              examples:
+                BehaviorRuleReSponse:
+                  $ref: '#/components/examples/BehaviorRuleResponse'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.behaviors.manage
+      tags:
+        - Behavior
+  /api/v1/behaviors/{behaviorId}/lifecycle/deactivate:
+    post:
+      summary: Deactivate Behavior Detection Rule
+      description: Deactivate Behavior Detection Rule
+      operationId: deactivateBehaviorDetectionRule
+      parameters:
+        - $ref: '#/components/parameters/pathBehaviorId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BehaviorRule'
+              examples:
+                BehaviorRuleReSponse:
+                  $ref: '#/components/examples/BehaviorRuleResponse'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.behaviors.manage
+      tags:
+        - Behavior
   /api/v1/brands:
     get:
       summary: List Brands
@@ -2994,6 +3677,57 @@ paths:
             - okta.templates.read
       tags:
         - Customization
+  /api/v1/brands/{brandId}/templates/email/{templateName}/settings:
+    parameters:
+      - $ref: '#/components/parameters/pathBrandId'
+      - $ref: '#/components/parameters/pathTemplateName'
+    get:
+      summary: Get Email Template Settings
+      description: Gets an email template's settings.
+      operationId: getEmailSettings
+      responses:
+        '200':
+          description: Successfully retrieved the email template's settings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailSettings'
+              examples:
+                Get email template settings response:
+                  $ref: '#/components/examples/EmailSettingsResponse'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.templates.read
+      tags:
+        - Customization
+    put:
+      summary: Update Email Template Settings
+      description: Updates an email template's settings.
+      operationId: updateEmailSettings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailSettings'
+      responses:
+        '204':
+          description: Successfully updated the email template's settings.
+        '422':
+          description: Could not update the email template's settings due to an invalid setting value.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Invalid email template recipients:
+                  $ref: '#/components/examples/ErrorInvalidEmailTemplateRecipients'
+      security:
+        - api_token: []
+        - oauth2:
+            - okta.templates.manage
+      tags:
+        - Customization
   /api/v1/brands/{brandId}/templates/email/{templateName}/test:
     parameters:
       - $ref: '#/components/parameters/pathBrandId'
@@ -3327,6 +4061,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CAPTCHAInstance'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -3368,6 +4104,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
               examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
                 Error Limit of One CAPTCHA instance per org:
                   $ref: '#/components/examples/ErrorCAPTCHALimitOfOne'
       security:
@@ -3381,7 +4119,7 @@ paths:
       - $ref: '#/components/parameters/pathCaptchaId'
     get:
       summary: Get CAPTCHA Instance
-      description: Fetches a CAPTCHA instance by `id`.
+      description: Fetches a CAPTCHA instance by `captchaId`.
       operationId: getCaptchaInstance
       responses:
         '200':
@@ -3395,15 +4133,10 @@ paths:
                   $ref: '#/components/examples/CAPTCHAInstanceResponseHCaptcha'
                 ReCaptcha:
                   $ref: '#/components/examples/CAPTCHAInstanceResponseReCaptcha'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                Resource Not Found:
-                  $ref: '#/components/examples/ErrorResourceNotFound'
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3412,7 +4145,7 @@ paths:
         - CAPTCHA
     post:
       summary: Partial Update CAPTCHA instance
-      description: Partially update a CAPTCHA instance by `id`.
+      description: Partially update a CAPTCHA instance by `captchaId`.
       operationId: partialUpdateCaptchaInstance
       x-codegen-request-body-name: instance
       requestBody:
@@ -3439,23 +4172,11 @@ paths:
                 ReCaptcha:
                   $ref: '#/components/examples/CAPTCHAInstanceResponseReCaptcha'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                API Validation Failed:
-                  $ref: '#/components/examples/ErrorApiValidationFailed'
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                Resource Not Found:
-                  $ref: '#/components/examples/ErrorResourceNotFound'
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3464,7 +4185,7 @@ paths:
         - CAPTCHA
     put:
       summary: Update CAPTCHA instance
-      description: Update a CAPTCHA instance by `id`.
+      description: Update a CAPTCHA instance by `captchaId`.
       operationId: updateCaptchaInstance
       x-codegen-request-body-name: instance
       requestBody:
@@ -3491,23 +4212,11 @@ paths:
                 ReCaptcha:
                   $ref: '#/components/examples/CAPTCHAInstanceResponseReCaptcha'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                API Validation Failed:
-                  $ref: '#/components/examples/ErrorApiValidationFailed'
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                Resource Not Found:
-                  $ref: '#/components/examples/ErrorResourceNotFound'
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3516,7 +4225,7 @@ paths:
         - CAPTCHA
     delete:
       summary: Delete CAPTCHA Instance
-      description: Delete a CAPTCHA instance by `id`. If the CAPTCHA instance is currently being used in the org, the delete will not be allowed.
+      description: Delete a CAPTCHA instance by `captchaId`. If the CAPTCHA instance is currently being used in the org, the delete will not be allowed.
       operationId: deleteCaptchaInstance
       responses:
         '204':
@@ -3529,17 +4238,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
               examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
                 Cannot remove CAPTCHA in use:
                   $ref: '#/components/examples/ErrorCAPTCHAOrgWideSetting'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                Resource Not Found:
-                  $ref: '#/components/examples/ErrorResourceNotFound'
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3890,6 +4594,8 @@ paths:
                   $ref: '#/components/schemas/Feature'
       security:
         - api_token: []
+        - oauth2:
+            - okta.features.read
       tags:
         - Feature
   /api/v1/features/{featureId}:
@@ -3912,6 +4618,8 @@ paths:
                 $ref: '#/components/schemas/Feature'
       security:
         - api_token: []
+        - oauth2:
+            - okta.features.read
       tags:
         - Feature
   /api/v1/features/{featureId}/dependencies:
@@ -3936,6 +4644,8 @@ paths:
                   $ref: '#/components/schemas/Feature'
       security:
         - api_token: []
+        - oauth2:
+            - okta.features.read
       tags:
         - Feature
   /api/v1/features/{featureId}/dependents:
@@ -3960,6 +4670,8 @@ paths:
                   $ref: '#/components/schemas/Feature'
       security:
         - api_token: []
+        - oauth2:
+            - okta.features.read
       tags:
         - Feature
   /api/v1/features/{featureId}/{lifecycle}:
@@ -3991,6 +4703,8 @@ paths:
                 $ref: '#/components/schemas/Feature'
       security:
         - api_token: []
+        - oauth2:
+            - okta.features.manage
       tags:
         - Feature
   /api/v1/groups:
@@ -6470,6 +7184,8 @@ paths:
                         reason: Invalid email address. The provided email address failed validation against RFC 3696.
       security:
         - api_token: []
+        - oauth2:
+            - okta.orgs.manage
       tags:
         - OrgSetting
   /api/v1/org/logo:
@@ -7445,6 +8161,8 @@ paths:
                 $ref: '#/components/schemas/ThreatInsightConfiguration'
       security:
         - api_token: []
+        - oauth2:
+            - okta.threatInsights.read
       tags:
         - ThreatInsight
     post:
@@ -7467,6 +8185,8 @@ paths:
                 $ref: '#/components/schemas/ThreatInsightConfiguration'
       security:
         - api_token: []
+        - oauth2:
+            - okta.threatInsights.manage
       tags:
         - ThreatInsight
   /api/v1/trustedOrigins:
@@ -7660,23 +8380,19 @@ paths:
       description: Lists users in your organization with pagination in most cases.  A subset of users can be returned that match a supported filter expression or search criteria.
       operationId: listUsers
       parameters:
+        - $ref: '#/components/parameters/queryAfter'
         - name: q
           in: query
           description: Finds a user that matches firstName, lastName, and email properties
           schema:
             type: string
-        - name: after
-          in: query
-          description: Specifies the pagination cursor for the next page of users
-          schema:
-            type: string
         - name: limit
           in: query
-          description: Specifies the number of results returned
+          description: Specifies the number of results returned. Defaults to 10 if `q` is provided.
           schema:
             type: integer
             format: int32
-            default: 10
+            default: 200
         - name: filter
           in: query
           description: Filters users with a supported expression for a subset of properties
@@ -7704,6 +8420,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/User'
+              examples:
+                User List:
+                  $ref: '#/components/examples/ListUsersResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
         - api_token: []
         - oauth2:
@@ -7747,6 +8472,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Create user with too many groups specified:
+                  $ref: '#/components/examples/ErrorCreateUserWithTooManyManyGroupsResponse'
+                Create user with expired password and activate set to `false`:
+                  $ref: '#/components/examples/ErrorCreateUserWithExpiredPasswordWithoutActivation'
+                Create user with expired password and `null` password:
+                  $ref: '#/components/examples/ErrorCreateUserWithExpiredPasswordWithNullPassword'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
         - api_token: []
         - oauth2:
@@ -7789,11 +8533,7 @@ paths:
       description: Fetches a user from your Okta organization.
       operationId: getUser
       parameters:
-        - name: userId
-          in: path
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/pathUserId'
       responses:
         '200':
           description: Success
@@ -7801,6 +8541,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
         - api_token: []
         - oauth2:
@@ -7812,11 +8564,7 @@ paths:
       description: Fetch a user by `id`, `login`, or `login shortname` if the short name is unambiguous.
       operationId: partialUpdateUser
       parameters:
-        - name: userId
-          in: path
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/pathUserId'
         - name: strict
           in: query
           schema:
@@ -7826,7 +8574,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/UpdateUserRequest'
         required: true
       responses:
         '200':
@@ -7835,6 +8583,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
         - api_token: []
         - oauth2:
@@ -7846,11 +8612,7 @@ paths:
       description: Update a user's profile and/or credentials using strict-update semantics.
       operationId: updateUser
       parameters:
-        - name: userId
-          in: path
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/pathUserId'
         - name: strict
           in: query
           schema:
@@ -7861,7 +8623,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/UpdateUserRequest'
         required: true
       responses:
         '200':
@@ -7870,6 +8632,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
         - api_token: []
         - oauth2:
@@ -7881,11 +8661,7 @@ paths:
       description: Deletes a user permanently.  This operation can only be performed on users that have a `DEPROVISIONED` status.  **This action cannot be recovered!**
       operationId: deactivateOrDeleteUser
       parameters:
-        - name: userId
-          in: path
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/pathUserId'
         - name: sendEmail
           in: query
           schema:
@@ -7896,6 +8672,24 @@ paths:
         '202':
           description: ACCEPTED
           content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
         - api_token: []
         - oauth2:
@@ -8555,6 +9349,8 @@ paths:
                 $ref: '#/components/schemas/VerifyUserFactorResponse'
       security:
         - api_token: []
+        - oauth2:
+            - okta.users.read
       tags:
         - UserFactor
   /api/v1/users/{userId}/factors/{factorId}/verify:
@@ -9699,6 +10495,8 @@ paths:
                   $ref: '#/components/schemas/NetworkZone'
       security:
         - api_token: []
+        - oauth2:
+            - okta.networkZones.read
       tags:
         - NetworkZone
     post:
@@ -9721,6 +10519,8 @@ paths:
                 $ref: '#/components/schemas/NetworkZone'
       security:
         - api_token: []
+        - oauth2:
+            - okta.networkZones.manage
       tags:
         - NetworkZone
   /api/v1/zones/{zoneId}:
@@ -9743,6 +10543,8 @@ paths:
                 $ref: '#/components/schemas/NetworkZone'
       security:
         - api_token: []
+        - oauth2:
+            - okta.networkZones.read
       tags:
         - NetworkZone
     put:
@@ -9771,6 +10573,8 @@ paths:
                 $ref: '#/components/schemas/NetworkZone'
       security:
         - api_token: []
+        - oauth2:
+            - okta.networkZones.manage
       tags:
         - NetworkZone
     delete:
@@ -9789,6 +10593,8 @@ paths:
           content: {}
       security:
         - api_token: []
+        - oauth2:
+            - okta.networkZones.manage
       tags:
         - NetworkZone
   /api/v1/zones/{zoneId}/lifecycle/activate:
@@ -9811,6 +10617,8 @@ paths:
                 $ref: '#/components/schemas/NetworkZone'
       security:
         - api_token: []
+        - oauth2:
+            - okta.networkZones.manage
       tags:
         - NetworkZone
   /api/v1/zones/{zoneId}/lifecycle/deactivate:
@@ -9833,6 +10641,8 @@ paths:
                 $ref: '#/components/schemas/NetworkZone'
       security:
         - api_token: []
+        - oauth2:
+            - okta.networkZones.manage
       tags:
         - NetworkZone
 components:
@@ -9850,12 +10660,18 @@ components:
           authorizationUrl: /oauth2/v1/authorize
           tokenUrl: /oauth2/v1/token
           scopes:
+            okta.agentPools.manage: Read or modify Agent Pools
+            okta.agentPools.read: Read Agent Pools
+            okta.apiToken.read: Read API Tokens.
+            okta.apiToken.manage: Read or modify API Tokens.
             okta.apps.read: Read Apps.
             okta.apps.manage: Read or modify Apps.
             okta.authenticators.read: Read Authenticators.
             okta.authenticators.manage: Read or modify Authenticators.
             okta.authorizationServers.read: Read Authorization Servers.
             okta.authorizationServers.manage: Read or modify Authorization Servers.
+            okta.behaviors.read: Read Behavior Detection Rules.
+            okta.behaviors.manage: Read or modify Behavior Detection Rules.
             okta.brands.read: Read Brands.
             okta.brands.manage: Read or modify Brands.
             okta.captchas.manage: Read or modify CAPTCHA instances in your org.
@@ -9895,6 +10711,93 @@ components:
             okta.users.read.self: Read Users.
             okta.users.read: Read Users.
   examples:
+    ApiTokenListMetadataResponse:
+      value:
+        - name: My API Token
+          userId: 00uabcdefg1234567890
+          tokenWindow: P30D
+          id: 00Tabcdefg1234567890
+          clientName: Okta API
+          expiresAt: 2021-12-11T20:38:10.000Z
+          created: 2021-11-09T20:38:10.000Z
+          lastUpdated: 2021-11-11T20:38:10.000Z
+          _links:
+            self:
+              href: https://${yourOktaDomain}/api/v1/api-tokens/00Tabcdefg1234567890
+              hints:
+                allow:
+                  - GET
+                  - DELETE
+            user:
+              href: https://${yourOktaDomain}/api/v1/users/00uabcdefg1234567890
+              hints:
+                allow:
+                  - GET
+        - name: Another API Token
+          userId: 00uabcdefg1234567890
+          tokenWindow: PT5M
+          id: 00T1234567890abcdefg
+          clientName: Okta API
+          expiresAt: 2021-11-11T20:43:10.000Z
+          created: 2021-11-09T20:38:10.000Z
+          lastUpdated: 2021-11-11T20:38:10.000Z
+          _links:
+            self:
+              href: https://${yourOktaDomain}/api/v1/api-tokens/00T1234567890abcdefg
+              hints:
+                allow:
+                  - GET
+                  - DELETE
+            user:
+              href: https://${yourOktaDomain}/api/v1/users/00uabcdefg1234567890
+              hints:
+                allow:
+                  - GET
+    ApiTokenMetadataResponse:
+      value:
+        name: My API Token
+        userId: 00uXXXXXXXXXXXXXXXXX
+        tokenWindow: P30D
+        id: 00Tabcdefg1234567890
+        clientName: Okta API
+        expiresAt: 2021-12-11T20:38:10.000Z
+        created: 2021-11-09T20:38:10.000Z
+        lastUpdated: 2021-11-11T20:38:10.000Z
+        _links:
+          self:
+            href: https://${yourOktaDomain}/api/v1/api-tokens/00Tabcdefg1234567890
+            hints:
+              allow:
+                - GET
+                - DELETE
+          user:
+            href: https://${yourOktaDomain}/api/v1/users/00uXXXXXXXXXXXXXXXXX
+            hints:
+              allow:
+                - GET
+    BehaviorRuleRequest:
+      value:
+        name: My Behavior Rule
+        type: VELOCITY
+    BehaviorRuleResponse:
+      value:
+        id: abcd1234
+        name: My Behavior Rule
+        type: VELOCITY
+        settings:
+          velocityKph: 805
+        status: ACTIVE
+        created: 2021-11-09T20:38:10.000Z
+        lastUpdated: 2021-11-11T20:38:10.000Z
+        _link:
+          self:
+            href: https://your-subdomain.okta.com/api/v1/behaviors/abcd1234
+            hints:
+              allow:
+                - GET
+                - POST
+                - PUT
+                - DELETE
     CAPTCHAInstanceRequestHCaptcha:
       value:
         name: myHCaptcha
@@ -10007,6 +10910,21 @@ components:
             hints:
               allow:
                 - POST
+    EmailSettingsResponse:
+      value:
+        recipients: ALL_USERS
+        _links:
+          self:
+            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/settings
+            hints:
+              allow:
+                - GET
+                - PUT
+          template:
+            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation
+            hints:
+              allow:
+                - GET
     EmailTemplateDefaultContentResponse:
       value:
         subject: Welcome to ${org.name}!
@@ -10027,6 +10945,13 @@ components:
             hints:
               allow:
                 - GET
+    ErrorAccessDenied:
+      value:
+        errorCode: E0000006
+        errorSummary: You do not have permission to perform the requested action
+        errorLink: E0000006
+        errorId: sampleNUSD_8fdkFd8fs8SDBK
+        errorCauses: []
     ErrorApiValidationFailed:
       value:
         errorCode: E0000001
@@ -10048,6 +10973,30 @@ components:
         errorLink: E0000149
         errorId: samplezsusshPdiTWiITwqBt8
         errorCauses: []
+    ErrorCreateUserWithExpiredPasswordWithNullPassword:
+      value:
+        errorCode: E0000124
+        errorSummary: Could not create user. To create a user and expire their password immediately, a password must be specified
+        errorLink: E0000124
+        errorId: oaeXxuZgXBySvqi1FvtkwoYCA
+        errorCauses:
+          - errorSummary: Could not create user. To create a user and expire their password immediately, a password must be specified
+    ErrorCreateUserWithExpiredPasswordWithoutActivation:
+      value:
+        errorCode: E0000125
+        errorSummary: Could not create user. To create a user and expire their password immediately, "activate" must be true
+        errorLink: E0000125
+        errorId: oaeDd77L9R-TJaD7j_rXsQ31w
+        errorCauses:
+          - errorSummary: Could not create user. To create a user and expire their password immediately, "activate" must be true
+    ErrorCreateUserWithTooManyManyGroupsResponse:
+      value:
+        errorCode: E0000093
+        errorSummary: Target count limit exceeded
+        errorLink: E0000093
+        errorId: oaePVSLIYnIQsC0B-ptBIllVA
+        errorCauses:
+          - errorSummary: The number of group targets is too large.
     ErrorEmailCustomizationCannotClearDefault:
       value:
         errorCode: E0000185
@@ -10076,6 +11025,13 @@ components:
         errorLink: E0000183
         errorId: oaeUcGELffqRay0u1OPdnPypw
         errorCauses: []
+    ErrorInvalidEmailTemplateRecipients:
+      value:
+        errorCode: E0000189
+        errorSummary: This template does not support the recipients value.
+        errorLink: E0000189
+        errorId: oae8L1-UkcNTeGi5xVQ28_lww
+        errorCauses: []
     ErrorResourceNotFound:
       value:
         errorCode: E0000007
@@ -10092,6 +11048,12 @@ components:
             hints:
               allow:
                 - GET
+          settings:
+            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/settings
+            hints:
+              allow:
+                - GET
+                - PUT
           defaultContent:
             href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/default-content
             hints:
@@ -10150,6 +11112,12 @@ components:
               hints:
                 allow:
                   - GET
+            settings:
+              href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/settings
+              hints:
+                allow:
+                  - GET
+                  - PUT
             defaultContent:
               href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/default-content
               hints:
@@ -10167,6 +11135,33 @@ components:
               hints:
                 allow:
                   - POST
+    ListUsersResponse:
+      value:
+        - id: 00u118oQYT4TBGuay0g4
+          status: ACTIVE
+          created: 2022-04-04T15:56:05.000Z
+          activated: null
+          statusChanged: null
+          lastLogin: 2022-05-04T19:50:52.000Z
+          lastUpdated: 2022-05-05T18:15:44.000Z
+          passwordChanged: 2022-04-04T16:00:22.000Z
+          type:
+            id: oty1162QAr8hJjTaq0g4
+          profile:
+            firstName: Alice
+            lastName: Smith
+            mobilePhone: null
+            secondEmail: null
+            login: alice.smith@example.com
+            email: alice.smith@example.com
+          credentials:
+            password: {}
+            provider:
+              type: OKTA
+              name: OKTA
+          _links:
+            self:
+              href: http://your-subdomain.okta.com/api/v1/users/00u118oQYT4TBGuay0g4
     PreviewEmailCustomizationResponse:
       value:
         subject: Welcome to Okta!
@@ -10208,6 +11203,22 @@ components:
               allow:
                 - POST
   parameters:
+    pathApiTokenId:
+      name: apiTokenId
+      in: path
+      schema:
+        type: string
+        example: 00Tabcdefg1234567890
+      required: true
+      description: id of the API Token
+    pathBehaviorId:
+      name: behaviorId
+      in: path
+      schema:
+        type: string
+        example: abcd1234
+      required: true
+      description: id of the Behavior Detection Rule
     pathBrandId:
       name: brandId
       in: path
@@ -10230,6 +11241,13 @@ components:
       schema:
         type: string
       description: The ID of the email customization.
+    pathPoolId:
+      name: poolId
+      in: path
+      description: Id of the agent pool for which the settings will apply
+      schema:
+        type: string
+      required: true
     pathTemplateName:
       name: templateName
       in: path
@@ -10237,6 +11255,19 @@ components:
       schema:
         type: string
       description: The name of the email template.
+    pathUpdateId:
+      name: updateId
+      in: path
+      description: Id of the update
+      schema:
+        type: string
+      required: true
+    pathUserId:
+      name: userId
+      in: path
+      required: true
+      schema:
+        type: string
     queryAfter:
       name: after
       in: query
@@ -10258,6 +11289,28 @@ components:
         maximum: 200
         default: 20
       description: A limit on the number of objects to return.
+    queryLimitPerPoolType:
+      name: limitPerPoolType
+      in: query
+      schema:
+        type: integer
+        default: 5
+      required: false
+      description: Maximum number of AgentPools being returned
+    queryPoolType:
+      name: poolType
+      in: query
+      schema:
+        $ref: '#/components/schemas/AgentType'
+      required: false
+      description: Agent type to search for
+    queryScheduled:
+      name: scheduled
+      in: query
+      description: Scope the list only to scheduled or ad-hoc updates. If the parameter is not provided we will return the whole list of updates.
+      schema:
+        type: boolean
+      required: false
   schemas:
     AccessPolicy:
       allOf:
@@ -10342,6 +11395,134 @@ components:
           type: string
         stateToken:
           type: string
+    Agent:
+      description: Agent details
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        type:
+          $ref: '#/components/schemas/AgentType'
+        operationalStatus:
+          $ref: '#/components/schemas/OperationalStatus'
+        updateStatus:
+          $ref: '#/components/schemas/AgentUpdateInstanceStatus'
+        updateMessage:
+          type: string
+        version:
+          type: string
+        lastConnection:
+          type: string
+          format: date-time
+        isLatestGAedVersion:
+          type: boolean
+        poolId:
+          type: string
+        name:
+          type: string
+        isHidden:
+          type: boolean
+        _links:
+          $ref: '#/components/schemas/HrefObject'
+    AgentPool:
+      description: An AgentPool is a collection of agents that serve a common purpose. An AgentPool has a unique ID within an org, and contains a collection of agents disjoint to every other AgentPool (i.e. no two AgentPools share an Agent).
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/AgentType'
+        operationalStatus:
+          $ref: '#/components/schemas/OperationalStatus'
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/Agent'
+    AgentPoolUpdate:
+      description: Various information about agent auto update configuration
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+        agentType:
+          $ref: '#/components/schemas/AgentType'
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/Agent'
+        enabled:
+          type: boolean
+        schedule:
+          $ref: '#/components/schemas/AutoUpdateSchedule'
+        notifyAdmin:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/AgentUpdateJobStatus'
+        sortOrder:
+          type: integer
+        reason:
+          type: string
+        targetVersion:
+          type: string
+        _links:
+          $ref: '#/components/schemas/HrefObject'
+    AgentPoolUpdateSetting:
+      description: Setting for auto-update
+      type: object
+      properties:
+        agentType:
+          $ref: '#/components/schemas/AgentType'
+        releaseChannel:
+          $ref: '#/components/schemas/ReleaseChannel'
+        continueOnError:
+          type: boolean
+        latestVersion:
+          type: string
+        minimalSupportedVersion:
+          type: string
+        poolId:
+          type: string
+          readOnly: true
+        poolName:
+          type: string
+    AgentType:
+      description: Agent types that are being monitored
+      type: string
+      enum:
+        - LDAP
+        - AD
+        - IWA
+        - Radius
+        - OPP
+        - RUM
+        - MFA
+    AgentUpdateInstanceStatus:
+      description: Status for one agent regarding the status to auto-update that agent
+      type: string
+      enum:
+        - Scheduled
+        - InProgress
+        - Success
+        - Failed
+        - Cancelled
+        - PendingCompletion
+    AgentUpdateJobStatus:
+      description: Overall state for the auto-update job from admin perspective
+      type: string
+      enum:
+        - Scheduled
+        - InProgress
+        - Success
+        - Failed
+        - Paused
+        - Cancelled
     AllowedForEnum:
       type: string
       enum:
@@ -10349,6 +11530,43 @@ components:
         - sso
         - any
         - none
+    ApiToken:
+      title: API Token
+      description: An API token for an Okta User. This token is NOT scoped any further and can be used for any API the user has permissions to call.
+      type: object
+      properties:
+        name:
+          type: string
+        tokenWindow:
+          $ref: '#/components/schemas/TimeDuration'
+        userId:
+          type: string
+        id:
+          type: string
+          readOnly: true
+        clientName:
+          type: string
+          readOnly: true
+        expiresAt:
+          type: string
+          format: date-time
+          readOnly: true
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+        lastUpdated:
+          type: string
+          format: date-time
+          readOnly: true
+        _link:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/HrefObject'
+          readOnly: true
+      required:
+        - name
     AppAndInstanceConditionEvaluatorAppOrInstance:
       type: object
       properties:
@@ -10985,6 +12203,24 @@ components:
           type: string
         redirectUrl:
           type: string
+    AutoUpdateSchedule:
+      description: The schedule of auto-update configured by admin.
+      type: object
+      properties:
+        cron:
+          type: string
+        timezone:
+          type: string
+        duration:
+          description: duration in minutes
+          type: integer
+        delay:
+          description: delay in days
+          type: integer
+        lastUpdated:
+          description: last time when the updated finished (success or failed, exclude cancelled), null if job haven't finished once yet.
+          type: string
+          format: date-time
     BasicApplicationSettings:
       allOf:
         - $ref: '#/components/schemas/ApplicationSettings'
@@ -11022,6 +12258,135 @@ components:
           $ref: '#/components/schemas/Duration'
         lifecycleAction:
           $ref: '#/components/schemas/ScheduledUserLifecycleAction'
+    BehaviorRule:
+      title: Behavior Detection Rule
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 128
+        status:
+          $ref: '#/components/schemas/LifecycleStatus'
+        type:
+          $ref: '#/components/schemas/BehaviorRuleType'
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+        lastUpdated:
+          type: string
+          format: date-time
+          readOnly: true
+        _link:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/HrefObject'
+          readOnly: true
+      required:
+        - name
+        - type
+      discriminator:
+        propertyName: type
+        mapping:
+          ANOMALOUS_LOCATION: '#/components/schemas/BehaviorRuleAnomalousLocation'
+          ANOMALOUS_IP: '#/components/schemas/BehaviorRuleAnomalousIP'
+          ANOMALOUS_DEVICE: '#/components/schemas/BehaviorRuleAnomalousDevice'
+          VELOCITY: '#/components/schemas/BehaviorRuleVelocity'
+    BehaviorRuleAnomalousDevice:
+      allOf:
+        - $ref: '#/components/schemas/BehaviorRule'
+        - type: object
+          properties:
+            settings:
+              $ref: '#/components/schemas/BehaviorRuleSettingsAnomalousDevice'
+    BehaviorRuleAnomalousIP:
+      allOf:
+        - $ref: '#/components/schemas/BehaviorRule'
+        - type: object
+          properties:
+            settings:
+              $ref: '#/components/schemas/BehaviorRuleSettingsAnomalousIP'
+    BehaviorRuleAnomalousLocation:
+      allOf:
+        - $ref: '#/components/schemas/BehaviorRule'
+        - type: object
+          properties:
+            settings:
+              $ref: '#/components/schemas/BehaviorRuleSettingsAnomalousLocation'
+    BehaviorRuleSettings:
+      title: Behavior Detection Rule Settings
+      type: object
+    BehaviorRuleSettingsAnomalousDevice:
+      allOf:
+        - $ref: '#/components/schemas/BehaviorRuleSettingsHistoryBased'
+    BehaviorRuleSettingsAnomalousIP:
+      allOf:
+        - $ref: '#/components/schemas/BehaviorRuleSettingsHistoryBased'
+        - type: object
+          properties:
+            maxEventsUsedForEvaluation:
+              type: integer
+              minimum: 0
+              maximum: 100
+              default: 50
+    BehaviorRuleSettingsAnomalousLocation:
+      allOf:
+        - $ref: '#/components/schemas/BehaviorRuleSettingsHistoryBased'
+        - type: object
+          properties:
+            granularity:
+              $ref: '#/components/schemas/LocationGranularity'
+            radiusKilometers:
+              type: integer
+              description: Required when `granularity` is `LAT_LONG`. Radius from the provided coordinates in kilometers.
+          required:
+            - granularity
+    BehaviorRuleSettingsHistoryBased:
+      allOf:
+        - $ref: '#/components/schemas/BehaviorRuleSettings'
+        - title: Behavior Detection Rule Settings based on Event History
+          type: object
+          properties:
+            minEventsNeededForEvaluation:
+              type: integer
+              minimum: 0
+              maximum: 10
+              default: 0
+            maxEventsUsedForEvaluation:
+              type: integer
+              minimum: 1
+              maximum: 100
+              default: 20
+    BehaviorRuleSettingsVelocity:
+      allOf:
+        - $ref: '#/components/schemas/BehaviorRuleSettings'
+        - title: Behavior Detection Rule Settings based on device velocity in kilometers per hour.
+          type: object
+          properties:
+            velocityKph:
+              type: integer
+              minimum: 1
+              default: 805
+          required:
+            - velocityKph
+    BehaviorRuleType:
+      type: string
+      enum:
+        - ANOMALOUS_LOCATION
+        - ANOMALOUS_IP
+        - ANOMALOUS_DEVICE
+        - VELOCITY
+    BehaviorRuleVelocity:
+      allOf:
+        - $ref: '#/components/schemas/BehaviorRule'
+        - type: object
+          properties:
+            settings:
+              $ref: '#/components/schemas/BehaviorRuleSettingsVelocity'
     BookmarkApplication:
       x-okta-defined-as:
         name: bookmark
@@ -11262,6 +12627,8 @@ components:
           $ref: '#/components/schemas/UserProfile'
         type:
           $ref: '#/components/schemas/UserType'
+      required:
+        - profile
     Csr:
       type: object
       properties:
@@ -11577,8 +12944,21 @@ components:
               $ref: '#/components/schemas/HrefObject'
             test:
               $ref: '#/components/schemas/HrefObject'
+            defaultContent:
+              $ref: '#/components/schemas/HrefObject'
           readOnly: true
           description: Links to resources related to this email preview.
+    EmailSettings:
+      type: object
+      properties:
+        recipients:
+          type: string
+          enum:
+            - ALL_USERS
+            - ADMINS_ONLY
+            - NO_USERS
+      required:
+        - recipients
     EmailTemplate:
       type: object
       properties:
@@ -11590,6 +12970,8 @@ components:
           type: object
           properties:
             self:
+              $ref: '#/components/schemas/HrefObject'
+            settings:
               $ref: '#/components/schemas/HrefObject'
             defaultContent:
               $ref: '#/components/schemas/HrefObject'
@@ -12058,6 +13440,7 @@ components:
         type:
           readOnly: true
           type: string
+      x-okta-allow-null-property-value-for-updates: true
     GroupSchemaAttribute:
       type: object
       properties:
@@ -12587,6 +13970,13 @@ components:
       type: string
       enum:
         - USER
+    LocationGranularity:
+      type: string
+      enum:
+        - LAT_LONG
+        - COUNTRY
+        - SUBDIVISION
+        - CITY
     LogActor:
       type: object
       properties:
@@ -13448,6 +14838,14 @@ components:
       enum:
         - rotate
         - static
+    OperationalStatus:
+      description: Operational status of a given agent
+      type: string
+      enum:
+        - DISRUPTED
+        - DEGRADED
+        - OPERATIONAL
+        - INACTIVE
     Org2OrgApplication:
       x-okta-defined-as:
         name: okta_org2org
@@ -14554,6 +15952,14 @@ components:
           type: string
         question:
           type: string
+    ReleaseChannel:
+      description: Release channel for auto-update
+      type: string
+      enum:
+        - GA
+        - EA
+        - BETA
+        - TEST
     RequiredEnum:
       type: string
       enum:
@@ -15181,6 +16587,10 @@ components:
             type: object
             properties: {}
           readOnly: true
+    TimeDuration:
+      type: string
+      pattern: ^P(?!$)(\d+Y)?(\d+M)?(\d+W)?(\d+D)?(T(?=\d)(\d+H)?(\d+M)?(\d+S)?)?$
+      description: A time duration specified as an [ISO-8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations).
     TokenAuthorizationServerPolicyRuleAction:
       type: object
       properties:
@@ -15283,6 +16693,13 @@ components:
       properties:
         credentialId:
           type: string
+    UpdateUserRequest:
+      type: object
+      properties:
+        credentials:
+          $ref: '#/components/schemas/UserCredentials'
+        profile:
+          $ref: '#/components/schemas/UserProfile'
     User:
       type: object
       properties:
@@ -15302,6 +16719,7 @@ components:
           type: string
           format: date-time
           readOnly: true
+          nullable: true
         created:
           type: string
           format: date-time
@@ -15331,6 +16749,7 @@ components:
           type: string
           format: date-time
           readOnly: true
+          nullable: true
         transitioningToStatus:
           $ref: '#/components/schemas/UserStatus'
         type:
@@ -15490,10 +16909,14 @@ components:
       properties:
         city:
           type: string
+          maxLength: 128
+          nullable: true
         costCenter:
           type: string
         countryCode:
           type: string
+          maxLength: 2
+          nullable: true
         department:
           type: string
         displayName:
@@ -15502,20 +16925,30 @@ components:
           type: string
         email:
           type: string
+          format: email
+          minLength: 5
+          maxLength: 100
         employeeNumber:
           type: string
         firstName:
           type: string
+          minLength: 1
+          maxLength: 50
+          nullable: true
         honorificPrefix:
           type: string
         honorificSuffix:
           type: string
         lastName:
           type: string
+          minLength: 1
+          maxLength: 50
+          nullable: true
         locale:
-          type: string
+          $ref: '#/components/schemas/Language'
         login:
           type: string
+          maxLength: 100
         manager:
           type: string
         managerId:
@@ -15524,24 +16957,38 @@ components:
           type: string
         mobilePhone:
           type: string
+          maxLength: 100
+          nullable: true
         nickName:
           type: string
         organization:
           type: string
         postalAddress:
           type: string
+          maxLength: 4096
+          nullable: true
         preferredLanguage:
           type: string
         primaryPhone:
           type: string
+          maxLength: 100
+          nullable: true
         profileUrl:
           type: string
         secondEmail:
           type: string
+          format: email
+          minLength: 5
+          maxLength: 100
+          nullable: true
         state:
           type: string
+          maxLength: 128
+          nullable: true
         streetAddress:
           type: string
+          maxLength: 1024
+          nullable: true
         timezone:
           type: string
         title:
@@ -15550,6 +16997,8 @@ components:
           type: string
         zipCode:
           type: string
+          maxLength: 50
+          nullable: true
       x-okta-extensible: true
     UserSchema:
       type: object
@@ -15629,6 +17078,7 @@ components:
           type: string
         externalNamespace:
           type: string
+      x-okta-allow-null-property-value-for-updates: true
     UserSchemaAttributeEnum:
       type: object
       properties:
@@ -16020,39 +17470,31 @@ components:
               type: boolean
             wReplyURL:
               type: string
-x-tagGroups:
-  - name: User Directory
-    tags:
-      - User
-      - Group
-      - UserType
-      - Schema
-      - LinkedObject
-      - ProfileMapping
-  - name: Authentication
-    tags:
-      - ApiToken
-      - Application
-      - Authenticator
-      - AuthorizationServer
-      - CAPTCHA
-      - IdentityProvider
-      - Policy
-      - Session
-      - ThreatInsight
-      - TrustedOrigin
-      - UserFactor
-      - NetworkZone
-  - name: Customization
-    tags:
-      - Customization
-      - Domain
-      - Template
-  - name: Other
-    tags:
-      - EventHook
-      - Feature
-      - InlineHook
-      - OrgSetting
-      - SystemLog
-      - Subscription
+  responses:
+    ErrorApiValidationFailed400:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            API Validation Failed:
+              $ref: '#/components/examples/ErrorApiValidationFailed'
+    ErrorAccessDenied403:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Access Denied:
+              $ref: '#/components/examples/ErrorAccessDenied'
+    ErrorResourceNotFound404:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            Resource Not Found:
+              $ref: '#/components/examples/ErrorResourceNotFound'
