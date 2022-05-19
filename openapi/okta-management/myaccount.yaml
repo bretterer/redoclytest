@@ -52,6 +52,8 @@ paths:
           $ref: '#/components/responses/Unverified-Email-Response'
         '400':
           $ref: '#/components/responses/Error-InvalidEmail-Response-400'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
         '403':
           $ref: '#/components/responses/Error-Email-Response-403'
         '409':
@@ -116,6 +118,8 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/Email-Array-Response'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
   '/idp/myaccount/emails/{id}':
     get:
       summary: Get Email By ID
@@ -125,6 +129,8 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/Verified-Email-Response'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
       operationId: 'get-idp-myaccount-emails-:id:'
       security:
         - oauth2:
@@ -149,6 +155,8 @@ paths:
             'application/json;okta-version=1.0.0': { }
         '400':
           $ref: '#/components/responses/Error-InvalidEmailDeletion-400'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
         '403':
           $ref: '#/components/responses/Error-NoAccessForAdminUser-Response-403'
         '404':
@@ -182,7 +190,7 @@ paths:
           content:
             'application/json;okta-version=1.0.0': { }
         '401':
-          $ref: '#/components/responses/Error-UnauthorizedUser-Response-401'
+          $ref: '#/components/responses/Error-VerifyPhoneEmail-Response-401'
         '403':
           $ref: '#/components/responses/Error-Email-Response-403'
         '404':
@@ -351,6 +359,8 @@ paths:
                         hints:
                           allow:
                             - GET
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
         '403':
           $ref: '#/components/responses/Error-Email-Response-403'
         '404':
@@ -484,6 +494,8 @@ paths:
                         hints:
                           allow:
                             - GET
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
         '404':
           $ref: '#/components/responses/Error-EmailChallengeResourceNotFound-Response-404'
       operationId: get-idp-myaccount-emails-id-challenge-challengeId
@@ -499,6 +511,8 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/Phone-Array-Response'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
       operationId: get-idp-myaccount-phones
       security:
         - oauth2:
@@ -514,6 +528,8 @@ paths:
           $ref: '#/components/responses/Unverified-Phone-Response'
         '400':
           $ref: '#/components/responses/Error-Create-Phone-Response-400'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
         '403':
           $ref: '#/components/responses/Error-CreateChallengeVerify-Phone-Response-403'
         '409':
@@ -568,6 +584,8 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/Verified-Phone-Response'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
         '404':
           $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
       operationId: get-idp-myaccount-phones-id
@@ -585,6 +603,8 @@ paths:
           description: No Content
           content:
             'application/json;okta-version=1.0.0': { }
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
         '403':
           $ref: '#/components/responses/Error-Delete-Phone-Response-403'
         '404':
@@ -611,6 +631,8 @@ paths:
           $ref: '#/components/responses/Challenged-Phone-Response'
         '400':
           $ref: '#/components/responses/Error-Challenge-Phone-Response-400'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
         '403':
           $ref: '#/components/responses/Error-CreateChallengeVerify-Phone-Response-403'
         '404':
@@ -667,7 +689,7 @@ paths:
         '400':
           $ref: '#/components/responses/Error-Verify-Phone-Response-400'
         '401':
-          $ref: '#/components/responses/Error-UserFailedToAnswerChallenge-Response-401'
+          $ref: '#/components/responses/Error-VerifyPhoneEmail-Response-401'
         '403':
           $ref: '#/components/responses/Error-CreateChallengeVerify-Phone-Response-403'
         '404':
@@ -723,6 +745,8 @@ paths:
                         href: 'https://example.okta.com/idp/myaccount/profile'
                       describedBy:
                         href: 'https://example.okta.com/idp/myaccount/profile/schema'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
       operationId: get-idp-myaccount-profile
       security:
         - oauth2:
@@ -759,6 +783,8 @@ paths:
                         href: 'https://example.okta.com/idp/myaccount/profile/schema'
         '400':
           $ref: '#/components/responses/Error-UpdateProfile-Response-400'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
         '403':
           $ref: '#/components/responses/Error-NoAccessForAdminUser-Response-403'
       security:
@@ -832,6 +858,8 @@ paths:
                         href: 'https://example.okta.com/idp/myaccount/profile/schema'
                       user:
                         href: 'https://example.okta.com/idp/myaccount/profile'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
       operationId: get-idp-myaccount-profile-schema
       security:
         - oauth2:
@@ -1350,21 +1378,6 @@ components:
                 errorId: oaejUwz8U5FQ_SyggQwz1kC3w
                 errorCauses:
                   - errorSummary: Invalid factor id, no phone factor found.
-    Error-UserFailedToAnswerChallenge-Response-401:
-      description: Unauthorized
-      content:
-        'application/json;okta-version=1.0.0':
-          schema:
-            $ref: '#/components/schemas/Error'
-          examples:
-            User Failed To Answer Challenge - 401:
-              value:
-                errorCode: E0000004
-                errorSummary: Authentication failed
-                errorLink: E0000004
-                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
-                errorCauses:
-                  - errorSummary: The verification challenge failed due to an invalid code.
     Error-NoAccessForAdminUser-Response-403:
       description: Forbidden
       content:
@@ -1495,21 +1508,6 @@ components:
                 errorId: oaejUwz8U5FQ_SyggQwz1kC3w
                 errorCauses:
                   - errorSummary: "Can't delete a verified email address: example@email.com, role=PRIMARY"
-    Error-UnauthorizedUser-Response-401:
-      description: Unauthorized
-      content:
-        'application/json;okta-version=1.0.0':
-          schema:
-            $ref: '#/components/schemas/Error'
-          examples:
-            Unauthorized User - 401:
-              value:
-                errorCode: E0000004
-                errorSummary: Authentication failed
-                errorLink: E0000004
-                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
-                errorCauses:
-                  - errorSummary: User is not authorized.
     Error-InvalidEmail-Response-400:
       description: Bad Request
       content:
@@ -1700,6 +1698,50 @@ components:
                 errorId: oaejUwz8U5FQ_SyggQwz1kC3w
                 errorCauses:
                   - errorSummary: Invalid factor id, no phone factor found.
+    Error-IdpMyAccountNotEnabled-Response-401:
+      description: Unauthorized
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            IDP MyAccount not enabled - 401:
+              value:
+                errorCode: E0000015
+                errorSummary: You do not have permission to access the feature you are requesting
+                errorLink: E0000015
+                errorId: oaeStOuPPxDRUm3PJhf-tL7bQ
+                errorCauses: []
+    Error-VerifyPhoneEmail-Response-401:
+      description: Unauthorized
+      content:
+        'application/json;okta-version=1.0.0':
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            IDP MyAccount not enabled - 401:
+              value:
+                errorCode: E0000015
+                errorSummary: You do not have permission to access the feature you are requesting
+                errorLink: E0000015
+                errorId: oaeStOuPPxDRUm3PJhf-tL7bQ
+                errorCauses: []
+            Unauthorized User - 401:
+              value:
+                errorCode: E0000004
+                errorSummary: Authentication failed
+                errorLink: E0000004
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: User is not authorized.
+            User Failed To Answer Challenge - 401:
+              value:
+                errorCode: E0000004
+                errorSummary: Authentication failed
+                errorLink: E0000004
+                errorId: oaejUwz8U5FQ_SyggQwz1kC3w
+                errorCauses:
+                  - errorSummary: The verification challenge failed due to an invalid code.
     Error-CreateChallengeVerify-Phone-Response-403:
       description: Forbidden
       content:

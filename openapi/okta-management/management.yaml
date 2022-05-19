@@ -152,6 +152,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AgentPool'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -175,6 +177,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AgentPoolUpdate'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -200,6 +206,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AgentPoolUpdate'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -220,6 +232,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AgentPoolUpdateSetting'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -243,6 +259,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AgentPoolUpdateSetting'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -264,6 +286,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AgentPoolUpdate'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -287,6 +313,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AgentPoolUpdate'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -300,6 +332,10 @@ paths:
       responses:
         '204':
           description: Deleted
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -321,6 +357,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AgentPoolUpdate'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -342,6 +382,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AgentPoolUpdate'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -363,6 +407,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AgentPoolUpdate'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -384,6 +432,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AgentPoolUpdate'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -405,6 +457,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AgentPoolUpdate'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -426,6 +482,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AgentPoolUpdate'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -457,6 +517,8 @@ paths:
               examples:
                 List Tokens:
                   $ref: '#/components/examples/ApiTokenListMetadataResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -472,12 +534,7 @@ paths:
         '204':
           description: No Content
         '403':
-          description: Forbidden
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
       tags:
@@ -499,15 +556,10 @@ paths:
               examples:
                 HCaptcha:
                   $ref: '#/components/examples/ApiTokenMetadataResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                Resource Not Found:
-                  $ref: '#/components/examples/ErrorResourceNotFound'
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -522,21 +574,9 @@ paths:
         '204':
           description: No Content
         '403':
-          description: Forbidden
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                Resource Not Found:
-                  $ref: '#/components/examples/ErrorResourceNotFound'
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -589,6 +629,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Application'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -624,6 +666,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Application'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -652,6 +698,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Application'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -682,6 +732,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Application'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -702,6 +758,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -726,8 +786,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProvisioningConnection'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -762,9 +824,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProvisioningConnection'
         '400':
-          description: Bad Request
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -785,8 +849,10 @@ paths:
       responses:
         '204':
           description: No Content
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -807,8 +873,10 @@ paths:
       responses:
         '204':
           description: No Content
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -835,6 +903,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Csr'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -865,6 +937,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Csr'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -894,6 +972,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Csr'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -919,6 +1001,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -970,6 +1056,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JsonWebKey'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -996,6 +1088,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/JsonWebKey'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1024,6 +1120,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JsonWebKey'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1053,6 +1153,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JsonWebKey'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1088,6 +1192,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JsonWebKey'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1114,8 +1222,10 @@ paths:
                 items:
                   $ref: '#/components/schemas/ApplicationFeature'
                 type: array
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1145,8 +1255,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApplicationFeature'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1181,8 +1293,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApplicationFeature'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1213,6 +1329,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/OAuth2ScopeConsentGrant'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
       tags:
@@ -1241,6 +1361,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OAuth2ScopeConsentGrant'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
       tags:
@@ -1272,6 +1398,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OAuth2ScopeConsentGrant'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
       tags:
@@ -1295,6 +1425,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
       tags:
@@ -1339,6 +1473,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ApplicationGroupAssignment'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1372,6 +1510,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApplicationGroupAssignment'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1407,6 +1549,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApplicationGroupAssignment'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1432,6 +1580,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1453,6 +1605,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1474,6 +1630,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1506,9 +1666,11 @@ paths:
         '201':
           description: Created
         '400':
-          description: Bad Request
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1549,6 +1711,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/OAuth2Token'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1569,6 +1735,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1602,6 +1772,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OAuth2Token'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1627,6 +1801,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1681,6 +1859,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AppUser'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1711,6 +1893,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppUser'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1744,6 +1932,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppUser'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1779,6 +1971,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppUser'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1810,6 +2008,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1830,6 +2032,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Authenticator'
                 type: array
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -1854,6 +2058,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Authenticator'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1884,6 +2092,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Authenticator'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1908,6 +2122,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Authenticator'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1932,6 +2150,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Authenticator'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -1965,6 +2187,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AuthorizationServer'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -1992,6 +2216,10 @@ paths:
         '201':
           description: Created
           content: {}
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -2016,6 +2244,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthorizationServer'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2046,6 +2278,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthorizationServer'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2066,6 +2304,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2092,6 +2334,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/OAuth2Claim'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2125,6 +2371,12 @@ paths:
         '201':
           description: Success
           content: {}
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2154,6 +2406,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OAuth2Claim'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2189,6 +2445,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OAuth2Claim'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2214,6 +2476,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2240,6 +2506,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/OAuth2Client'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2285,6 +2555,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/OAuth2RefreshToken'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2310,6 +2584,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2348,6 +2626,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OAuth2RefreshToken'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2378,6 +2660,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2404,6 +2690,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/JsonWebKey'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2437,6 +2727,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/JsonWebKey'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2458,6 +2754,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2479,6 +2779,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2505,6 +2809,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AuthorizationServerPolicy'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2538,6 +2846,12 @@ paths:
         '201':
           description: Created
           content: {}
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2567,6 +2881,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthorizationServerPolicy'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2602,6 +2920,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthorizationServerPolicy'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2627,6 +2951,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2653,6 +2981,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2679,6 +3011,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2710,6 +3046,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AuthorizationServerPolicyRule'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2745,6 +3085,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthorizationServerPolicyRule'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2779,6 +3125,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthorizationServerPolicyRule'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2819,6 +3169,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthorizationServerPolicyRule'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2849,6 +3205,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2880,6 +3240,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2911,6 +3275,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2955,6 +3323,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/OAuth2Scope'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -2988,6 +3360,12 @@ paths:
         '201':
           description: Success
           content: {}
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3017,6 +3395,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OAuth2Scope'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3052,6 +3434,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OAuth2Scope'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3077,6 +3465,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3097,6 +3489,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/BehaviorRule'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -3136,6 +3530,8 @@ paths:
               examples:
                 API Validation Failed:
                   $ref: '#/components/examples/ErrorApiValidationFailed'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -3158,6 +3554,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/BehaviorRule'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
           content:
@@ -3206,6 +3604,8 @@ paths:
               examples:
                 API Validation Failed:
                   $ref: '#/components/examples/ErrorApiValidationFailed'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
           content:
@@ -3228,6 +3628,8 @@ paths:
       responses:
         '204':
           description: No Content
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
           content:
@@ -3260,6 +3662,10 @@ paths:
               examples:
                 BehaviorRuleReSponse:
                   $ref: '#/components/examples/BehaviorRuleResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3283,6 +3689,10 @@ paths:
               examples:
                 BehaviorRuleReSponse:
                   $ref: '#/components/examples/BehaviorRuleResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3303,6 +3713,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Brand'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -3327,6 +3739,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Brand'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
           content:
@@ -3363,6 +3777,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3379,6 +3797,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/queryAfter'
         - $ref: '#/components/parameters/queryLimit'
+        - $ref: '#/components/parameters/queryExpandEmailTemplate'
       responses:
         '200':
           description: Successfully returned the list of email templates.
@@ -3396,6 +3815,10 @@ paths:
               schema:
                 type: string
               description: The pagination header containing links to the current and next page of results. See [Pagination](https://developer.okta.com/docs/reference/core-okta-api/#pagination) for more information.
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3410,6 +3833,8 @@ paths:
       summary: Get Email Template
       description: Gets the details of an email template by name.
       operationId: getEmailTemplate
+      parameters:
+        - $ref: '#/components/parameters/queryExpandEmailTemplate'
       responses:
         '200':
           description: Successfully retrieved the email template.
@@ -3420,6 +3845,10 @@ paths:
               examples:
                 Get email template response:
                   $ref: '#/components/examples/GetEmailTemplateResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3449,6 +3878,10 @@ paths:
               examples:
                 List Email customizations response:
                   $ref: '#/components/examples/ListEmailCustomizationResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3478,6 +3911,12 @@ paths:
               examples:
                 Create email customization response:
                   $ref: '#/components/examples/CreateUpdateEmailCustomizationResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '409':
           description: Could not create the email customization because it conflicts with an existing email customization.
           content:
@@ -3503,6 +3942,10 @@ paths:
         '204':
           description: Successfully deleted all customizations for the email template.
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3528,6 +3971,10 @@ paths:
               examples:
                 Get email customization response:
                   $ref: '#/components/examples/EmailCustomizationResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3558,6 +4005,12 @@ paths:
               examples:
                 Update email customization response:
                   $ref: '#/components/examples/CreateUpdateEmailCustomizationResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '409':
           description: Could not update the email customization because the update would cause a conflict with an existing email customization.
           content:
@@ -3585,6 +4038,10 @@ paths:
         '204':
           description: Successfully deleted the email customization.
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '409':
           description: Could not delete the email customization deleted because it is the default email customization.
           content:
@@ -3619,6 +4076,10 @@ paths:
               examples:
                 Preview email customization response:
                   $ref: '#/components/examples/PreviewEmailCustomizationResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3645,6 +4106,10 @@ paths:
               examples:
                 Get email template default content response:
                   $ref: '#/components/examples/EmailTemplateDefaultContentResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3671,6 +4136,10 @@ paths:
               examples:
                 Preview email template default content response:
                   $ref: '#/components/examples/PreviewEmailTemplateDefaultContentResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3695,6 +4164,10 @@ paths:
               examples:
                 Get email template settings response:
                   $ref: '#/components/examples/EmailSettingsResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3713,6 +4186,12 @@ paths:
       responses:
         '204':
           description: Successfully updated the email template's settings.
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '422':
           description: Could not update the email template's settings due to an invalid setting value.
           content:
@@ -3746,6 +4225,10 @@ paths:
         '204':
           description: Successfully sent a test email.
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3772,6 +4255,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ThemeResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3801,6 +4288,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ThemeResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -3831,6 +4322,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
           content:
@@ -3879,6 +4372,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
           content:
@@ -3899,6 +4394,8 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
           content:
@@ -3947,6 +4444,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
           content:
@@ -3967,6 +4466,8 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
           content:
@@ -4015,6 +4516,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
           content:
@@ -4035,6 +4538,8 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
           content:
@@ -4097,6 +4602,8 @@ paths:
                   $ref: '#/components/examples/CAPTCHAInstanceResponseHCaptcha'
                 ReCaptcha:
                   $ref: '#/components/examples/CAPTCHAInstanceResponseReCaptcha'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
           description: Forbidden
           content:
@@ -4262,6 +4769,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DomainListResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -4286,6 +4795,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DomainResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -4310,6 +4823,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DomainResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4330,6 +4847,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4358,6 +4879,12 @@ paths:
         '204':
           description: No Content
           content: {}
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4382,6 +4909,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DomainResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4402,6 +4933,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/EventHook'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -4426,6 +4959,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventHook'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -4450,6 +4987,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventHook'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4480,6 +5021,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventHook'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4500,6 +5047,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4524,6 +5075,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventHook'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4548,6 +5103,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventHook'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4572,6 +5131,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventHook'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4592,6 +5155,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Feature'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -4616,6 +5181,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Feature'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4642,6 +5211,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Feature'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4668,6 +5241,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Feature'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4701,6 +5278,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Feature'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4749,6 +5330,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Group'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -4773,6 +5356,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Group'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -4817,6 +5404,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/GroupRule'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -4841,6 +5430,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GroupRule'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -4869,6 +5462,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GroupRule'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4899,6 +5496,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GroupRule'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4924,6 +5527,10 @@ paths:
         '202':
           description: Accepted
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4945,6 +5552,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4966,6 +5577,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -4990,6 +5605,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Group'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5020,6 +5639,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Group'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5040,6 +5665,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5078,6 +5707,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Application'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5108,6 +5741,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Role'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5145,6 +5782,12 @@ paths:
         '201':
           description: Success
           content: {}
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5174,6 +5817,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Role'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5199,6 +5846,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5240,6 +5891,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CatalogApplication'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5271,6 +5926,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5301,6 +5960,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5337,6 +6000,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5372,6 +6039,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5413,6 +6084,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Group'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5444,6 +6119,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - oauth2:
             - okta.roles.manage
@@ -5473,6 +6152,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - oauth2:
             - okta.roles.manage
@@ -5510,6 +6193,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/User'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5536,6 +6223,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5561,6 +6252,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5604,6 +6299,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/IdentityProvider'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -5628,6 +6325,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IdentityProvider'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -5661,6 +6362,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/JsonWebKey'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -5685,6 +6388,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JsonWebKey'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -5709,6 +6416,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JsonWebKey'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5729,6 +6440,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5753,6 +6468,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IdentityProvider'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5783,6 +6502,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IdentityProvider'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5803,6 +6528,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5829,6 +6558,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Csr'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5859,6 +6592,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Csr'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5888,6 +6627,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Csr'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5913,6 +6656,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5964,6 +6711,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JsonWebKey'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -5990,6 +6743,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/JsonWebKey'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6021,6 +6778,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JsonWebKey'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6050,6 +6811,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JsonWebKey'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6084,6 +6849,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JsonWebKey'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6108,6 +6877,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IdentityProvider'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6132,6 +6905,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IdentityProvider'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6158,6 +6935,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/IdentityProviderApplicationUser'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6187,6 +6968,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IdentityProviderApplicationUser'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6222,6 +7007,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IdentityProviderApplicationUser'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6247,6 +7038,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6278,6 +7073,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/SocialAuthToken'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6303,6 +7102,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/InlineHook'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -6327,6 +7128,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InlineHook'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -6351,6 +7156,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InlineHook'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6381,6 +7190,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InlineHook'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6401,6 +7216,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6432,6 +7251,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InlineHookResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6456,6 +7281,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InlineHook'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       tags:
         - InlineHook
   /api/v1/inlineHooks/{inlineHookId}/lifecycle/deactivate:
@@ -6476,6 +7303,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InlineHook'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       tags:
         - InlineHook
   /api/v1/logs:
@@ -6525,6 +7354,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/LogEvent'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -6565,6 +7396,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ProfileMapping'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -6589,6 +7422,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProfileMapping'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6619,6 +7456,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProfileMapping'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6643,6 +7486,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserSchema'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6673,6 +7520,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserSchema'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6692,6 +7545,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GroupSchema'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -6714,6 +7569,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GroupSchema'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -6734,6 +7593,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/LinkedObject'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -6758,6 +7619,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LinkedObject'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -6782,6 +7647,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LinkedObject'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6802,6 +7671,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6826,6 +7699,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserSchema'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6856,6 +7733,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserSchema'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6876,6 +7759,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/UserType'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -6900,6 +7785,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserType'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -6924,6 +7813,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserType'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6954,6 +7847,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserType'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -6984,6 +7883,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserType'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -7004,6 +7909,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -7023,6 +7932,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrgSetting'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -7045,6 +7956,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrgSetting'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -7069,6 +7984,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrgSetting'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -7090,6 +8009,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/OrgContactTypeObj'
                 type: array
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -7114,6 +8035,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrgContactUser'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -7144,6 +8069,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrgContactUser'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -7182,6 +8113,10 @@ paths:
                         reason: This email address does not belong to any user in your organization.
                       - emailAddress: name@okta@com
                         reason: Invalid email address. The provided email address failed validation against RFC 3696.
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -7203,6 +8138,10 @@ paths:
       responses:
         '201':
           description: Created
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -7222,6 +8161,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrgPreferences'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -7241,6 +8182,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrgPreferences'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -7260,6 +8203,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrgPreferences'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -7279,6 +8224,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrgOktaCommunicationSetting'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -7298,6 +8245,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrgOktaCommunicationSetting'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -7317,6 +8266,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrgOktaCommunicationSetting'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -7336,6 +8287,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrgOktaSupportSettingsObj'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -7355,6 +8308,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrgOktaSupportSettingsObj'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -7374,6 +8329,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrgOktaSupportSettingsObj'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -7393,6 +8350,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrgOktaSupportSettingsObj'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -7428,6 +8387,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Policy'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -7458,6 +8419,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Policy'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -7487,6 +8452,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Policy'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -7517,6 +8486,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Policy'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -7537,6 +8512,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -7558,6 +8537,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -7579,6 +8562,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -7605,6 +8592,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/PolicyRule'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -7635,6 +8626,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PolicyRule'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -7664,6 +8661,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PolicyRule'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -7699,6 +8700,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PolicyRule'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -7724,6 +8731,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -7750,6 +8761,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -7776,6 +8791,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -7802,6 +8821,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Subscription'
                 type: array
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
       security:
@@ -7833,6 +8854,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Subscription'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
       security:
@@ -7860,6 +8883,8 @@ paths:
       responses:
         '200':
           description: Success
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
       security:
@@ -7887,6 +8912,8 @@ paths:
       responses:
         '200':
           description: Success
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
       security:
@@ -7916,6 +8943,8 @@ paths:
                 $ref: '#/components/schemas/Session'
         '400':
           description: Bad Request
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
       tags:
@@ -7940,6 +8969,8 @@ paths:
                 $ref: '#/components/schemas/Session'
         '400':
           description: Bad Request
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
       security:
@@ -7962,6 +8993,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -7986,6 +9021,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Session'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
       security:
@@ -8013,6 +9050,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/SmsTemplate'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -8037,6 +9076,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SmsTemplate'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -8061,6 +9104,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SmsTemplate'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -8091,6 +9138,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SmsTemplate'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -8121,6 +9174,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SmsTemplate'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -8141,6 +9200,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -8159,6 +9222,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ThreatInsightConfiguration'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -8183,6 +9248,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ThreatInsightConfiguration'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -8222,6 +9291,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/TrustedOrigin'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -8246,6 +9317,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TrustedOrigin'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -8270,6 +9345,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TrustedOrigin'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -8300,6 +9379,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TrustedOrigin'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -8320,6 +9405,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -8344,6 +9433,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TrustedOrigin'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -8368,6 +9461,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TrustedOrigin'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -8522,6 +9619,10 @@ paths:
         '204':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - oauth2:
             - okta.users.manage
@@ -8716,6 +9817,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AppLink'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -8742,6 +9847,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/OAuth2Client'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -8787,6 +9896,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/OAuth2ScopeConsentGrant'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -8812,6 +9925,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -8857,6 +9974,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/OAuth2RefreshToken'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -8882,6 +10003,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -8929,6 +10054,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OAuth2RefreshToken'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -8959,6 +10088,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -8995,6 +10128,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserCredentials'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9026,6 +10165,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserCredentials'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9056,6 +10201,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ForgotPasswordResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9093,6 +10242,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserCredentials'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9119,6 +10274,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/UserFactor'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9173,6 +10332,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserFactor'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9199,6 +10364,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/UserFactor'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9225,6 +10394,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/SecurityQuestion'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
       tags:
@@ -9252,6 +10425,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserFactor'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9277,6 +10454,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9313,6 +10494,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserFactor'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9347,6 +10534,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VerifyUserFactorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9408,6 +10599,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VerifyUserFactorResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9452,6 +10649,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/OAuth2ScopeConsentGrant'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9472,6 +10673,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9505,6 +10710,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OAuth2ScopeConsentGrant'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9530,6 +10739,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9556,6 +10769,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Group'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9582,6 +10799,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/IdentityProvider'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9613,6 +10834,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserActivationToken'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9640,6 +10865,10 @@ paths:
         '200':
           description: OK
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9664,6 +10893,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9688,6 +10921,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TempPassword'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9718,6 +10955,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserActivationToken'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9739,6 +10980,10 @@ paths:
         '200':
           description: OK
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9768,6 +11013,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResetPasswordToken'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9789,6 +11038,10 @@ paths:
         '200':
           description: OK
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9810,6 +11063,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9831,6 +11088,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9872,6 +11133,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ResponseLinks'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9897,6 +11162,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9927,6 +11196,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Role'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9961,6 +11234,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Role'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -9990,6 +11269,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Role'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -10015,6 +11298,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -10056,6 +11343,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CatalogApplication'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -10081,6 +11372,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -10112,6 +11407,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -10142,6 +11441,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -10178,6 +11481,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -10213,6 +11520,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -10254,6 +11565,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Group'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -10285,6 +11600,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -10315,6 +11634,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -10342,6 +11665,10 @@ paths:
         '204':
           description: No Content
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -10368,6 +11695,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Subscription'
                 type: array
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
       security:
@@ -10399,6 +11728,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Subscription'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
       security:
@@ -10426,6 +11757,8 @@ paths:
       responses:
         '200':
           description: Success
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
       security:
@@ -10453,6 +11786,8 @@ paths:
       responses:
         '200':
           description: Success
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           description: Not Found
       security:
@@ -10493,6 +11828,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/NetworkZone'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -10517,6 +11854,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NetworkZone'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
       security:
         - api_token: []
         - oauth2:
@@ -10541,6 +11882,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NetworkZone'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -10571,6 +11916,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NetworkZone'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -10591,6 +11942,10 @@ paths:
         '200':
           description: Success
           content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -10615,6 +11970,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NetworkZone'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -10639,6 +11998,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NetworkZone'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
       security:
         - api_token: []
         - oauth2:
@@ -11274,6 +12637,20 @@ components:
       schema:
         type: string
       description: The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/reference/core-okta-api/#pagination) for more information.
+    queryExpandEmailTemplate:
+      name: expand
+      in: query
+      style: form
+      explode: false
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - settings
+            - customizationCount
+      description: Specifies additional metadata to be included in the response.
     queryLanguage:
       name: language
       schema:
@@ -12854,9 +14231,6 @@ components:
         unit:
           type: string
     EmailContent:
-      required:
-        - subject
-        - body
       type: object
       properties:
         subject:
@@ -12865,6 +14239,9 @@ components:
         body:
           type: string
           description: The email's HTML body. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references).
+      required:
+        - subject
+        - body
     EmailCustomization:
       allOf:
         - $ref: '#/components/schemas/EmailContent'
@@ -12981,6 +14358,14 @@ components:
               $ref: '#/components/schemas/HrefObject'
           readOnly: true
           description: Links to resources related to this email template.
+        _embedded:
+          type: object
+          properties:
+            settings:
+              $ref: '#/components/schemas/EmailSettings'
+            customizationCount:
+              type: integer
+          readOnly: true
     EmailTemplateTouchPointVariant:
       type: string
       enum:
@@ -13708,20 +15093,20 @@ components:
         provider:
           $ref: '#/components/schemas/IdentityProviderPolicyProvider'
     IdpPolicyRuleAction:
+      type: object
       properties:
         providers:
           items:
             $ref: '#/components/schemas/IdpPolicyRuleActionProvider'
           type: array
-      type: object
     IdpPolicyRuleActionProvider:
+      type: object
       properties:
         id:
           readOnly: true
           type: string
         type:
           type: string
-      type: object
     IframeEmbedScopeAllowedApps:
       type: string
       enum:
@@ -16588,9 +17973,9 @@ components:
             properties: {}
           readOnly: true
     TimeDuration:
+      description: A time duration specified as an [ISO-8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations).
       type: string
       pattern: ^P(?!$)(\d+Y)?(\d+M)?(\d+W)?(\d+D)?(T(?=\d)(\d+H)?(\d+M)?(\d+S)?)?$
-      description: A time duration specified as an [ISO-8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations).
     TokenAuthorizationServerPolicyRuleAction:
       type: object
       properties:
