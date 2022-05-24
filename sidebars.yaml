@@ -15,8 +15,10 @@ reference:
         separatorLine: true
       - label: MyAccount APIs
         page: openapi/okta-management/myaccount.page.yaml/*
-  - group: IGA APIs
+  - group: ASA APIs
     expanded: true
     pages:
-      - label: IGA APIs
-        page: openapi/iga/iga.page.yaml/*
+      - label: Overview
+        page: openapi/asa/guides/overview.md
+      - label: ASA APIs
+        page: openapi/asa/asa.page.yaml/*

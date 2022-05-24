@@ -1,6 +1,7 @@
 type: reference-docs
-definitionId: iga-api
+definitionId: asa-api
 settings:
+  pagination: section
   generateCodeSamples:
     languages:
       - lang: curl
