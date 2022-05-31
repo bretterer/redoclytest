@@ -76,59 +76,66 @@ export const theme = {
     //   },
     // },
     http: {
-      get: '#6bbd5b',
-      post: '#248fb2',
-      put: '#9b708b',
+      get: Tokens.ColorPaletteGreen500,
+      post: Tokens.ColorPaletteTurquoise500,
+      put: Tokens.ColorPalettePurple500,
       options: '#d3ca12',
-      patch: '#e09d43',
-      delete: '#e27a7a',
+      patch: Tokens.ColorPaletteTurquoise500,
+      delete: Tokens.ColorPaletteRed500,
       basic: '#999',
       link: '#31bbb6',
       head: '#c167e4',
     },
     navbar: {
-      main: ({ colors }) => Tokens.ColorPaletteBlue900,
-      gradient: ({ colors }) => Tokens.ColorPaletteBlue900,
+      main: Tokens.ColorPaletteBlue900,
+      gradient: Tokens.ColorPaletteBlue900,
       contrastText: Tokens.ColorTextBodyInverse,
       activeBgColor: Tokens.ColorBackgroundPrimaryLight,
       fontSize: Tokens.FontSizeBody
     },
     footer: {
-      main: ({ colors }) => Tokens.ColorPaletteBlue900,
+      main: Tokens.ColorPaletteBlue900,
       contrastText: Tokens.ColorTextBodyInverse
     },
   },
-
   sidebar: {
-    backgroundColor: Tokens.ColorBackgroundBase,
+    backgroundColor: Tokens.ColorPaletteNeutral000,
+    activeBgColor: Tokens.ColorPaletteNeutral000,
+    rightLineColor: Tokens.ColorPaletteNeutral000,
+    separatorLabelColor: '#000'
   },
   // tocPanel: {
   //   width: '240px',
   // },
-
   typography: {
     fontSize: Tokens.FontSizeBody,
-    lineHeight: Tokens.FontLineHeightUi,
+    lineHeight: 1.6, // Tokens.FontLineHeightUi is too compact
     fontWeightRegular: Tokens.FontWeightNormal,
     fontWeightBold: Tokens.FontWeightBold,
     fontWeightLight: '300',
     fontFamily: fontFamily,
     headings: {
       fontWeight: Tokens.FontWeightNormal,
-      color: ({ colors }) => Tokens.ColorTextHeading,
+      color: Tokens.ColorTextHeading,
+      fontFamily: fontFamily,
     },
     heading1: {
       fontSize: Tokens.FontSizeHeading1,
       lineHeight: Tokens.FontLineHeightHeading1,
+      color: Tokens.ColorPaletteNeutral900,
+      marginTop:  '0px',
+      marginBottom: '18px'
       // fontWeight: '600',
       // fontFamily: ({ typography }) => typography.headings.fontFamily,
       // lineHeight: ({ typography }) => typography.lineHeight,
       // color: ({ colors }) => colors.primary.main,
       // capitalize: true,
     },
+    // NOTE: bumping heading hierarchy down one since 1 and 2 are too similar
     heading2: {
-      fontSize: Tokens.FontSizeHeading2,
-      lineHeight: Tokens.FontLineHeightHeading2,
+      fontSize: Tokens.FontSizeHeading3,
+      lineHeight: Tokens.FontLineHeightHeading3,
+      marginBottom: '18px'
     //   fontWeight: '600',
     //   color: ({ colors }) => colors.text.primary,
     //   fontFamily: ({ typography }) => typography.headings.fontFamily,
@@ -136,16 +143,18 @@ export const theme = {
     //   capitalize: false,
     },
     heading3: {
-      fontSize: Tokens.FontSizeHeading3,
-      lineHeight: Tokens.FontLineHeightHeading3,
+      fontSize: Tokens.FontSizeHeading4,
+      lineHeight: Tokens.FontLineHeightHeading4,
+      marginBottom: '18px'
     //   color: ({ colors }) => colors.text.primary,
     //   fontFamily: ({ typography }) => typography.headings.fontFamily,
     //   lineHeight: ({ typography }) => typography.lineHeight,
     //   capitalize: false,
     },
     heading4: {
-      fontSize: Tokens.FontSizeHeading4,
-      lineHeight: Tokens.FontLineHeightHeading4,
+      fontSize: Tokens.FontSizeHeading5,
+      lineHeight: Tokens.FontLineHeightHeading5,
+      marginBottom: '18px'
     // // ...
     // },
     // heading5: {

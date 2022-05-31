@@ -50,3 +50,64 @@
 nav img {
   color: #00297a;
 }
+
+/* 
+Last Updated text above h1 on guides
+Grey 600, increase spacing from top nav
+*/
+time[data-cy="last-updated"] {
+  margin-top: 48px;
+  color: #6e6e78 !important;
+}
+
+/* 
+Left nav caret
+Increase horizontal spacing between arrow and text
+*/
+i[data-cy="arrow"] {
+  margin-right: 8px;
+}
+
+/* 
+PUT/POST/GET/DELETE icon (wrapper) in left nav API items
+Center with text
+*/
+div[data-cy^="sidebar-item-"] div {
+  margin-top: -2px;
+}
+
+/* 
+PUT/POST/GET/DELETE icon in left nav API items
+Increase horizontal spacing between icon and text
+*/
+span.operation-type {
+  margin-right: 8px;
+}
+
+/* 
+Left nav API reference tag groups
+Grey 700
+*/
+aside ul ul div > span:not(.operation-type) {
+  color: #585862 !important;
+}
+
+/* 
+Left nav API reference tag groups
+Blue 500
+*/
+aside ul ul > span {
+  color: #1662dd !important;
+}
+
+/* 
+Table header cells
+Blue 900
+*/
+table th {
+  background-color: #00297a !important;
+}
+
+section {
+  max-width: 100% !important;
+}

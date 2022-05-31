@@ -91,6 +91,8 @@ tags:
     x-displayName: Trusted Origins
   - name: User
     x-displayName: Users
+    description:
+      "$ref" : ./tags/User.md
   - name: UserFactor
     x-displayName: Factors
   - name: NetworkZone

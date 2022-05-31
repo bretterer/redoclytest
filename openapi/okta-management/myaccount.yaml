@@ -40,6 +40,12 @@ tags:
   - name: MyAccount Email
   - name: MyAccount Phone
   - name: MyAccount Profile
+x-tagGroups:
+  - name: MyAccount
+    tags:
+      - MyAccount Email
+      - MyAccount Phone
+      - MyAccount Profile
 paths:
   /idp/myaccount/emails:
     post:

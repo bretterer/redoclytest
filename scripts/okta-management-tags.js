@@ -16,50 +16,5 @@ for (let tag of specYaml.tags) {
     }
 }
 
-// set up redocly extension to group tags for left nav
-if (!("x-tagGroups" in specYaml)) {
-    // TODO make this more programatic
-    const tagGroups = yaml.load(`
-- name: User Directory
-  tags:
-    - User
-    - Group
-    - UserType
-    - Schema
-    - LinkedObject
-    - ProfileMapping
-- name: Authentication
-  tags:
-    - ApiToken
-    - Application
-    - Authenticator
-    - AuthorizationServer
-    - CAPTCHA
-    - IdentityProvider
-    - Policy
-    - Session
-    - ThreatInsight
-    - TrustedOrigin
-    - UserFactor
-    - NetworkZone
-- name: Customization
-  tags:
-    - Customization
-    - Domain
-    - Template
-- name: Other
-  tags:
-    - EventHook
-    - Feature
-    - InlineHook
-    - OrgSetting
-    - SystemLog
-    - Subscription`)
-
-    specYaml["x-tagGroups"] = tagGroups
-    console.log("Added x-tagGroups")
-}
-
-
 const data = yaml.dump(specYaml, {lineWidth: -1, noArrayIndent: false})
 fs.writeFileSync(managementSpec, data)
