@@ -1,6 +1,7 @@
 type: reference-docs
 definitionId: asa-api
 settings:
+  hideInfoSection: true
   pagination: section
   generateCodeSamples:
     languages:

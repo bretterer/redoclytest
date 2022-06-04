@@ -1,6 +1,6 @@
 meta:
   title: Okta API Reference
-  description: The best API documentation ever.
+  description: Okta Developer API Reference
   siteUrl: https://developer.okta.com
   keywords: okta, api reference docs
   lang: en-US
@@ -21,8 +21,8 @@ oasDefinitions:
 stylesheets:
   - https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap
   - https://fonts.googleapis.com/css?family=Source+Code+Pro:300,400,600,700&display=swap
-  - './static/main.css'
-  - './static/apiLifecycle.css'
+  - './static/css/main.css'
+  - './static/css/apiLifecycle.css'
 #analytics:
   # ga:
   # note that GA doesn't work in the development environment
@@ -32,12 +32,10 @@ stylesheets:
 nav:
   - label: Developer Docs
     href: https://developer.okta.com
-  - label: Sign in to Okta
-    href: https://login.okta.com
   - search: true
 
 footer:
-  copyrightText: Copyright © 2021 Okta.
+  copyrightText: Copyright © 2022 Okta.
   columns:
     - group: CONTACT & LEGAL
       items:

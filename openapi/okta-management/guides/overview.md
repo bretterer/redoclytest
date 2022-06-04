@@ -1,0 +1,20 @@
+---
+title: Okta Management API
+meta:
+  - name: description
+    content: Learn how the Okta API works and learn about the compatibility rules and design principles.
+---
+
+# Okta Management API
+
+### Authentication
+
+The Okta API currently requires the custom HTTP authentication scheme `SSWS` for authentication. All requests must have a valid API key specified in the HTTP `Authorization` header with the `SSWS` scheme.
+
+    Authorization: SSWS 00QCjAl4MlV-WPXM...0HmjFx-vbGua
+
+> **Note:** See [Obtaining a token](https://developer.okta.com/docs/guides/create-an-api-token/) for instructions on how to get an API key for your organization.
+
+The API key (API token) isn't interchangeable with an Okta [session token](https://developer.okta.com/docs/reference/api/authn/#session-token), access tokens, or ID tokens used with [OAuth 2.0 and OpenID Connect](https://developer.okta.com/docs/reference/api/oidc/).
+
+You can now interact with Okta APIs that use scoped OAuth 2.0 access tokens for a number of Okta endpoints. Each access token enables the bearer to perform specific actions on specific Okta endpoints, with that ability controlled by the scopes that the access token contains. See [OAuth 2.0 for Okta APIs](https://developer.okta.com/docs/guides/implement-oauth-for-okta/).

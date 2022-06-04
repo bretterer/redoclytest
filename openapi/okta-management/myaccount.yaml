@@ -1804,7 +1804,7 @@ components:
                   - errorSummary: Phone authenticator is not enabled for your org.
   securitySchemes:
     api_token:
-      description: "Pass the API token as the Authorization header value prefixed with SSWS: 'Authorizaion: SSWS {API Token}'"
+      description: "Pass the API token as the Authorization header value prefixed with SSWS: 'Authorization: SSWS {API Token}'"
       name: Authorization
       type: apiKey
       in: header
