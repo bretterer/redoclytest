@@ -37,37 +37,35 @@ servers:
         default: auth.your-custom-domain.com
         description: The custom domain configured for your organization
 tags:
-  - name: MyAccount Email
-  - name: MyAccount Phone
-  - name: MyAccount Profile
+  - name: Email
+  - name: Phone
+  - name: Profile
 x-tagGroups:
   - name: MyAccount
     tags:
-      - MyAccount Email
-      - MyAccount Phone
-      - MyAccount Profile
+      - Email
+      - Phone
+      - Profile
 paths:
   /idp/myaccount/emails:
-    post:
-      summary: Add New Email
-      description: Add a new email
-      tags:
-        - MyAccount Email
+    get:
+      summary: List all Emails
+      description: List all emails
+      operationId: get-idp-myaccount-emails
       responses:
-        '201':
-          $ref: '#/components/responses/Unverified-Email-Response'
-        '400':
-          $ref: '#/components/responses/Error-InvalidEmail-Response-400'
+        '200':
+          $ref: '#/components/responses/Email-Array-Response'
         '401':
           $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
-        '403':
-          $ref: '#/components/responses/Error-Email-Response-403'
-        '409':
-          $ref: '#/components/responses/Error-EmailConflict-Response-409'
-      operationId: post-idp-myaccount-emails
       security:
-        - oauth2:
-            - okta.myaccount.email.manage
+        - OAuth 2.0:
+            - okta.myaccount.email.read
+      tags:
+        - Email
+    post:
+      summary: Create an Email
+      description: Add a new email
+      operationId: post-idp-myaccount-emails
       requestBody:
         content:
           application/json:
@@ -112,35 +110,23 @@ paths:
                   role: PRIMARY
                   state: JPcFLTwOq7UvoFtmRd3EnyQwsR0PbDSI
         description: New email
-    get:
-      summary: List My Emails
-      operationId: get-idp-myaccount-emails
-      description: List all emails
-      tags:
-        - MyAccount Email
-      security:
-        - oauth2:
-            - okta.myaccount.email.read
       responses:
-        '200':
-          $ref: '#/components/responses/Email-Array-Response'
+        '201':
+          $ref: '#/components/responses/Unverified-Email-Response'
+        '400':
+          $ref: '#/components/responses/Error-InvalidEmail-Response-400'
         '401':
           $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
-  '/idp/myaccount/emails/{id}':
-    get:
-      summary: Get Email By ID
-      description: Get an email by email id
-      tags:
-        - MyAccount Email
-      responses:
-        '200':
-          $ref: '#/components/responses/Verified-Email-Response'
-        '401':
-          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
-      operationId: 'get-idp-myaccount-emails-:id:'
+        '403':
+          $ref: '#/components/responses/Error-Email-Response-403'
+        '409':
+          $ref: '#/components/responses/Error-EmailConflict-Response-409'
       security:
-        - oauth2:
-            - okta.myaccount.email.read
+        - OAuth 2.0:
+            - okta.myaccount.email.manage
+      tags:
+        - Email
+  /idp/myaccount/emails/{id}:
     parameters:
       - schema:
           type: string
@@ -148,17 +134,30 @@ paths:
         name: id
         in: path
         required: true
-    delete:
-      summary: Delete Email By ID
-      description: Delete an email by email id
+    get:
+      summary: Retrieve an Email
+      description: Get an email by email id
+      operationId: 'get-idp-myaccount-emails-:id:'
+      responses:
+        '200':
+          $ref: '#/components/responses/Verified-Email-Response'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+      security:
+        - OAuth 2.0:
+            - okta.myaccount.email.read
       tags:
-        - MyAccount Email
+        - Email
+    delete:
+      summary: Delete an Email
+      description: Delete an email by email id
       operationId: 'delete-idp-myaccount-emails-:id:'
+      parameters: []
       responses:
         '204':
           description: No Content
           content:
-            'application/json;okta-version=1.0.0': { }
+            application/json;okta-version=1.0.0: {}
         '400':
           $ref: '#/components/responses/Error-InvalidEmailDeletion-400'
         '401':
@@ -168,60 +167,11 @@ paths:
         '404':
           $ref: '#/components/responses/Error-EmailResourceNotFound-Response-404'
       security:
-        - oauth2:
+        - OAuth 2.0:
             - okta.myaccount.email.manage
-      parameters: [ ]
-  '/idp/myaccount/emails/{id}/challenge/{challengeId}/verify':
-    parameters:
-      - schema:
-          type: string
-          example: 00T196qTp3LIMZQ0L0g3
-        name: id
-        in: path
-        required: true
-      - schema:
-          type: string
-        name: challengeId
-        in: path
-        required: true
-    post:
-      summary: Verify Email OTP
-      operationId: post-idp-myaccount-emails-id-verify
-      description: Verify a otp for an email
       tags:
-        - MyAccount Email
-      responses:
-        '200':
-          description: OK
-          content:
-            'application/json;okta-version=1.0.0': { }
-        '401':
-          $ref: '#/components/responses/Error-VerifyPhoneEmail-Response-401'
-        '403':
-          $ref: '#/components/responses/Error-Email-Response-403'
-        '404':
-          $ref: '#/components/responses/Error-EmailChallengeResourceNotFound-Response-404'
-      security:
-        - oauth2:
-            - okta.myaccount.email.manage
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                verificationCode:
-                  type: string
-                  example: '498560'
-                  format: password
-                  writeOnly: true
-              required:
-                - verificationCode
-            examples:
-              OTP Example:
-                value:
-                  verificationCode: '456058'
-  '/idp/myaccount/emails/{id}/challenge':
+        - Email
+  /idp/myaccount/emails/{id}/challenge:
     parameters:
       - schema:
           type: string
@@ -230,14 +180,9 @@ paths:
         in: path
         required: true
     post:
-      summary: Send Email Challenge
-      operationId: post-idp-myaccount-emails-id-challenge
+      summary: Send an Email Challenge
       description: Send a challenge on an email
-      tags:
-        - MyAccount Email
-      security:
-        - oauth2:
-            - okta.myaccount.email.manage
+      operationId: post-idp-myaccount-emails-id-challenge
       requestBody:
         content:
           application/json:
@@ -257,9 +202,9 @@ paths:
       responses:
         '201':
           description: Created
-          headers: { }
+          headers: {}
           content:
-            'application/json;okta-version=1.0.0':
+            application/json;okta-version=1.0.0:
               schema:
                 description: ''
                 type: object
@@ -271,12 +216,12 @@ paths:
                     email: s.jackson@example.com
                   _links:
                     verify:
-                      href: 'https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.2wdtXPtmS0WpKq4bnjlYIw/verify'
+                      href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.2wdtXPtmS0WpKq4bnjlYIw/verify
                       hints:
                         allow:
                           - POST
                     poll:
-                      href: 'https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.2wdtXPtmS0WpKq4bnjlYIw'
+                      href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.2wdtXPtmS0WpKq4bnjlYIw
                       hints:
                         allow:
                           - GET
@@ -356,12 +301,12 @@ paths:
                       email: s.jackson@example.com
                     _links:
                       verify:
-                        href: 'https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.2wdtXPtmS0WpKq4bnjlYIw/verify'
+                        href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.2wdtXPtmS0WpKq4bnjlYIw/verify
                         hints:
                           allow:
                             - POST
                       poll:
-                        href: 'https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.2wdtXPtmS0WpKq4bnjlYIw'
+                        href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.2wdtXPtmS0WpKq4bnjlYIw
                         hints:
                           allow:
                             - GET
@@ -371,7 +316,12 @@ paths:
           $ref: '#/components/responses/Error-Email-Response-403'
         '404':
           $ref: '#/components/responses/Error-EmailResourceNotFound-Response-404'
-  '/idp/myaccount/emails/{id}/challenge/{challengeId}':
+      security:
+        - OAuth 2.0:
+            - okta.myaccount.email.manage
+      tags:
+        - Email
+  /idp/myaccount/emails/{id}/challenge/{challengeId}:
     parameters:
       - schema:
           type: string
@@ -386,15 +336,14 @@ paths:
         in: path
         required: true
     get:
-      summary: Poll for Email Magic Link
+      summary: Poll the Challenge for Email Magic Link
       description: Poll for challenge status for an email
-      tags:
-        - MyAccount Email
+      operationId: get-idp-myaccount-emails-id-challenge-challengeId
       responses:
         '200':
           description: OK
           content:
-            'application/json;okta-version=1.0.0':
+            application/json;okta-version=1.0.0:
               schema:
                 description: ''
                 type: object
@@ -406,12 +355,12 @@ paths:
                     email: s.jackson@example.com
                   _links:
                     verify:
-                      href: 'https://example.okta.com/idp/myaccount/emails/da03e945d44d8b714da2b9fded39e851/challenge/myaccount.DDvNA6XORA2dIfB894o32g/verify'
+                      href: https://example.okta.com/idp/myaccount/emails/da03e945d44d8b714da2b9fded39e851/challenge/myaccount.DDvNA6XORA2dIfB894o32g/verify
                       hints:
                         allow:
                           - POST
                     poll:
-                      href: 'https://example.okta.com/idp/myaccount/emails/da03e945d44d8b714da2b9fded39e851/challenge/myaccount.DDvNA6XORA2dIfB894o32g'
+                      href: https://example.okta.com/idp/myaccount/emails/da03e945d44d8b714da2b9fded39e851/challenge/myaccount.DDvNA6XORA2dIfB894o32g
                       hints:
                         allow:
                           - GET
@@ -491,12 +440,12 @@ paths:
                       email: s.jackson@example.com
                     _links:
                       verify:
-                        href: 'https://example.okta.com/idp/myaccount/emails/da03e945d44d8b714da2b9fded39e851/challenge/myaccount.DDvNA6XORA2dIfB894o32g/verify'
+                        href: https://example.okta.com/idp/myaccount/emails/da03e945d44d8b714da2b9fded39e851/challenge/myaccount.DDvNA6XORA2dIfB894o32g/verify
                         hints:
                           allow:
                             - POST
                       poll:
-                        href: 'https://example.okta.com/idp/myaccount/emails/da03e945d44d8b714da2b9fded39e851/challenge/myaccount.DDvNA6XORA2dIfB894o32g'
+                        href: https://example.okta.com/idp/myaccount/emails/da03e945d44d8b714da2b9fded39e851/challenge/myaccount.DDvNA6XORA2dIfB894o32g
                         hints:
                           allow:
                             - GET
@@ -504,47 +453,80 @@ paths:
           $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
         '404':
           $ref: '#/components/responses/Error-EmailChallengeResourceNotFound-Response-404'
-      operationId: get-idp-myaccount-emails-id-challenge-challengeId
       security:
-        - oauth2:
+        - OAuth 2.0:
             - okta.myaccount.email.manage
+      tags:
+        - Email
+  /idp/myaccount/emails/{id}/challenge/{challengeId}/verify:
+    parameters:
+      - schema:
+          type: string
+          example: 00T196qTp3LIMZQ0L0g3
+        name: id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: challengeId
+        in: path
+        required: true
+    post:
+      summary: Verify an Email OTP
+      description: Verify a otp for an email
+      operationId: post-idp-myaccount-emails-id-verify
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                verificationCode:
+                  type: string
+                  example: '498560'
+                  format: password
+                  writeOnly: true
+              required:
+                - verificationCode
+            examples:
+              OTP Example:
+                value:
+                  verificationCode: '456058'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;okta-version=1.0.0: {}
+        '401':
+          $ref: '#/components/responses/Error-VerifyPhoneEmail-Response-401'
+        '403':
+          $ref: '#/components/responses/Error-Email-Response-403'
+        '404':
+          $ref: '#/components/responses/Error-EmailChallengeResourceNotFound-Response-404'
+      security:
+        - OAuth 2.0:
+            - okta.myaccount.email.manage
+      tags:
+        - Email
   /idp/myaccount/phones:
     get:
-      summary: List My Phones
+      summary: List all Phones
       description: Get all my phones
-      tags:
-        - MyAccount Phone
+      operationId: get-idp-myaccount-phones
       responses:
         '200':
           $ref: '#/components/responses/Phone-Array-Response'
         '401':
           $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
-      operationId: get-idp-myaccount-phones
       security:
-        - oauth2:
+        - OAuth 2.0:
             - okta.myaccount.phone.read
+      tags:
+        - Phone
     post:
-      summary: Add New Phone
+      summary: Create a Phone
       description: Add a new phone
       operationId: post-idp-myaccount-phones
-      tags:
-        - MyAccount Phone
-      responses:
-        '201':
-          $ref: '#/components/responses/Unverified-Phone-Response'
-        '400':
-          $ref: '#/components/responses/Error-Create-Phone-Response-400'
-        '401':
-          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
-        '403':
-          $ref: '#/components/responses/Error-CreateChallengeVerify-Phone-Response-403'
-        '409':
-          $ref: '#/components/responses/Error-PhoneNumberExists-Response-409'
-        '500':
-          $ref: '#/components/responses/Error-FailedToSendOutOfBandChallenge-Response-500'
-      security:
-        - oauth2:
-            - okta.myaccount.phone.manage
       requestBody:
         content:
           application/json:
@@ -574,7 +556,25 @@ paths:
                     phoneNumber: +1(444)444-4444
                   sendCode: true
                   method: SMS
-  '/idp/myaccount/phones/{id}':
+      responses:
+        '201':
+          $ref: '#/components/responses/Unverified-Phone-Response'
+        '400':
+          $ref: '#/components/responses/Error-Create-Phone-Response-400'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+        '403':
+          $ref: '#/components/responses/Error-CreateChallengeVerify-Phone-Response-403'
+        '409':
+          $ref: '#/components/responses/Error-PhoneNumberExists-Response-409'
+        '500':
+          $ref: '#/components/responses/Error-FailedToSendOutOfBandChallenge-Response-500'
+      security:
+        - OAuth 2.0:
+            - okta.myaccount.phone.manage
+      tags:
+        - Phone
+  /idp/myaccount/phones/{id}:
     parameters:
       - schema:
           type: string
@@ -583,10 +583,9 @@ paths:
         in: path
         required: true
     get:
-      summary: Get Phone By ID
+      summary: Retrieve a Phone
       description: Get a phone given a phone id
-      tags:
-        - MyAccount Phone
+      operationId: get-idp-myaccount-phones-id
       responses:
         '200':
           $ref: '#/components/responses/Verified-Phone-Response'
@@ -594,21 +593,20 @@ paths:
           $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
         '404':
           $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
-      operationId: get-idp-myaccount-phones-id
       security:
-        - oauth2:
+        - OAuth 2.0:
             - okta.myaccount.phone.read
+      tags:
+        - Phone
     delete:
-      summary: Delete Phone By ID
+      summary: Delete a Phone
       description: Delete a phone given a phone id
       operationId: delete-idp-myaccount-phones-id
-      tags:
-        - MyAccount Phone
       responses:
         '204':
           description: No Content
           content:
-            'application/json;okta-version=1.0.0': { }
+            application/json;okta-version=1.0.0: {}
         '401':
           $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
         '403':
@@ -616,9 +614,11 @@ paths:
         '404':
           $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
       security:
-        - oauth2:
+        - OAuth 2.0:
             - okta.myaccount.phone.manage
-  '/idp/myaccount/phones/{id}/challenge':
+      tags:
+        - Phone
+  /idp/myaccount/phones/{id}/challenge:
     parameters:
       - schema:
           type: string
@@ -627,27 +627,9 @@ paths:
         in: path
         required: true
     post:
-      summary: Send Phone Challenge
+      summary: Send a Phone Challenge
       description: Send challenge for a phone
       operationId: post-idp-myaccount-phones-id-challenge
-      tags:
-        - MyAccount Phone
-      responses:
-        '200':
-          $ref: '#/components/responses/Challenged-Phone-Response'
-        '400':
-          $ref: '#/components/responses/Error-Challenge-Phone-Response-400'
-        '401':
-          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
-        '403':
-          $ref: '#/components/responses/Error-CreateChallengeVerify-Phone-Response-403'
-        '404':
-          $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
-        '500':
-          $ref: '#/components/responses/Error-FailedToSendOutOfBandChallenge-Response-500'
-      security:
-        - oauth2:
-            - okta.myaccount.phone.manage
       requestBody:
         content:
           application/json:
@@ -673,7 +655,25 @@ paths:
               Send-Voice-Challenge:
                 value:
                   method: CALL
-  '/idp/myaccount/phones/{id}/verify':
+      responses:
+        '200':
+          $ref: '#/components/responses/Challenged-Phone-Response'
+        '400':
+          $ref: '#/components/responses/Error-Challenge-Phone-Response-400'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+        '403':
+          $ref: '#/components/responses/Error-CreateChallengeVerify-Phone-Response-403'
+        '404':
+          $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
+        '500':
+          $ref: '#/components/responses/Error-FailedToSendOutOfBandChallenge-Response-500'
+      security:
+        - OAuth 2.0:
+            - okta.myaccount.phone.manage
+      tags:
+        - Phone
+  /idp/myaccount/phones/{id}/verify:
     parameters:
       - schema:
           type: string
@@ -682,29 +682,9 @@ paths:
         in: path
         required: true
     post:
-      summary: Verify Phone Challenge
+      summary: Verify a Phone Challenge
       description: Verify a phone challenge
       operationId: post-idp-myaccount-phones-id-verify
-      tags:
-        - MyAccount Phone
-      responses:
-        '204':
-          description: No Content
-          content:
-            'application/json;okta-version=1.0.0': { }
-        '400':
-          $ref: '#/components/responses/Error-Verify-Phone-Response-400'
-        '401':
-          $ref: '#/components/responses/Error-VerifyPhoneEmail-Response-401'
-        '403':
-          $ref: '#/components/responses/Error-CreateChallengeVerify-Phone-Response-403'
-        '404':
-          $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
-        '409':
-          $ref: '#/components/responses/Error-InvalidTransaction-Response-409'
-      security:
-        - oauth2:
-            - okta.myaccount.phone.manage
       requestBody:
         content:
           application/json:
@@ -722,17 +702,36 @@ paths:
               Verify-SMS-Challenge:
                 value:
                   verificationCode: '048284'
+      responses:
+        '204':
+          description: No Content
+          content:
+            application/json;okta-version=1.0.0: {}
+        '400':
+          $ref: '#/components/responses/Error-Verify-Phone-Response-400'
+        '401':
+          $ref: '#/components/responses/Error-VerifyPhoneEmail-Response-401'
+        '403':
+          $ref: '#/components/responses/Error-CreateChallengeVerify-Phone-Response-403'
+        '404':
+          $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
+        '409':
+          $ref: '#/components/responses/Error-InvalidTransaction-Response-409'
+      security:
+        - OAuth 2.0:
+            - okta.myaccount.phone.manage
+      tags:
+        - Phone
   /idp/myaccount/profile:
     get:
-      summary: Get My Profile
+      summary: Retrieve my Profile
       description: Get my profile
-      tags:
-        - MyAccount Profile
+      operationId: get-idp-myaccount-profile
       responses:
         '200':
           description: OK
           content:
-            'application/json;okta-version=1.0.0':
+            application/json;okta-version=1.0.0:
               schema:
                 $ref: '#/components/schemas/Profile'
               examples:
@@ -748,54 +747,21 @@ paths:
                       customInteger: 42
                     _links:
                       self:
-                        href: 'https://example.okta.com/idp/myaccount/profile'
+                        href: https://example.okta.com/idp/myaccount/profile
                       describedBy:
-                        href: 'https://example.okta.com/idp/myaccount/profile/schema'
+                        href: https://example.okta.com/idp/myaccount/profile/schema
         '401':
           $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
-      operationId: get-idp-myaccount-profile
       security:
-        - oauth2:
+        - OAuth 2.0:
             - okta.myaccount.profile.read
             - okta.myaccount.profile.manage
+      tags:
+        - Profile
     put:
-      summary: Update My Profile
+      summary: Replace my Profile
       description: Update my profile
       operationId: put-idp-myaccount-profile
-      tags:
-        - MyAccount Profile
-      responses:
-        '200':
-          description: OK
-          content:
-            'application/json;okta-version=1.0.0':
-              schema:
-                $ref: '#/components/schemas/Profile'
-              examples:
-                Success Response:
-                  value:
-                    createdAt: '2020-01-14T20:05:32.000Z'
-                    modifiedAt: '2020-01-14T20:05:32.000Z'
-                    profile:
-                      customBoolean: true
-                      foo: bar
-                      login: example@ex.ample.com
-                      mobilePhone: 555-555-5555
-                      customInteger: 42
-                    _links:
-                      self:
-                        href: 'https://example.okta.com/idp/myaccount/profile'
-                      describedBy:
-                        href: 'https://example.okta.com/idp/myaccount/profile/schema'
-        '400':
-          $ref: '#/components/responses/Error-UpdateProfile-Response-400'
-        '401':
-          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
-        '403':
-          $ref: '#/components/responses/Error-NoAccessForAdminUser-Response-403'
-      security:
-        - oauth2:
-            - okta.myaccount.profile.manage
       requestBody:
         content:
           application/json:
@@ -813,17 +779,50 @@ paths:
                     login: example@ex.ample.com
                     mobilePhone: 555-555-5555
                     customInteger: 42
-  /idp/myaccount/profile/schema:
-    get:
-      summary: Get My Profile Schema
-      description: Get my profile schema
-      tags:
-        - MyAccount Profile
       responses:
         '200':
           description: OK
           content:
-            'application/json;okta-version=1.0.0':
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Profile'
+              examples:
+                Success Response:
+                  value:
+                    createdAt: '2020-01-14T20:05:32.000Z'
+                    modifiedAt: '2020-01-14T20:05:32.000Z'
+                    profile:
+                      customBoolean: true
+                      foo: bar
+                      login: example@ex.ample.com
+                      mobilePhone: 555-555-5555
+                      customInteger: 42
+                    _links:
+                      self:
+                        href: https://example.okta.com/idp/myaccount/profile
+                      describedBy:
+                        href: https://example.okta.com/idp/myaccount/profile/schema
+        '400':
+          $ref: '#/components/responses/Error-UpdateProfile-Response-400'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+        '403':
+          $ref: '#/components/responses/Error-NoAccessForAdminUser-Response-403'
+      security:
+        - OAuth 2.0:
+            - okta.myaccount.profile.manage
+      tags:
+        - Profile
+  /idp/myaccount/profile/schema:
+    get:
+      summary: Retrieve my Profile Schema
+      description: Get my profile schema
+      operationId: get-idp-myaccount-profile-schema
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;okta-version=1.0.0:
               schema:
                 $ref: '#/components/schemas/Schema'
               examples:
@@ -861,16 +860,17 @@ paths:
                         type: integer
                     _links:
                       self:
-                        href: 'https://example.okta.com/idp/myaccount/profile/schema'
+                        href: https://example.okta.com/idp/myaccount/profile/schema
                       user:
-                        href: 'https://example.okta.com/idp/myaccount/profile'
+                        href: https://example.okta.com/idp/myaccount/profile
         '401':
           $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
-      operationId: get-idp-myaccount-profile-schema
       security:
-        - oauth2:
+        - OAuth 2.0:
             - okta.myaccount.profile.read
             - okta.myaccount.profile.manage
+      tags:
+        - Profile
 components:
   schemas:
     Email:
@@ -878,10 +878,6 @@ components:
       type: object
       properties:
         id:
-          type: string
-          minLength: 1
-          readOnly: true
-        status:
           type: string
           minLength: 1
           readOnly: true
@@ -897,6 +893,10 @@ components:
           type: array
           items:
             type: string
+        status:
+          type: string
+          minLength: 1
+          readOnly: true
         _links:
           type: object
           properties:
@@ -957,15 +957,40 @@ components:
         - status
         - profile
         - roles
+    Error:
+      description: Standard API Error Object
+      type: object
+      properties:
+        errorCauses:
+          type: array
+          items:
+            type: object
+            properties:
+              errorSummary:
+                type: string
+                example: Bad request because XYZ is missing.
+                readOnly: true
+        errorCode:
+          type: string
+          example: E0000001
+          readOnly: true
+        errorId:
+          type: string
+          example: oaeWGQKoQHeQmy0u8w8bPwi_Q
+          readOnly: true
+        errorLink:
+          type: string
+          example: E0000001
+          readOnly: true
+        errorSummary:
+          type: string
+          example: Bad request because XYZ is missing.
+          readOnly: true
     Phone:
       description: Phone Object
       type: object
       properties:
         id:
-          type: string
-          minLength: 1
-          readOnly: true
-        status:
           type: string
           minLength: 1
           readOnly: true
@@ -977,6 +1002,10 @@ components:
             phoneNumber:
               type: string
               minLength: 1
+        status:
+          type: string
+          minLength: 1
+          readOnly: true
         _links:
           type: object
           properties:
@@ -1023,64 +1052,9 @@ components:
         - id
         - status
         - profile
-    Error:
-      type: object
-      description: Standard API Error Object
-      properties:
-        errorCode:
-          type: string
-          example: E0000001
-          readOnly: true
-        errorSummary:
-          type: string
-          example: Bad request because XYZ is missing.
-          readOnly: true
-        errorLink:
-          type: string
-          example: E0000001
-          readOnly: true
-        errorId:
-          type: string
-          example: oaeWGQKoQHeQmy0u8w8bPwi_Q
-          readOnly: true
-        errorCauses:
-          type: array
-          items:
-            type: object
-            properties:
-              errorSummary:
-                type: string
-                example: Bad request because XYZ is missing.
-                readOnly: true
-    Schema:
-      title: Schema
-      type: object
-      description: Describes a user's directory profile schema (based on UD).
-      properties:
-        properties:
-          type: object
-          description: 'Based on https://developer.okta.com/docs/reference/api/schemas/#schema-properties'
-          readOnly: true
-        _links:
-          type: object
-          properties:
-            self:
-              type: object
-              properties:
-                href:
-                  type: string
-                  format: uri
-                  readOnly: true
-            user:
-              type: object
-              properties:
-                href:
-                  type: string
-                  format: uri
-                  readOnly: true
     Profile:
-      type: object
       description: Profile object based on the user's directory profile schema (based on UD).
+      type: object
       properties:
         createdAt:
           type: string
@@ -1109,11 +1083,37 @@ components:
                   type: string
                   format: uri
                   readOnly: true
+    Schema:
+      title: Schema
+      description: Describes a user's directory profile schema (based on UD).
+      type: object
+      properties:
+        properties:
+          type: object
+          description: Based on https://developer.okta.com/docs/reference/api/schemas/#schema-properties
+          readOnly: true
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+                  readOnly: true
+            user:
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+                  readOnly: true
   responses:
     Verified-Email-Response:
       description: Example response
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Email'
           examples:
@@ -1127,19 +1127,19 @@ components:
                   email: saml.jackson@example.com
                 _links:
                   self:
-                    href: 'https://example.okta.com/idp/myaccount/emails/69dca29c2d8dbb0dca14395ccdb92317'
+                    href: https://example.okta.com/idp/myaccount/emails/69dca29c2d8dbb0dca14395ccdb92317
                     hints:
                       allow:
                         - GET
                   challenge:
-                    href: 'https://example.okta.com/idp/myaccount/emails/69dca29c2d8dbb0dca14395ccdb92317/challenge'
+                    href: https://example.okta.com/idp/myaccount/emails/69dca29c2d8dbb0dca14395ccdb92317/challenge
                     hints:
                       allow:
                         - POST
     Unverified-Email-Response:
       description: Example response
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Email'
           examples:
@@ -1153,30 +1153,30 @@ components:
                   email: s.jackson@company.com
                 _links:
                   self:
-                    href: 'https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532'
+                    href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532
                     hints:
                       allow:
                         - GET
                         - DELETE
                   challenge:
-                    href: 'https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge'
+                    href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge
                     hints:
                       allow:
                         - POST
                   verify:
-                    href: 'https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.IDseIErVSEiFlLyAbzSp5Q/verify'
+                    href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.IDseIErVSEiFlLyAbzSp5Q/verify
                     hints:
                       allow:
                         - POST
                   poll:
-                    href: 'https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.IDseIErVSEiFlLyAbzSp5Q'
+                    href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.IDseIErVSEiFlLyAbzSp5Q
                     hints:
                       allow:
                         - GET
     Email-Array-Response:
       description: Example response
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             type: array
             items:
@@ -1192,12 +1192,12 @@ components:
                     email: saml.jackson@example.com
                   _links:
                     self:
-                      href: 'https://example.okta.com/idp/myaccount/emails/69dca29c2d8dbb0dca14395ccdb92317'
+                      href: https://example.okta.com/idp/myaccount/emails/69dca29c2d8dbb0dca14395ccdb92317
                       hints:
                         allow:
                           - GET
                     challenge:
-                      href: 'https://example.okta.com/idp/myaccount/emails/69dca29c2d8dbb0dca14395ccdb92317/challenge'
+                      href: https://example.okta.com/idp/myaccount/emails/69dca29c2d8dbb0dca14395ccdb92317/challenge
                       hints:
                         allow:
                           - POST
@@ -1209,30 +1209,30 @@ components:
                     email: s.jackson@company.com
                   _links:
                     self:
-                      href: 'https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532'
+                      href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532
                       hints:
                         allow:
                           - GET
                           - DELETE
                     challenge:
-                      href: 'https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge'
+                      href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge
                       hints:
                         allow:
                           - POST
                     verify:
-                      href: 'https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.IDseIErVSEiFlLyAbzSp5Q/verify'
+                      href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.IDseIErVSEiFlLyAbzSp5Q/verify
                       hints:
                         allow:
                           - POST
                     poll:
-                      href: 'https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.IDseIErVSEiFlLyAbzSp5Q'
+                      href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.IDseIErVSEiFlLyAbzSp5Q
                       hints:
                         allow:
                           - GET
     Phone-Array-Response:
       description: Example response
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             type: array
             items:
@@ -1246,13 +1246,13 @@ components:
                     phoneNumber: '+13333333333'
                   _links:
                     self:
-                      href: 'https://example.okta.com/idp/myaccount/phones/sms10ltpSdwXJCem80g4'
+                      href: https://example.okta.com/idp/myaccount/phones/sms10ltpSdwXJCem80g4
                       hints:
                         allow:
                           - GET
                           - DELETE
                     challenge:
-                      href: 'https://example.okta.com/idp/myaccount/phones/sms10ltpSdwXJCem80g4/challenge'
+                      href: https://example.okta.com/idp/myaccount/phones/sms10ltpSdwXJCem80g4/challenge
                       hints:
                         allow:
                           - POST
@@ -1262,25 +1262,25 @@ components:
                     phoneNumber: '+12222222222'
                   _links:
                     self:
-                      href: 'https://example.okta.com/idp/myaccount/phones/sms18vrvVDDmi4Qlz0g4'
+                      href: https://example.okta.com/idp/myaccount/phones/sms18vrvVDDmi4Qlz0g4
                       hints:
                         allow:
                           - GET
                           - DELETE
                     challenge:
-                      href: 'https://example.okta.com/idp/myaccount/phones/sms18vrvVDDmi4Qlz0g4/challenge'
+                      href: https://example.okta.com/idp/myaccount/phones/sms18vrvVDDmi4Qlz0g4/challenge
                       hints:
                         allow:
                           - POST
                     verify:
-                      href: 'https://example.okta.com/idp/myaccount/phones/sms18vrvVDDmi4Qlz0g4/verify'
+                      href: https://example.okta.com/idp/myaccount/phones/sms18vrvVDDmi4Qlz0g4/verify
                       hints:
                         allow:
                           - POST
     Unverified-Phone-Response:
       description: Example response
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Phone'
           examples:
@@ -1292,25 +1292,25 @@ components:
                   phoneNumber: +1(444)444-4444
                 _links:
                   self:
-                    href: 'https://example.okta.com/idp/myaccount/phones/sms18vtfKgzqDhNqP0g4'
+                    href: https://example.okta.com/idp/myaccount/phones/sms18vtfKgzqDhNqP0g4
                     hints:
                       allow:
                         - GET
                         - DELETE
                   challenge:
-                    href: 'https://example.okta.com/idp/myaccount/phones/sms18vtfKgzqDhNqP0g4/challenge'
+                    href: https://example.okta.com/idp/myaccount/phones/sms18vtfKgzqDhNqP0g4/challenge
                     hints:
                       allow:
                         - POST
                   verify:
-                    href: 'https://example.okta.com/idp/myaccount/phones/sms18vtfKgzqDhNqP0g4/verify'
+                    href: https://example.okta.com/idp/myaccount/phones/sms18vtfKgzqDhNqP0g4/verify
                     hints:
                       allow:
                         - POST
     Verified-Phone-Response:
       description: Example response
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Phone'
           examples:
@@ -1319,23 +1319,23 @@ components:
                 id: sms10ltpSdwXJCem80g4
                 status: VERIFIED
                 profile:
-                  phoneNumber: '+1(333)333-3333'
+                  phoneNumber: +1(333)333-3333
                 _links:
                   self:
-                    href: 'https://example.okta.com/idp/myaccount/phones/sms10ltpSdwXJCem80g4'
+                    href: https://example.okta.com/idp/myaccount/phones/sms10ltpSdwXJCem80g4
                     hints:
                       allow:
                         - GET
                         - DELETE
                   challenge:
-                    href: 'https://example.okta.com/idp/myaccount/phones/sms10ltpSdwXJCem80g4/challenge'
+                    href: https://example.okta.com/idp/myaccount/phones/sms10ltpSdwXJCem80g4/challenge
                     hints:
                       allow:
                         - POST
     Challenged-Phone-Response:
       description: Example response after challenging a phone
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             type: object
             properties:
@@ -1365,14 +1365,14 @@ components:
               value:
                 _links:
                   verify:
-                    href: 'https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.2wdtXPtmS0WpKq4bnjlYIw/verify'
+                    href: https://example.okta.com/idp/myaccount/emails/e2a84ed3cc538f75457596faa74a4532/challenge/myaccount.2wdtXPtmS0WpKq4bnjlYIw/verify
                     hints:
                       allow:
                         - POST
     Error-InvalidFactorId-Response-404:
       description: Not Found
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
@@ -1387,7 +1387,7 @@ components:
     Error-NoAccessForAdminUser-Response-403:
       description: Forbidden
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
@@ -1402,14 +1402,14 @@ components:
     Error-FailedToSendOutOfBandChallenge-Response-500:
       description: Internal Server Error
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
             Failed To Send Out Of Band Challenge - 500:
               value:
                 errorCode: E0000138
-                errorSummary: 'There was an internal error with call provider(s).'
+                errorSummary: There was an internal error with call provider(s).
                 errorLink: E0000138
                 errorId: oaejUwz8U5FQ_SyggQwz1kC3w
                 errorCauses:
@@ -1417,7 +1417,7 @@ components:
     Error-InvalidTransaction-Response-409:
       description: Conflict
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
@@ -1432,7 +1432,7 @@ components:
     Error-UpdateProfile-Response-400:
       description: Bad Request
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
@@ -1487,7 +1487,7 @@ components:
     Error-PhoneNumberExists-Response-409:
       description: Conflict
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
@@ -1502,7 +1502,7 @@ components:
     Error-InvalidEmailDeletion-400:
       description: Bad Request
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
@@ -1513,11 +1513,11 @@ components:
                 errorLink: E0000001
                 errorId: oaejUwz8U5FQ_SyggQwz1kC3w
                 errorCauses:
-                  - errorSummary: "Can't delete a verified email address: example@email.com, role=PRIMARY"
+                  - errorSummary: 'Can''t delete a verified email address: example@email.com, role=PRIMARY'
     Error-InvalidEmail-Response-400:
       description: Bad Request
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
@@ -1532,7 +1532,7 @@ components:
     Error-EmailConflict-Response-409:
       description: Conflict
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
@@ -1547,7 +1547,7 @@ components:
     Error-EmailResourceNotFound-Response-404:
       description: Not Found
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
@@ -1561,7 +1561,7 @@ components:
     Error-EmailChallengeResourceNotFound-Response-404:
       description: Not Found
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
@@ -1575,7 +1575,7 @@ components:
     Error-Email-Response-403:
       description: Forbidden
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
@@ -1598,7 +1598,7 @@ components:
     Error-Create-Phone-Response-400:
       description: Bad Request
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
@@ -1653,7 +1653,7 @@ components:
     Error-Challenge-Phone-Response-400:
       description: Bad Request
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
@@ -1676,7 +1676,7 @@ components:
     Error-Verify-Phone-Response-400:
       description: Bad Request
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
@@ -1707,7 +1707,7 @@ components:
     Error-IdpMyAccountNotEnabled-Response-401:
       description: Unauthorized
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
@@ -1721,7 +1721,7 @@ components:
     Error-VerifyPhoneEmail-Response-401:
       description: Unauthorized
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
@@ -1751,7 +1751,7 @@ components:
     Error-CreateChallengeVerify-Phone-Response-403:
       description: Forbidden
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
@@ -1782,7 +1782,7 @@ components:
     Error-Delete-Phone-Response-403:
       description: Forbidden
       content:
-        'application/json;okta-version=1.0.0':
+        application/json;okta-version=1.0.0:
           schema:
             $ref: '#/components/schemas/Error'
           examples:
@@ -1803,14 +1803,9 @@ components:
                 errorCauses:
                   - errorSummary: Phone authenticator is not enabled for your org.
   securitySchemes:
-    api_token:
-      description: "Pass the API token as the Authorization header value prefixed with SSWS: 'Authorization: SSWS {API Token}'"
-      name: Authorization
-      type: apiKey
-      in: header
-    oauth2:
+    OAuth 2.0:
       type: oauth2
-      description: "Pass the access_token as the value of the Authorization header: 'Authorization: {access_token}'"
+      description: 'Pass the access_token as the value of the Authorization header: `Authorization: {access_token}`'
       flows:
         authorizationCode:
           authorizationUrl: /oauth2/v1/authorize
