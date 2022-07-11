@@ -1,7 +1,12 @@
 reference:
   - page: index.md
+  - group: OpenID Connect & OAuth 2.0
+    pages:
+      - label: Overview
+        page: openapi/okta-oauth/guides/overview.md
+      - label: OAuth 2.0
+        page: openapi/okta-oauth/oauth.page.yaml/*
   - group: Okta Management API
-    expanded: true
     pages:
       - label: Overview
         page: openapi/okta-management/guides/overview.md
@@ -11,7 +16,6 @@ reference:
       - label: MyAccount APIs
         page: openapi/okta-management/myaccount.page.yaml/*
   - group: ASA APIs
-    expanded: true
     pages:
       - label: Overview
         page: openapi/asa/guides/overview.md

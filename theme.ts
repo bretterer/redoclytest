@@ -155,13 +155,16 @@ export const theme = {
       fontSize: Tokens.FontSizeHeading5,
       lineHeight: Tokens.FontLineHeightHeading5,
       marginBottom: '18px'
-    // // ...
-    // },
-    // heading5: {
-    // // ...
-    // },
-    // heading6: {
-    // // ...
+    },
+    heading5: {
+      fontSize: Tokens.FontSizeHeading5,
+      lineHeight: Tokens.FontLineHeightHeading5,
+      marginBottom: '18px'
+    },
+    heading6: {
+      fontSize: Tokens.FontSizeHeading5,
+      lineHeight: Tokens.FontLineHeightHeading5,
+      marginBottom: '18px'
     },
     code: {
       fontSize: Tokens.FontSizeBody,

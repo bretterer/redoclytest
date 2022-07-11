@@ -1,0 +1,16 @@
+type: reference-docs
+definitionId: okta-oauth-api
+settings:
+  hideInfoSection: true
+  pagination: section
+  generateCodeSamples:
+    languages:
+      - lang: curl
+      - lang: C#
+      - lang: Java
+      - lang: JavaScript
+      - lang: Node.js
+      - lang: Python
+      - lang: Go
+      - lang: PHP
+      - lang: Ruby
