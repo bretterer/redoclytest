@@ -19,23 +19,11 @@ externalDocs:
   description: Find more info here
   url: https://developer.okta.com/docs/api/getting_started/design_principles.html
 servers:
-  - url: https://{subdomain}.{domain}
+  - url: https://{yourOktaDomain}
     variables:
-      subdomain:
-        default: your-subdomain
-        description: The subdomain of your organization
-      domain:
-        enum:
-          - okta.com
-          - oktapreview.com
-          - okta-emea.com
-        default: okta.com
-        description: The okta domain of your organization.
-  - url: https://{customDomain}
-    variables:
-      customDomain:
-        default: auth.your-custom-domain.com
-        description: The custom domain configured for your organization
+      yourOktaDomain:
+        default: subdomain.okta.com
+        description: The domain of your organization. This can be a provided subdomain of an official okta domain (okta.com, oktapreview.com, etc) or one of your configured custom domains.
 tags:
   - name: AgentPools
     x-displayName: Agent Pools

@@ -19,23 +19,11 @@ externalDocs:
   description: Find more info here
   url: https://developer.okta.com
 servers:
-  - url: https://{subdomain}.{domain}
+  - url: https://{yourOktaDomain}
     variables:
-      subdomain:
-        default: your-subdomain
-        description: The subdomain of your organization
-      domain:
-        enum:
-          - okta.com
-          - oktapreview.com
-          - okta-emea.com
-        default: okta.com
-        description: The okta domain of your organization.
-  - url: https://{customDomain}
-    variables:
-      customDomain:
-        default: auth.your-custom-domain.com
-        description: The custom domain configured for your organization
+      yourOktaDomain:
+        default: subdomain.okta.com
+        description: The domain of your organization. This can be a provided subdomain of an official okta domain (okta.com, oktapreview.com, etc) or one of your configured custom domains.
 tags:
   - name: Client
     x-displayName: Dynamic Client Registration
@@ -1017,8 +1005,8 @@ components:
           x-usePkce:
             disableManualConfiguration: false
             hideClientSecretInput: true
-          authorizationUrl: https://rchan-emails.trexcloud.com/oauth2/v1/authorize
-          tokenUrl: https://rchan-emails.trexcloud.com/oauth2/v1/token
+          authorizationUrl: https://${yourOktaDomain}/oauth2/v1/authorize
+          tokenUrl: https://${yourOktaDomain}/oauth2/v1/token
           scopes:
             okta.clients.manage: Read or modify Client applications
             okta.clients.read: Read Client applications

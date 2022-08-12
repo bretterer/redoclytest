@@ -1,7 +1,7 @@
 import { lighten, darken, readableColor } from 'polished';
 import * as Tokens from "@okta/odyssey-design-tokens";
 
-const fontFamily = 'Whyte,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif';
+const fontFamily = 'ABC Whyte,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif';
 
 export const theme = {
   // spacing: {
@@ -167,11 +167,9 @@ export const theme = {
       marginBottom: '18px'
     },
     code: {
-      fontSize: Tokens.FontSizeBody,
-      fontFamily: Tokens.FontFamilyMono,
       // fontWeight: ({ typography }) => typography.fontWeightRegular,
-      color: '#e53935',
-      backgroundColor: 'rgba(38, 50, 56, 0.04)',
+      color: Tokens.ColorTextBody,
+      backgroundColor: Tokens.ColorPaletteNeutral200,
       wrap: false,
     },
     links: {
