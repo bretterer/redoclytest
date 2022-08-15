@@ -4,6 +4,7 @@ settings:
   hideInfoSection: true
   pagination: section
   hideTryItPanel: true
+  hideSecuritySection: true
   generateCodeSamples:
     languages:
       - lang: curl

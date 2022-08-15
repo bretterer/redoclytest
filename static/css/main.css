@@ -102,9 +102,11 @@ aside ul ul > span {
 
 /* 
 Table header cells
-Blue 900
+Blue 900 background
+ColorTextBodyInverse color
 */
 table th {
+  color: #ffffff;
   background-color: #00297a !important;
 }
 

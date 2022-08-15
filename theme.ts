@@ -169,8 +169,7 @@ export const theme = {
     code: {
       // fontWeight: ({ typography }) => typography.fontWeightRegular,
       color: Tokens.ColorTextBody,
-      backgroundColor: Tokens.ColorPaletteNeutral200,
-      wrap: false,
+      backgroundColor: Tokens.ColorPaletteNeutral100
     },
     links: {
       color: ({ colors }) => colors.primary.main,

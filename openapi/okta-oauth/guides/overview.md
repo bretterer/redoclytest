@@ -20,18 +20,7 @@ This page contains detailed information about the OAuth 2.0 and OpenID Connect e
 OpenID Connect uses scope values to specify which access privileges are being requested for access tokens.
 
 The scopes associated with access tokens determine which claims are available when they are used
-to access the OIDC `/userinfo` [endpoint](#userinfo). The following scopes are supported:
-
-| Property         | Description                                                                                                     | Required       |
-| :--------------- | :-------------------------------------------------------------------------------------------------------------- | :------------- |
-| openid           | Identifies the request as an OpenID Connect request.                                                            | Yes            |
-| profile          | Requests access to the end user's default profile claims.                                                       | No             |
-| email            | Requests access to the `email` and `email_verified` claims.                                                     | No             |
-| phone            | Requests access to the `phone_number` and `phone_number_verified` claims.                                       | No             |
-| address          | Requests access to the `address` claim.                                                                         | No             |
-| groups           | Requests access to the `groups` claim.                                                                          | No             |
-| offline_access   | Requests a refresh token used to obtain more access tokens without re-prompting the user for authentication.   | No             |
-| device_sso       | Requests a device secret used to obtain a new set of tokens without re-prompting the user for authentication. See [Native SSO](https://developer.okta.com/docs/guides/configure-native-sso/main/)  | No             |
+to access the OIDC `/userinfo` [endpoint](#userinfo). See [OAuth 2.0 scopes](/oauth2) for a full list of scopes.
 
 ### Scope values
 

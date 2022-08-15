@@ -1,5 +1,6 @@
 reference:
   - page: index.md
+  - page: oauth2.md
   - group: OpenID Connect & OAuth 2.0
     pages:
       - label: Overview
