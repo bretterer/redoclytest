@@ -16,7 +16,7 @@ reference:
         separatorLine: true
       - label: MyAccount APIs
         page: openapi/okta-management/myaccount.page.yaml/*
-  - group: ASA APIs
+  - group: Advanced Server Access APIs
     pages:
       - label: Overview
         page: openapi/asa/guides/overview.md

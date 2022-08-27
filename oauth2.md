@@ -8,81 +8,88 @@ meta:
 # OAuth 2.0 Scopes
 
 
-## Okta Management APIs
-
-| Scope                            | Description |
-| -------------------------------- | --------- |
-| okta.agentPools.manage           | Read or modify Agent Pools |
-| okta.agentPools.read             | Read Agent Pools |
-| okta.apiToken.manage             | Read or modify API Tokens. |
-| okta.apiToken.read               | Read API Tokens. |
-| okta.apps.manage                 | Read or modify Apps. |
-| okta.apps.read                   | Read Apps. |
-| okta.authenticators.manage       | Read or modify Authenticators. |
-| okta.authenticators.read         | Read Authenticators. |
-| okta.authorizationServers.manage | Read or modify Authorization Servers. |
-| okta.authorizationServers.read   | Read Authorization Servers. |
-| okta.behaviors.manage            | Read or modify Behavior Detection Rules. |
-| okta.behaviors.read              | Read Behavior Detection Rules. |
-| okta.brands.manage               | Read or modify Brands. |
-| okta.brands.read                 | Read Brands. |
-| okta.captchas.manage             | Read or modify CAPTCHA instances in your org. |
-| okta.captchas.read               | Read CAPTCHA instances in your org. |
-| okta.deviceAssurance.manage      | Read or modify device assurance policies. |
-| okta.deviceAssurance.read        | Read device assurance policies. |
-| okta.domains.manage              | Read or modify Domains. |
-| okta.domains.read                | Read Domains. |
-| okta.eventHooks.manage           | Read or modify Event Hooks. |
-| okta.eventHooks.read             | Read Event Hooks. |
-| okta.groups.manage               | Read or modify Groups. |
-| okta.groups.read                 | Read Groups. |
-| okta.idps.manage                 | Read or modify Identity Providers. |
-| okta.idps.read                   | Read Identity Providers. |
-| okta.inlineHooks.manage          | Read or modify Inline Hooks. |
-| okta.inlineHooks.read            | Read Inline Hooks. |
-| okta.linkedObjects.manage        | Read or modify Linked Objects. |
-| okta.linkedObjects.read          | Read Linked Objects. |
-| okta.logs.read                   | Read Logs. |
-| okta.orgs.manage                 | Read or modify Org Settings. |
-| okta.orgs.read                   | Read Org Settings. |
-| okta.policies.manage             | Read or modify Policies. |
-| okta.policies.read               | Read Policies. |
-| okta.principalRateLimits.manage  | Read or modify Principal Rate Limits. |
-| okta.principalRateLimits.read    | Read Principal Rate Limits. |
-| okta.profileMappings.manage      | Read or modify Profile Mappings. |
-| okta.profileMappings.read        | Read Profile Mappings. |
-| okta.pushProviders.manage        | Read or modify Push Providers such as APNs and FCM. |
-| okta.pushProviders.read          | Read Push Providers such as APNs and FCM. |
-| okta.roles.manage                | Read or modify Roles. |
-| okta.roles.read                  | Read Roles. |
-| okta.schemas.manage              | Read or modify Schemas. |
-| okta.schemas.read                | Read Schemas. |
-| okta.sessions.manage             | Read or modify Sessions. |
-| okta.sessions.read               | Read Sessions. |
-| okta.templates.manage            | Read or modify Templates. |
-| okta.templates.read              | Read Templates. |
-| okta.trustedOrigins.manage       | Read or modify Trusted Origins. |
-| okta.trustedOrigins.read         | Read Trusted Origins. |
-| okta.userTypes.manage            | Read or modify Usertypes. |
-| okta.userTypes.read              | Read Usertypes. |
-| okta.users.manage                | Read or modify Users. |
-| okta.users.read                  | Read Users. |
-
-
 ## Okta OpenID Connect & OAuth 2.0
 
 | Scope               | Description |
 | ------------------- | --------- |
-| openid              | Identifies the request as an OpenID Connect request |
-| profile             | Requests access to the end user's default profile claims |
-| email               | Requests access to the `email` and `email_verified` claims |
-| phone               | Requests access to the `phone_number` and `phone_number_verified` claims |
 | address             | Requests access to the `address` claim |
+| device_sso          | Requests a device secret used to obtain a new set of tokens without re-prompting the user for authentication. See [Native SSO](https://developer.okta.com/docs/guides/configure-native-sso/main/) |
+| email               | Requests access to the `email` and `email_verified` claims |
 | groups              | Requests access to the `groups` claim |
 | offline_access      | Requests a refresh token used to obtain more access tokens without re-prompting the user for authentication |
-| device_sso          | Requests a device secret used to obtain a new set of tokens without re-prompting the user for authentication. See [Native SSO](https://developer.okta.com/docs/guides/configure-native-sso/main/) |
 | okta.clients.manage | Allows the app to manage clients in your Okta organization |
 | okta.clients.read   | Allows the app to read information about clients in your Okta organization |
+| openid              | Identifies the request as an OpenID Connect request |
+| phone               | Requests access to the `phone_number` and `phone_number_verified` claims |
+| profile             | Requests access to the end user's default profile claims |
+
+
+## Okta Management APIs
+
+| Scope                            | Description |
+| -------------------------------- | --------- |
+| okta.agentPools.manage           | Allows the app to create and manage agent pools in your Okta organization. |
+| okta.agentPools.read             | Allows the app to read agent pools in your Okta organization. |
+| okta.apiToken.manage             | Allows the app to manage API Tokens in your Okta organization. |
+| okta.apiToken.read               | Allows the app to read API Tokens in your Okta organization. |
+| okta.apps.manage                 | Allows the app to create and manage Apps in your Okta organization. |
+| okta.apps.read                   | Allows the app to read information about Apps in your Okta organization. |
+| okta.authenticators.manage       | Allows the app to manage all authenticators (e.g. enrollments, reset). |
+| okta.authenticators.read         | Allows the app to read org authenticators information. |
+| okta.authorizationServers.manage | Allows the app to create and manage Authorization Servers in your Okta organization. |
+| okta.authorizationServers.read   | Allows the app to read information about Authorization Servers in your Okta organization. |
+| okta.behaviors.manage            | Allows the app to create and manage behavior detection rules in your Okta organization. |
+| okta.behaviors.read              | Allows the app to read behavior detection rules in your Okta organization. |
+| okta.brands.manage               | Allows the app to create and manage Brands and Themes in your Okta organization. |
+| okta.brands.read                 | Allows the app to read information about Brands and Themes in your Okta organization. |
+| okta.captchas.manage             | Allows the app to create and manage CAPTCHAs in your Okta organization. |
+| okta.captchas.read               | Allows the app to read information about CAPTCHAs in your Okta organization. |
+| okta.deviceAssurance.manage      | Allows the app to manage device assurances. |
+| okta.deviceAssurance.read        | Allows the app to read device assurances. |
+| okta.devices.manage              | Allows the app to manage device status transitions and delete a device. |
+| okta.devices.read                | Allows the app to read the existing device's profile and search devices. |
+| okta.domains.manage              | Allows the app to manage custom Domains for your Okta organization. |
+| okta.domains.read                | Allows the app to read information about custom Domains for your Okta organization. |
+| okta.eventHooks.manage           | Allows the app to create and manage Event Hooks in your Okta organization. |
+| okta.eventHooks.read             | Allows the app to read information about Event Hooks in your Okta organization. |
+| okta.groups.manage               | Allows the app to manage existing groups in your Okta organization. |
+| okta.groups.read                 | Allows the app to read information about groups and their members in your Okta organization. |
+| okta.idps.manage                 | Allows the app to create and manage Identity Providers in your Okta organization. |
+| okta.idps.read                   | Allows the app to read information about Identity Providers in your Okta organization. |
+| okta.inlineHooks.manage          | Allows the app to create and manage Inline Hooks in your Okta organization. |
+| okta.inlineHooks.read            | Allows the app to read information about Inline Hooks in your Okta organization. |
+| okta.linkedObjects.manage        | Allows the app to manage linked object definitions in your Okta organization. |
+| okta.linkedObjects.read          | Allows the app to read linked object definitions in your Okta organization. |
+| okta.logStreams.manage           | Allows the app to create and manage log streams in your Okta organization. |
+| okta.logStreams.read             | Allows the app to read information about log streams in your Okta organization. |
+| okta.logs.read                   | Allows the app to read information about System Log entries in your Okta organization. |
+| okta.orgs.manage                 | Allows the app to manage organization-specific details for your Okta organization. |
+| okta.orgs.read                   | Allows the app to read organization-specific details about your Okta organization. |
+| okta.policies.manage             | Allows the app to manage policies in your Okta organization. |
+| okta.policies.read               | Allows the app to read information about policies in your Okta organization. |
+| okta.principalRateLimits.manage  | Allows the app to create and manage Principal Rate Limits in your Okta organization. |
+| okta.principalRateLimits.read    | Allows the app to read information about Principal Rate Limits in your Okta organization. |
+| okta.profileMappings.manage      | Allows the app to manage user profile mappings in your Okta organization. |
+| okta.profileMappings.read        | Allows the app to read user profile mappings in your Okta organization. |
+| okta.pushProviders.manage        | Allows the app to create and manage push notification providers such as APNs and FCM. |
+| okta.pushProviders.read          | Allows the app to read push notification providers such as APNs and FCM. |
+| okta.riskEvents.manage           | Allows the app to publish risk events to your Okta organization. |
+| okta.riskProviders.manage        | Allows the app to create and manage risk provider integrations in your Okta organization. |
+| okta.riskProviders.read          | Allows the app to read all risk provider integrations in your Okta organization. |
+| okta.roles.manage                | Allows the app to manage administrative role assignments for users in your Okta organization. |
+| okta.roles.read                  | Allows the app to read administrative role assignments for users in your Okta organization. |
+| okta.schemas.manage              | Allows the app to create and manage Schemas in your Okta organization. |
+| okta.schemas.read                | Allows the app to read information about Schemas in your Okta organization. |
+| okta.sessions.manage             | Allows the app to manage all sessions in your Okta organization. |
+| okta.sessions.read               | Allows the app to read all sessions in your Okta organization. |
+| okta.templates.manage            | Allows the app to manage all custom templates in your Okta organization. |
+| okta.templates.read              | Allows the app to read all custom templates in your Okta organization. |
+| okta.trustedOrigins.manage       | Allows the app to manage all Trusted Origins in your Okta organization. |
+| okta.trustedOrigins.read         | Allows the app to read all Trusted Origins in your Okta organization. |
+| okta.userTypes.manage            | Allows the app to manage user types in your Okta organization. |
+| okta.userTypes.read              | Allows the app to read user types in your Okta organization. |
+| okta.users.manage                | Allows the app to create new users and to manage all users' profile and credentials information. |
+| okta.users.read                  | Allows the app to read the existing users' profiles and credentials. |
 
 
 ## Okta MyAccount APIs

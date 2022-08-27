@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import * as Tokens from "@okta/odyssey-design-tokens"
 
 const LifecycleBadge = styled.span`
-    background: ${props => props.beta ? Tokens.ColorPaletteYellow500 : props.ea ? Tokens.ColorPalettePurple500 : Tokens.ColorPaletteNeutral500 };
+    background: ${props => props.beta ? Tokens.ColorPaletteYellow500 : props.ea ? Tokens.ColorPalettePurple500 : props.ie ? Tokens.ColorPaletteBlue900 : Tokens.ColorPaletteNeutral500 };
     border-radius: ${Tokens.BorderRadiusOuter};
     margin-right: ${Tokens.SpaceScale2};
     padding: ${Tokens.SpaceScale0};
@@ -31,11 +31,21 @@ const OAuth2Scope = styled.code`
 
 function getLifecycleBadge(operation) {
     if (operation["x-okta-lifecycle"]) {
-        let lifecycle = operation["x-okta-lifecycle"]
+        const lifecycle = operation["x-okta-lifecycle"]
         if (lifecycle.lifecycle === "BETA") {
             return <LifecycleBadge beta>Beta</ LifecycleBadge>
         } else if (lifecycle.lifecycle === "EA") {
             return <LifecycleBadge ea>Early Access</ LifecycleBadge>
+        }
+    }
+    return null
+}
+
+function getIdentityEngineBadge(operation) {
+    if (operation["x-okta-lifecycle"]) {
+        const lifecycle = operation["x-okta-lifecycle"]
+        if (lifecycle.isIdentityEngine) {
+            return <LifecycleBadge ie>Identity Engine</ LifecycleBadge>
         }
     }
     return null
@@ -62,11 +72,13 @@ function getOAuth2ScopeSection(operation) {
 }
 
 export function AfterOperationSummary({ operation }) {
-  // you get the operation model with raw operation info from the OAS definition
+    // you get the operation model with raw operation info from the OAS definition
     const rawOperation = operation.operationDefinition
+    console.log(JSON.stringify(rawOperation))
     return (
         <LifecycleAndScopesContainer>
             <div>
+                { getIdentityEngineBadge(rawOperation) }
                 { getLifecycleBadge(rawOperation) }
             </div>
             { getOAuth2ScopeSection(rawOperation) }

@@ -3,6 +3,8 @@ definitionId: asa-api
 settings:
   hideInfoSection: true
   pagination: section
+  schemaExpansionLevel: 2
+  jsonSampleExpandLevel: 3
   generateCodeSamples:
     languages:
       - lang: curl

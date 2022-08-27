@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Okta API
+  title: Okta Management APIs
   description: Allows customers to easily access the Okta API
   termsOfService: https://developer.okta.com/terms/
   contact:
@@ -27,112 +27,325 @@ servers:
 tags:
   - name: AgentPools
     x-displayName: Agent Pools
+    description: The Agent Pools API provides operation to manage the update settings of the agents for your organization.
   - name: ApiToken
     x-displayName: API Tokens
+    description: The API Tokens API provides operations to manage SSWS API tokens for your organization.
   - name: Application
     x-displayName: Applications
+    description: The Applications API provides operations to manage applications and/or assignments to users or groups for your organization.
   - name: Authenticator
     x-displayName: Authenticators
+    description: |-
+      The Authenticators Administration API provides operations to configure which Authenticators are available to end users for use when signing in to applications.
+
+      End users are required to use one or more Authenticators depending on the security requirements of the [authentication policy](/docs/reference/api/policy/#authentication-policy).
+
+      Okta Identity Engine currently supports Authenticators for the following factors:
+
+      **Knowledge-based:**
+
+      * Password
+      * Security Question
+
+      **Possession-based:**
+
+      * Phone (SMS, Voice Call)
+      * Email
+      * WebAuthn
+      * Duo
+      * Custom App (Early Access)
   - name: AuthorizationServer
     x-displayName: Authorization Servers
+    description: Authorization Servers generate OAuth 2.0 and OpenID Connect tokens, including access tokens and ID tokens. The Okta Management API gives you the ability to configure and manage Authorization Servers and the security policies that are attached to them.
   - name: Behavior
     x-displayName: Behavior Rules
-  - name: Customization
-    x-displayName: Customizations
+    description: The Behavior Rules API provides operations to manage the behavior detection rules for your organization.
   - name: CAPTCHA
     x-displayName: CAPTCHAs
-  - name: Domain
-    x-displayName: Domains
-  - name: EventHook
-    x-displayName: Event Hooks
-  - name: Feature
-    x-displayName: Features
-  - name: Group
-    x-displayName: Groups
-  - name: IdentityProvider
-    x-displayName: Identity Providers
-  - name: InlineHook
-    x-displayName: Inline Hooks
-  - name: SystemLog
-    x-displayName: System Log
-  - name: ProfileMapping
-    x-displayName: Profile Mappings
-  - name: UserType
-    x-displayName: User Types
-  - name: Schema
-    x-displayName: Schemas
-  - name: LinkedObject
-    x-displayName: Linked Objects
-  - name: OrgSetting
-    x-displayName: Org Settings
-  - name: Policy
-    x-displayName: Policies
-  - name: PrincipalRateLimit
-    x-displayName: Principal Rate Limits
-  - name: PushProvider
-    x-displayName: Push Providers
-  - name: Session
-    x-displayName: Sessions
-  - name: Subscription
-    x-displayName: Subscriptions
-  - name: Template
-    x-displayName: SMS Templates
-  - name: ThreatInsight
-    x-displayName: ThreatInsight
-  - name: TrustedOrigin
-    x-displayName: Trusted Origins
-  - name: User
-    x-displayName: Users
-  - name: UserFactor
-    x-displayName: Factors
-  - name: NetworkZone
-    x-displayName: Network Zones
+    description: |-
+      As an option to increase org security, Okta supports CAPTCHA services to prevent automated sign-in attempts. You can integrate one of two providers: [hCaptcha](https://www.hcaptcha.com/) or [reCAPTCHA v2](https://developers.google.com/recaptcha/docs/invisible).
+
+      The vendor implementations supported by Okta are both invisible. They each run risk-analysis software in the background during user sign in to determine the likelihood that the user is a bot. This risk analysis is based on the settings that you configure with the provider that you choose.
+
+      Before you configure your org to use CAPTCHA, sign in to the vendor of your choice or sign up for an account. For more details, refer to [CAPTCHA integration](https://help.okta.com/okta_help.htm?type=oie&id=csh-captcha).
+  - name: Customization
+    x-displayName: Customizations
+    description: |-
+      The Brands API allows you to customize the look and feel of pages and templates, such as the Okta-hosted sign-in page, error pages, email templates, and the Okta End-User Dashboard.
+
+      Each org starts off with Okta's default branding. You can upload your own assets (colors, background image, logo, and favicon) to replace Okta's default brand assets. You can then publish these assets directly to your pages and templates.
+
+      >**Important:** Despite being called the Brands API (due to conventions around REST API naming), each org can currently contain only one brand and one theme. We will likely allow multiple brands and themes per org at some point in the future, so stay tuned!
+  - name: Device
+    x-displayName: Devices
+    description: |-
+      The Okta Devices API provides a centralized integration platform to fetch and manage device information. Okta administrators can use these APIs to manage workforce identity Device object information.
+
+      The Devices API supports the following **Device Operations**:
+      * Get, Delete Device objects.
+      * Perform lifecycle transitions on the Device objects.
+
+      The Devices API supports the following **Authorization Schemes**:
+      * SSWS - [API tokens](/docs/reference/core-okta-api/#authentication)
+      * Bearer - [OAuth2.0 and OpenID Connect](/docs/concepts/oauth-openid/)
+
+      > **Note:** For devices to enroll in Okta and show up in the Devices API, the following actions are required:
+      > 1. Admins - Enable Okta FastPass. See [Enable FastPass](https://help.okta.com/okta_help.htm?type=oie&id=ext-fp-enable)
+      > 2. End users with existing mobile Okta Verify enrollments - After you upgrade your org to Okta Identity Engine, direct end users with existing Okta Verify enrollments to use [FastPass](https://help.okta.com/okta_help.htm?type=oie&id=csh-fp-main).
+
+      > End users with a new enrollment in Okta Verify on an Okta Identity Engine org have a device record created in the device inventory by default.
+      See [Device Registration](https://help.okta.com/okta_help.htm?type=oie&id=csh-device-registration), [Login Using Okta Verify](https://help.okta.com/okta_help.htm?type=eu&id=ext-ov-user-overview).
   - name: DeviceAssurance
     x-displayName: Device Assurance Policies
-x-tagGroups:
-  - name: User Directory
-    tags:
-      - User
-      - Group
-      - UserType
-      - Schema
-      - LinkedObject
-      - ProfileMapping
-  - name: Security
-    tags:
-      - ApiToken
-      - Application
-      - Authenticator
-      - AuthorizationServer
-      - Behavior
-      - CAPTCHA
-      - DeviceAssurance
-      - IdentityProvider
-      - Policy
-      - PushProvider
-      - Session
-      - ThreatInsight
-      - TrustedOrigin
-      - UserFactor
-      - NetworkZone
-  - name: Customization
-    tags:
-      - Customization
-      - Domain
-      - Template
-  - name: Rate Limits
-    tags:
-      - PrincipalRateLimit
-  - name: Other
-    tags:
-      - AgentPools
-      - EventHook
-      - Feature
-      - InlineHook
-      - OrgSetting
-      - SystemLog
-      - Subscription
+    description: The Device Assurance Policies API provides operations to manage device assurance policies in your organization.
+  - name: Domain
+    x-displayName: Domains
+    description: The Domains API provides operations to manage custom domains for your organization.
+  - name: EventHook
+    x-displayName: Event Hooks
+    description: |-
+      The Event Hooks API provides operations to manage event hooks for your organization.
+
+      For general information on event hooks and how to create and use them, see [Event hooks](/docs/concepts/event-hooks/). The following documentation is only for the management API, which provides a CRUD interface for registering event hooks.
+
+      For a step-by-step guide on implementing an example event hook, see the [Event hook](/docs/guides/event-hook-implementation/) guide.
+  - name: Feature
+    x-displayName: Features
+    description: |-
+      The Okta Features API provides operations to manage self-service Early Access (EA) and Beta features in your org.
+
+      > **Note:** Important background information for this API is available on the [Feature Lifecycle Management](/docs/concepts/feature-lifecycle-management/) page.
+  - name: Group
+    x-displayName: Groups
+    description: The Groups API provides operations to manage Okta Groups and their user members for your organization.
+  - name: IdentityProvider
+    x-displayName: Identity Providers
+    description: The Identity Providers API provides operations to manage federations with external Identity Providers (IdP). For example, your app can support signing in with credentials from Apple, Facebook, Google, LinkedIn, Microsoft, an enterprise IdP using SAML 2.0, or an IdP using the OpenID Connect (`OIDC`) protocol.
+  - name: InlineHook
+    x-displayName: Inline Hooks
+    description: |-
+      The Inline Hooks API provides operations to manage inline hooks for your organization.
+
+      For general information on inline hooks and how to create and use them, see [inline hooks](/docs/concepts/inline-hooks/). The following documentation is only for the management API, which provides a CRUD interface for registering inline hooks.
+  - name: LinkedObject
+    x-displayName: Linked Objects
+    description: |-
+      Users have relationships to each other, like manager and subordinate or customer and sales representative. You can create users with relationships by using the Linked Objects API to represent the relationship.
+
+      1. Create a Linked Object definition such as Manager:Subordinate or Case Worker:Client. These pairs are represented by a `primary` attribute and an `associated` attribute.
+      2. Link users together to create the relationship between the two. You create a Linked Object value with a single request that links one `primary` and one `associated` user.
+
+      For each relationship:
+
+      * A user has at most one `primary` link (a user has a single manager), but can have many `associated` links (a user can have many subordinates).
+      * A user can be the `primary` in one relationship and the `associated` in another.
+      * A user can be both the `primary` and `associated` in the same relationship.
+
+      Okta Expression Language function for [Linked Objects](/docs/reference/okta-expression-language/#linked-object-function) provides access to the details about a linked user.
+
+      > **Note:** The Linked Objects feature isn't available for OpenID Connect claims.
+
+      ## Example usage
+
+      Okta allows you to create up to 200 Linked Object definitions. These definitions are one-to-many, for example:
+
+      * A manager has many subordinates. Each subordinate has one manager.
+      * A sales representative has many customers. Each customer has one sales rep.
+      * A case worker has many clients. Each client has one case worker.
+
+      Most organizations have more than one manager or sales representative. You can create the Linked Object definition once, and then assign the `primary` relationship to as many users as you have people in that relationship.
+
+      You can assign the `associated` relationship for a single `primary` user to as many users as needed. The `associated` user can be related to only one `primary` per Linked Object definition. But a user can be assigned to more than one Linked Object definition.
+
+      For example, assume that you've created one Linked Object definition for manager (`primary`) and for subordinates (`associated`):
+
+      * Joe is Frank's manager.
+      * Bob is Joe's manager, but Jane's subordinate.
+      * Jane is the CEO, so she reports to herself.
+
+      Thus, you can create chains of relationships (Jane > Bob > Joe > Frank) or terminal relationships (Jane is both `primary` and `associated` user).
+
+      Then, if you create another Linked Object relationship for scrum team membership, you could assign relationships to the same four users:
+
+      * Bob is the scrum lead for the Identity Scrum team.
+      * Joe and Frank are both contributors to the team.
+
+      Bob can be the `primary` for a Manager:Subordinate, an `associated` user for that same Linked Object definition, and also the `primary` for the Scrumlead:Contributor Linked Object definition.
+
+      To represent a relationship, create a Linked Object definition that specifies a `primary` (parent) relationship and an `associated` (child) relationship, and then add a link in which the appropriate user is assigned to each side of that link type.
+
+      ## Links between User Types
+
+      If you created multiple User Types, they all share the same Linked Object definitions. For example, if you have separate User Types for employees and contractors, a link could designate an employee as the manager for a contractor, with the contractor being a subordinate of that employee.
+  - name: LogStream
+    x-displayName: Log Streaming
+    description: The Log Streaming API provides operations to manage Log Stream configurations for an org. You can configure up to two Log Stream integrations per org.
+  - name: NetworkZone
+    x-displayName: Network Zones
+    description: |-
+      The Okta Zones API provides operations to manage Zones in your organization. There are two usage Zone types: Policy Network Zones and Blocklist Network Zones. Policy Network Zones are used to guide policy decisions. Blocklist Network Zones are used to deny access from certain IP addresses, locations, proxy types, or Autonomous System Numbers (ASNs) before policy evaluation.
+
+      A default system Policy Network Zone is provided in your Okta org. You can use the Zones API to modify the default Policy Network Zone or to create a custom Policy or Blocklist Network Zone. When you create your custom Zone, you can specify if the Zone is an IP Zone or a Dynamic Zone. An IP Zone allows you to define network perimeters around a set of IPs, whereas a Dynamic Zone allows you to define network perimeters around location, IP type, and ASNs.
+  - name: OrgSetting
+    x-displayName: Org Settings
+    description: The Org Settings API provides operations to manage your org account settings such as contact information, granting Okta Support access, and more.
+  - name: Policy
+    x-displayName: Policies
+    description: |-
+      The Okta Policy API enables an Administrator to perform Policy and Policy Rule operations. The Policy framework is used by Okta to control Rules and settings that govern, among other things, user session lifetime, whether multi-factor authentication is required when logging in, what MFA factors may be employed, password complexity requirements, what types of self-service operations are permitted under various circumstances, and what identity provider to route users to.
+
+      Policy settings for a particular Policy type, such as Sign On Policy, consist of one or more Policy objects, each of which contains one or more Policy Rules. Policies and Rules contain conditions that determine whether they are applicable to a particular user at a particular time.
+  - name: PrincipalRateLimit
+    x-displayName: Principal Rate Limits
+    description: The Principal Rate Limits API provides operations to manage Principal Rate Limits for your organization.
+  - name: ProfileMapping
+    x-displayName: Profile Mappings
+    description: The Mappings API provides operations to manage the mapping of properties between an Okta User's and an App User's Profile properties using [Okta Expression Language](/docs/reference/okta-expression-language). More information on Okta User and App User Profiles can be found in Okta's [User profiles](/docs/concepts/user-profiles/#what-is-the-okta-universal-directory).
+  - name: PushProvider
+    x-displayName: Push Providers
+    description: The Push Providers API provides operations to manage Push Providers for your organization.
+  - name: ResourceSet
+    x-displayName: Resource Sets
+    description: The Resource Sets API provides operations to manage Resource Sets as custom collections of resources. You can use Resource Sets to assign Custom Roles to administrators who are scoped to the designated resources. See [Supported Resources](https://developer.okta.com/docs/concepts/role-assignment/#supported-resources).
+  - name: RiskEvent
+    x-displayName: Risk Events
+    description: The Risk Events API provides the ability for third-party Risk Providers to send Risk Events to Okta. See [Third-party risk provider integration overview](/docs/guides/third-party-risk-integration/) for guidance on integrating third-party risk providers with Okta.
+  - name: RiskProvider
+    x-displayName: Risk Providers
+    description: The Risk Providers API provides the ability to manage the Risk Providers within Okta. See [Third-party risk provider integration overview](/docs/guides/third-party-risk-integration/) for guidance on integrating third-party risk providers with Okta.
+  - name: Role
+    x-displayName: Roles
+    description: |-
+      The Roles API provides operations to manage administrative Role assignments for a User.
+
+      Role listing APIs provide a union of both standard and Custom Roles assigned to a User or Group.
+  - name: RoleAssignment
+    x-displayName: Role Assignments
+    description: These APIs allow you to assign custom roles to user and groups, as well as designate Third-Party Administrator status to a user or group.
+  - name: RoleTarget
+    x-displayName: Role Targets
+    description: |-
+      Role targets are a way of defining permissions for admin roles into a smaller subset of Groups or Apps within your org. Targets limit an admin's permissions to a targeted area of the org. You can define admin roles to target Groups, Applications, and Application Instances.
+
+      * **Group targets:** Grant an admin permission to manage only a specified Group. For example, an admin role may be assigned to manage only the IT Group.
+      * **App targets:** Grant an admin permission to manage all instances of the specified Apps. Target Apps are Okta catalog Apps. For example, you can have multiple configurations of an Okta catalog App, such as Salesforce or Facebook. When you add a Salesforce or Facebook App as a target, that grants the admin permission to manage all the instances of those Apps and create new instances of them.
+      * **App Instance targets:** Grant an admin permission to manage an instance of one App or instances of multiple Apps. App Instances are specific Apps that admins have created in their org. For example, there may be a Salesforce App configured differently for each sales region of a company. When you create an App Instance target, you can assign an admin to manage only two instances of the configured Salesforce Apps and then also to manage an instance of another configured App such as Workday.
+
+      > **Note:** Don't use these operations with a Custom Role ID. Custom Role assignments always require a target Resource Set. See [Role Assignments](https://developer.okta.com/docs/concepts/role-assignment/) for more information.
+  - name: Schema
+    x-displayName: Schemas
+    description: |-
+      The Schemas API provides operations to manage custom User profiles as well as endpoints to discover the structure of the Log Stream configuration.
+
+      Okta's [Universal Directory](https://help.okta.com/okta_help.htm?id=ext_About_Universal_Directory) allows administrators to define custom User profiles for Okta Users and Applications.
+      Okta adopts a subset of [JSON Schema Draft 4](https://tools.ietf.org/html/draft-zyp-json-schema-04) as the schema language to describe and validate extensible User profiles.
+      For Log Stream Schemas, Okta uses [JSON Schema Draft 2020-12](https://json-schema.org/specification.html).
+      [JSON Schema](http://json-schema.org/) is a lightweight declarative format for describing the structure, constraints, and validation of JSON documents.
+
+      > **Note:** Okta implements only a subset of [JSON Schema Draft 4](https://tools.ietf.org/html/draft-zyp-json-schema-04) and [JSON Schema Draft 2020-12](https://json-schema.org/specification.html). This document describes which parts apply to Okta, and any extensions Okta has made to [JSON Schema Draft 4](https://tools.ietf.org/html/draft-zyp-json-schema-04) and [JSON Schema Draft 2020-12](https://json-schema.org/specification.html).
+  - name: Session
+    x-displayName: Sessions
+    description: |-
+      Okta uses a cookie-based authentication mechanism to maintain a user's authentication Session across web requests. The Okta Sessions API provides operations to create and manage authentication Sessions for users in your Okta organization.
+
+      >**Note:** Some browsers block third-party cookies by default, which disrupts Okta functionality in certain flows. See [FAQ: How Blocked Third Party Cookies Can Potentially Impact Your Okta Environment](https://support.okta.com/help/s/article/FAQ-How-Blocking-Third-Party-Cookies-Can-Potentially-Impact-Your-Okta-Environment).
+
+      >**Note:** The Sessions API doesn't support direct authentication. Direct authentication is supported through the [Authentication API](/docs/reference/api/authn/#authentication-operations) or through OIDC using the [Resource Owner Password flow](/docs/guides/implement-grant-type/ropassword/main/).
+
+      ### Session cookie
+
+      Okta uses an HTTP session cookie to provide access to your Okta organization and applications across web requests for an interactive user agent such as a web browser. A session cookie has an expiration configurable by an administrator for the organization and is valid until the cookie expires or the user closes the Session (logout) or browser application.
+
+      ### Session token
+
+      A [session token](/docs/reference/api/authn/#session-token) is a one-time bearer token that provides proof of authentication and may be redeemed for an interactive SSO session in Okta in a user agent. Session tokens can only be used **once** to establish a Session for a user and are revoked when the token expires.
+
+      Okta provides a very rich [Authentication API](/docs/reference/api/authn/) to validate a [user's primary credentials](/docs/reference/api/authn/#primary-authentication) and secondary [MFA factor](/docs/reference/api/authn/#verify-factor). A session token is returned after successful authentication, which can be later exchanged for a session cookie that uses one of the following flows:
+
+      - [Retrieve a session cookie by visiting the OpenID Connect Authorization Endpoint](/docs/guides/session-cookie/main/#retrieve-a-session-cookie-through-the-openid-connect-authorization-endpoint)
+      - [Retrieve a session cookie by visiting a session redirect link](/docs/guides/session-cookie/main/#retrieve-a-session-cookie-by-visiting-a-session-redirect-link)
+      - [Retrieve a session cookie by visiting an application embed link](/docs/guides/session-cookie/main/#retrieve-a-session-cookie-by-visiting-an-application-embed-link)
+
+      >**Note:** **Session tokens** are secrets and should be protected at rest and during transit. A session token for a user is equivalent to having the user's actual credentials.
+  - name: Subscription
+    x-displayName: Subscriptions
+    description: The Subscriptions API provides operations to manage email subscription settings for Okta administrator notifications.
+  - name: SystemLog
+    x-displayName: System Log
+    description: |-
+      The System Log records system events that are related to your organization in order to provide an audit trail that can be used to understand platform activity and to diagnose problems.
+
+      The System Log API provides near real-time, read-only access to your organization's system log and is the programmatic counterpart of the [System Log UI](https://help.okta.com/okta_help.htm?id=ext_Reports_SysLog).
+
+      The terms "event" and "log event" are often used interchangeably. In the context of this API, an "event" is an occurrence of interest within the system, and a "log" or "log event" is the recorded fact.
+
+      The System Log API supports these primary use cases:
+        * Event data export into a security information and event management system (SIEM)
+        * System monitoring
+        * Development debugging
+        * Event introspection and audit
+
+      The System Log API isn't intended for use as a Database as a Service (DBaaS) or to serve data directly to downstream consumers without an intermediate data store.
+
+      See [Events API Migration](/docs/concepts/events-api-migration/) for information on migrating from the Events API to the System Log API.
+  - name: Template
+    x-displayName: SMS Templates
+    description: |-
+      The SMS Templates API provides operations to manage custom SMS templates for verification.
+
+      > **Note:** Only SMS custom Templates are available through the API.
+
+      SMS Templates customize the SMS message that is sent to users. One default SMS Template is provided. All custom Templates must have the variable `${code}` as part of the text. The `${code}` variable is replaced with the actual SMS code when the message is sent. Optionally, you can also use the variable `${org.name}`. If a Template contains `${org.name}`, it is replaced with the organization name before the SMS message is sent.
+  - name: ThreatInsight
+    x-displayName: ThreatInsight
+    description: |-
+      [Okta ThreatInsight](https://help.okta.com/okta_help.htm?id=ext_threatinsight) maintains a constantly evolving list of IPs that exhibit suspicious behaviors suggestive of malicious activity. Authentication requests associated with an IP in this list can be logged in [System Log](https://help.okta.com/okta_help.htm?id=ext_Reports_SysLog) and blocked. The Okta ThreatInsight Configuration API provides operations to manage your ThreatInsight configuration.
+
+      In order to prevent abuse, Okta ThreatInsight works in a limited capacity for free trial editions. Please contact Okta support if fully functional Okta ThreatInsight is required.
+  - name: TrustedOrigin
+    x-displayName: Trusted Origins
+    description: |-
+      The Trusted Origins API provides operations to manage Trusted Origins and sources.
+
+      When external URLs are requested during sign-in, sign-out, or recovery operations, Okta checks those URLs against the allowed list of Trusted Origins. Trusted Origins also enable browser-based applications to access Okta APIs from JavaScript (CORS). If the origins aren't specified, the related operation (redirect or Okta API access) isn't permitted.
+
+      You can also configure Trusted Origins to allow iFrame embedding of Okta resources, such as Okta sign-in pages and the Okta End-User Dashboard, within that origin. This is an Early Access feature. To enable it, contact [Okta Support](https://support.okta.com/help/s/).
+
+      > **Note:** This Early Access feature is supported for Okta domains only. It isn't currently supported for custom domains.
+  - name: User
+    x-displayName: Users
+    description: The User API provides operations to manage users in your organization.
+  - name: UserFactor
+    x-displayName: Factors
+    description: The Factors API provides operations to enroll, manage, and verify factors for multifactor authentication (MFA). Manage both administration and end-user accounts, or verify an individual factor at any time.
+  - name: UserType
+    x-displayName: User Types
+    description: The User Types API provides operations to manage User Types.
 paths:
+  /.well-known/okta-organization:
+    get:
+      summary: Retrieve the Well-Known Org Metadata
+      description: Retrieves the well-known org metadata, which includes the id, configured custom domains, authentication pipeline, and various other org settings.
+      operationId: wellknownOrgMetadata
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WellKnownOrgMetadata'
+              examples:
+                Identity Engine Org with Custom Domain:
+                  $ref: '#/components/examples/WellKnownOrgMetadataResponseCustomUrlOie'
+                Classic Org:
+                  $ref: '#/components/examples/WellKnownOrgMetadataResponseClassic'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      tags:
+        - OrgSetting
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
   /api/v1/agentPools:
     get:
       summary: List all Agent Pools
@@ -2245,6 +2458,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/Authenticator'
                 type: array
+              examples:
+                Org Authenticators:
+                  $ref: '#/components/examples/AuthenticatorsResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '429':
@@ -2256,7 +2472,40 @@ paths:
       tags:
         - Authenticator
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: LIMITED_GA
+        isIdentityEngine: true
+    post:
+      summary: Create an Authenticator
+      description: Creates an authenticator. You can use this operation as part of the "Create a custom authenticator" flow. See the [Custom authenticator integration guide](https://developer.okta.com/docs/guides/authenticators-custom-authenticator/android/main/).
+      operationId: createAuthenticator
+      parameters:
+        - in: query
+          name: activate
+          description: Whether to execute the activation lifecycle operation when Okta creates the authenticator
+          schema:
+            type: boolean
+            default: false
+      x-codegen-request-body-name: authenticator
+      requestBody:
+        $ref: '#/components/requestBodies/AuthenticatorRequestBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/AuthenticatorResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.authenticators.manage
+      tags:
+        - Authenticator
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isIdentityEngine: true
   /api/v1/authenticators/{authenticatorId}:
     get:
       summary: Retrieve an Authenticator
@@ -2270,11 +2519,7 @@ paths:
             type: string
       responses:
         '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Authenticator'
+          $ref: '#/components/responses/AuthenticatorResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -2288,7 +2533,8 @@ paths:
       tags:
         - Authenticator
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: LIMITED_GA
+        isIdentityEngine: true
     put:
       summary: Replace an Authenticator
       description: Updates an authenticator
@@ -2301,18 +2547,10 @@ paths:
             type: string
       x-codegen-request-body-name: authenticator
       requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Authenticator'
-        required: true
+        $ref: '#/components/requestBodies/AuthenticatorRequestBody'
       responses:
         '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Authenticator'
+          $ref: '#/components/responses/AuthenticatorResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -2328,7 +2566,8 @@ paths:
       tags:
         - Authenticator
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: LIMITED_GA
+        isIdentityEngine: true
   /api/v1/authenticators/{authenticatorId}/lifecycle/activate:
     post:
       summary: Activate an Authenticator
@@ -2342,11 +2581,7 @@ paths:
             type: string
       responses:
         '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Authenticator'
+          $ref: '#/components/responses/AuthenticatorResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -2360,7 +2595,8 @@ paths:
       tags:
         - Authenticator
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: LIMITED_GA
+        isIdentityEngine: true
   /api/v1/authenticators/{authenticatorId}/lifecycle/deactivate:
     post:
       summary: Deactivate an Authenticator
@@ -2374,11 +2610,7 @@ paths:
             type: string
       responses:
         '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Authenticator'
+          $ref: '#/components/responses/AuthenticatorResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -2392,7 +2624,8 @@ paths:
       tags:
         - Authenticator
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: LIMITED_GA
+        isIdentityEngine: true
   /api/v1/authorizationServers:
     get:
       summary: List all Authorization Servers
@@ -4216,6 +4449,8 @@ paths:
                 $ref: '#/components/schemas/CustomizablePage'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -4251,6 +4486,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -4271,6 +4508,8 @@ paths:
           content: {}
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -4297,6 +4536,8 @@ paths:
                 $ref: '#/components/schemas/SignInPage'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -4332,6 +4573,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -4352,6 +4595,8 @@ paths:
           content: {}
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -4395,6 +4640,8 @@ paths:
                 $ref: '#/components/schemas/Error'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -4424,6 +4671,8 @@ paths:
                   pattern: ^\d+\.\d+$
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -4461,7 +4710,7 @@ paths:
             Link:
               schema:
                 type: string
-              description: The pagination header containing links to the current and next page of results. See [Pagination](https://developer.okta.com/docs/reference/core-okta-api/#pagination) for more information.
+              description: The pagination header containing links to the current and next page of results. See [Pagination](/#pagination) for more information.
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -5335,6 +5584,7 @@ paths:
         - CAPTCHA
       x-okta-lifecycle:
         lifecycle: LIMITED_GA
+        isIdentityEngine: true
     post:
       summary: Create a CAPTCHA instance
       description: Adds a new CAPTCHA instance to your organization. In the current release, we only allow one CAPTCHA instance per org.
@@ -5386,6 +5636,7 @@ paths:
         - CAPTCHA
       x-okta-lifecycle:
         lifecycle: LIMITED_GA
+        isIdentityEngine: true
   /api/v1/captchas/{captchaId}:
     parameters:
       - $ref: '#/components/parameters/pathCaptchaId'
@@ -5419,6 +5670,7 @@ paths:
         - CAPTCHA
       x-okta-lifecycle:
         lifecycle: LIMITED_GA
+        isIdentityEngine: true
     post:
       summary: Update a CAPTCHA instance
       description: Partially update a CAPTCHA instance by `captchaId`.
@@ -5463,6 +5715,7 @@ paths:
         - CAPTCHA
       x-okta-lifecycle:
         lifecycle: LIMITED_GA
+        isIdentityEngine: true
     put:
       summary: Replace a CAPTCHA instance
       description: Update a CAPTCHA instance by `captchaId`.
@@ -5507,6 +5760,7 @@ paths:
         - CAPTCHA
       x-okta-lifecycle:
         lifecycle: LIMITED_GA
+        isIdentityEngine: true
     delete:
       summary: Delete a CAPTCHA Instance
       description: Delete a CAPTCHA instance by `captchaId`. If the CAPTCHA instance is currently being used in the org, the delete will not be allowed.
@@ -5538,6 +5792,7 @@ paths:
         - CAPTCHA
       x-okta-lifecycle:
         lifecycle: LIMITED_GA
+        isIdentityEngine: true
   /api/v1/device-assurances:
     get:
       summary: List all Device Assurance Policies
@@ -5564,6 +5819,7 @@ paths:
         - DeviceAssurance
       x-okta-lifecycle:
         lifecycle: LIMITED_GA
+        isIdentityEngine: true
     post:
       summary: Create a Device Assurance Policy
       description: Adds a new Device Assurance Policy.
@@ -5608,6 +5864,7 @@ paths:
         - DeviceAssurance
       x-okta-lifecycle:
         lifecycle: LIMITED_GA
+        isIdentityEngine: true
   /api/v1/device-assurances/{deviceAssuranceId}:
     get:
       summary: Retrieve a Device Assurance Policy
@@ -5639,6 +5896,7 @@ paths:
         - DeviceAssurance
       x-okta-lifecycle:
         lifecycle: LIMITED_GA
+        isIdentityEngine: true
     put:
       summary: Replace a Device Assurance Policy
       description: Updates a Device Assurance Policy by `deviceAssuranceId`.
@@ -5669,6 +5927,8 @@ paths:
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -5679,6 +5939,7 @@ paths:
         - DeviceAssurance
       x-okta-lifecycle:
         lifecycle: LIMITED_GA
+        isIdentityEngine: true
     delete:
       summary: Delete a Device Assurance Policy
       description: Delete a Device Assurance Policy by `deviceAssuranceId`. If the Device Assurance Policy is currently being used in the org Authentication Policies, the delete will not be allowed.
@@ -5712,6 +5973,226 @@ paths:
         - DeviceAssurance
       x-okta-lifecycle:
         lifecycle: LIMITED_GA
+        isIdentityEngine: true
+  /api/v1/devices:
+    get:
+      summary: List all Devices
+      description: |-
+        Lists all devices with pagination support.
+
+        A subset of Devices can be returned that match a supported search criteria using the `search` query parameter.
+
+        Searches for devices based on the properties specified in the `search` parameter conforming SCIM filter specifications (case-insensitive). This data is eventually consistent. The API returns different results depending on specified queries in the request. Empty list is returned if no objects match `search` request.
+
+        > **Note:** Listing devices with `search` should not be used as a part of any critical flows—such as authentication or updates—to prevent potential data loss. `search` results may not reflect the latest information, as this endpoint uses a search index which may not be up-to-date with recent updates to the object. <br> Don't use search results directly for record updates, as the data might be stale and therefore overwrite newer data, resulting in data loss. <br> Use an `id` lookup for records that you update to ensure your results contain the latest data.
+
+        This operation equires [URL encoding](http://en.wikipedia.org/wiki/Percent-encoding). For example, `search=profile.displayName eq "Bob"` is encoded as `search=profile.displayName%20eq%20%22Bob%22`.
+      operationId: listDevices
+      parameters:
+        - $ref: '#/components/parameters/queryAfter'
+        - $ref: '#/components/parameters/queryLimit'
+        - name: search
+          in: query
+          description: SCIM filter expression that filters the results. Searches include all Device `profile` properties, as well as the Device `id`, `status` and `lastUpdated` properties.
+          schema:
+            type: string
+          examples:
+            Devices that have a `status` of `ACTIVE`:
+              value: status eq "ACTIVE"
+            Devices last updated after a specific timestamp:
+              value: lastUpdated gt "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            Devices with a specified `id`:
+              value: id eq "guo4a5u7JHHhjXrMK0g4"
+            Devices that have a `displayName` of `Bob`:
+              value: profile.displayName eq "Bob"
+            Devices that have an `platform` of `WINDOWS`:
+              value: profile.platform eq "WINDOWS"
+            Devices whose `sid` starts with `S-1`:
+              value: profile.sid sw "S-1"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Device'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.devices.read
+      tags:
+        - Device
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isIdentityEngine: true
+  /api/v1/devices/{deviceId}:
+    parameters:
+      - $ref: '#/components/parameters/pathDeviceId'
+    get:
+      summary: Retrieve a Device
+      description: Retrieve a device by `deviceId`
+      operationId: getDevice
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/DeviceResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.devices.read
+      tags:
+        - Device
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isIdentityEngine: true
+    delete:
+      summary: Delete a Device
+      description: Deletes a device by `deviceId`
+      operationId: deleteDevice
+      responses:
+        '204':
+          description: No Content
+        '403':
+          description: Forbidden
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.devices.manage
+      tags:
+        - Device
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isIdentityEngine: true
+  /api/v1/devices/{deviceId}/lifecycle/activate:
+    parameters:
+      - $ref: '#/components/parameters/pathDeviceId'
+    post:
+      summary: Activate a Device
+      description: Activates a device by `deviceId`
+      operationId: activateDevice
+      responses:
+        '204':
+          description: No Content
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.devices.manage
+      tags:
+        - Device
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isIdentityEngine: true
+  /api/v1/devices/{deviceId}/lifecycle/deactivate:
+    parameters:
+      - $ref: '#/components/parameters/pathDeviceId'
+    post:
+      summary: Deactivate a Device
+      description: Deactivates a device by `deviceId`
+      operationId: deactivateDevice
+      responses:
+        '204':
+          description: No Content
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.devices.manage
+      tags:
+        - Device
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isIdentityEngine: true
+  /api/v1/devices/{deviceId}/lifecycle/suspend:
+    parameters:
+      - $ref: '#/components/parameters/pathDeviceId'
+    post:
+      summary: Suspend a Device
+      description: Suspends a device by `deviceId`
+      operationId: suspendDevice
+      responses:
+        '204':
+          description: No Content
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.devices.manage
+      tags:
+        - Device
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isIdentityEngine: true
+  /api/v1/devices/{deviceId}/lifecycle/unsuspend:
+    parameters:
+      - $ref: '#/components/parameters/pathDeviceId'
+    post:
+      summary: Unsuspend a Device
+      description: Unsuspends a device by `deviceId`
+      operationId: unsuspendDevice
+      responses:
+        '204':
+          description: No Content
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.devices.manage
+      tags:
+        - Device
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isIdentityEngine: true
   /api/v1/domains:
     get:
       summary: List all Domains
@@ -5983,8 +6464,8 @@ paths:
       x-okta-lifecycle:
         lifecycle: PRODUCT_DEV
     put:
-      summary: Update an Email Domain
-      description: Updates an email domain by `emailDomainId`
+      summary: Replace an Email Domain
+      description: Replaces an email domain by `emailDomainId`
       operationId: updateEmailDomain
       parameters:
         - $ref: '#/components/parameters/pathEmailDomainId'
@@ -6004,6 +6485,34 @@ paths:
                 $ref: '#/components/schemas/EmailDomainResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.email-domains.manage
+      tags:
+        - EmailDomain
+      x-okta-lifecycle:
+        lifecycle: PRODUCT_DEV
+  /api/v1/email-domains/{emailDomainId}/verify:
+    post:
+      summary: Verify an Email Domain
+      description: Verifies an Email Domain by `emailDomainId`.
+      operationId: verifyEmailDomain
+      parameters:
+        - $ref: '#/components/parameters/pathEmailDomainId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailDomainResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -6977,8 +7486,8 @@ paths:
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
     post:
-      summary: Add a Group Owner
-      description: Adds a group owner for a specific group.
+      summary: Assign a Group Owner
+      description: Assigns a group owner for a specific group.
       operationId: addGroupOwner
       parameters:
         - name: groupId
@@ -6999,6 +7508,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GroupOwner'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -7049,8 +7560,8 @@ paths:
         lifecycle: GA_NO_FLAG
   /api/v1/groups/{groupId}/roles:
     get:
-      summary: List all Assigned Roles
-      description: Success
+      summary: List all Assigned Roles of Group
+      description: Lists all assigned roles of group identified by `groupId`
       operationId: listGroupAssignedRoles
       parameters:
         - name: groupId
@@ -7082,12 +7593,12 @@ paths:
         - OAuth 2.0:
             - okta.roles.read
       tags:
-        - Group
+        - RoleAssignment
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
     post:
-      summary: Assign a Role
-      description: Assigns a Role to a Group
+      summary: Assign a Role to a Group
+      description: Assigns a role to a group.
       operationId: assignRoleToGroup
       parameters:
         - name: groupId
@@ -7097,6 +7608,7 @@ paths:
             type: string
         - name: disableNotifications
           in: query
+          description: Setting this to `true` grants the group third-party admin status
           schema:
             type: boolean
       x-codegen-request-body-name: assignRoleRequest
@@ -7129,14 +7641,14 @@ paths:
         - OAuth 2.0:
             - okta.roles.manage
       tags:
-        - Group
+        - RoleAssignment
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
   /api/v1/groups/{groupId}/roles/{roleId}:
     get:
-      summary: Retrieve a Role
-      description: Success
-      operationId: getRole
+      summary: Retrieve a Role assigned to Group
+      description: Retrieves a role identified by `roleId` assigned to group identified by `groupId`
+      operationId: getGroupAssignedRole
       parameters:
         - name: groupId
           in: path
@@ -7166,13 +7678,13 @@ paths:
         - OAuth 2.0:
             - okta.roles.read
       tags:
-        - Group
+        - RoleAssignment
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
     delete:
-      summary: Delete a Role
-      description: Unassigns a Role from a Group
-      operationId: removeRoleFromGroup
+      summary: Unassign a Role from a Group
+      description: Unassigns a role identified by `roleId` assigned to group identified by `groupId`
+      operationId: unassignRoleFromGroup
       parameters:
         - name: groupId
           in: path
@@ -7199,7 +7711,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.manage
       tags:
-        - Group
+        - RoleAssignment
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
   /api/v1/groups/{groupId}/roles/{roleId}/targets/catalog/apps:
@@ -7248,7 +7760,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.read
       tags:
-        - Group
+        - RoleTarget
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
   /api/v1/groups/{groupId}/roles/{roleId}/targets/catalog/apps/{appName}:
@@ -7287,7 +7799,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.manage
       tags:
-        - Group
+        - RoleTarget
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
     delete:
@@ -7325,7 +7837,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.manage
       tags:
-        - Group
+        - RoleTarget
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
   /api/v1/groups/{groupId}/roles/{roleId}/targets/catalog/apps/{appName}/{applicationId}:
@@ -7369,7 +7881,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.manage
       tags:
-        - Group
+        - RoleTarget
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
     delete:
@@ -7412,7 +7924,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.manage
       tags:
-        - Group
+        - RoleTarget
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
   /api/v1/groups/{groupId}/roles/{roleId}/targets/groups:
@@ -7461,7 +7973,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.read
       tags:
-        - Group
+        - RoleTarget
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
   /api/v1/groups/{groupId}/roles/{roleId}/targets/groups/{targetGroupId}:
@@ -7499,7 +8011,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.manage
       tags:
-        - Group
+        - RoleTarget
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
     delete:
@@ -7536,7 +8048,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.manage
       tags:
-        - Group
+        - RoleTarget
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
   /api/v1/groups/{groupId}/users:
@@ -7650,6 +8162,692 @@ paths:
             - okta.groups.manage
       tags:
         - Group
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+  /api/v1/iam/resource-sets:
+    get:
+      summary: List all Resource Sets
+      description: Lists all resource sets with pagination support
+      operationId: listResourceSets
+      parameters:
+        - $ref: '#/components/parameters/queryAfter'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSets'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/ResourceSetsResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.read
+      tags:
+        - ResourceSet
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+    post:
+      summary: Create a Resource Set
+      description: Creates a new resource set
+      operationId: createResourceSet
+      x-codegen-request-body-name: instance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceSet'
+            examples:
+              Example Request:
+                $ref: '#/components/examples/ResourceSetRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSet'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/ResourceSetResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.manage
+      tags:
+        - ResourceSet
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+  /api/v1/iam/resource-sets/{resourceSetId}:
+    parameters:
+      - $ref: '#/components/parameters/pathResourceSetId'
+    get:
+      summary: Retrieve a Resource Set
+      description: Retrieve a resource set by `resourceSetId`
+      operationId: getResourceSet
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSet'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/ResourceSetResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.read
+      tags:
+        - ResourceSet
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+    put:
+      summary: Replace a Resource Set
+      description: Replaces a resource set by `resourceSetId`
+      operationId: replaceResourceSet
+      x-codegen-request-body-name: instance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceSet'
+            examples:
+              Example Request:
+                $ref: '#/components/examples/ResourceSetRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSet'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/ResourceSetResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.manage
+      tags:
+        - ResourceSet
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+    delete:
+      summary: Delete a Resource Set
+      description: Deletes a role by `resourceSetId`
+      operationId: deleteResourceSet
+      responses:
+        '204':
+          description: No Content
+        '403':
+          description: Forbidden
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.manage
+      tags:
+        - ResourceSet
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+  /api/v1/iam/resource-sets/{resourceSetId}/bindings:
+    parameters:
+      - $ref: '#/components/parameters/pathResourceSetId'
+    get:
+      summary: List all Bindings
+      description: Lists all resource set bindings with pagination support
+      operationId: listBindings
+      parameters:
+        - $ref: '#/components/parameters/queryAfter'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSetBindings'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/ResourceSetBindingsResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.read
+      tags:
+        - ResourceSet
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+    post:
+      summary: Create a Resource Set Binding
+      description: Creates a new resource set binding
+      operationId: createResourceSetBinding
+      x-codegen-request-body-name: instance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceSetBindingCreateRequest'
+            examples:
+              Example Request:
+                $ref: '#/components/examples/ResourceSetBindingCreateRequestExample'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSetBindingResponse'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/ResourceSetBindingResponseExample'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.manage
+      tags:
+        - ResourceSet
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+  /api/v1/iam/resource-sets/{resourceSetId}/bindings/{roleIdOrLabel}:
+    parameters:
+      - $ref: '#/components/parameters/pathResourceSetId'
+      - $ref: '#/components/parameters/pathRoleIdOrLabel'
+    get:
+      summary: Retrieve a Binding
+      description: Retrieves a resource set binding by `resourceSetId` and `roleIdOrLabel`
+      operationId: getBinding
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSetBindingResponse'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/ResourceSetBindingResponseWithIdExample'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.read
+      tags:
+        - ResourceSet
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+    delete:
+      summary: Delete a Binding
+      description: Deletes a resource set binding by `resourceSetId` and `roleIdOrLabel`
+      operationId: deleteBinding
+      responses:
+        '204':
+          description: No Content
+        '403':
+          description: Forbidden
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.manage
+      tags:
+        - ResourceSet
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+  /api/v1/iam/resource-sets/{resourceSetId}/bindings/{roleIdOrLabel}/members:
+    parameters:
+      - $ref: '#/components/parameters/pathResourceSetId'
+      - $ref: '#/components/parameters/pathRoleIdOrLabel'
+    get:
+      summary: List all members of a Binding
+      description: Lists all members of a resource set binding with pagination support
+      operationId: listMembersOfBinding
+      parameters:
+        - $ref: '#/components/parameters/queryAfter'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSetBindingMembers'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/ResourceSetBindingMembersResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.read
+      tags:
+        - ResourceSet
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+    patch:
+      summary: Add more members to a Binding
+      description: Adds more members to a resource set binding
+      operationId: addMembersToBinding
+      x-codegen-request-body-name: instance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceSetBindingAddMembersRequest'
+            examples:
+              Example Request:
+                $ref: '#/components/examples/ResourceSetBindingAddMembersRequestExample'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSetBindingResponse'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/ResourceSetBindingResponseExample'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.manage
+      tags:
+        - ResourceSet
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+  /api/v1/iam/roles:
+    get:
+      summary: List all Roles
+      description: Lists all roles with pagination support
+      operationId: listRoles
+      parameters:
+        - $ref: '#/components/parameters/queryAfter'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IamRoles'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/RolesResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.read
+      tags:
+        - Role
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+    post:
+      summary: Create a Role
+      description: Creates a new role
+      operationId: createRole
+      x-codegen-request-body-name: instance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IamRole'
+            examples:
+              Example Request:
+                $ref: '#/components/examples/RoleRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IamRole'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/RoleResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.manage
+      tags:
+        - Role
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+  /api/v1/iam/roles/{roleIdOrLabel}:
+    parameters:
+      - $ref: '#/components/parameters/pathRoleIdOrLabel'
+    get:
+      summary: Retrieve a Role
+      description: Retrieve a role by `roleIdOrLabel`
+      operationId: getRole
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IamRole'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/RoleResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.read
+      tags:
+        - Role
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+    put:
+      summary: Replace a Role
+      description: Replaces a role by `roleIdOrLabel`
+      operationId: replaceRole
+      x-codegen-request-body-name: instance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IamRole'
+            examples:
+              Example Request:
+                $ref: '#/components/examples/RoleRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IamRole'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/RoleResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.manage
+      tags:
+        - Role
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+    delete:
+      summary: Delete a Role
+      description: Deletes a role by `roleIdOrLabel`
+      operationId: deleteRole
+      responses:
+        '204':
+          description: No Content
+        '403':
+          description: Forbidden
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.manage
+      tags:
+        - Role
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+  /api/v1/iam/roles/{roleIdOrLabel}/permissions:
+    parameters:
+      - $ref: '#/components/parameters/pathRoleIdOrLabel'
+    get:
+      summary: List all Permissions
+      description: Lists all permissions of the role by `roleIdOrLabel`
+      operationId: listRolePermissions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Permissions'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/PermissionsResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.read
+      tags:
+        - Role
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+  /api/v1/iam/roles/{roleIdOrLabel}/permissions/{permissionType}:
+    parameters:
+      - $ref: '#/components/parameters/pathRoleIdOrLabel'
+      - $ref: '#/components/parameters/pathPermissionType'
+    get:
+      summary: Retrieve a Permission
+      description: Retrieves a permission by `permissionType`
+      operationId: getRolePermission
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Permission'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/PermissionResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.read
+      tags:
+        - Role
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+    post:
+      summary: Create a Permission
+      description: Adds a permission specified by `permissionType` to the role
+      operationId: addRolePermission
+      x-codegen-request-body-name: instance
+      responses:
+        '204':
+          description: No Content
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.manage
+      tags:
+        - Role
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+    delete:
+      summary: Delete a Permission
+      description: Deletes a permission from a role by `permissionType`
+      operationId: deleteRolePermission
+      responses:
+        '204':
+          description: No Content
+        '403':
+          description: Forbidden
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.roles.manage
+      tags:
+        - Role
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
   /api/v1/idps:
@@ -8791,6 +9989,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InlineHook'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
@@ -8821,6 +10021,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InlineHook'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
@@ -8833,6 +10035,252 @@ paths:
         - InlineHook
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
+  /api/v1/logStreams:
+    get:
+      summary: List all Log Streams
+      description: Lists all log streams. You can request a paginated list or a subset of Log Streams that match a supported filter expression.
+      operationId: listLogStreams
+      parameters:
+        - $ref: '#/components/parameters/queryAfter'
+        - $ref: '#/components/parameters/queryLimit'
+        - name: filter
+          in: query
+          description: SCIM filter expression that filters the results. This expression only supports the `eq` operator on either the `status` or `type`.
+          schema:
+            type: string
+          examples:
+            Filter on type for AWS EventBridge:
+              value: type eq "aws_eventbridge"
+            Filter on status for `ACTIVE` Log Streams:
+              value: status eq "ACTIVE"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LogStream'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.logStreams.read
+      tags:
+        - LogStream
+      x-okta-lifecycle:
+        lifecycle: EA
+    post:
+      summary: Create a Log Stream
+      description: Creates a new log stream
+      operationId: createLogStream
+      x-codegen-request-body-name: instance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogStream'
+            examples:
+              Example Request:
+                $ref: '#/components/examples/LogStreamRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogStream'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/LogStreamResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.logStreams.manage
+      tags:
+        - LogStream
+      x-okta-lifecycle:
+        lifecycle: EA
+  /api/v1/logStreams/{logStreamId}:
+    parameters:
+      - $ref: '#/components/parameters/pathLogStreamId'
+    get:
+      summary: Retrieve a Log Stream
+      description: Retrieve a log stream by `logStreamId`
+      operationId: getLogStream
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogStream'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/LogStreamResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.logStreams.read
+      tags:
+        - LogStream
+      x-okta-lifecycle:
+        lifecycle: EA
+    put:
+      summary: Replace a Log Stream
+      description: Replaces a log stream by `logStreamId`
+      operationId: replaceLogStream
+      x-codegen-request-body-name: instance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogStream'
+            examples:
+              Example Request:
+                $ref: '#/components/examples/LogStreamRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogStream'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/LogStreamResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.logStreams.manage
+      tags:
+        - LogStream
+      x-okta-lifecycle:
+        lifecycle: EA
+    delete:
+      summary: Delete a Log Stream
+      description: Deletes a log stream by `logStreamId`
+      operationId: deleteLogStream
+      responses:
+        '204':
+          description: No Content
+        '403':
+          description: Forbidden
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.logStreams.manage
+      tags:
+        - LogStream
+      x-okta-lifecycle:
+        lifecycle: EA
+  /api/v1/logStreams/{logStreamId}/lifecycle/activate:
+    parameters:
+      - $ref: '#/components/parameters/pathLogStreamId'
+    post:
+      summary: Activate a Log Stream
+      description: Activates a log stream by `logStreamId`
+      operationId: activateLogStream
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogStream'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/LogStreamResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.logStreams.manage
+      tags:
+        - LogStream
+      x-okta-lifecycle:
+        lifecycle: EA
+  /api/v1/logStreams/{logStreamId}/lifecycle/deactivate:
+    parameters:
+      - $ref: '#/components/parameters/pathLogStreamId'
+    post:
+      summary: Deactivate a Log Stream
+      description: Deactivates a log stream by `logStreamId`
+      operationId: deactivateLogStream
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogStream'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/LogStreamResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.logStreams.manage
+      tags:
+        - LogStream
+      x-okta-lifecycle:
+        lifecycle: EA
   /api/v1/logs:
     get:
       summary: List all System Log Events
@@ -9028,8 +10476,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApplicationLayout'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
           $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
         - API Token: []
         - OAuth 2.0:
@@ -9412,7 +10864,7 @@ paths:
       tags:
         - UserType
       x-okta-lifecycle:
-        lifecycle: GA
+        lifecycle: GA_NO_FLAG
   /api/v1/meta/types/user/{typeId}:
     get:
       summary: Retrieve a User Type
@@ -9484,7 +10936,7 @@ paths:
       tags:
         - UserType
       x-okta-lifecycle:
-        lifecycle: GA
+        lifecycle: GA_NO_FLAG
     put:
       summary: Replace a User Type
       description: Replace an existing User Type
@@ -9524,7 +10976,7 @@ paths:
       tags:
         - UserType
       x-okta-lifecycle:
-        lifecycle: GA
+        lifecycle: GA_NO_FLAG
     delete:
       summary: Delete a User Type
       description: Deletes a User Type permanently. This operation is not permitted for the default type, nor for any User Type that has existing users
@@ -9552,7 +11004,7 @@ paths:
       tags:
         - UserType
       x-okta-lifecycle:
-        lifecycle: GA
+        lifecycle: GA_NO_FLAG
   /api/v1/org:
     get:
       summary: Retrieve the Org Settings
@@ -10286,7 +11738,8 @@ paths:
       tags:
         - Policy
       x-okta-lifecycle:
-        lifecycle: PRODUCT_DEV
+        lifecycle: LIMITED_GA
+        isIdentityEngine: true
   /api/v1/policies/{policyId}/lifecycle/activate:
     post:
       summary: Activate a Policy
@@ -10791,6 +12244,7 @@ paths:
         - PushProvider
       x-okta-lifecycle:
         lifecycle: EA
+        isIdentityEngine: true
     post:
       summary: Create a Push Provider
       description: Adds a new push provider to your organization.
@@ -10833,6 +12287,7 @@ paths:
         - PushProvider
       x-okta-lifecycle:
         lifecycle: EA
+        isIdentityEngine: true
   /api/v1/push-providers/{pushProviderId}:
     get:
       summary: Retrieve a Push Provider
@@ -10866,6 +12321,7 @@ paths:
         - PushProvider
       x-okta-lifecycle:
         lifecycle: EA
+        isIdentityEngine: true
     put:
       summary: Replace a Push Provider
       description: Updates a push provider by `pushProviderId`.
@@ -10900,6 +12356,8 @@ paths:
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -10910,6 +12368,7 @@ paths:
         - PushProvider
       x-okta-lifecycle:
         lifecycle: EA
+        isIdentityEngine: true
     delete:
       summary: Delete a Push Provider
       description: Delete a push provider by `pushProviderId`. If the push provider is currently being used in the org by a custom authenticator, the delete will not be allowed.
@@ -10943,6 +12402,219 @@ paths:
         - PushProvider
       x-okta-lifecycle:
         lifecycle: EA
+        isIdentityEngine: true
+  /api/v1/risk/events/ip:
+    post:
+      summary: Send multiple Risk Events
+      description: A Risk Provider can send Risk Events to Okta using this API. This API has a rate limit of 30 requests per minute. The caller should include multiple Risk Events (up to a maximum of 20 events) in a single payload to reduce the number of API calls. If a client has more risk signals to send than what the API supports, we recommend prioritizing posting high risk signals.
+      operationId: sendRiskEvents
+      x-codegen-request-body-name: instance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/RiskEvent'
+            examples:
+              Example Request:
+                $ref: '#/components/examples/RiskEventsRequest'
+        required: true
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.riskEvents.manage
+      tags:
+        - RiskEvent
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+  /api/v1/risk/providers:
+    get:
+      summary: List all Risk Providers
+      description: Lists all Risk Providers
+      operationId: listRiskProviders
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RiskProvider'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.riskProviders.read
+      tags:
+        - RiskProvider
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+    post:
+      summary: Create a Risk Provider
+      description: Creates a risk provider. A maximum of 3 providers can be created. By default, one risk provider is created by Okta.
+      operationId: createRiskProvider
+      x-codegen-request-body-name: instance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RiskProvider'
+            examples:
+              Request Example:
+                $ref: '#/components/examples/RiskProviderRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RiskProvider'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/RiskProviderResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.riskProviders.manage
+      tags:
+        - RiskProvider
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+  /api/v1/risk/providers/{riskProviderId}:
+    parameters:
+      - $ref: '#/components/parameters/pathRiskProviderId'
+    get:
+      summary: Retrieve a Risk Provider
+      description: Retrieves a risk provider by `riskProviderId`.
+      operationId: getRiskProvider
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RiskProvider'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/RiskProviderResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.riskProviders.read
+      tags:
+        - RiskProvider
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+    put:
+      summary: Replace a Risk Provider
+      description: Replaces a risk provider by `riskProviderId`.
+      operationId: updateRiskProvider
+      x-codegen-request-body-name: instance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RiskProvider'
+            examples:
+              Request Example:
+                $ref: '#/components/examples/RiskProviderRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RiskProvider'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/RiskProviderResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.riskProviders.manage
+      tags:
+        - RiskProvider
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+    delete:
+      summary: Delete a Risk Provider
+      description: Delete a CAPTCHA instance by `riskProviderId`.
+      operationId: deleteRiskProvider
+      responses:
+        '204':
+          description: No Content
+        '403':
+          description: Forbidden
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.riskProviders.manage
+      tags:
+        - RiskProvider
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
   /api/v1/roles/{roleTypeOrRoleId}/subscriptions:
     get:
       summary: List all Subscriptions of a Custom Role
@@ -11731,7 +13403,7 @@ paths:
             type: string
         - name: search
           in: query
-          description: Searches for users with a supported filtering  expression for most properties
+          description: Searches for users with a supported filtering expression for most properties. Okta recommends using this parameter for search for best performance.
           schema:
             type: string
         - name: sortBy
@@ -13597,8 +15269,8 @@ paths:
         lifecycle: GA_NO_FLAG
   /api/v1/users/{userId}/roles:
     get:
-      summary: List all Assigned Roles
-      description: Lists all roles assigned to a user.
+      summary: List all Roles assigned to a User
+      description: Lists all roles assigned to a user identified by `userId`
       operationId: listAssignedRolesForUser
       parameters:
         - name: userId
@@ -13630,12 +15302,12 @@ paths:
         - OAuth 2.0:
             - okta.roles.read
       tags:
-        - User
+        - RoleAssignment
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
     post:
-      summary: Assign a Role
-      description: Assigns a role to a user.
+      summary: Assign a Role to a User
+      description: Assigns a role to a user identified by `userId`
       operationId: assignRoleToUser
       parameters:
         - name: userId
@@ -13644,6 +15316,7 @@ paths:
           schema:
             type: string
         - name: disableNotifications
+          description: Setting this to `true` grants the user third-party admin status
           in: query
           schema:
             type: boolean
@@ -13674,14 +15347,14 @@ paths:
         - OAuth 2.0:
             - okta.roles.manage
       tags:
-        - User
+        - RoleAssignment
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
   /api/v1/users/{userId}/roles/{roleId}:
     get:
-      summary: Retrieve a Role
-      description: Gets role that is assigned to user.
-      operationId: getUserRole
+      summary: Retrieve a Role assigned to a User
+      description: Retrieves a role identified by `roleId` assigned to a user identified by `userId`
+      operationId: getUserAssignedRole
       parameters:
         - in: path
           name: userId
@@ -13711,13 +15384,13 @@ paths:
         - OAuth 2.0:
             - okta.roles.read
       tags:
-        - User
+        - RoleAssignment
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
     delete:
-      summary: Delete a Role
-      description: Unassigns a role from a user.
-      operationId: removeRoleFromUser
+      summary: Unassign a Role from a User
+      description: Unassigns a role identified by `roleId` from a user identified by `userId`
+      operationId: unassignRoleFromUser
       parameters:
         - name: userId
           in: path
@@ -13744,7 +15417,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.manage
       tags:
-        - User
+        - RoleAssignment
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
   /api/v1/users/{userId}/roles/{roleId}/targets/catalog/apps:
@@ -13793,7 +15466,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.read
       tags:
-        - User
+        - RoleTarget
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
     put:
@@ -13826,7 +15499,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.manage
       tags:
-        - User
+        - RoleTarget
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
   /api/v1/users/{userId}/roles/{roleId}/targets/catalog/apps/{appName}:
@@ -13865,7 +15538,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.manage
       tags:
-        - User
+        - RoleTarget
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
     delete:
@@ -13903,7 +15576,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.manage
       tags:
-        - User
+        - RoleTarget
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
   /api/v1/users/{userId}/roles/{roleId}/targets/catalog/apps/{appName}/{applicationId}:
@@ -13947,7 +15620,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.manage
       tags:
-        - User
+        - RoleTarget
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
     delete:
@@ -13990,7 +15663,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.manage
       tags:
-        - User
+        - RoleTarget
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
   /api/v1/users/{userId}/roles/{roleId}/targets/groups:
@@ -14039,7 +15712,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.read
       tags:
-        - User
+        - RoleTarget
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
   /api/v1/users/{userId}/roles/{roleId}/targets/groups/{groupId}:
@@ -14078,7 +15751,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.manage
       tags:
-        - User
+        - RoleTarget
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
     delete:
@@ -14116,7 +15789,7 @@ paths:
         - OAuth 2.0:
             - okta.roles.manage
       tags:
-        - User
+        - RoleTarget
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
   /api/v1/users/{userId}/sessions:
@@ -14546,61 +16219,68 @@ components:
           authorizationUrl: /oauth2/v1/authorize
           tokenUrl: /oauth2/v1/token
           scopes:
-            okta.agentPools.manage: Read or modify Agent Pools
-            okta.agentPools.read: Read Agent Pools
-            okta.apiToken.read: Read API Tokens.
-            okta.apiToken.manage: Read or modify API Tokens.
-            okta.apps.read: Read Apps.
-            okta.apps.manage: Read or modify Apps.
-            okta.authenticators.read: Read Authenticators.
-            okta.authenticators.manage: Read or modify Authenticators.
-            okta.authorizationServers.read: Read Authorization Servers.
-            okta.authorizationServers.manage: Read or modify Authorization Servers.
-            okta.behaviors.read: Read Behavior Detection Rules.
-            okta.behaviors.manage: Read or modify Behavior Detection Rules.
-            okta.brands.read: Read Brands.
-            okta.brands.manage: Read or modify Brands.
-            okta.captchas.manage: Read or modify CAPTCHA instances in your org.
-            okta.captchas.read: Read CAPTCHA instances in your org.
-            okta.domains.read: Read Domains.
-            okta.domains.manage: Read or modify Domains.
-            okta.eventHooks.read: Read Event Hooks.
-            okta.eventHooks.manage: Read or modify Event Hooks.
-            okta.groups.read: Read Groups.
-            okta.groups.manage: Read or modify Groups.
-            okta.roles.read: Read Roles.
-            okta.roles.manage: Read or modify Roles.
-            okta.idps.read: Read Identity Providers.
-            okta.idps.manage: Read or modify Identity Providers.
-            okta.users.read: Read Users.
-            okta.users.manage: Read or modify Users.
-            okta.inlineHooks.read: Read Inline Hooks.
-            okta.inlineHooks.manage: Read or modify Inline Hooks.
-            okta.logs.read: Read Logs.
-            okta.profileMappings.read: Read Profile Mappings.
-            okta.profileMappings.manage: Read or modify Profile Mappings.
-            okta.schemas.read: Read Schemas.
-            okta.schemas.manage: Read or modify Schemas.
-            okta.linkedObjects.read: Read Linked Objects.
-            okta.linkedObjects.manage: Read or modify Linked Objects.
-            okta.userTypes.read: Read Usertypes.
-            okta.userTypes.manage: Read or modify Usertypes.
-            okta.orgs.read: Read Org Settings.
-            okta.orgs.manage: Read or modify Org Settings.
-            okta.policies.read: Read Policies.
-            okta.policies.manage: Read or modify Policies.
-            okta.principalRateLimits.read: Read Principal Rate Limits.
-            okta.principalRateLimits.manage: Read or modify Principal Rate Limits.
-            okta.pushProviders.read: Read Push Providers such as APNs and FCM.
-            okta.pushProviders.manage: Read or modify Push Providers such as APNs and FCM.
-            okta.sessions.read: Read Sessions.
-            okta.sessions.manage: Read or modify Sessions.
-            okta.templates.read: Read Templates.
-            okta.templates.manage: Read or modify Templates.
-            okta.trustedOrigins.read: Read Trusted Origins.
-            okta.trustedOrigins.manage: Read or modify Trusted Origins.
-            okta.deviceAssurance.read: Read device assurance policies.
-            okta.deviceAssurance.manage: Read or modify device assurance policies.
+            okta.agentPools.manage: Allows the app to create and manage agent pools in your Okta organization.
+            okta.agentPools.read: Allows the app to read agent pools in your Okta organization.
+            okta.apiToken.manage: Allows the app to manage API Tokens in your Okta organization.
+            okta.apiToken.read: Allows the app to read API Tokens in your Okta organization.
+            okta.apps.manage: Allows the app to create and manage Apps in your Okta organization.
+            okta.apps.read: Allows the app to read information about Apps in your Okta organization.
+            okta.authenticators.manage: Allows the app to manage all authenticators (e.g. enrollments, reset).
+            okta.authenticators.read: Allows the app to read org authenticators information.
+            okta.authorizationServers.manage: Allows the app to create and manage Authorization Servers in your Okta organization.
+            okta.authorizationServers.read: Allows the app to read information about Authorization Servers in your Okta organization.
+            okta.behaviors.manage: Allows the app to create and manage behavior detection rules in your Okta organization.
+            okta.behaviors.read: Allows the app to read behavior detection rules in your Okta organization.
+            okta.brands.manage: Allows the app to create and manage Brands and Themes in your Okta organization.
+            okta.brands.read: Allows the app to read information about Brands and Themes in your Okta organization.
+            okta.captchas.manage: Allows the app to create and manage CAPTCHAs in your Okta organization.
+            okta.captchas.read: Allows the app to read information about CAPTCHAs in your Okta organization.
+            okta.deviceAssurance.manage: Allows the app to manage device assurances.
+            okta.deviceAssurance.read: Allows the app to read device assurances.
+            okta.devices.manage: Allows the app to manage device status transitions and delete a device.
+            okta.devices.read: Allows the app to read the existing device's profile and search devices.
+            okta.domains.manage: Allows the app to manage custom Domains for your Okta organization.
+            okta.domains.read: Allows the app to read information about custom Domains for your Okta organization.
+            okta.eventHooks.manage: Allows the app to create and manage Event Hooks in your Okta organization.
+            okta.eventHooks.read: Allows the app to read information about Event Hooks in your Okta organization.
+            okta.groups.manage: Allows the app to manage existing groups in your Okta organization.
+            okta.groups.read: Allows the app to read information about groups and their members in your Okta organization.
+            okta.idps.manage: Allows the app to create and manage Identity Providers in your Okta organization.
+            okta.idps.read: Allows the app to read information about Identity Providers in your Okta organization.
+            okta.inlineHooks.manage: Allows the app to create and manage Inline Hooks in your Okta organization.
+            okta.inlineHooks.read: Allows the app to read information about Inline Hooks in your Okta organization.
+            okta.linkedObjects.manage: Allows the app to manage linked object definitions in your Okta organization.
+            okta.linkedObjects.read: Allows the app to read linked object definitions in your Okta organization.
+            okta.logStreams.manage: Allows the app to create and manage log streams in your Okta organization.
+            okta.logStreams.read: Allows the app to read information about log streams in your Okta organization.
+            okta.logs.read: Allows the app to read information about System Log entries in your Okta organization.
+            okta.orgs.manage: Allows the app to manage organization-specific details for your Okta organization.
+            okta.orgs.read: Allows the app to read organization-specific details about your Okta organization.
+            okta.policies.manage: Allows the app to manage policies in your Okta organization.
+            okta.policies.read: Allows the app to read information about policies in your Okta organization.
+            okta.principalRateLimits.manage: Allows the app to create and manage Principal Rate Limits in your Okta organization.
+            okta.principalRateLimits.read: Allows the app to read information about Principal Rate Limits in your Okta organization.
+            okta.profileMappings.manage: Allows the app to manage user profile mappings in your Okta organization.
+            okta.profileMappings.read: Allows the app to read user profile mappings in your Okta organization.
+            okta.pushProviders.manage: Allows the app to create and manage push notification providers such as APNs and FCM.
+            okta.pushProviders.read: Allows the app to read push notification providers such as APNs and FCM.
+            okta.riskEvents.manage: Allows the app to publish risk events to your Okta organization.
+            okta.riskProviders.manage: Allows the app to create and manage risk provider integrations in your Okta organization.
+            okta.riskProviders.read: Allows the app to read all risk provider integrations in your Okta organization.
+            okta.roles.manage: Allows the app to manage administrative role assignments for users in your Okta organization.
+            okta.roles.read: Allows the app to read administrative role assignments for users in your Okta organization.
+            okta.schemas.manage: Allows the app to create and manage Schemas in your Okta organization.
+            okta.schemas.read: Allows the app to read information about Schemas in your Okta organization.
+            okta.sessions.manage: Allows the app to manage all sessions in your Okta organization.
+            okta.sessions.read: Allows the app to read all sessions in your Okta organization.
+            okta.templates.manage: Allows the app to manage all custom templates in your Okta organization.
+            okta.templates.read: Allows the app to read all custom templates in your Okta organization.
+            okta.trustedOrigins.manage: Allows the app to manage all Trusted Origins in your Okta organization.
+            okta.trustedOrigins.read: Allows the app to read all Trusted Origins in your Okta organization.
+            okta.userTypes.manage: Allows the app to manage user types in your Okta organization.
+            okta.userTypes.read: Allows the app to read user types in your Okta organization.
+            okta.users.manage: Allows the app to create new users and to manage all users' profile and credentials information.
+            okta.users.read: Allows the app to read the existing users' profiles and credentials.
   examples:
     ApiTokenListMetadataResponse:
       value:
@@ -14666,6 +16346,186 @@ components:
             hints:
               allow:
                 - GET
+    AuthenticatorRequestDuo:
+      value:
+        key: duo
+        name: Duo Security
+        provider:
+          type: DUO
+          configuration:
+            userNameTemplate:
+              template: oktaId
+            integrationKey: testIntegrationKey
+            secretKey: testSecretKey
+            host: https://api-xxxxxxxx.duosecurity.com
+    AuthenticatorResponseDuo:
+      value:
+        type: app
+        id: aut9gnvcjUHIWb37J0g4
+        key: duo
+        status: ACTIVE
+        name: Duo Security
+        created: '2022-07-15T21:14:02.000Z'
+        lastUpdated: '2022-07-15T21:14:02.000Z'
+        settings: {}
+        provider:
+          type: DUO
+          configuration:
+            host: https://api-xxxxxxxx.duosecurity.com
+            userNameTemplate:
+              template: oktaId
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut5gnvcjUHIWb25J0g4
+            hints:
+              allow:
+                - GET
+                - PUT
+          deactivate:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut5gnvcjUHIWb25J0g4/lifecycle/deactivate
+            hints:
+              allow:
+                - POST
+          methods:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut5gnvcjUHIWb25J0g4/methods
+            hints:
+              allow:
+                - GET
+    AuthenticatorResponseEmail: &ref_0
+      value:
+        type: email
+        id: aut1nbsPHh7jNjjyP0g4
+        key: okta_email
+        status: ACTIVE
+        name: Email
+        created: '2020-07-26T21:05:23.000Z'
+        lastUpdated: '2020-07-28T21:45:52.000Z'
+        settings:
+          allowedFor: any
+          tokenLifetimeInMinutes: 5
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbsPHh7jNjjyP0g4
+            hints:
+              allow:
+                - GET
+                - PUT
+          methods:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbsPHh7jNjjyP0g4/methods
+            hints:
+              allow:
+                - GET
+          deactivate:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbsPHh7jNjjyP0g4/lifecycle/deactivate
+            hints:
+              allow:
+                - POST
+    AuthenticatorResponsePassword: &ref_1
+      value:
+        type: password
+        id: aut1nbtrJKKA9m45a0g4
+        key: okta_password
+        status: ACTIVE
+        name: Password
+        created: '2020-07-26T21:05:23.000Z'
+        lastUpdated: '2020-07-26T21:05:23.000Z'
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbtrJKKA9m45a0g4
+            hints:
+              allow:
+                - GET
+                - PUT
+          methods:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbtrJKKA9m45a0g4/methods
+            hints:
+              allow:
+                - GET
+    AuthenticatorResponsePhone: &ref_2
+      value:
+        type: phone
+        id: aut1nbuyD8m1ckAYc0g4
+        key: phone_number
+        status: INACTIVE
+        name: Phone
+        created: '2020-07-26T21:05:23.000Z'
+        lastUpdated: '2020-07-29T00:21:29.000Z'
+        settings:
+          allowedFor: none
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbuyD8m1ckAYc0g4
+            hints:
+              allow:
+                - GET
+                - PUT
+          methods:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbuyD8m1ckAYc0g4/methods
+            hints:
+              allow:
+                - GET
+          activate:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbuyD8m1ckAYc0g4/lifecycle/activate
+            hints:
+              allow:
+                - POST
+    AuthenticatorResponseSecurityQuestion:
+      value:
+        type: security_question
+        id: aut1nbvIgEenhwE6c0g4
+        key: security_question
+        status: ACTIVE
+        name: Security Question
+        created: '2020-07-26T21:05:23.000Z'
+        lastUpdated: '2020-07-26T21:05:23.000Z'
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbvIgEenhwE6c0g4
+            hints:
+              allow:
+                - GET
+          methods:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbvIgEenhwE6c0g4/methods
+            hints:
+              allow:
+                - GET
+          deactivate:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbvIgEenhwE6c0g4/lifecycle/deactivate
+            hints:
+              allow:
+                - POST
+    AuthenticatorResponseWebAuthn: &ref_3
+      value:
+        type: security_key
+        id: aut1nd8PQhGcQtSxB0g4
+        key: webauthn
+        status: ACTIVE
+        name: Security Key or Biometric
+        created: '2020-07-26T21:16:37.000Z'
+        lastUpdated: '2020-07-27T18:59:30.000Z'
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4
+            hints:
+              allow:
+                - GET
+                - PUT
+          methods:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/methods
+            hints:
+              allow:
+                - GET
+          deactivate:
+            href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/lifecycle/deactivate
+            hints:
+              allow:
+                - POST
+    AuthenticatorsResponse:
+      value:
+        - *ref_0
+        - *ref_1
+        - *ref_2
+        - *ref_3
     BehaviorRuleRequest:
       value:
         name: My Behavior Rule
@@ -14707,7 +16567,7 @@ components:
         name: myHCaptcha
         siteKey: xxxxxxxxxxx
         type: HCAPTCHA
-        _link:
+        _links:
           self:
             href: https://your-subdomain.okta.com/api/v1/captchas/abcd1234
             hints:
@@ -14722,7 +16582,7 @@ components:
         name: myReCaptcha
         siteKey: yyyyyyyyyyyyyyy
         type: RECAPTCHA_V2
-        _link:
+        _links:
           self:
             href: https://your-subdomain.okta.com/api/v1/captchas/abcd4567
             hints:
@@ -14849,6 +16709,52 @@ components:
             - PASSCODE
             - BIOMETRIC
         secureHardwarePresent: true
+    DeviceResponse:
+      value:
+        id: guo8jx5vVoxfvJeLb0w4
+        status: ACTIVE
+        created: '2020-11-03T21:47:01.000Z'
+        lastUpdated: '2020-11-03T23:46:27.000Z'
+        profile:
+          displayName: DESKTOP-EHAD3IE
+          platform: WINDOWS
+          manufacturer: International Corp
+          model: VMware7,1
+          osVersion: 10.0.18362
+          serialNumber: 56 4d 4f 95 74 c5 d3 e7-fc 3a 57 9c c2 f8 5d ce
+          udid: 954F4D56-C574-E7D3-FC3A-579CC2F85DCE
+          sid: S-1-5-21-3992267483-1860856704-2413701314-500
+          registered: true
+          secureHardwarePresent: false
+        resourceId: guo8jx5vVoxfvJeLb0w4
+        resourceDisplayName:
+          value: DESKTOP-EHAD3IE
+          sensitive: false
+        resourceType: UDDevice
+        resourceAlternateId: null
+        _links:
+          suspend:
+            href: https://{yourOktaDomain}/api/v1/devices/guo8jx5vVoxfvJeLb0w4/lifecycle/suspend
+            hints:
+              allow:
+                - POST
+          self:
+            href: https://{yourOktaDomain}/api/v1/devices/guo8jx5vVoxfvJeLb0w4
+            hints:
+              allow:
+                - GET
+                - PATCH
+                - PUT
+          users:
+            href: https://{yourOktaDomain}/api/v1/devices/guo8jx5vVoxfvJeLb0w4/users
+            hints:
+              allow:
+                - GET
+          deactivate:
+            href: https://{yourOktaDomain}/api/v1/devices/guo8jx5vVoxfvJeLb0w4/lifecycle/deactivate
+            hints:
+              allow:
+                - POST
     EmailCustomizationResponse:
       value:
         language: en
@@ -15152,6 +17058,78 @@ components:
           _links:
             self:
               href: http://your-subdomain.okta.com/api/v1/users/00u118oQYT4TBGuay0g4
+    LogStreamRequest:
+      value:
+        type: aws_eventbridge
+        name: Example AWS EventBridge
+        settings:
+          eventSourceName: your-event-source-name
+          accountId: '123456789012'
+          region: us-east-2
+    LogStreamResponse:
+      value:
+        id: 0oa1orqUGCIoCGNxf0g4
+        type: aws_eventbridge
+        name: Example AWS EventBridge
+        lastUpdated: '2021-10-21T16:55:30.000Z'
+        created: '2021-10-21T16:55:29.000Z'
+        status: ACTIVE
+        settings:
+          accountId: '123456789012'
+          eventSourceName: your-event-source-name
+          region: us-east-2
+        _links:
+          self:
+            href: http://{yourOktaDomain}/api/v1/logStreams/0oa1orqUGCIoCGNxf0g4
+            method: GET
+          deactivate:
+            href: http://{yourOktaDomain}/api/v1/logStreams/0oa1orqUGCIoCGNxf0g4/lifecycle/deactivate
+            method: POST
+    PermissionResponse:
+      value:
+        label: okta.users.manage
+        created: '2021-02-06T16:20:57.000Z'
+        lastUpdated: '2021-02-06T16:20:57.000Z'
+        _links:
+          role:
+            href: https://{yourOktaDomain}/api/v1/iam/roles/cr0Yq6IJxGIr0ouum0g3
+          self:
+            href: https://{yourOktaDomain}/api/v1/iam/roles/cr0Yq6IJxGIr0ouum0g3/permissions/okta.users.manage
+    PermissionsResponse:
+      value:
+        permissions:
+          - label: okta.users.create
+            created: '2021-02-06T16:20:57.000Z'
+            lastUpdated: '2021-02-06T16:20:57.000Z'
+            _links:
+              role:
+                href: https://{yourOktaDomain}/api/v1/iam/roles/cr0Yq6IJxGIr0ouum0g3
+              self:
+                href: https://{yourOktaDomain}/api/v1/iam/roles/cr0Yq6IJxGIr0ouum0g3/permissions/okta.users.create
+          - label: okta.users.read
+            created: '2021-02-06T16:20:57.000Z'
+            lastUpdated: '2021-02-06T16:20:57.000Z'
+            _links:
+              role:
+                href: https://{yourOktaDomain}/api/v1/iam/roles/cr0Yq6IJxGIr0ouum0g3
+              self:
+                href: https://{yourOktaDomain}/api/v1/iam/roles/cr0Yq6IJxGIr0ouum0g3/permissions/okta.users.read
+          - label: okta.groups.read
+            created: '2021-02-06T16:20:57.000Z'
+            lastUpdated: '2021-02-06T16:20:57.000Z'
+            _links:
+              role:
+                href: https://{yourOktaDomain}/api/v1/iam/roles/cr0Yq6IJxGIr0ouum0g3
+              self:
+                href: https://{yourOktaDomain}/api/v1/iam/roles/cr0Yq6IJxGIr0ouum0g3/permissions/okta.groups.read
+          - label: okta.users.userprofile.manage
+            created: '2021-02-06T16:20:57.000Z'
+            lastUpdated: '2021-02-06T16:20:57.000Z'
+            _links:
+              role:
+                href: https://{yourOktaDomain}/api/v1/iam/roles/cr0Yq6IJxGIr0ouum0g3
+              self:
+                href: https://{yourOktaDomain}/api/v1/iam/roles/cr0Yq6IJxGIr0ouum0g3/permissions/okta.users.userprofile.manage
     PreviewEmailCustomizationResponse:
       value:
         subject: Welcome to Okta!
@@ -15275,6 +17253,229 @@ components:
                 - DELETE
                 - GET
                 - PUT
+    ResourceSetBindingAddMembersRequestExample:
+      value:
+        additions:
+          - https://${yourOktaDomain}/api/v1/groups/00guaxWZ0AOa5NFAj0g3
+          - https://${yourOktaDomain}/api/v1/users/00u67DU2qNCjNZYO0g3
+    ResourceSetBindingCreateRequestExample:
+      value:
+        role: cr0Yq6IJxGIr0ouum0g3
+        members:
+          - https://${yourOktaDomain}/api/v1/groups/00guaxWZ0AOa5NFAj0g3
+    ResourceSetBindingMembersResponse:
+      value:
+        members:
+          - id: irb1qe6PGuMc7Oh8N0g4
+            created: '2021-02-06T16:20:57.000Z'
+            lastUpdated: '2021-02-06T16:20:57.000Z'
+            _links:
+              self:
+                href: https://{yourOktaDomain}/api/v1/users/00uuk41Hjga5qGfQ30g3
+          - id: irb1q92TFAHzySt3x0g4
+            created: '2021-02-06T16:20:57.000Z'
+            lastUpdated: '2021-02-06T16:20:57.000Z'
+            _links:
+              self:
+                href: https://{yourOktaDomain}/api/v1/groups/00guaxWZ0AOa5NFAj0g3
+        _links:
+          binding:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/${resource-set-id}/bindings/${role-id-or-name}
+          next:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/${resource-set-id}/bindings/${role-id-or-name}/members?after=${last-member-id}
+    ResourceSetBindingResponseExample:
+      value:
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g/bindings/cr0Yq6IJxGIr0ouum0g3
+          bindings:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g/bindings
+          resource-set:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g
+    ResourceSetBindingResponseWithIdExample:
+      value:
+        id: cr0Yq6IJxGIr0ouum0g3
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g/bindings/cr0Yq6IJxGIr0ouum0g3
+          bindings:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g/bindings
+          resource-set:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g
+    ResourceSetBindingsResponse:
+      value:
+        roles:
+          - id: cr0WxyzJxGIr0ouum0g4
+            _links:
+              self:
+                href: https://{yourOktaDomain}/api/v1/iam/roles/cr0WxyzJxGIr0ouum0g4
+              members:
+                href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g/bindings/cr0WxyzJxGIr0ouum0g4/members
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g/bindings
+          resource-set:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g
+          next:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g/bindings?after=cr0WxyzJxGIr0ouum0g4
+    ResourceSetRequest:
+      value:
+        label: SF-IT-People
+        description: People in the IT department of San Francisco
+        resources:
+          - https://${yourOktaDomain}/api/v1/groups/00guaxWZ0AOa5NFAj0g3
+          - https://${yourOktaDomain}/api/v1/groups/00gu67DU2qNCjNZYO0g3/users
+          - https://${yourOktaDomain}/api/v1/users
+    ResourceSetResponse:
+      value:
+        id: iamoJDFKaJxGIr0oamd9g
+        label: SF-IT-People
+        description: People in the IT department of San Francisco
+        created: '2021-02-06T16:20:57.000Z'
+        lastUpdated: '2021-02-06T16:20:57.000Z'
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g
+          resources:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g/resources
+          bindings:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g/bindings
+    ResourceSetsResponse:
+      value:
+        resource-sets:
+          - id: iamoJDFKaJxGIr0oamd9g
+            label: SF-IT-1
+            description: First San Francisco IT Resource Set
+            created: '2021-02-06T16:20:57.000Z'
+            lastUpdated: '2021-02-06T16:20:57.000Z'
+            _links:
+              self:
+                href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g
+              resources:
+                href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g/resources
+              bindings:
+                href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g/bindings
+          - id: iamoJDFKaJxGIr0oamd0q
+            label: SF-IT-2
+            description: Second San Francisco IT Resource Set
+            created: '2021-02-06T16:20:57.000Z'
+            lastUpdated: '2021-02-06T16:20:57.000Z'
+            _links:
+              self:
+                href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd0q
+              resources:
+                href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd0q/resources
+              bindings:
+                href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd0q/bindings
+        _links:
+          next:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets?after=iamoJDFKaJxGIr0oamd0q
+    RiskEventsRequest:
+      value:
+        - timestamp: '2021-01-20T00:00:00.001Z'
+          subjects:
+            - ip: 6.7.6.7
+              riskLevel: MEDIUM
+            - ip: 1.1.1.1
+              riskLevel: HIGH
+              message: Detected Attack tooling and suspicious activity
+        - timestamp: '2021-01-20T01:00:00.001Z'
+          subjects:
+            - ip: 6.7.6.7
+              riskLevel: LOW
+            - ip: 2.2.2.2
+              riskLevel: HIGH
+    RiskProviderRequest:
+      value:
+        name: Risk-Partner-X
+        action: log_only
+        clientId: 00ckjsfgjkdkjdkkljjsd
+    RiskProviderResponse:
+      value:
+        id: 00rp12r4skkjkjgsn
+        action: log_only
+        name: Risk-Partner-X
+        clientId: 00ckjsfgjkdkjdkkljjsd
+        created: '2021-01-05 22:18:30'
+        lastUpdated: '2021-01-05 21:23:10'
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/risk/providers/00rp12r4skkjkjgsn
+            hints:
+              allow:
+                - GET
+                - PUT
+    RoleRequest:
+      value:
+        label: UserCreator
+        description: Create users
+        permissions:
+          - okta.users.create
+          - okta.users.read
+          - okta.groups.read
+          - okta.users.userprofile.manage
+    RoleResponse:
+      value:
+        id: cr0Yq6IJxGIr0ouum0g3
+        label: UserCreator
+        description: Create users
+        created: '2021-02-06T16:20:57.000Z'
+        lastUpdated: '2021-02-06T16:20:57.000Z'
+        _links:
+          permissions:
+            href: https://{yourOktaDomain}/api/v1/iam/roles/cr0Yq6IJxGIr0ouum0g3/permissions
+          self:
+            href: https://{yourOktaDomain}/api/v1/iam/roles/cr0Yq6IJxGIr0ouum0g3
+    RolesResponse:
+      value:
+        roles:
+          - id: cr0Yq6IJxGIr0ouum0g3
+            label: UserCreator
+            description: Create users
+            created: '2021-02-06T16:20:57.000Z'
+            lastUpdated: '2021-02-06T16:20:57.000Z'
+            _links:
+              permissions:
+                href: https://{yourOktaDomain}/api/v1/iam/roles/cr0Yq6IJxGIr0ouum0g3/permissions
+              self:
+                href: https://{yourOktaDomain}/api/v1/iam/roles/cr0Yq6IJxGIr0ouum0g3
+          - id: cr0Fw7HKcWIroo88m3r1
+            label: GroupMembershipManager
+            description: Manage group membership
+            created: '2021-02-06T16:20:57.000Z'
+            lastUpdated: '2021-02-06T16:20:57.000Z'
+            _links:
+              permissions:
+                href: https://{yourOktaDomain}/api/v1/iam/roles/cr0Fw7HKcWIroo88m3r1/permissions
+              self:
+                href: https://{yourOktaDomain}/api/v1/iam/roles/cr0Fw7HKcWIroo88m3r1
+        _links:
+          next:
+            href: https://{yourOktaDomain}/api/v1/iam/roles?after=cr0Fw7HKcWIroo88m3r1
+    WellKnownOrgMetadataResponseClassic:
+      value:
+        id: 00o5rb5mt2H3d1TJd0h7
+        _links:
+          organization:
+            href: https://{{yourOktaDomain}}
+        pipeline: v1
+        settings:
+          analyticsCollectionEnabled: false
+          bugReportingEnabled: true
+          omEnabled: true
+    WellKnownOrgMetadataResponseCustomUrlOie:
+      value:
+        id: 00o47wwoytgsDqEtz0g7
+        _links:
+          organization:
+            href: https://{{yourSubdomain}}.okta.com
+          alternate:
+            href: https://{{yourCustomDomain}}
+        pipeline: idx
+        settings:
+          analyticsCollectionEnabled: false
+          bugReportingEnabled: true
+          omEnabled: false
   parameters:
     pathApiTokenId:
       name: apiTokenId
@@ -15321,6 +17522,14 @@ components:
       description: Id of the Device Assurance Policy
       schema:
         type: string
+    pathDeviceId:
+      name: deviceId
+      in: path
+      schema:
+        type: string
+        example: guo4a5u7JHHhjXrMK0g4
+      required: true
+      description: '`id` of the device'
     pathEmailDomainId:
       name: emailDomainId
       in: path
@@ -15328,6 +17537,22 @@ components:
       schema:
         type: string
         description: The ID of the email domain.
+    pathLogStreamId:
+      name: logStreamId
+      in: path
+      schema:
+        type: string
+        example: abcd1234
+      required: true
+      description: id of the log stream
+    pathPermissionType:
+      name: permissionType
+      in: path
+      schema:
+        type: string
+        example: okta.users.manage
+      required: true
+      description: An okta permission type
     pathPoolId:
       name: poolId
       in: path
@@ -15350,6 +17575,30 @@ components:
       description: Id of the push provider
       schema:
         type: string
+    pathResourceSetId:
+      name: resourceSetId
+      in: path
+      schema:
+        type: string
+        example: iamoJDFKaJxGIr0oamd9g
+      required: true
+      description: '`id` of a resource set'
+    pathRiskProviderId:
+      name: riskProviderId
+      in: path
+      schema:
+        type: string
+        example: 00rp12r4skkjkjgsn
+      required: true
+      description: '`id` of the risk provider'
+    pathRoleIdOrLabel:
+      name: roleIdOrLabel
+      in: path
+      schema:
+        type: string
+        example: cr0Yq6IJxGIr0ouum0g3
+      required: true
+      description: '`id` or `label` of the role'
     pathTemplateName:
       name: templateName
       in: path
@@ -15375,7 +17624,7 @@ components:
       in: query
       schema:
         type: string
-      description: The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/reference/core-okta-api/#pagination) for more information.
+      description: The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](/#pagination) for more information.
     queryExpandEmailTemplate:
       name: expand
       in: query
@@ -15889,9 +18138,23 @@ components:
           readOnly: true
         _links:
           type: object
-          additionalProperties:
-            type: object
-            properties: {}
+          properties:
+            activate:
+              $ref: '#/components/schemas/HrefObject'
+            deactivate:
+              $ref: '#/components/schemas/HrefObject'
+            groups:
+              $ref: '#/components/schemas/HrefObject'
+            logo:
+              type: array
+              items:
+                $ref: '#/components/schemas/HrefObject'
+            metadata:
+              $ref: '#/components/schemas/HrefObject'
+            self:
+              $ref: '#/components/schemas/HrefObject'
+            users:
+              $ref: '#/components/schemas/HrefObject'
           readOnly: true
       discriminator:
         propertyName: signOnMode
@@ -16022,7 +18285,7 @@ components:
       properties:
         elements:
           items:
-            $ref: '#/components/schemas/ApplicationLayout'
+            $ref: '#/components/schemas/ApplicationLayoutElements'
           type: array
         label:
           type: string
@@ -16040,6 +18303,9 @@ components:
           type: string
         type:
           type: string
+    ApplicationLayoutElements:
+      additionalProperties: true
+      type: object
     ApplicationLayoutRuleCondition:
       type: object
       properties:
@@ -16389,6 +18655,21 @@ components:
           format: date-time
         timezone:
           type: string
+    AwsRegion:
+      description: An AWS region
+      type: string
+      enum:
+        - ca-central-1
+        - eu-central-1
+        - eu-north-1
+        - eu-south-1
+        - eu-west-1
+        - eu-west-2
+        - eu-west-3
+        - us-east-1
+        - us-east-2
+        - us-west-1
+        - us-west-2
     BaseEmailDomain:
       type: object
       properties:
@@ -16668,7 +18949,7 @@ components:
           type: string
         type:
           $ref: '#/components/schemas/CAPTCHAType'
-        _link:
+        _links:
           type: object
           properties:
             self:
@@ -16899,6 +19180,56 @@ components:
       enum:
         - CNAME
         - TXT
+    Device:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+          description: Timestamp when the device was created
+          readOnly: true
+        id:
+          type: string
+          description: Unique key for the device
+          readOnly: true
+        lastUpdated:
+          type: string
+          format: date-time
+          description: Timestamp when the device was last updated
+          readOnly: true
+        profile:
+          $ref: '#/components/schemas/DeviceProfile'
+        resourceAlternateId:
+          type: string
+          readOnly: true
+        resourceDisplayName:
+          $ref: '#/components/schemas/DeviceDisplayName'
+        resourceId:
+          type: string
+          description: Alternate key for the `id`
+          readOnly: true
+        resourceType:
+          type: string
+          default: UDDevice
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/DeviceStatus'
+        _links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/HrefObject'
+            users:
+              $ref: '#/components/schemas/HrefObject'
+            activate:
+              $ref: '#/components/schemas/HrefObject'
+            deactivate:
+              $ref: '#/components/schemas/HrefObject'
+            suspend:
+              $ref: '#/components/schemas/HrefObject'
+            unsuspend:
+              $ref: '#/components/schemas/HrefObject'
+          readOnly: true
     DeviceAccessPolicyRuleCondition:
       allOf:
         - $ref: '#/components/schemas/DevicePolicyRuleCondition'
@@ -16958,6 +19289,21 @@ components:
             self:
               $ref: '#/components/schemas/HrefObject'
           readOnly: true
+    DeviceDisplayName:
+      type: object
+      properties:
+        sensitive:
+          type: boolean
+        value:
+          type: string
+    DevicePlatform:
+      description: OS platform of the device
+      type: string
+      enum:
+        - ANDROID
+        - IOS
+        - MACOS
+        - WINDOWS
     DevicePolicyMDMFramework:
       type: string
       enum:
@@ -16998,6 +19344,69 @@ components:
       enum:
         - ANY
         - TRUSTED
+    DeviceProfile:
+      type: object
+      properties:
+        displayName:
+          type: string
+          description: Display name of the device
+          minLength: 1
+          maxLength: 255
+        imei:
+          type: string
+          description: International Mobile Equipment Identity of the device
+          minLength: 14
+          maxLength: 17
+        manufacturer:
+          type: string
+          description: Name of the manufacturer of the device
+          maxLength: 127
+        meid:
+          type: string
+          description: Mobile equipment identifier of the device
+          maxLength: 14
+        model:
+          type: string
+          description: Model of the device
+          maxLength: 127
+        osVersion:
+          type: string
+          description: Version of the device OS
+          maxLength: 127
+        platform:
+          $ref: '#/components/schemas/DevicePlatform'
+        registered:
+          type: boolean
+          description: Indicates if the device is registered at Okta
+        secureHardwarePresent:
+          type: boolean
+          description: Indicates if the device constains a secure hardware functionality
+        serialNumber:
+          type: string
+          description: Serial number of the device
+          maxLength: 127
+        sid:
+          type: string
+          description: Windows Security identifier of the device
+          maxLength: 256
+        tpmPublicKeyHash:
+          type: string
+          description: Windows Trsted Platform Module hash value
+        udid:
+          type: string
+          description: macOS Unique Device identifier of the device
+          maxLength: 47
+      required:
+        - displayName
+        - platform
+        - registered
+    DeviceStatus:
+      type: string
+      enum:
+        - ACTIVE
+        - CREATED
+        - DEACTIVATED
+        - SUSPENDED
     DiskEncryptionType:
       type: string
       enum:
@@ -17603,7 +20012,19 @@ components:
           readOnly: true
         _links:
           type: object
-          additionalProperties: {}
+          properties:
+            apps:
+              $ref: '#/components/schemas/HrefObject'
+            logo:
+              type: array
+              items:
+                $ref: '#/components/schemas/HrefObject'
+            self:
+              $ref: '#/components/schemas/HrefObject'
+            source:
+              $ref: '#/components/schemas/HrefObject'
+            users:
+              $ref: '#/components/schemas/HrefObject'
           readOnly: true
     GroupCondition:
       type: object
@@ -17907,8 +20328,8 @@ components:
         - EXTERNALLY_HOSTED
         - OKTA_DEFAULT
     HrefObject:
-      title: hrefObject
-      description: Used for links
+      title: Link Object
+      description: Singular link objected returned in HAL `_links` object.
       type: object
       properties:
         hints:
@@ -17920,6 +20341,13 @@ components:
                 $ref: '#/components/schemas/HttpMethod'
         href:
           type: string
+        name:
+          type: string
+        type:
+          type: string
+          description: The media type of the link. If omitted, it is implicitly `application/json`.
+      required:
+        - href
     HttpMethod:
       type: string
       enum:
@@ -17927,6 +20355,59 @@ components:
         - GET
         - POST
         - PUT
+    IamRole:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+          description: Timestamp when the role was created
+          readOnly: true
+        description:
+          type: string
+          description: Description of the role
+        id:
+          type: string
+          description: Unique key for the role
+          readOnly: true
+        label:
+          type: string
+          description: Unique label for the role
+        lastUpdated:
+          type: string
+          format: date-time
+          description: Timestamp when the role was last updated
+          readOnly: true
+        permissions:
+          type: array
+          description: Array of permissions that the role will grant. See [Permission Types](https://developer.okta.com/docs/concepts/role-assignment/#permission-types).
+          items:
+            $ref: '#/components/schemas/RolePermissionType'
+        _links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/HrefObject'
+            permissions:
+              $ref: '#/components/schemas/HrefObject'
+          readOnly: true
+      required:
+        - label
+        - description
+        - permissions
+    IamRoles:
+      type: object
+      properties:
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/IamRole'
+        _links:
+          type: object
+          properties:
+            next:
+              $ref: '#/components/schemas/HrefObject'
+          readOnly: true
     IdentityProvider:
       type: object
       properties:
@@ -18580,6 +21061,101 @@ components:
         - ERROR
         - INFO
         - WARN
+    LogStream:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+          description: Timestamp when the Log Stream was created
+          readOnly: true
+        id:
+          type: string
+          description: Unique key for the Log Stream
+          readOnly: true
+        lastUpdated:
+          type: string
+          format: date-time
+          description: Timestamp when the Log Stream was last updated
+          readOnly: true
+        name:
+          type: string
+          description: Unique name for the Log Stream
+        status:
+          $ref: '#/components/schemas/LifecycleStatus'
+        type:
+          $ref: '#/components/schemas/LogStreamType'
+        _links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/HrefObject'
+            activate:
+              $ref: '#/components/schemas/HrefObject'
+            deactivate:
+              $ref: '#/components/schemas/HrefObject'
+          readOnly: true
+      discriminator:
+        propertyName: type
+        mapping:
+          aws_eventbridge: '#/components/schemas/LogStreamAws'
+          splunk_cloud_logstreaming: '#/components/schemas/LogStreamSplunk'
+    LogStreamAws:
+      allOf:
+        - $ref: '#/components/schemas/LogStream'
+        - type: object
+          properties:
+            settings:
+              $ref: '#/components/schemas/LogStreamSettingsAws'
+    LogStreamSettings:
+      type: object
+    LogStreamSettingsAws:
+      allOf:
+        - $ref: '#/components/schemas/LogStreamSettings'
+        - description: The AWS EventBridge Settings object specifies the configuration for the `aws_eventbridge` Log Stream type. This can't be modified after creation.
+          type: object
+          properties:
+            accountId:
+              type: string
+              description: Your AWS account ID
+              minLength: 12
+              maxLength: 12
+            eventSourceName:
+              type: string
+              description: An alphanumeric name (no spaces) to identify this event source in AWS EventBridge
+              pattern: ^[a-zA-Z0-9.\-_]$
+              minLength: 1
+              maxLength: 75
+            region:
+              $ref: '#/components/schemas/AwsRegion'
+    LogStreamSettingsSplunk:
+      allOf:
+        - $ref: '#/components/schemas/LogStreamSettings'
+        - description: The Splunk Cloud Settings object specifies the configuration for the `splunk_cloud_logstreaming` Log Stream type.
+          type: object
+          properties:
+            host:
+              type: string
+              description: 'The domain name for your Splunk Cloud instance. Don''t include `http` or `https` in the string. For example: `acme.splunkcloud.com`'
+              minLength: 17
+              maxLength: 116
+            token:
+              type: string
+              description: The HEC token for your Splunk Cloud HTTP Event Collector
+              pattern: (?i)^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
+    LogStreamSplunk:
+      allOf:
+        - $ref: '#/components/schemas/LogStream'
+        - type: object
+          properties:
+            settings:
+              $ref: '#/components/schemas/LogStreamSettingsSplunk'
+    LogStreamType:
+      description: The Log Stream type specifies the streaming provider used. Okta supports [AWS EventBridge](https://aws.amazon.com/eventbridge/) and [Splunk Cloud](https://www.splunk.com/en_us/software/splunk-cloud-platform.html).
+      type: string
+      enum:
+        - aws_eventbridge
+        - splunk_cloud_logstreaming
     LogTarget:
       type: object
       properties:
@@ -19636,6 +22212,44 @@ components:
           $ref: '#/components/schemas/SeedEnum'
         status:
           $ref: '#/components/schemas/EnabledStatus'
+    Permission:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+          description: Timestamp when the role was created
+          readOnly: true
+        label:
+          type: string
+          description: The permission type
+          readOnly: true
+        lastUpdated:
+          type: string
+          format: date-time
+          description: Timestamp when the role was last updated
+          readOnly: true
+        _links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/HrefObject'
+            role:
+              $ref: '#/components/schemas/HrefObject'
+          readOnly: true
+    Permissions:
+      type: object
+      properties:
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+    PipelineType:
+      description: The authentication pipeline of the org. `idx` means the org is using the Identity Engine, while `v1` means the org is using the Classic authentication pipeline.
+      type: string
+      enum:
+        - idx
+        - v1
     Platform:
       type: string
       enum:
@@ -20441,8 +23055,192 @@ components:
         resetPasswordUrl:
           type: string
           readOnly: true
+    ResourceSet:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+          description: Timestamp when the role was created
+          readOnly: true
+        description:
+          type: string
+          description: Description of the resource set
+        id:
+          type: string
+          description: Unique key for the role
+          readOnly: true
+        label:
+          type: string
+          description: Unique label for the resource set
+        lastUpdated:
+          type: string
+          format: date-time
+          description: Timestamp when the role was last updated
+          readOnly: true
+        _links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/HrefObject'
+            resources:
+              $ref: '#/components/schemas/HrefObject'
+            bindings:
+              $ref: '#/components/schemas/HrefObject'
+          readOnly: true
+    ResourceSetBindingAddMembersRequest:
+      type: object
+      properties:
+        additions:
+          type: array
+          items:
+            type: string
+    ResourceSetBindingCreateRequest:
+      type: object
+      properties:
+        members:
+          type: array
+          items:
+            type: string
+        role:
+          type: string
+          description: Unique key for the role
+    ResourceSetBindingMember:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+          description: Timestamp when the role was created
+          readOnly: true
+        id:
+          type: string
+          description: Unique key for the role
+          readOnly: true
+        lastUpdated:
+          type: string
+          format: date-time
+          description: Timestamp when the role was last updated
+          readOnly: true
+        _links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/HrefObject'
+          readOnly: true
+    ResourceSetBindingMembers:
+      type: object
+      properties:
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceSetBindingMember'
+        _links:
+          type: object
+          properties:
+            binding:
+              $ref: '#/components/schemas/HrefObject'
+            next:
+              $ref: '#/components/schemas/HrefObject'
+          readOnly: true
+    ResourceSetBindingResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: '`id` of the role'
+        _links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/HrefObject'
+            bindings:
+              $ref: '#/components/schemas/HrefObject'
+            resource-set:
+              $ref: '#/components/schemas/HrefObject'
+          readOnly: true
+    ResourceSetBindingRole:
+      type: object
+      properties:
+        id:
+          type: string
+        _links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/HrefObject'
+            members:
+              $ref: '#/components/schemas/HrefObject'
+    ResourceSetBindings:
+      type: object
+      properties:
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceSetBindingRole'
+        _links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/HrefObject'
+            bindings:
+              $ref: '#/components/schemas/HrefObject'
+            resource-set:
+              $ref: '#/components/schemas/HrefObject'
+          readOnly: true
+    ResourceSets:
+      type: object
+      properties:
+        resource-sets:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceSet'
+        _links:
+          type: object
+          properties:
+            next:
+              $ref: '#/components/schemas/HrefObject'
+          readOnly: true
     ResponseLinks:
       type: object
+    RiskEvent:
+      type: object
+      properties:
+        expiresAt:
+          type: string
+          format: date-time
+          description: 'Time stamp at which the event expires (Expressed as a UTC time zone using ISO 8601 format: yyyy-MM-dd''T''HH:mm:ss.SSS''Z''). If this optional field is not included, Okta automatically expires the event 24 hours after the event is consumed.'
+        subjects:
+          type: array
+          items:
+            $ref: '#/components/schemas/RiskEventSubject'
+        timestamp:
+          type: string
+          format: date-time
+          description: 'Time stamp at which the event is produced (Expressed as a UTC time zone using ISO 8601 format: yyyy-MM-dd''T''HH:mm:ss.SSS''Z'').'
+      required:
+        - subjects
+    RiskEventSubject:
+      type: object
+      properties:
+        ip:
+          type: string
+          description: Either an IpV4 or IpV6 address.
+        message:
+          type: string
+          description: Any additional message that the provider can send specifying the reason for the risk level of the IP.
+          maxLength: 512
+          pattern: ^[a-zA-Z0-9.\-_]$
+        riskLevel:
+          $ref: '#/components/schemas/RiskEventSubjectRiskLevel'
+      required:
+        - ip
+    RiskEventSubjectRiskLevel:
+      type: string
+      enum:
+        - HIGH
+        - LOW
+        - MEDIUM
     RiskPolicyRuleCondition:
       type: object
       properties:
@@ -20451,6 +23249,49 @@ components:
           type: array
           items:
             type: string
+    RiskProvider:
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/RiskProviderAction'
+        clientId:
+          type: string
+          description: The ID of the [OAuth service app](https://developer.okta.com/docs/guides/implement-oauth-for-okta-serviceapp/main/#create-a-service-app-and-grant-scopes) that is used to send risk events to Okta
+        created:
+          type: string
+          format: date-time
+          description: Timestamp when the risk provider was created
+          readOnly: true
+        id:
+          type: string
+          description: The ID of the risk provider
+          readOnly: true
+        lastUpdated:
+          type: string
+          format: date-time
+          description: Timestamp when the risk provider was last updated
+          readOnly: true
+        name:
+          type: string
+          description: Name of the risk provider
+          maxLength: 50
+        _links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/HrefObject'
+          readOnly: true
+      required:
+        - name
+        - clientId
+    RiskProviderAction:
+      description: The action taken by Okta during authentication attempts based on the risk events sent by this provider. Logging can be found in the SystemLogs.
+      default: log_only
+      type: string
+      enum:
+        - enforce_and_log
+        - log_only
+        - none
     RiskScorePolicyRuleCondition:
       type: object
       properties:
@@ -20498,6 +23339,43 @@ components:
       enum:
         - GROUP
         - USER
+    RolePermissionType:
+      type: string
+      enum:
+        - okta.apps.assignment.manage
+        - okta.apps.manage
+        - okta.apps.manageFirstPartyApps
+        - okta.apps.read
+        - okta.authzServers.manage
+        - okta.authzServers.read
+        - okta.customizations.manage
+        - okta.customizations.read
+        - okta.governance.accessCertifications.manage
+        - okta.governance.accessRequests.manage
+        - okta.groups.appAssignment.manage
+        - okta.groups.create
+        - okta.groups.manage
+        - okta.groups.members.manage
+        - okta.groups.read
+        - okta.profilesources.import.run
+        - okta.users.appAssignment.manage
+        - okta.users.create
+        - okta.users.credentials.expirePassword
+        - okta.users.credentials.manage
+        - okta.users.credentials.resetFactors
+        - okta.users.credentials.resetPassword
+        - okta.users.groupMembership.manage
+        - okta.users.lifecycle.activate
+        - okta.users.lifecycle.clearSessions
+        - okta.users.lifecycle.deactivate
+        - okta.users.lifecycle.delete
+        - okta.users.lifecycle.manage
+        - okta.users.lifecycle.suspend
+        - okta.users.lifecycle.unlock
+        - okta.users.lifecycle.unsuspend
+        - okta.users.manage
+        - okta.users.read
+        - okta.users.userprofile.manage
     RoleType:
       type: string
       enum:
@@ -21406,6 +24284,7 @@ components:
         userLifecycleAttribute:
           $ref: '#/components/schemas/UserLifecycleAttributePolicyRuleCondition'
     UserProfile:
+      additionalProperties: true
       type: object
       properties:
         city:
@@ -21500,7 +24379,6 @@ components:
           type: string
           maxLength: 50
           nullable: true
-      x-okta-extensible: true
     UserSchema:
       type: object
       properties:
@@ -21932,6 +24810,33 @@ components:
       properties:
         credentialId:
           type: string
+    WellKnownOrgMetadata:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the Org
+        pipeline:
+          $ref: '#/components/schemas/PipelineType'
+        settings:
+          $ref: '#/components/schemas/WellKnownOrgMetadataSettings'
+        _links:
+          type: object
+          properties:
+            alternate:
+              $ref: '#/components/schemas/HrefObject'
+            organization:
+              $ref: '#/components/schemas/HrefObject'
+    WellKnownOrgMetadataSettings:
+      type: object
+      properties:
+        analyticsCollectionEnabled:
+          type: boolean
+        bugReportingEnabled:
+          type: boolean
+        omEnabled:
+          type: boolean
+          description: Whether the legacy Okta Mobile application is enabled for the org
     WsFederationApplication:
       x-okta-defined-as:
         name: template_wsfed
@@ -22015,3 +24920,32 @@ components:
           examples:
             Resource Not Found:
               $ref: '#/components/examples/ErrorTooManyRequests'
+    AuthenticatorResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Authenticator'
+          examples:
+            Duo:
+              $ref: '#/components/examples/AuthenticatorResponseDuo'
+            Email:
+              $ref: '#/components/examples/AuthenticatorResponseEmail'
+            Password:
+              $ref: '#/components/examples/AuthenticatorResponsePassword'
+            Phone:
+              $ref: '#/components/examples/AuthenticatorResponsePhone'
+            WebAuthn:
+              $ref: '#/components/examples/AuthenticatorResponseWebAuthn'
+            Security Question:
+              $ref: '#/components/examples/AuthenticatorResponseSecurityQuestion'
+  requestBodies:
+    AuthenticatorRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Authenticator'
+          examples:
+            Duo:
+              $ref: '#/components/examples/AuthenticatorRequestDuo'
+      required: true

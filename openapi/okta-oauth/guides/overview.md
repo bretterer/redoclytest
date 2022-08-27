@@ -20,7 +20,7 @@ This page contains detailed information about the OAuth 2.0 and OpenID Connect e
 OpenID Connect uses scope values to specify which access privileges are being requested for access tokens.
 
 The scopes associated with access tokens determine which claims are available when they are used
-to access the OIDC `/userinfo` [endpoint](#userinfo). See [OAuth 2.0 scopes](/oauth2) for a full list of scopes.
+to access the OIDC [`/userinfo` endpoint](/openapi/okta-oauth/oauth/tag/OrgAS/#tag/OrgAS/operation/userinfo). See [OAuth 2.0 scopes](/oauth2) for a full list of scopes.
 
 ### Scope values
 
@@ -80,13 +80,13 @@ This section contains some general information about claims, as well as detailed
 
 ### Token lifetime
 
-When you are using the [Okta Authorization Server]((https://developer.okta.com/docs/concepts/auth-servers/#org-authorization-server), the lifetime of the JWT tokens is hard-coded to the following values:
+When you are using the [Okta Authorization Server](https://developer.okta.com/docs/concepts/auth-servers/#org-authorization-server), the lifetime of the JWT tokens is hard-coded to the following values:
 
 * **ID token:** 60 minutes
 * **Access token:** 60 minutes
 * **Refresh token:** 90 days
 
-When you are using a [Custom Authorization Server]((https://developer.okta.com/docs/concepts/auth-servers/#custom-authorization-server), you can configure the lifetime of the JWT tokens:
+When you are using a [Custom Authorization Server](https://developer.okta.com/docs/concepts/auth-servers/#custom-authorization-server), you can configure the lifetime of the JWT tokens:
 
 * **Access tokens:** The minimum is five minutes, and the maximum is 24 hours (configurable using an [Access Policy](https://help.okta.com/okta_help.htm?id=ext-create-access-policies)).
 * **Refresh tokens:** The minimum access token lifetime. The idle time window is at least 10 minutes, with a maximum of five years (configurable using an [Access Policy](https://help.okta.com/okta_help.htm?id=ext-create-access-policies)).
@@ -96,7 +96,7 @@ When you are using a [Custom Authorization Server]((https://developer.okta.com/d
 
 Tokens issued by Okta contain claims that are statements about a subject (user). For example, the claim can be about a name, identity, key, group, or privilege. The claims in a security token are dependent upon the type of token, the type of credential used to authenticate the user, and the application configuration.
 
-The claims requested by the `profile`, `email`, `address`, and `phone` scope values are returned from the `/userinfo` [endpoint](#userinfo) when a `response_type` value is used that results in an access token being issued. However, when no access token is issued (which is the case for the `response_type` value `id_token`), the resulting claims are returned in the ID token.
+The claims requested by the `profile`, `email`, `address`, and `phone` scope values are returned from the [`/userinfo` endpoint](/openapi/okta-oauth/oauth/tag/OrgAS/#tag/OrgAS/operation/userinfo) when a `response_type` value is used that results in an access token being issued. However, when no access token is issued (which is the case for the `response_type` value `id_token`), the resulting claims are returned in the ID token.
 
 ### Access token
 
@@ -104,7 +104,7 @@ The claims requested by the `profile`, `email`, `address`, and `phone` scope val
 
 An access token is a JSON web token (JWT) encoded in Base64 URL-encoded format that contains [a header](#access-token-header), [payload](#access-token-payload), and [signature](#access-token-signature). A resource server can authorize the client to access particular resources based on the [scopes and claims](#access-token-scopes-and-claims) in the access token.
 
-The lifetime of an access token can be configured in [access policies](/docs/reference/api/authorization-servers/#policy-object). If the client that issued the token is deactivated, the token is immediately and permanently invalidated. Reactivating the client doesn't make the token valid again.
+The lifetime of an access token can be configured in access policies. If the client that issued the token is deactivated, the token is immediately and permanently invalidated. Reactivating the client doesn't make the token valid again.
 
 #### Access token header
 
@@ -147,7 +147,7 @@ This is a digital signature that Okta generates using the public key identified 
 
 Access tokens include reserved scopes and claims and can optionally include custom scopes and claims.
 
-Scopes are requested in the initial [authorization request](#authorize), and the Authorization Server uses the [access policies](/openapi/okta-management/management/tag/AuthorizationServer/#tag/AuthorizationServer/operation/createAuthorizationServerPolicy) to decide whether they can be granted. If any of the requested scopes are rejected by the Access Policies, the request is rejected.
+Scopes are requested in the initial [authorization request](/openapi/okta-oauth/oauth/tag/OrgAS/#tag/OrgAS/operation/authorize), and the Authorization Server uses the [access policies](/openapi/okta-management/management/tag/AuthorizationServer/#tag/AuthorizationServer/operation/createAuthorizationServerPolicy) to decide whether they can be granted. If any of the requested scopes are rejected by the Access Policies, the request is rejected.
 
 Based on the granted scopes, claims are added into the access token returned from the request.
 
@@ -215,7 +215,7 @@ Custom claims are configured in the Custom Authorization Server, and returned de
 * Scope-dependent claims are returned in tokens depending on the response type for either authorization server type. See [the second table in the Scope-dependent claims topic](#scope-dependent-claims-not-always-returned) for details.
 * Custom claims require configuration in the Custom Authorization Server. You can specify that claims be returned in each token (ID or access) always or only when requested. Assuming a claim matches a requested scope, it is returned to the ID token if there is no access token requested.
 
-The ID token or access token may not include all claims associated with the requested scopes. The [UserInfo endpoint](#userinfo) always contains a full set of claims for the requested scopes.
+The ID token or access token may not include all claims associated with the requested scopes. The [`/userinfo` endpoint](/openapi/okta-oauth/oauth/tag/OrgAS/#tag/OrgAS/operation/userinfo) always contains a full set of claims for the requested scopes.
 
 ### ID token
 
@@ -228,7 +228,7 @@ Clients can use any of the following sequences of operations to obtain an ID tok
 
 Clients should always [validate ID tokens](https://developer.okta.com/docs/guides/validate-id-tokens/) to ensure their integrity.
 
-The ID tokens returned by the `/authorize` endpoint (implicit flow) or the `/token` endpoint (authorization code flow) are identical, except if:
+The ID tokens returned by the [`/authorize` endpoint](/openapi/okta-oauth/oauth/tag/OrgAS/#tag/OrgAS/operation/authorize) (implicit flow) or the [`/token` endpoint](/openapi/okta-oauth/oauth/tag/OrgAS/#tag/OrgAS/operation/token) (authorization code flow) are identical, except if:
 
 * You are using the implicit flow. If so, the `nonce` parameter is required in the initial `/authorize` request, and the ID token includes a `nonce` claim that should be validated to make sure it matches the `nonce` value passed to `/authorize.`
 * Both an ID and an access token were requested. If so, the ID token includes the `at_hash` [parameter](http://openid.net/specs/openid-connect-core-1_0.html#CodeIDToken) that can be validated against the hash of the access token to guarantee that the access token is genuine.

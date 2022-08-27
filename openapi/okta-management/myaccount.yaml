@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Account Management
+  title: Okta MyAccount APIs
   version: 1.0.0
   description: APIs for managing a user's own emails, phones, and profile.
   termsOfService: https://developer.okta.com/terms/
@@ -1793,15 +1793,15 @@ components:
   securitySchemes:
     OAuth 2.0:
       type: oauth2
-      description: 'Pass the access_token as the value of the Authorization header: `Authorization: {access_token}`'
+      description: 'Pass the access_token as the value of the Authorization header: `Authorization: Bearer {access_token}`'
       flows:
         authorizationCode:
           authorizationUrl: /oauth2/v1/authorize
           tokenUrl: /oauth2/v1/token
           scopes:
-            okta.myaccount.email.read: Read access to user emails
             okta.myaccount.email.manage: Write access to user emails
-            okta.myaccount.phone.read: Read access to user phones
+            okta.myaccount.email.read: Read access to user emails
             okta.myaccount.phone.manage: Write access to user phones
-            okta.myaccount.profile.read: Read access to user profile & schema
+            okta.myaccount.phone.read: Read access to user phones
             okta.myaccount.profile.manage: Write access to user profile & schema
+            okta.myaccount.profile.read: Read access to user profile & schema
