@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: Okta Management APIs
-  description: Allows customers to easily access the Okta API
+  title: Okta Management
+  description: Allows customers to easily access the Okta Management APIs
   termsOfService: https://developer.okta.com/terms/
   contact:
     name: Okta Developer Team
@@ -102,6 +102,9 @@ tags:
   - name: Domain
     x-displayName: Domains
     description: The Domains API provides operations to manage custom domains for your organization.
+  - name: EmailDomain
+    x-displayName: Email Domains
+    description: The Email Domains API provides operations to manage custom domains for your organization.
   - name: EventHook
     x-displayName: Event Hooks
     description: |-
@@ -471,7 +474,7 @@ paths:
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
     post:
-      summary: Update an Agent pool update settings
+      summary: Update an Agent Pool update settings
       description: Updates Agent pool update settings
       operationId: setAgentPoolsUpdateSettings
       requestBody:
@@ -4347,6 +4350,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Brand'
+              examples:
+                Get brands response:
+                  $ref: '#/components/examples/ListBrandsResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '429':
@@ -4361,11 +4367,7 @@ paths:
         lifecycle: GA_NO_FLAG
   /api/v1/brands/{brandId}:
     parameters:
-      - in: path
-        name: brandId
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/pathBrandId'
     get:
       summary: Retrieve a Brand
       description: Fetches a brand by `brandId`
@@ -4377,14 +4379,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Brand'
+              examples:
+                Get brand response:
+                  $ref: '#/components/examples/GetBrandResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -4404,7 +4405,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Brand'
+              $ref: '#/components/schemas/BrandRequest'
+            examples:
+              Update brand request:
+                $ref: '#/components/examples/UpdateBrandRequest'
         required: true
       responses:
         '200':
@@ -4413,12 +4417,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Brand'
+              examples:
+                Update brand response:
+                  $ref: '#/components/examples/UpdateBrandResponse'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -4433,6 +4436,13 @@ paths:
         - Customization
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
+  /api/v1/brands/{brandId}/domains:
+    parameters:
+      - $ref: '#/components/parameters/pathBrandId'
+  /api/v1/brands/{brandId}/domains/{domainId}:
+    parameters:
+      - $ref: '#/components/parameters/pathBrandId'
+      - $ref: '#/components/parameters/pathDomainId'
   /api/v1/brands/{brandId}/pages/error:
     parameters:
       - $ref: '#/components/parameters/pathBrandId'
@@ -4479,11 +4489,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CustomizablePage'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -4566,11 +4572,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/SignInPage'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -4633,11 +4635,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/SignInPage'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -5189,11 +5187,7 @@ paths:
         lifecycle: GA
   /api/v1/brands/{brandId}/themes:
     parameters:
-      - in: path
-        name: brandId
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/pathBrandId'
     get:
       summary: List all Themes
       description: List all the themes in your brand
@@ -5223,16 +5217,8 @@ paths:
         lifecycle: GA_NO_FLAG
   /api/v1/brands/{brandId}/themes/{themeId}:
     parameters:
-      - in: path
-        name: brandId
-        required: true
-        schema:
-          type: string
-      - in: path
-        name: themeId
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/pathBrandId'
+      - $ref: '#/components/parameters/pathThemeId'
     get:
       summary: Retrieve a Theme
       description: Fetches a theme for a brand
@@ -5277,19 +5263,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ThemeResponse'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -5302,16 +5280,8 @@ paths:
         lifecycle: GA_NO_FLAG
   /api/v1/brands/{brandId}/themes/{themeId}/background-image:
     parameters:
-      - in: path
-        name: brandId
-        required: true
-        schema:
-          type: string
-      - in: path
-        name: themeId
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/pathBrandId'
+      - $ref: '#/components/parameters/pathThemeId'
     post:
       summary: Upload the Background Image
       description: Updates the background image for your Theme
@@ -5337,19 +5307,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ImageUploadResponse'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -5371,11 +5333,7 @@ paths:
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -5388,16 +5346,8 @@ paths:
         lifecycle: GA_NO_FLAG
   /api/v1/brands/{brandId}/themes/{themeId}/favicon:
     parameters:
-      - in: path
-        name: brandId
-        required: true
-        schema:
-          type: string
-      - in: path
-        name: themeId
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/pathBrandId'
+      - $ref: '#/components/parameters/pathThemeId'
     post:
       summary: Upload the Favicon
       description: Updates the favicon for your theme
@@ -5423,19 +5373,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ImageUploadResponse'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -5457,11 +5399,7 @@ paths:
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -5474,16 +5412,8 @@ paths:
         lifecycle: GA_NO_FLAG
   /api/v1/brands/{brandId}/themes/{themeId}/logo:
     parameters:
-      - in: path
-        name: brandId
-        required: true
-        schema:
-          type: string
-      - in: path
-        name: themeId
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/pathBrandId'
+      - $ref: '#/components/parameters/pathThemeId'
     post:
       summary: Upload the Logo
       description: Updates the logo for your Theme
@@ -5509,19 +5439,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ImageUploadResponse'
         '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -5543,11 +5465,7 @@ paths:
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -6379,154 +6297,9 @@ paths:
         - Domain
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
-  /api/v1/email-domains:
-    get:
-      summary: List all email domains
-      description: List all the email domains in your org.
-      operationId: listEmailDomains
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EmailDomainListResponse'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - API Token: []
-        - OAuth 2.0:
-            - okta.email-domains.read
-      tags:
-        - EmailDomain
-      x-okta-lifecycle:
-        lifecycle: PRODUCT_DEV
-    post:
-      summary: Create an Email Domain
-      description: Creates a custom email domain.
-      operationId: createEmailDomain
-      x-codegen-request-body-name: emailDomain
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EmailDomain'
-        required: true
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EmailDomainResponse'
-        '400':
-          $ref: '#/components/responses/ErrorApiValidationFailed400'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - API Token: []
-        - OAuth 2.0:
-            - okta.email-domains.manage
-      tags:
-        - EmailDomain
-      x-okta-lifecycle:
-        lifecycle: PRODUCT_DEV
-  /api/v1/email-domains/{emailDomainId}:
-    get:
-      summary: Retrieve a Email Domain
-      description: Fetches an Email Domain by `emailDomainId`.
-      operationId: getEmailDomain
-      parameters:
-        - $ref: '#/components/parameters/pathEmailDomainId'
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EmailDomainResponse'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '404':
-          $ref: '#/components/responses/ErrorResourceNotFound404'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - API Token: []
-        - OAuth 2.0:
-            - okta.email-domains.read
-      tags:
-        - EmailDomain
-      x-okta-lifecycle:
-        lifecycle: PRODUCT_DEV
-    put:
-      summary: Replace an Email Domain
-      description: Replaces an email domain by `emailDomainId`
-      operationId: updateEmailDomain
-      parameters:
-        - $ref: '#/components/parameters/pathEmailDomainId'
-      x-codegen-request-body-name: updateEmailDomain
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateEmailDomain'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EmailDomainResponse'
-        '400':
-          $ref: '#/components/responses/ErrorApiValidationFailed400'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '404':
-          $ref: '#/components/responses/ErrorResourceNotFound404'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - API Token: []
-        - OAuth 2.0:
-            - okta.email-domains.manage
-      tags:
-        - EmailDomain
-      x-okta-lifecycle:
-        lifecycle: PRODUCT_DEV
-  /api/v1/email-domains/{emailDomainId}/verify:
-    post:
-      summary: Verify an Email Domain
-      description: Verifies an Email Domain by `emailDomainId`.
-      operationId: verifyEmailDomain
-      parameters:
-        - $ref: '#/components/parameters/pathEmailDomainId'
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EmailDomainResponse'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '404':
-          $ref: '#/components/responses/ErrorResourceNotFound404'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - API Token: []
-        - OAuth 2.0:
-            - okta.email-domains.manage
-      tags:
-        - EmailDomain
-      x-okta-lifecycle:
-        lifecycle: PRODUCT_DEV
+  /api/v1/email-domains: {}
+  /api/v1/email-domains/{emailDomainId}: {}
+  /api/v1/email-domains/{emailDomainId}/verify: {}
   /api/v1/eventHooks:
     get:
       summary: List all Event Hooks
@@ -10538,6 +10311,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/UserSchema'
+            examples:
+              Add a custom property to the app user schema:
+                $ref: '#/components/examples/AppUserSchemaAddRequest'
         required: false
       responses:
         '200':
@@ -10546,6 +10322,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserSchema'
+              examples:
+                Response with a subset of properties for brevity:
+                  $ref: '#/components/examples/AppUserSchemaResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -10575,6 +10354,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GroupSchema'
+              examples:
+                Response with a subset of properties for brevity:
+                  $ref: '#/components/examples/GroupSchemaResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '429':
@@ -10596,6 +10378,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GroupSchema'
+            examples:
+              Add a custom property to the group schema:
+                $ref: '#/components/examples/GroupSchemaAddRequest'
       responses:
         '200':
           description: successful operation
@@ -10603,6 +10388,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GroupSchema'
+              example:
+                Response with a subset of properties for brevity:
+                  $ref: '#/components/examples/GroupSchemaResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -10617,6 +10405,72 @@ paths:
         - Schema
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
+  /api/v1/meta/schemas/logStream:
+    get:
+      summary: List the Log Stream Schemas
+      description: Lists the schema for all log stream types visible for this org.
+      operationId: listLogStreamSchemas
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LogStreamSchema'
+              examples:
+                All log stream schemas for your org:
+                  $ref: '#/components/examples/LogStreamSchemaList'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.logStreams.read
+      tags:
+        - Schema
+      x-okta-lifecycle:
+        lifecycle: EA
+  /api/v1/meta/schemas/logStream/{logStreamType}:
+    parameters:
+      - name: logStreamType
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/LogStreamType'
+    get:
+      summary: Retrieve the Log Stream Schema for the schema type
+      description: Retrieves the schema for a Log Stream type. The `logStreamType` element in the URL specifies the Log Stream type, which is either `aws_eventbridge` or `splunk_cloud_logstreaming`. Use the `aws_eventbridge` literal to retrieve the AWS EventBridge type schema, and use the `splunk_cloud_logstreaming` literal retrieve the Splunk Cloud type schema.
+      operationId: getLogStreamSchema
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogStreamSchema'
+              examples:
+                Schema for type `aws_eventbridge`:
+                  $ref: '#/components/examples/LogStreamSchemaAws'
+                Schema for type `splunk_cloud_logstreaming`:
+                  $ref: '#/components/examples/LogStreamSchemaSplunk'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - API Token: []
+        - OAuth 2.0:
+            - okta.logStreams.read
+      tags:
+        - Schema
+      x-okta-lifecycle:
+        lifecycle: EA
   /api/v1/meta/schemas/user/linkedObjects:
     get:
       summary: List all Linked Object Definitions
@@ -10676,16 +10530,16 @@ paths:
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
   /api/v1/meta/schemas/user/linkedObjects/{linkedObjectName}:
+    parameters:
+      - name: linkedObjectName
+        in: path
+        required: true
+        schema:
+          type: string
     get:
       summary: Retrieve a Linked Object Definition
       description: Success
       operationId: getLinkedObjectDefinition
-      parameters:
-        - name: linkedObjectName
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: Success
@@ -10711,12 +10565,6 @@ paths:
       summary: Delete a Linked Object Definition
       description: Success
       operationId: deleteLinkedObjectDefinition
-      parameters:
-        - name: linkedObjectName
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '204':
           description: No Content
@@ -10736,16 +10584,16 @@ paths:
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
   /api/v1/meta/schemas/user/{schemaId}:
+    parameters:
+      - name: schemaId
+        in: path
+        required: true
+        schema:
+          type: string
     get:
       summary: Retrieve a User Schema
       description: Fetches the schema for a Schema Id.
       operationId: getUserSchema
-      parameters:
-        - name: schemaId
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: Success
@@ -10753,6 +10601,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserSchema'
+              examples:
+                Response with a subset of properties for brevity:
+                  $ref: '#/components/examples/UserSchemaResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -10771,18 +10622,15 @@ paths:
       summary: Update a User Schema
       description: Partial updates on the User Profile properties of the user schema.
       operationId: updateUserProfile
-      parameters:
-        - name: schemaId
-          in: path
-          required: true
-          schema:
-            type: string
       x-codegen-request-body-name: userSchema
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UserSchema'
+            examples:
+              Add a custom property to the user schema:
+                $ref: '#/components/examples/UserSchemaAddRequest'
         required: true
       responses:
         '200':
@@ -10791,6 +10639,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserSchema'
+              examples:
+                Response with a subset of properties for brevity:
+                  $ref: '#/components/examples/UserSchemaResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -10866,16 +10717,16 @@ paths:
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
   /api/v1/meta/types/user/{typeId}:
+    parameters:
+      - name: typeId
+        in: path
+        required: true
+        schema:
+          type: string
     get:
       summary: Retrieve a User Type
       description: Fetches a User Type by ID. The special identifier `default` may be used to fetch the default User Type.
       operationId: getUserType
-      parameters:
-        - name: typeId
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '200':
           description: Success
@@ -10901,12 +10752,6 @@ paths:
       summary: Update a User Type
       description: Updates an existing User Type
       operationId: updateUserType
-      parameters:
-        - name: typeId
-          in: path
-          required: true
-          schema:
-            type: string
       x-codegen-request-body-name: userType
       requestBody:
         content:
@@ -10941,12 +10786,6 @@ paths:
       summary: Replace a User Type
       description: Replace an existing User Type
       operationId: replaceUserType
-      parameters:
-        - name: typeId
-          in: path
-          required: true
-          schema:
-            type: string
       x-codegen-request-body-name: userType
       requestBody:
         content:
@@ -10981,12 +10820,6 @@ paths:
       summary: Delete a User Type
       description: Deletes a User Type permanently. This operation is not permitted for the default type, nor for any User Type that has existing users
       operationId: deleteUserType
-      parameters:
-        - name: typeId
-          in: path
-          required: true
-          schema:
-            type: string
       responses:
         '204':
           description: No Content
@@ -16346,6 +16179,60 @@ components:
             hints:
               allow:
                 - GET
+    AppUserSchemaAddRequest:
+      value:
+        definitions:
+          custom:
+            id: '#custom'
+            type: object
+            properties:
+              twitterUserName:
+                title: Twitter username
+                description: User's username for twitter.com
+                type: string
+                required: false
+                minLength: 1
+                maxLength: 20
+            required: []
+    AppUserSchemaResponse:
+      value:
+        id: https://{yourOktaDomain}/meta/schemas/apps/0oa25gejWwdXNnFH90g4/default
+        $schema: http://json-schema.org/draft-04/schema#
+        name: Example App
+        title: Example App User
+        lastUpdated: '2017-07-18T23:18:43.000Z'
+        created: '2017-07-18T22:35:30.000Z'
+        definitions:
+          base:
+            id: '#base'
+            type: object
+            properties:
+              userName:
+                title: Username
+                type: string
+                required: true
+                scope: NONE
+                maxLength: 100
+            required:
+              - userName
+          custom:
+            id: '#custom'
+            type: object
+            properties:
+              twitterUserName:
+                title: Twitter username
+                description: User's username for twitter.com
+                type: string
+                scope: NONE
+                minLength: 1
+                maxLength: 20
+            required: []
+        type: object
+        properties:
+          profile:
+            allOf:
+              - $ref: '#/definitions/base'
+              - $ref: '#/definitions/custom'
     AuthenticatorRequestDuo:
       value:
         key: duo
@@ -16591,6 +16478,32 @@ components:
                 - POST
                 - PUT
                 - DELETE
+    CreateBrandDomainRequest:
+      value:
+        domainId: OcD11vyscTlIkpC7i0g4
+    CreateBrandRequest:
+      value:
+        name: My Awesome Brand
+    CreateBrandResponse:
+      value:
+        id: bnd114iNkrcN6aR680g5
+        removePoweredByOkta: false
+        customPrivacyPolicyUrl: null
+        name: My Awesome Brand
+        isDefault: false
+        _links:
+          self:
+            href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g5
+            hints:
+              allow:
+                - GET
+                - PUT
+                - DELETE
+          themes:
+            href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g5/themes
+            hints:
+              allow:
+                - GET
     CreateUpdateEmailCustomizationRequest:
       value:
         language: fr
@@ -16874,6 +16787,20 @@ components:
         errorId: oaePVSLIYnIQsC0B-ptBIllVA
         errorCauses:
           - errorSummary: The number of group targets is too large.
+    ErrorDeleteBrandAssociatedWithDomain:
+      value:
+        errorCode: E0000201
+        errorSummary: A brand associated with a domain cannot be deleted
+        errorLink: E0000201
+        errorId: oaeAdRqprFuTyKokyYPbURJkA
+        errorCauses: []
+    ErrorDeleteDefaultBrand:
+      value:
+        errorCode: E0000200
+        errorSummary: A default brand cannot be deleted
+        errorLink: E0000200
+        errorId: oaeAdRqprFuTyKokyYPbURJkA
+        errorCauses: []
     ErrorDeviceAssuranceInUse:
       value:
         errorSummary: Device assurance is in use and cannot be deleted.
@@ -16914,6 +16841,14 @@ components:
         errorLink: E0000189
         errorId: oae8L1-UkcNTeGi5xVQ28_lww
         errorCauses: []
+    ErrorLinkDefaultBrand:
+      value:
+        errorCode: E0000203
+        errorSummary: Failed to associate this domain with the given brandId
+        errorLink: E0000203
+        errorId: oaeAdRqprFuTyKokyYPbURJkA
+        errorCauses:
+          - errorSummary: The default brand cannot be mapped to a domain
     ErrorPushProviderUsedByCustomAppAuthenticator:
       value:
         errorCode: E0000187
@@ -16935,6 +16870,26 @@ components:
         errorLink: E0000047
         errorId: sampleQPivGUj_ND5v78vbYWW
         errorCauses: []
+    GetBrandResponse:
+      value:
+        id: bnd114iNkrcN6aR680g4
+        removePoweredByOkta: false
+        customPrivacyPolicyUrl: null
+        name: Okta Default
+        isDefault: true
+        _links:
+          self:
+            href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4
+            hints:
+              allow:
+                - GET
+                - PUT
+                - DELETE
+          themes:
+            href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4/themes
+            hints:
+              allow:
+                - GET
     GetEmailTemplateResponse:
       value:
         name: UserActivation
@@ -16967,6 +16922,111 @@ components:
             hints:
               allow:
                 - POST
+    GroupSchemaAddRequest:
+      value:
+        definitions:
+          custom:
+            id: '#custom'
+            type: object
+            properties:
+              groupContact:
+                title: Group administrative contact
+                description: Group administrative contact
+                type: string
+                required: false
+                minLength: 1
+                maxLength: 20
+                permissions:
+                  - principal: SELF
+                    action: READ_WRITE
+            required: []
+    GroupSchemaResponse:
+      value:
+        $schema: http://json-schema.org/draft-04/schema#
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/meta/schemas/group/default
+            method: GET
+            rel: self
+        created: '2021-01-30T00:18:24.000Z'
+        definitions:
+          base:
+            id: '#base'
+            properties: {}
+            required:
+              - name
+            type: object
+          custom:
+            id: '#custom'
+            properties:
+              groupContact:
+                description: Group administrative contact
+                master:
+                  type: PROFILE_MASTER
+                mutability: READ_WRITE
+                permissions:
+                  - action: READ_WRITE
+                    principal: SELF
+                scope: NONE
+                title: Group administrative contact
+                type: string
+            required: []
+            type: object
+        description: Okta group profile template
+        id: https://{yourOktaDomain}/meta/schemas/group/default
+        lastUpdated: '2021-02-25T23:05:31.000Z'
+        name: group
+        properties:
+          profile:
+            allOf:
+              - $ref: '#/definitions/custom'
+              - $ref: '#/definitions/base'
+        title: Okta group
+        type: object
+    LinkBrandDomain:
+      value:
+        domainId: OcD11vyscTlIkpC7i0g4
+        _links:
+          self:
+            href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4/domains/OcD11vyscTlIkpC7i0g4
+            hints:
+              allow:
+                - PUT
+                - DELETE
+          brand:
+            href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4
+            hints:
+              allow:
+                - GET
+                - PUT
+                - DELETE
+          domain:
+            href: https://${yourOktaDomain}/api/v1/domains/OcD11vyscTlIkpC7i0g4
+            hints:
+              allow:
+                - GET
+                - PUT
+                - DELETE
+    ListBrandsResponse:
+      value:
+        - id: bnd114iNkrcN6aR680g4
+          name: Okta Default
+          isDefault: true
+          removePoweredByOkta: false
+          customPrivacyPolicyUrl: null
+          _links:
+            self:
+              href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4
+              hints:
+                allow:
+                  - GET
+                  - PUT
+                  - DELETE
+            themes:
+              href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4/themes
+              hints:
+                allow:
+                  - GET
     ListEmailCustomizationResponse:
       value:
         - language: en
@@ -17085,6 +17145,122 @@ components:
           deactivate:
             href: http://{yourOktaDomain}/api/v1/logStreams/0oa1orqUGCIoCGNxf0g4/lifecycle/deactivate
             method: POST
+    LogStreamSchemaAws:
+      value: &ref_4
+        $schema: https://json-schema.org/draft/2020-12/schema
+        $id: http://{yourOktaDomain}/api/v1/meta/schemas/logStream/aws_eventbridge
+        title: AWS EventBridge
+        type: object
+        properties:
+          settings:
+            description: Configuration properties specific to AWS EventBridge
+            type: object
+            properties:
+              accountId:
+                title: AWS Account ID
+                description: Your Amazon AWS Account ID.
+                type: string
+                writeOnce: true
+                pattern: ^\d{12}$
+              eventSourceName:
+                title: AWS Event Source Name
+                description: An alphanumeric name (no spaces) to identify this event source in AWS EventBridge.
+                type: string
+                writeOnce: true
+                pattern: ^[\.\-_A-Za-z0-9]{1,75}$
+              region:
+                title: AWS Region
+                description: The destination AWS region for your system log events.
+                type: string
+                writeOnce: true
+                oneOf:
+                  - title: US East (Ohio)
+                    const: us-east-2
+                  - title: US East (N. Virginia)
+                    const: us-east-1
+                  - title: US West (N. California)
+                    const: us-west-1
+                  - title: US West (Oregon)
+                    const: us-west-2
+                  - title: Canada (Central)
+                    const: ca-central-1
+                  - title: Europe (Frankfurt)
+                    const: eu-central-1
+                  - title: Europe (Ireland)
+                    const: eu-west-1
+                  - title: Europe (London)
+                    const: eu-west-2
+                  - title: Europe (Paris)
+                    const: eu-west-3
+                  - title: Europe (Milan)
+                    const: eu-south-1
+                  - title: Europe (Stockholm)
+                    const: eu-north-1
+            required:
+              - eventSourceName
+              - accountId
+              - region
+            errorMessage:
+              properties:
+                accountId: Account number must be 12 digits.
+                eventSourceName: Event source name can use numbers, letters, the symbols ".", "-" or "_". It must use fewer than 76 characters.
+          name:
+            title: Name
+            description: A name for this log stream in Okta
+            type: string
+            writeOnce: false
+            pattern: ^.{1,100}$
+        required:
+          - name
+          - settings
+        errorMessage:
+          properties:
+            name: Name can't exceed 100 characters.
+    LogStreamSchemaList:
+      value:
+        - *ref_4
+        - &ref_5
+          $schema: https://json-schema.org/draft/2020-12/schema
+          $id: http://{yourOktaDomain}/api/v1/meta/schemas/logStream/splunk_cloud_logstreaming
+          title: Splunk Cloud
+          type: object
+          properties:
+            settings:
+              description: Configuration properties specific to Splunk Cloud
+              type: object
+              properties:
+                host:
+                  title: Host
+                  description: 'The domain for your Splunk Cloud instance without http or https. For example: acme.splunkcloud.com'
+                  type: string
+                  writeOnce: false
+                  pattern: ^([a-z0-9]+(-[a-z0-9]+)*){1,100}\.splunkcloud(gc|fed)?\.com$
+                token:
+                  title: HEC Token
+                  description: The token from your Splunk Cloud HTTP Event Collector (HEC).
+                  type: string
+                  writeOnce: false
+                  pattern: '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}'
+              required:
+                - host
+                - token
+              errorMessage:
+                properties:
+                  host: 'Host should be a domain without http or https. For example: acme.splunkcloud.com'
+            name:
+              title: Name
+              description: A name for this log stream in Okta
+              type: string
+              writeOnce: false
+              pattern: ^.{1,100}$
+          required:
+            - name
+            - settings
+          errorMessage:
+            properties:
+              name: Name can't exceed 100 characters.
+    LogStreamSchemaSplunk:
+      value: *ref_5
     PermissionResponse:
       value:
         label: okta.users.manage
@@ -17452,6 +17628,125 @@ components:
         _links:
           next:
             href: https://{yourOktaDomain}/api/v1/iam/roles?after=cr0Fw7HKcWIroo88m3r1
+    UpdateBrandRequest:
+      value:
+        customPrivacyPolicyUrl: https://www.someHost.com/privacy-policy
+        agreeToCustomPrivacyPolicy: true
+        removePoweredByOkta: true
+        name: New Name For Brand
+    UpdateBrandResponse:
+      value:
+        id: bnd114iNkrcN6aR680g4
+        removePoweredByOkta: true
+        agreeToCustomPrivacyPolicy: true
+        name: New Name For Brand
+        isDefault: true
+        customPrivacyPolicyUrl: https://www.someHost.com/privacy-policy
+        _links:
+          self:
+            href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4
+            hints:
+              allow:
+                - GET
+                - PUT
+                - DELETE
+          themes:
+            href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4/themes
+            hints:
+              allow:
+                - GET
+    UserSchemaAddRequest:
+      value:
+        definitions:
+          custom:
+            id: '#custom'
+            type: object
+            properties:
+              twitterUserName:
+                title: Twitter username
+                description: Twitter Username
+                type: string
+                required: false
+                minLength: 1
+                maxLength: 20
+                permissions:
+                  - principal: SELF
+                    action: READ_WRITE
+            required: []
+    UserSchemaResponse:
+      value:
+        id: https://{yourOktaDomain}/meta/schemas/user/default
+        $schema: http://json-schema.org/draft-04/schema#
+        name: user
+        title: Default Okta User
+        lastUpdated: '2015-09-05T10:40:45.000Z'
+        created: '2015-02-02T10:27:36.000Z'
+        definitions:
+          base:
+            id: '#base'
+            type: object
+            properties:
+              login:
+                title: Username
+                type: string
+                required: true
+                minLength: 5
+                maxLength: 100
+                permissions:
+                  - principal: SELF
+                    action: READ_WRITE
+              firstName:
+                title: First name
+                type: string
+                required: true
+                minLength: 1
+                maxLength: 50
+                permissions:
+                  - principal: SELF
+                    action: READ_WRITE
+              lastName:
+                title: Last name
+                type: string
+                required: true
+                minLength: 1
+                maxLength: 50
+                permissions:
+                  - principal: SELF
+                    action: READ_WRITE
+              email:
+                title: Primary email
+                type: string
+                required: true
+                format: email
+                permissions:
+                  - principal: SELF
+                    action: READ_WRITE
+            required:
+              - login
+              - firstName
+              - lastName
+              - email
+          custom:
+            id: '#custom'
+            type: object
+            properties:
+              twitterUserName:
+                title: Twitter username
+                description: User's username for twitter.com
+                type: string
+                required: false
+                minLength: 1
+                maxLength: 20
+                permissions:
+                  - principal: SELF
+                    action: READ_WRITE
+            required: []
+        type: object
+        properties:
+          profile:
+            allOf:
+              - $ref: '#/definitions/base'
+              - $ref: '#/definitions/custom'
     WellKnownOrgMetadataResponseClassic:
       value:
         id: 00o5rb5mt2H3d1TJd0h7
@@ -17530,6 +17825,13 @@ components:
         example: guo4a5u7JHHhjXrMK0g4
       required: true
       description: '`id` of the device'
+    pathDomainId:
+      name: domainId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The ID of the domain.
     pathEmailDomainId:
       name: emailDomainId
       in: path
@@ -17606,6 +17908,13 @@ components:
       schema:
         type: string
       description: The name of the email template.
+    pathThemeId:
+      name: themeId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The ID of the theme.
     pathUpdateId:
       name: updateId
       in: path
@@ -18912,15 +19221,56 @@ components:
         id:
           readOnly: true
           type: string
+        isDefault:
+          readOnly: true
+          type: boolean
+        name:
+          type: string
         optOutOfUserCommunications:
           type: boolean
         removePoweredByOkta:
           type: boolean
         _links:
-          additionalProperties:
-            type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/HrefObject'
+            themes:
+              $ref: '#/components/schemas/HrefObject'
           readOnly: true
           type: object
+    BrandDomain:
+      type: object
+      properties:
+        domainId:
+          type: string
+          readOnly: true
+        _links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/HrefObject'
+            brand:
+              $ref: '#/components/schemas/HrefObject'
+            domain:
+              $ref: '#/components/schemas/HrefObject'
+          readOnly: true
+          description: Links to resources related to this brand domain
+    BrandDomains:
+      title: BrandDomains
+      items:
+        $ref: '#/components/schemas/DomainResponse'
+      type: array
+    BrandRequest:
+      type: object
+      properties:
+        agreeToCustomPrivacyPolicy:
+          type: boolean
+        customPrivacyPolicyUrl:
+          type: string
+        name:
+          type: string
+        removePoweredByOkta:
+          type: boolean
     BrowserPluginApplication:
       allOf:
         - $ref: '#/components/schemas/Application'
@@ -19076,6 +19426,18 @@ components:
           properties:
             expression:
               type: string
+    CreateBrandDomainRequest:
+      title: CreateBrandDomainRequest
+      type: object
+      properties:
+        domainId:
+          type: string
+    CreateBrandRequest:
+      title: CreateBrandRequest
+      type: object
+      properties:
+        name:
+          type: string
     CreateSessionRequest:
       type: object
       properties:
@@ -19416,6 +19778,8 @@ components:
     Domain:
       type: object
       properties:
+        brandId:
+          type: string
         certificateSourceType:
           $ref: '#/components/schemas/DomainCertificateSourceType'
         dnsRecords:
@@ -19462,15 +19826,14 @@ components:
     DomainLinks:
       type: object
       properties:
+        brand:
+          $ref: '#/components/schemas/HrefObject'
         certificate:
-          type: object
-          properties: {}
+          $ref: '#/components/schemas/HrefObject'
         self:
-          type: object
-          properties: {}
+          $ref: '#/components/schemas/HrefObject'
         verify:
-          type: object
-          properties: {}
+          $ref: '#/components/schemas/HrefObject'
     DomainListResponse:
       type: object
       properties:
@@ -19481,6 +19844,8 @@ components:
     DomainResponse:
       type: object
       properties:
+        brandId:
+          type: string
         certificateSourceType:
           $ref: '#/components/schemas/DomainCertificateSourceType'
         dnsRecords:
@@ -21107,6 +21472,43 @@ components:
           properties:
             settings:
               $ref: '#/components/schemas/LogStreamSettingsAws'
+    LogStreamSchema:
+      type: object
+      properties:
+        $schema:
+          type: string
+          readOnly: true
+        created:
+          type: string
+          readOnly: true
+        errorMessage:
+          type: object
+        id:
+          type: string
+          readOnly: true
+        lastUpdated:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        properties:
+          type: object
+        required:
+          type: array
+          items:
+            type: string
+        title:
+          type: string
+        type:
+          type: string
+          readOnly: true
+        _links:
+          type: object
+          additionalProperties:
+            type: object
+            properties: {}
+          readOnly: true
     LogStreamSettings:
       type: object
     LogStreamSettingsAws:
@@ -24071,6 +24473,11 @@ components:
       type: object
       properties:
         credentialId:
+          type: string
+    UpdateDomain:
+      type: object
+      properties:
+        brandId:
           type: string
     UpdateEmailDomain:
       allOf:

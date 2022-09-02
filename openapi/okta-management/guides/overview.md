@@ -5,7 +5,7 @@ meta:
     content: Learn how the Okta API works and learn about the compatibility rules and design principles.
 ---
 
-# Okta Management API
+# Okta Management
 
 ### Authentication
 

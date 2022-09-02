@@ -24,7 +24,7 @@ meta:
 | profile             | Requests access to the end user's default profile claims |
 
 
-## Okta Management APIs
+## Okta Management
 
 | Scope                            | Description |
 | -------------------------------- | --------- |
@@ -92,7 +92,7 @@ meta:
 | okta.users.read                  | Allows the app to read the existing users' profiles and credentials. |
 
 
-## Okta MyAccount APIs
+## Okta MyAccount
 
 | Scope                         | Description |
 | ----------------------------- | --------- |

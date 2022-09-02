@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Okta MyAccount APIs
+  title: Okta MyAccount
   version: 1.0.0
   description: APIs for managing a user's own emails, phones, and profile.
   termsOfService: https://developer.okta.com/terms/
