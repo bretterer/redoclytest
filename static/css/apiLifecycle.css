@@ -1,40 +1,27 @@
-.api-label {
-  color: white;
-  font-weight: normal;
-  padding: 3px 10px;
-  text-align: center;
+x-lifecycle {
+  color: #ffffff;
+  border-radius: 4px;
+  margin-right: 0.28571429rem;
+  padding: 0.28571429rem;
+  vertical-align: super;
   white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: .25em;
-  display: inline-block;
-  margin-bottom:  24px;
 }
 
-.api-label-beta {
-  background: #ebd551;
-  color: #1d1d21;
+x-lifecycle.beta {
+  background: #ffc61c;
 }
-
-.api-label-ea {
+x-lifecycle.beta::before {
+  content: 'Beta';
+}
+x-lifecycle.ea {
   background: #8d6e97;
 }
-
-.api-label-deprecated {
-  background: #cb5500;
+x-lifecycle.ea::before {
+  content: 'Early Access';
 }
-
-.api-label-cors {
-  background: #dcdcdc;
-}
-
-.api-label-ie {
+x-lifecycle.oie {
   background: #00297a;
 }
-
-.api-label-classic-engine {
-  background: #1d1d21;
-}
-
-.api-label-limited-ga {
-  background: #2d8c9e;
+x-lifecycle.oie::before {
+  content: 'Identity Engine';
 }

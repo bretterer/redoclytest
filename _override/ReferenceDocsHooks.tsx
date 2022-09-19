@@ -53,9 +53,9 @@ function getIdentityEngineBadge(operation) {
 
 function getOAuth2ScopeSection(operation) {
     if (operation.security) {
-        const oauth2Scheme = operation.security.find(scheme => "OAuth 2.0" in scheme)
+        const oauth2Scheme = operation.security.find(scheme => "oauth2" in scheme)
         if (oauth2Scheme) {
-            const scopes = oauth2Scheme["OAuth 2.0"]
+            const scopes = oauth2Scheme["oauth2"]
             return (
                 <div>
                     <span>

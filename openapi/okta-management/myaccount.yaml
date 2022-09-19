@@ -46,7 +46,7 @@ paths:
         '401':
           $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.myaccount.email.read
       tags:
         - Email
@@ -110,7 +110,7 @@ paths:
         '409':
           $ref: '#/components/responses/Error-EmailConflict-Response-409'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.myaccount.email.manage
       tags:
         - Email
@@ -132,7 +132,7 @@ paths:
         '401':
           $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.myaccount.email.read
       tags:
         - Email
@@ -155,7 +155,7 @@ paths:
         '404':
           $ref: '#/components/responses/Error-EmailResourceNotFound-Response-404'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.myaccount.email.manage
       tags:
         - Email
@@ -305,7 +305,7 @@ paths:
         '404':
           $ref: '#/components/responses/Error-EmailResourceNotFound-Response-404'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.myaccount.email.manage
       tags:
         - Email
@@ -442,7 +442,7 @@ paths:
         '404':
           $ref: '#/components/responses/Error-EmailChallengeResourceNotFound-Response-404'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.myaccount.email.manage
       tags:
         - Email
@@ -492,7 +492,7 @@ paths:
         '404':
           $ref: '#/components/responses/Error-EmailChallengeResourceNotFound-Response-404'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.myaccount.email.manage
       tags:
         - Email
@@ -507,7 +507,7 @@ paths:
         '401':
           $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.myaccount.phone.read
       tags:
         - Phone
@@ -558,7 +558,7 @@ paths:
         '500':
           $ref: '#/components/responses/Error-FailedToSendOutOfBandChallenge-Response-500'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.myaccount.phone.manage
       tags:
         - Phone
@@ -582,7 +582,7 @@ paths:
         '404':
           $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.myaccount.phone.read
       tags:
         - Phone
@@ -602,7 +602,7 @@ paths:
         '404':
           $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.myaccount.phone.manage
       tags:
         - Phone
@@ -657,7 +657,7 @@ paths:
         '500':
           $ref: '#/components/responses/Error-FailedToSendOutOfBandChallenge-Response-500'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.myaccount.phone.manage
       tags:
         - Phone
@@ -706,7 +706,7 @@ paths:
         '409':
           $ref: '#/components/responses/Error-InvalidTransaction-Response-409'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.myaccount.phone.manage
       tags:
         - Phone
@@ -741,7 +741,7 @@ paths:
         '401':
           $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.myaccount.profile.read
             - okta.myaccount.profile.manage
       tags:
@@ -797,7 +797,7 @@ paths:
         '403':
           $ref: '#/components/responses/Error-NoAccessForAdminUser-Response-403'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.myaccount.profile.manage
       tags:
         - Profile
@@ -854,7 +854,7 @@ paths:
         '401':
           $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.myaccount.profile.read
             - okta.myaccount.profile.manage
       tags:
@@ -1371,7 +1371,7 @@ components:
                 errorLink: E0000008
                 errorId: oaejUwz8U5FQ_SyggQwz1kC3w
                 errorCauses:
-                  - errorSummary: Invalid factor id, no phone factor found.
+                  - errorSummary: This operation couldn't be completed as requested due to an issue with the specified authenticator.
     Error-NoAccessForAdminUser-Response-403:
       description: Forbidden
       content:
@@ -1386,7 +1386,7 @@ components:
                 errorLink: E0000038
                 errorId: oaejUwz8U5FQ_SyggQwz1kC3w
                 errorCauses:
-                  - errorSummary: An admin user cannot access a non-admin endpoint.
+                  - errorSummary: This operation couldn't be completed as requested due to an access restriction.
     Error-FailedToSendOutOfBandChallenge-Response-500:
       description: Internal Server Error
       content:
@@ -1486,7 +1486,7 @@ components:
                 errorLink: E0000157
                 errorId: oaejUwz8U5FQ_SyggQwz1kC3w
                 errorCauses:
-                  - errorSummary: This phone number already exists in the user account.
+                  - errorSummary: This phone number is already assigned to the current user account.
     Error-InvalidEmailDeletion-400:
       description: Bad Request
       content:
@@ -1501,7 +1501,7 @@ components:
                 errorLink: E0000001
                 errorId: oaejUwz8U5FQ_SyggQwz1kC3w
                 errorCauses:
-                  - errorSummary: 'Can''t delete a verified email address: example@email.com, role=PRIMARY'
+                  - errorSummary: Can't delete a verified email address.
     Error-InvalidEmail-Response-400:
       description: Bad Request
       content:
@@ -1574,7 +1574,7 @@ components:
                 errorLink: E0000038
                 errorId: oaejUwz8U5FQ_SyggQwz1kC3w
                 errorCauses:
-                  - errorSummary: An admin user cannot access a non-admin endpoint.
+                  - errorSummary: This operation couldn't be completed as requested due to an access restriction.
             Secondary Email:
               value:
                 errorCode: E0000038
@@ -1691,7 +1691,7 @@ components:
                 errorLink: E0000001
                 errorId: oaejUwz8U5FQ_SyggQwz1kC3w
                 errorCauses:
-                  - errorSummary: Invalid factor id, no phone factor found.
+                  - errorSummary: This operation couldn't be completed as requested due to an issue with the specified authenticator.
     Error-IdpMyAccountNotEnabled-Response-401:
       description: Unauthorized
       content:
@@ -1750,7 +1750,7 @@ components:
                 errorLink: E0000038
                 errorId: oaejUwz8U5FQ_SyggQwz1kC3w
                 errorCauses:
-                  - errorSummary: An admin user cannot access a non-admin endpoint.
+                  - errorSummary: This operation couldn't be completed as requested due to an access restriction.
             Phone Authenticator Disabled:
               value:
                 errorCode: E0000038
@@ -1781,7 +1781,7 @@ components:
                 errorLink: E0000038
                 errorId: oaejUwz8U5FQ_SyggQwz1kC3w
                 errorCauses:
-                  - errorSummary: An admin user cannot access a non-admin endpoint.
+                  - errorSummary: This operation couldn't be completed as requested due to an access restriction.
             Phone Authenticator Disabled:
               value:
                 errorCode: E0000038
@@ -1791,7 +1791,7 @@ components:
                 errorCauses:
                   - errorSummary: Phone authenticator is not enabled for your org.
   securitySchemes:
-    OAuth 2.0:
+    oauth2:
       type: oauth2
       description: 'Pass the access_token as the value of the Authorization header: `Authorization: Bearer {access_token}`'
       flows:

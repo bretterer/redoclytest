@@ -39,7 +39,7 @@ tags:
       Okta allows you to [create multiple Custom Authorization Servers](https://developer.okta.com/docs/guides/customize-authz-server/main/#create-an-authorization-server) within a single Okta org that you can use to protect your own resource servers. Within each authorization server, you can define your own custom OAuth 2.0 scopes, claims, and access policies to support authorization for your APIs.
   - name: OrgAS
     x-displayName: Org Authorization Server
-    description: Every Okta org comes with a built-in authorization server called the Org Authorization Server. You use the Org Authorization Server to perform SSO with Okta for your OpenID Connect apps or to get an access token for the Okta APIs. You can't customize this authorization server with regards to audience, claims, policies, or scopes. Additionally, the resulting access token's issuer is `https://${yourOktaDomain}`, which indicates that only Okta can consume or validate it. The access token can't be used or validated by your own applications.
+    description: Every Okta org comes with a built-in authorization server called the Org Authorization Server. You use the Org Authorization Server to perform SSO with Okta for your OpenID Connect apps or to get an access token for the Okta APIs. You can't customize this authorization server with regards to audience, claims, policies, or scopes. Additionally, the resulting access token's issuer is `https://{yourOktaDomain}`, which indicates that only Okta can consume or validate it. The access token can't be used or validated by your own applications.
 x-tagGroups:
   - name: OpenID Connect & OAuth 2.0
     tags:
@@ -77,6 +77,18 @@ paths:
         > **Note:** Requests to the `/authorize` endpoint should redirect the browser (user agent) to the endpoint. You can't use AJAX with this endpoint. Example responses are intentionally omitted, but include displaying a sign-in prompt, redirecting to the client application, or displaying an error.
       operationId: authorize
       parameters: &ref_1
+        - name: acr_values
+          in: query
+          description: |-
+            <x-lifecycle class="ea"></x-lifecycle>
+            An optional parameter that can be included in the authentication request. This parameter increases the level of user assurance.
+
+            <x-lifecycle class="oie"></x-lifecycle>
+            Several values are only supported with Identity Engine. See [predefined acr values](https://developer.okta.com/docs/guides/step-up-authentication/main/#predefined-parameter-values).
+
+            > **Note:** Multiple space-delimited values may be provided. The authorization server will choose one and reflect the chosen value in any resulting tokens.
+          schema:
+            $ref: '#/components/schemas/AcrValue'
         - name: client_id
           in: query
           description: Obtained during either manual client registration or via the Dynamic Client Registration API. It identifies the client and must match the value preregistered in Okta.
@@ -245,8 +257,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.clients.read
       tags:
         - Client
@@ -302,8 +314,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.clients.manage
       tags:
         - Client
@@ -312,7 +324,7 @@ paths:
       - $ref: '#/components/parameters/pathClientId'
     get:
       summary: Retrieve a Client application
-      description: Retreive a Client application by `clientId` from your organization.
+      description: Retrieve a Client application by `clientId` from your organization.
       operationId: getClient
       responses:
         '200':
@@ -331,8 +343,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.clients.read
       tags:
         - Client
@@ -371,8 +383,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.clients.manage
       tags:
         - Client
@@ -391,8 +403,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.clients.manage
       tags:
         - Client
@@ -423,8 +435,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.clients.manage
       tags:
         - Client
@@ -796,7 +808,7 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - openid
       tags:
         - OrgAS
@@ -892,7 +904,7 @@ paths:
       responses: *ref_6
       security: *ref_0
       tags:
-        - OrgAS
+        - CustomAS
   /oauth2/{authorizationServerId}/v1/keys:
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
@@ -982,18 +994,18 @@ paths:
       operationId: userinfoCustomAS
       responses: *ref_16
       security:
-        - OAuth 2.0:
+        - oauth2:
             - openid
       tags:
         - CustomAS
 components:
   securitySchemes:
-    API Token:
+    apiToken:
       description: 'Pass the API token as the Authorization header value prefixed with SSWS: `Authorization: SSWS {API Token}`'
       name: Authorization
       type: apiKey
       in: header
-    OAuth 2.0:
+    oauth2:
       type: oauth2
       description: 'Pass the access_token as the value of the Authorization header: `Authorization: Bearer {access_token}`'
       flows:
@@ -1021,7 +1033,7 @@ components:
         Pass the client credentials concatenated with a `:` and base64 encoded as part of the Authorization header prefixed with `Basic`
 
         ```
-        Authorization: Basic ${base64(<client_id>:<client_secret>)}
+        Authorization: Basic {base64(<client_id>:<client_secret>)}
         ```
 
         ```
@@ -1108,6 +1120,15 @@ components:
       schema:
         type: string
   schemas:
+    AcrValue:
+      type: string
+      enum:
+        - phr
+        - phrh
+        - urn:okta:loa:1fa:any
+        - urn:okta:loa:1fa:pwd
+        - urn:okta:loa:2fa:any
+        - urn:okta:loa:2fa:any:ifpossible
     ApplicationType:
       description: 'The type of client application. Default value: `web`.'
       type: string
@@ -1202,6 +1223,9 @@ components:
     DeviceAuthorizeRequest:
       type: object
       properties:
+        client_id:
+          type: string
+          description: Obtained during either manual client registration or via the Dynamic Client Registration API. It identifies the client and must match the value preregistered in Okta.
         scope:
           type: string
           description: A list of scopes that the client wants included in the access token.
@@ -1340,6 +1364,8 @@ components:
           description: The unique identifier of the key.
         kty:
           $ref: '#/components/schemas/JsonWebKeyType'
+        status:
+          $ref: '#/components/schemas/JsonWebKeyStatus'
         use:
           $ref: '#/components/schemas/JsonWebKeyUse'
       discriminator:
@@ -1369,6 +1395,18 @@ components:
             'n':
               type: string
               description: The modulus of the RSA key.
+    JsonWebKeyStatus:
+      description: |-
+        The status of the public key. 
+
+        * The listed `ACTIVE` Key is used to sign tokens issued by the Authorization Server.
+        * The listed `NEXT` Key is the next Key that the Authorization Server uses to sign tokens when Keys are rotated. The `NEXT` Key might not be listed if it hasn't been generated yet.
+        * The listed `EXPIRED` Key is the previous Key that the Authorization Server used to sign tokens. The `EXPIRED` Key might not be listed if no Key has expired or the expired Key has been deleted.
+      type: string
+      enum:
+        - ACTIVE
+        - EXPIRED
+        - NEXT
     JsonWebKeyType:
       description: The type of public key.
       type: string
@@ -1924,11 +1962,11 @@ components:
         initiate_login_uri: https://www.example.com/oauth2/login
     CustomASOAuthMetadata:
       value:
-        issuer: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7
-        authorization_endpoint: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/authorize
-        token_endpoint: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/token
-        registration_endpoint: https://${yourOktaDomain}/oauth2/v1/clients
-        jwks_uri: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/keys
+        issuer: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7
+        authorization_endpoint: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/authorize
+        token_endpoint: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/token
+        registration_endpoint: https://{yourOktaDomain}/oauth2/v1/clients
+        jwks_uri: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/keys
         response_types_supported:
           - code
           - token
@@ -1986,21 +2024,21 @@ components:
           - sub
         code_challenge_methods_supported:
           - S256
-        introspection_endpoint: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/introspect
+        introspection_endpoint: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/introspect
         introspection_endpoint_auth_methods_supported:
           - client_secret_basic
           - client_secret_post
           - client_secret_jwt
           - private_key_jwt
           - none
-        revocation_endpoint: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/revoke
+        revocation_endpoint: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/revoke
         revocation_endpoint_auth_methods_supported:
           - client_secret_basic
           - client_secret_post
           - client_secret_jwt
           - private_key_jwt
           - none
-        end_session_endpoint: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/logout
+        end_session_endpoint: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/logout
         request_parameter_supported: true
         request_object_signing_alg_values_supported:
           - HS256
@@ -2012,16 +2050,16 @@ components:
           - ES256
           - ES384
           - ES512
-        device_authorization_endpoint: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/device/authorize
-        pushed_authorization_request_endpoint: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/par
+        device_authorization_endpoint: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/device/authorize
+        pushed_authorization_request_endpoint: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/par
     CustomASOidcMetadata:
       value:
-        issuer: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7
-        authorization_endpoint: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/authorize
-        token_endpoint: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/token
-        userinfo_endpoint: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/userinfo
-        registration_endpoint: https://${yourOktaDomain}/oauth2/v1/clients
-        jwks_uri: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/keys
+        issuer: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7
+        authorization_endpoint: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/authorize
+        token_endpoint: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/token
+        userinfo_endpoint: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/userinfo
+        registration_endpoint: https://{yourOktaDomain}/oauth2/v1/clients
+        jwks_uri: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/keys
         response_types_supported:
           - code
           - id_token
@@ -2100,21 +2138,21 @@ components:
           - c_hash
         code_challenge_methods_supported:
           - S256
-        introspection_endpoint: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/introspect
+        introspection_endpoint: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/introspect
         introspection_endpoint_auth_methods_supported:
           - client_secret_basic
           - client_secret_post
           - client_secret_jwt
           - private_key_jwt
           - none
-        revocation_endpoint: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/revoke
+        revocation_endpoint: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/revoke
         revocation_endpoint_auth_methods_supported:
           - client_secret_basic
           - client_secret_post
           - client_secret_jwt
           - private_key_jwt
           - none
-        end_session_endpoint: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/logout
+        end_session_endpoint: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/logout
         request_parameter_supported: true
         request_object_signing_alg_values_supported:
           - HS256
@@ -2126,8 +2164,8 @@ components:
           - ES256
           - ES384
           - ES512
-        device_authorization_endpoint: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/device/authorize
-        pushed_authorization_request_endpoint: https://${yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/par
+        device_authorization_endpoint: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/device/authorize
+        pushed_authorization_request_endpoint: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/par
     DeviceAuthorizeResponseExample:
       value:
         user_code: RGTCFDTL
@@ -2331,12 +2369,12 @@ components:
             use: sig
     OrgASOidcMetadata:
       value:
-        issuer: https://${yourOktaDomain}
-        authorization_endpoint: https://${yourOktaDomain}/oauth2/v1/authorize
-        token_endpoint: https://${yourOktaDomain}/oauth2/v1/token
-        userinfo_endpoint: https://${yourOktaDomain}/oauth2/v1/userinfo
-        registration_endpoint: https://${yourOktaDomain}/oauth2/v1/clients
-        jwks_uri: https://${yourOktaDomain}/oauth2/v1/keys
+        issuer: https://{yourOktaDomain}
+        authorization_endpoint: https://{yourOktaDomain}/oauth2/v1/authorize
+        token_endpoint: https://{yourOktaDomain}/oauth2/v1/token
+        userinfo_endpoint: https://{yourOktaDomain}/oauth2/v1/userinfo
+        registration_endpoint: https://{yourOktaDomain}/oauth2/v1/clients
+        jwks_uri: https://{yourOktaDomain}/oauth2/v1/keys
         response_types_supported:
           - code
           - id_token
@@ -2407,21 +2445,21 @@ components:
           - c_hash
         code_challenge_methods_supported:
           - S256
-        introspection_endpoint: https://${yourOktaDomain}/oauth2/v1/introspect
+        introspection_endpoint: https://{yourOktaDomain}/oauth2/v1/introspect
         introspection_endpoint_auth_methods_supported:
           - client_secret_basic
           - client_secret_post
           - client_secret_jwt
           - private_key_jwt
           - none
-        revocation_endpoint: https://${yourOktaDomain}/oauth2/v1/revoke
+        revocation_endpoint: https://{yourOktaDomain}/oauth2/v1/revoke
         revocation_endpoint_auth_methods_supported:
           - client_secret_basic
           - client_secret_post
           - client_secret_jwt
           - private_key_jwt
           - none
-        end_session_endpoint: https://${yourOktaDomain}/oauth2/v1/logout
+        end_session_endpoint: https://{yourOktaDomain}/oauth2/v1/logout
         request_parameter_supported: true
         request_object_signing_alg_values_supported:
           - HS256
@@ -2433,8 +2471,8 @@ components:
           - ES256
           - ES384
           - ES512
-        device_authorization_endpoint: https://${yourOktaDomain}/oauth2/v1/device/authorize
-        pushed_authorization_request_endpoint: https://${yourOktaDomain}/oauth2/v1/par
+        device_authorization_endpoint: https://{yourOktaDomain}/oauth2/v1/device/authorize
+        pushed_authorization_request_endpoint: https://{yourOktaDomain}/oauth2/v1/par
     ParResponseExample:
       value:
         request_uri: urn:okta:Y1hIQ3ZqYjFodEZMOVJ3TUF4ZHRPZjJuNFZRV2ZWQ044MmFoX2VIT2oyNDo

@@ -1,5 +1,5 @@
 ---
-title: Okta Management API
+title: Okta Management
 meta:
   - name: description
     content: Learn how the Okta API works and learn about the compatibility rules and design principles.
@@ -15,7 +15,7 @@ You can access Okta APIs with scoped OAuth 2.0 access tokens. Each access token 
 
 #### API key (deprecated)
 
-> **Note:** API keys aren't scoped, and the administrator that created the key has complete access to the Okta APIs. It's recommended that you use a scoped OAuth 2.0 access token instead.
+> **Note:** API keys aren't scoped and has full access to all Okta APIs matching the permissions of the administrator that created the key. It's recommended that you use a scoped OAuth 2.0 access token instead.
 
 The Okta API can be acessed with the custom HTTP authentication scheme `SSWS` for authentication. All requests must have a valid API key specified in the HTTP `Authorization` header with the `SSWS` scheme.
 

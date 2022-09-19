@@ -39,7 +39,7 @@ tags:
     description: |-
       The Authenticators Administration API provides operations to configure which Authenticators are available to end users for use when signing in to applications.
 
-      End users are required to use one or more Authenticators depending on the security requirements of the [authentication policy](/docs/reference/api/policy/#authentication-policy).
+      End users are required to use one or more Authenticators depending on the security requirements of the authentication policy.
 
       Okta Identity Engine currently supports Authenticators for the following factors:
 
@@ -54,7 +54,7 @@ tags:
       * Email
       * WebAuthn
       * Duo
-      * Custom App (Early Access)
+      * Custom App <ea>Early Access</ea>
   - name: AuthorizationServer
     x-displayName: Authorization Servers
     description: Authorization Servers generate OAuth 2.0 and OpenID Connect tokens, including access tokens and ID tokens. The Okta Management API gives you the ability to configure and manage Authorization Servers and the security policies that are attached to them.
@@ -87,8 +87,8 @@ tags:
       * Perform lifecycle transitions on the Device objects.
 
       The Devices API supports the following **Authorization Schemes**:
-      * SSWS - [API tokens](/docs/reference/core-okta-api/#authentication)
-      * Bearer - [OAuth2.0 and OpenID Connect](/docs/concepts/oauth-openid/)
+      * SSWS - [API tokens](https://developer.okta.com/docs/reference/core-okta-api/#authentication)
+      * Bearer - [OAuth2.0 and OpenID Connect](https://developer.okta.com/docs/concepts/oauth-openid/)
 
       > **Note:** For devices to enroll in Okta and show up in the Devices API, the following actions are required:
       > 1. Admins - Enable Okta FastPass. See [Enable FastPass](https://help.okta.com/okta_help.htm?type=oie&id=ext-fp-enable)
@@ -110,15 +110,15 @@ tags:
     description: |-
       The Event Hooks API provides operations to manage event hooks for your organization.
 
-      For general information on event hooks and how to create and use them, see [Event hooks](/docs/concepts/event-hooks/). The following documentation is only for the management API, which provides a CRUD interface for registering event hooks.
+      For general information on event hooks and how to create and use them, see [Event hooks](https://developer.okta.com/docs/concepts/event-hooks/). The following documentation is only for the management API, which provides a CRUD interface for registering event hooks.
 
-      For a step-by-step guide on implementing an example event hook, see the [Event hook](/docs/guides/event-hook-implementation/) guide.
+      For a step-by-step guide on implementing an example event hook, see the [Event hook](https://developer.okta.com/docs/guides/event-hook-implementation/) guide.
   - name: Feature
     x-displayName: Features
     description: |-
       The Okta Features API provides operations to manage self-service Early Access (EA) and Beta features in your org.
 
-      > **Note:** Important background information for this API is available on the [Feature Lifecycle Management](/docs/concepts/feature-lifecycle-management/) page.
+      > **Note:** Important background information for this API is available on the [Feature Lifecycle Management](https://developer.okta.com/docs/concepts/feature-lifecycle-management/) page.
   - name: Group
     x-displayName: Groups
     description: The Groups API provides operations to manage Okta Groups and their user members for your organization.
@@ -130,7 +130,7 @@ tags:
     description: |-
       The Inline Hooks API provides operations to manage inline hooks for your organization.
 
-      For general information on inline hooks and how to create and use them, see [inline hooks](/docs/concepts/inline-hooks/). The following documentation is only for the management API, which provides a CRUD interface for registering inline hooks.
+      For general information on inline hooks and how to create and use them, see [inline hooks](https://developer.okta.com/docs/concepts/inline-hooks/). The following documentation is only for the management API, which provides a CRUD interface for registering inline hooks.
   - name: LinkedObject
     x-displayName: Linked Objects
     description: |-
@@ -145,7 +145,7 @@ tags:
       * A user can be the `primary` in one relationship and the `associated` in another.
       * A user can be both the `primary` and `associated` in the same relationship.
 
-      Okta Expression Language function for [Linked Objects](/docs/reference/okta-expression-language/#linked-object-function) provides access to the details about a linked user.
+      Okta Expression Language function for [Linked Objects](https://developer.okta.com/docs/reference/okta-expression-language/#linked-object-function) provides access to the details about a linked user.
 
       > **Note:** The Linked Objects feature isn't available for OpenID Connect claims.
 
@@ -204,7 +204,7 @@ tags:
     description: The Principal Rate Limits API provides operations to manage Principal Rate Limits for your organization.
   - name: ProfileMapping
     x-displayName: Profile Mappings
-    description: The Mappings API provides operations to manage the mapping of properties between an Okta User's and an App User's Profile properties using [Okta Expression Language](/docs/reference/okta-expression-language). More information on Okta User and App User Profiles can be found in Okta's [User profiles](/docs/concepts/user-profiles/#what-is-the-okta-universal-directory).
+    description: The Mappings API provides operations to manage the mapping of properties between an Okta User's and an App User's Profile properties using [Okta Expression Language](https://developer.okta.com/docs/reference/okta-expression-language). More information on Okta User and App User Profiles can be found in Okta's [User profiles](https://developer.okta.com/docs/concepts/user-profiles/#what-is-the-okta-universal-directory).
   - name: PushProvider
     x-displayName: Push Providers
     description: The Push Providers API provides operations to manage Push Providers for your organization.
@@ -213,10 +213,10 @@ tags:
     description: The Resource Sets API provides operations to manage Resource Sets as custom collections of resources. You can use Resource Sets to assign Custom Roles to administrators who are scoped to the designated resources. See [Supported Resources](https://developer.okta.com/docs/concepts/role-assignment/#supported-resources).
   - name: RiskEvent
     x-displayName: Risk Events
-    description: The Risk Events API provides the ability for third-party Risk Providers to send Risk Events to Okta. See [Third-party risk provider integration overview](/docs/guides/third-party-risk-integration/) for guidance on integrating third-party risk providers with Okta.
+    description: The Risk Events API provides the ability for third-party Risk Providers to send Risk Events to Okta. See [Third-party risk provider integration overview](https://developer.okta.com/docs/guides/third-party-risk-integration/) for guidance on integrating third-party risk providers with Okta.
   - name: RiskProvider
     x-displayName: Risk Providers
-    description: The Risk Providers API provides the ability to manage the Risk Providers within Okta. See [Third-party risk provider integration overview](/docs/guides/third-party-risk-integration/) for guidance on integrating third-party risk providers with Okta.
+    description: The Risk Providers API provides the ability to manage the Risk Providers within Okta. See [Third-party risk provider integration overview](https://developer.okta.com/docs/guides/third-party-risk-integration/) for guidance on integrating third-party risk providers with Okta.
   - name: Role
     x-displayName: Roles
     description: |-
@@ -254,7 +254,7 @@ tags:
 
       >**Note:** Some browsers block third-party cookies by default, which disrupts Okta functionality in certain flows. See [FAQ: How Blocked Third Party Cookies Can Potentially Impact Your Okta Environment](https://support.okta.com/help/s/article/FAQ-How-Blocking-Third-Party-Cookies-Can-Potentially-Impact-Your-Okta-Environment).
 
-      >**Note:** The Sessions API doesn't support direct authentication. Direct authentication is supported through the [Authentication API](/docs/reference/api/authn/#authentication-operations) or through OIDC using the [Resource Owner Password flow](/docs/guides/implement-grant-type/ropassword/main/).
+      >**Note:** The Sessions API doesn't support direct authentication. Direct authentication is supported through the [Authentication API](https://developer.okta.com/docs/reference/api/authn/#authentication-operations) or through OIDC using the [Resource Owner Password flow](https://developer.okta.com/docs/guides/implement-grant-type/ropassword/main/).
 
       ### Session cookie
 
@@ -262,13 +262,13 @@ tags:
 
       ### Session token
 
-      A [session token](/docs/reference/api/authn/#session-token) is a one-time bearer token that provides proof of authentication and may be redeemed for an interactive SSO session in Okta in a user agent. Session tokens can only be used **once** to establish a Session for a user and are revoked when the token expires.
+      A [session token](https://developer.okta.com/docs/reference/api/authn/#session-token) is a one-time bearer token that provides proof of authentication and may be redeemed for an interactive SSO session in Okta in a user agent. Session tokens can only be used **once** to establish a Session for a user and are revoked when the token expires.
 
-      Okta provides a very rich [Authentication API](/docs/reference/api/authn/) to validate a [user's primary credentials](/docs/reference/api/authn/#primary-authentication) and secondary [MFA factor](/docs/reference/api/authn/#verify-factor). A session token is returned after successful authentication, which can be later exchanged for a session cookie that uses one of the following flows:
+      Okta provides a very rich [Authentication API](https://developer.okta.com/docs/reference/api/authn/) to validate a [user's primary credentials](https://developer.okta.com/docs/reference/api/authn/#primary-authentication) and secondary [MFA factor](https://developer.okta.com/docs/reference/api/authn/#verify-factor). A session token is returned after successful authentication, which can be later exchanged for a session cookie that uses one of the following flows:
 
-      - [Retrieve a session cookie by visiting the OpenID Connect Authorization Endpoint](/docs/guides/session-cookie/main/#retrieve-a-session-cookie-through-the-openid-connect-authorization-endpoint)
-      - [Retrieve a session cookie by visiting a session redirect link](/docs/guides/session-cookie/main/#retrieve-a-session-cookie-by-visiting-a-session-redirect-link)
-      - [Retrieve a session cookie by visiting an application embed link](/docs/guides/session-cookie/main/#retrieve-a-session-cookie-by-visiting-an-application-embed-link)
+      - [Retrieve a session cookie by visiting the OpenID Connect Authorization Endpoint](https://developer.okta.com/docs/guides/session-cookie/main/#retrieve-a-session-cookie-through-the-openid-connect-authorization-endpoint)
+      - [Retrieve a session cookie by visiting a session redirect link](https://developer.okta.com/docs/guides/session-cookie/main/#retrieve-a-session-cookie-by-visiting-a-session-redirect-link)
+      - [Retrieve a session cookie by visiting an application embed link](https://developer.okta.com/docs/guides/session-cookie/main/#retrieve-a-session-cookie-by-visiting-an-application-embed-link)
 
       >**Note:** **Session tokens** are secrets and should be protected at rest and during transit. A session token for a user is equivalent to having the user's actual credentials.
   - name: Subscription
@@ -291,7 +291,7 @@ tags:
 
       The System Log API isn't intended for use as a Database as a Service (DBaaS) or to serve data directly to downstream consumers without an intermediate data store.
 
-      See [Events API Migration](/docs/concepts/events-api-migration/) for information on migrating from the Events API to the System Log API.
+      See [Events API Migration](https://developer.okta.com/docs/concepts/events-api-migration/) for information on migrating from the Events API to the System Log API.
   - name: Template
     x-displayName: SMS Templates
     description: |-
@@ -372,8 +372,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.agentPools.read
       tags:
         - AgentPools
@@ -403,8 +403,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.agentPools.read
       tags:
         - AgentPools
@@ -438,8 +438,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.agentPools.manage
       tags:
         - AgentPools
@@ -466,8 +466,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.agentPools.read
       tags:
         - AgentPools
@@ -499,8 +499,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.agentPools.manage
       tags:
         - AgentPools
@@ -528,8 +528,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.agentPools.read
       tags:
         - AgentPools
@@ -561,8 +561,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.agentPools.manage
       tags:
         - AgentPools
@@ -582,8 +582,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.agentPools.manage
       tags:
         - AgentPools
@@ -611,8 +611,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.agentPools.manage
       tags:
         - AgentPools
@@ -640,8 +640,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.agentPools.manage
       tags:
         - AgentPools
@@ -669,8 +669,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.agentPools.manage
       tags:
         - AgentPools
@@ -698,8 +698,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.agentPools.manage
       tags:
         - AgentPools
@@ -727,8 +727,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.agentPools.manage
       tags:
         - AgentPools
@@ -756,8 +756,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.agentPools.manage
       tags:
         - AgentPools
@@ -793,8 +793,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apiTokens.read
       tags:
         - ApiToken
@@ -824,8 +824,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apiTokens.read
       tags:
         - ApiToken
@@ -845,8 +845,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apiTokens.manage
       tags:
         - ApiToken
@@ -903,8 +903,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.read
       tags:
         - Application
@@ -946,8 +946,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -982,8 +982,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.read
       tags:
         - Application
@@ -1022,8 +1022,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -1050,8 +1050,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -1082,8 +1082,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.read
       tags:
         - Application
@@ -1125,8 +1125,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -1153,8 +1153,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -1181,8 +1181,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -1215,8 +1215,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.read
       tags:
         - Application
@@ -1255,8 +1255,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -1292,8 +1292,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.read
       tags:
         - Application
@@ -1325,8 +1325,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -1382,8 +1382,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -1416,8 +1416,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.read
       tags:
         - Application
@@ -1452,8 +1452,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -1489,8 +1489,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.read
       tags:
         - Application
@@ -1532,8 +1532,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -1566,8 +1566,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.read
       tags:
         - Application
@@ -1603,8 +1603,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.read
       tags:
         - Application
@@ -1647,8 +1647,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -1685,7 +1685,7 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
+        - apiToken: []
       tags:
         - Application
       x-okta-lifecycle:
@@ -1723,7 +1723,7 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
+        - apiToken: []
       tags:
         - Application
       x-okta-lifecycle:
@@ -1762,7 +1762,7 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
+        - apiToken: []
       tags:
         - Application
       x-okta-lifecycle:
@@ -1793,7 +1793,7 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
+        - apiToken: []
       tags:
         - Application
       x-okta-lifecycle:
@@ -1845,8 +1845,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.read
       tags:
         - Application
@@ -1886,8 +1886,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.read
       tags:
         - Application
@@ -1931,8 +1931,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -1964,8 +1964,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -1993,8 +1993,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -2022,8 +2022,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -2063,8 +2063,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -2111,8 +2111,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.read
       tags:
         - Application
@@ -2139,8 +2139,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -2180,8 +2180,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.read
       tags:
         - Application
@@ -2213,8 +2213,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -2275,8 +2275,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.read
       tags:
         - Application
@@ -2315,8 +2315,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -2356,8 +2356,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.read
       tags:
         - Application
@@ -2401,8 +2401,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -2440,8 +2440,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - Application
@@ -2469,8 +2469,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authenticators.read
       tags:
         - Authenticator
@@ -2501,8 +2501,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authenticators.manage
       tags:
         - Authenticator
@@ -2530,8 +2530,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authenticators.read
       tags:
         - Authenticator
@@ -2563,8 +2563,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authenticators.manage
       tags:
         - Authenticator
@@ -2592,8 +2592,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authenticators.manage
       tags:
         - Authenticator
@@ -2621,8 +2621,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authenticators.manage
       tags:
         - Authenticator
@@ -2632,7 +2632,7 @@ paths:
   /api/v1/authorizationServers:
     get:
       summary: List all Authorization Servers
-      description: Success
+      description: List all authorization servers
       operationId: listAuthorizationServers
       parameters:
         - name: q
@@ -2663,8 +2663,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.read
       tags:
         - AuthorizationServer
@@ -2672,7 +2672,7 @@ paths:
         lifecycle: GA
     post:
       summary: Create an Authorization Server
-      description: Success
+      description: Create an authorization server
       operationId: createAuthorizationServer
       x-codegen-request-body-name: authorizationServer
       requestBody:
@@ -2695,8 +2695,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -2705,7 +2705,7 @@ paths:
   /api/v1/authorizationServers/{authServerId}:
     get:
       summary: Retrieve an Authorization Server
-      description: Success
+      description: Retrieve an authorization server
       operationId: getAuthorizationServer
       parameters:
         - name: authServerId
@@ -2727,8 +2727,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.read
       tags:
         - AuthorizationServer
@@ -2736,7 +2736,7 @@ paths:
         lifecycle: GA
     put:
       summary: Replace an Authorization Server
-      description: Success
+      description: Replace an authorization server
       operationId: updateAuthorizationServer
       parameters:
         - name: authServerId
@@ -2767,8 +2767,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -2776,7 +2776,7 @@ paths:
         lifecycle: GA
     delete:
       summary: Delete an Authorization Server
-      description: Success
+      description: Delete an authorization server
       operationId: deleteAuthorizationServer
       parameters:
         - name: authServerId
@@ -2795,8 +2795,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -2805,7 +2805,7 @@ paths:
   /api/v1/authorizationServers/{authServerId}/claims:
     get:
       summary: List all Custom Token Claims
-      description: Success
+      description: List all custom token claims
       operationId: listOAuth2Claims
       parameters:
         - name: authServerId
@@ -2829,8 +2829,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.read
       tags:
         - AuthorizationServer
@@ -2838,7 +2838,7 @@ paths:
         lifecycle: GA
     post:
       summary: Create a Custom Token Claim
-      description: Success
+      description: Create a custom token claim
       operationId: createOAuth2Claim
       parameters:
         - name: authServerId
@@ -2869,8 +2869,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -2879,7 +2879,7 @@ paths:
   /api/v1/authorizationServers/{authServerId}/claims/{claimId}:
     get:
       summary: Retrieve a Custom Token Claim
-      description: Success
+      description: Retrieve a custom token claim
       operationId: getOAuth2Claim
       parameters:
         - name: authServerId
@@ -2906,8 +2906,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.read
       tags:
         - AuthorizationServer
@@ -2915,7 +2915,7 @@ paths:
         lifecycle: GA
     put:
       summary: Replace a Custom Token Claim
-      description: Success
+      description: Replace a custom token claim
       operationId: updateOAuth2Claim
       parameters:
         - name: authServerId
@@ -2951,8 +2951,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -2960,7 +2960,7 @@ paths:
         lifecycle: GA
     delete:
       summary: Delete a Custom Token Claim
-      description: Success
+      description: Delete a custom token claim
       operationId: deleteOAuth2Claim
       parameters:
         - name: authServerId
@@ -2984,8 +2984,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -2994,7 +2994,7 @@ paths:
   /api/v1/authorizationServers/{authServerId}/clients:
     get:
       summary: List all Clients
-      description: Success
+      description: List all clients
       operationId: listOAuth2ClientsForAuthorizationServer
       parameters:
         - name: authServerId
@@ -3018,8 +3018,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.read
       tags:
         - AuthorizationServer
@@ -3028,7 +3028,7 @@ paths:
   /api/v1/authorizationServers/{authServerId}/clients/{clientId}/tokens:
     get:
       summary: List all Refresh Tokens for a Client
-      description: Success
+      description: List all refresh tokens for a client
       operationId: listRefreshTokensForAuthorizationServerAndClient
       parameters:
         - name: authServerId
@@ -3071,8 +3071,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.read
       tags:
         - AuthorizationServer
@@ -3080,7 +3080,7 @@ paths:
         lifecycle: GA
     delete:
       summary: Revoke all Refresh Tokens for a Client
-      description: Success
+      description: Revoke all refresh tokens for a client
       operationId: revokeRefreshTokensForAuthorizationServerAndClient
       parameters:
         - name: authServerId
@@ -3104,8 +3104,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -3114,7 +3114,7 @@ paths:
   /api/v1/authorizationServers/{authServerId}/clients/{clientId}/tokens/{tokenId}:
     get:
       summary: Retrieve a Refresh Token for a Client
-      description: Success
+      description: Retrieve a refresh token for a client
       operationId: getRefreshTokenForAuthorizationServerAndClient
       parameters:
         - name: authServerId
@@ -3150,8 +3150,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.read
       tags:
         - AuthorizationServer
@@ -3159,7 +3159,7 @@ paths:
         lifecycle: GA
     delete:
       summary: Revoke a Refresh Token for a Client
-      description: Success
+      description: Revoke a refresh token for a client
       operationId: revokeRefreshTokenForAuthorizationServerAndClient
       parameters:
         - name: authServerId
@@ -3188,8 +3188,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -3198,7 +3198,7 @@ paths:
   /api/v1/authorizationServers/{authServerId}/credentials/keys:
     get:
       summary: List all Credential Keys
-      description: Success
+      description: List all credential keys
       operationId: listAuthorizationServerKeys
       parameters:
         - name: authServerId
@@ -3222,8 +3222,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.read
       tags:
         - AuthorizationServer
@@ -3232,7 +3232,7 @@ paths:
   /api/v1/authorizationServers/{authServerId}/credentials/lifecycle/keyRotate:
     post:
       summary: Rotate all Credential Keys
-      description: Success
+      description: Rotate all credential keys
       operationId: rotateAuthorizationServerKeys
       parameters:
         - name: authServerId
@@ -3265,8 +3265,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -3275,7 +3275,7 @@ paths:
   /api/v1/authorizationServers/{authServerId}/lifecycle/activate:
     post:
       summary: Activate an Authorization Server
-      description: Success
+      description: Activate an authorization server
       operationId: activateAuthorizationServer
       parameters:
         - name: authServerId
@@ -3294,8 +3294,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -3304,7 +3304,7 @@ paths:
   /api/v1/authorizationServers/{authServerId}/lifecycle/deactivate:
     post:
       summary: Deactivate an Authorization Server
-      description: Success
+      description: Deactivate an authorization server
       operationId: deactivateAuthorizationServer
       parameters:
         - name: authServerId
@@ -3323,8 +3323,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -3333,7 +3333,7 @@ paths:
   /api/v1/authorizationServers/{authServerId}/policies:
     get:
       summary: List all Policies
-      description: Success
+      description: List all policies
       operationId: listAuthorizationServerPolicies
       parameters:
         - name: authServerId
@@ -3357,8 +3357,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.read
       tags:
         - AuthorizationServer
@@ -3366,7 +3366,7 @@ paths:
         lifecycle: GA
     post:
       summary: Create a Policy
-      description: Success
+      description: Create a policy
       operationId: createAuthorizationServerPolicy
       parameters:
         - name: authServerId
@@ -3397,8 +3397,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -3407,7 +3407,7 @@ paths:
   /api/v1/authorizationServers/{authServerId}/policies/{policyId}:
     get:
       summary: Retrieve a Policy
-      description: Success
+      description: Retrieve a policy
       operationId: getAuthorizationServerPolicy
       parameters:
         - name: authServerId
@@ -3434,8 +3434,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.read
       tags:
         - AuthorizationServer
@@ -3443,7 +3443,7 @@ paths:
         lifecycle: GA
     put:
       summary: Replace a Policy
-      description: Success
+      description: Replace a policy
       operationId: updateAuthorizationServerPolicy
       parameters:
         - name: authServerId
@@ -3479,8 +3479,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -3488,7 +3488,7 @@ paths:
         lifecycle: GA
     delete:
       summary: Delete a Policy
-      description: Success
+      description: Delete a policy
       operationId: deleteAuthorizationServerPolicy
       parameters:
         - name: authServerId
@@ -3512,8 +3512,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -3546,8 +3546,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -3580,8 +3580,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -3619,8 +3619,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.read
       tags:
         - AuthorizationServer
@@ -3664,8 +3664,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -3706,8 +3706,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.read
       tags:
         - AuthorizationServer
@@ -3756,8 +3756,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -3794,8 +3794,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -3833,8 +3833,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -3872,8 +3872,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -3882,7 +3882,7 @@ paths:
   /api/v1/authorizationServers/{authServerId}/scopes:
     get:
       summary: List all Custom Token Scopes
-      description: Success
+      description: List all custom token scopes
       operationId: listOAuth2Scopes
       parameters:
         - name: authServerId
@@ -3924,8 +3924,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.read
       tags:
         - AuthorizationServer
@@ -3933,7 +3933,7 @@ paths:
         lifecycle: GA
     post:
       summary: Create a Custom Token Scope
-      description: Success
+      description: Create a custom token scope
       operationId: createOAuth2Scope
       parameters:
         - name: authServerId
@@ -3964,8 +3964,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -3974,7 +3974,7 @@ paths:
   /api/v1/authorizationServers/{authServerId}/scopes/{scopeId}:
     get:
       summary: Retrieve a Custom Token Scope
-      description: Success
+      description: Retrieve a custom token scope
       operationId: getOAuth2Scope
       parameters:
         - name: authServerId
@@ -4001,8 +4001,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.read
       tags:
         - AuthorizationServer
@@ -4010,7 +4010,7 @@ paths:
         lifecycle: GA
     put:
       summary: Replace a Custom Token Scope
-      description: Success
+      description: Replace a custom token scope
       operationId: updateOAuth2Scope
       parameters:
         - name: authServerId
@@ -4046,8 +4046,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -4055,7 +4055,7 @@ paths:
         lifecycle: GA
     delete:
       summary: Delete a Custom Token Scope
-      description: Success
+      description: Delete a custom token scope
       operationId: deleteOAuth2Scope
       parameters:
         - name: authServerId
@@ -4079,8 +4079,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.authorizationServers.manage
       tags:
         - AuthorizationServer
@@ -4105,8 +4105,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.behaviors.read
       tags:
         - Behavior
@@ -4150,8 +4150,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.behaviors.manage
       tags:
         - Behavior
@@ -4185,8 +4185,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.behaviors.read
       tags:
         - Behavior
@@ -4239,8 +4239,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.behaviors.manage
       tags:
         - Behavior
@@ -4267,8 +4267,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.behaviors.manage
       tags:
         - Behavior
@@ -4298,8 +4298,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.behaviors.manage
       tags:
         - Behavior
@@ -4329,8 +4329,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.behaviors.manage
       tags:
         - Behavior
@@ -4358,8 +4358,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.brands.read
       tags:
         - Customization
@@ -4389,8 +4389,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.brands.read
       tags:
         - Customization
@@ -4429,8 +4429,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.brands.manage
       tags:
         - Customization
@@ -4464,8 +4464,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.brands.read
       tags:
         - Customization
@@ -4497,8 +4497,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.brands.manage
       tags:
         - Customization
@@ -4519,91 +4519,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
-            - okta.brands.manage
-      tags:
-        - Customization
-      x-okta-lifecycle:
-        lifecycle: EA
-  /api/v1/brands/{brandId}/pages/sign-in:
-    parameters:
-      - $ref: '#/components/parameters/pathBrandId'
-    get:
-      summary: Retrieve the Sign-in Page
-      description: Retrieves the sign-in page.
-      operationId: retrieveSignInPage
-      responses:
-        '200':
-          description: Successfully retrieved the sign-in page.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SignInPage'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '404':
-          $ref: '#/components/responses/ErrorResourceNotFound404'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - API Token: []
-        - OAuth 2.0:
-            - okta.brands.read
-      tags:
-        - Customization
-      x-okta-lifecycle:
-        lifecycle: EA
-    put:
-      summary: Replace the Sign-in Page
-      description: Replaces the sign-in page.
-      operationId: replaceSignInPage
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SignInPage'
-        required: true
-      responses:
-        '200':
-          description: Successfully replaced the sign-in page.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SignInPage'
-        '400':
-          $ref: '#/components/responses/ErrorApiValidationFailed400'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '404':
-          $ref: '#/components/responses/ErrorResourceNotFound404'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - API Token: []
-        - OAuth 2.0:
-            - okta.brands.manage
-      tags:
-        - Customization
-      x-okta-lifecycle:
-        lifecycle: EA
-    delete:
-      summary: Reset the Sign-in Page
-      description: Reset the sign-in page.
-      operationId: resetSignInPage
-      responses:
-        '204':
-          description: Successfully reset the sign-in page.
-          content: {}
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '404':
-          $ref: '#/components/responses/ErrorResourceNotFound404'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.brands.manage
       tags:
         - Customization
@@ -4612,6 +4529,31 @@ paths:
   /api/v1/brands/{brandId}/pages/sign-in/preview:
     parameters:
       - $ref: '#/components/parameters/pathBrandId'
+    get:
+      summary: Retrieve the Sign-in Page Preview
+      description: Retrieves the sign-in page preview.
+      operationId: retrieveSignInPagePreview
+      responses:
+        '200':
+          description: Successfully retrieved the sign-in page preview.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignInPage'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.brands.read
+      tags:
+        - Customization
+      x-okta-lifecycle:
+        lifecycle: EA
     put:
       summary: Replace the Sign-in Page Preview
       description: Replace the sign-in page preview.
@@ -4643,8 +4585,30 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
+            - okta.brands.manage
+      tags:
+        - Customization
+      x-okta-lifecycle:
+        lifecycle: EA
+    delete:
+      summary: Reset the Sign-in Page Preview
+      description: Reset the sign-in page preview.
+      operationId: resetSignInPagePreview
+      responses:
+        '204':
+          description: Successfully reset the sign-in page preview.
+          content: {}
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
             - okta.brands.manage
       tags:
         - Customization
@@ -4674,8 +4638,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.brands.read
       tags:
         - Customization
@@ -4716,8 +4680,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.read
       tags:
         - Customization
@@ -4750,8 +4714,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.read
       tags:
         - Customization
@@ -4787,8 +4751,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.read
       tags:
         - Customization
@@ -4837,8 +4801,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.manage
       tags:
         - Customization
@@ -4859,8 +4823,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.manage
       tags:
         - Customization
@@ -4892,8 +4856,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.read
       tags:
         - Customization
@@ -4945,8 +4909,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.manage
       tags:
         - Customization
@@ -4976,8 +4940,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.manage
       tags:
         - Customization
@@ -5009,8 +4973,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.read
       tags:
         - Customization
@@ -5043,8 +5007,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.read
       tags:
         - Customization
@@ -5077,8 +5041,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.read
       tags:
         - Customization
@@ -5109,8 +5073,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.read
       tags:
         - Customization
@@ -5146,8 +5110,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.manage
       tags:
         - Customization
@@ -5178,8 +5142,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.read
       tags:
         - Customization
@@ -5208,8 +5172,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.brands.read
       tags:
         - Customization
@@ -5237,8 +5201,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.brands.read
       tags:
         - Customization
@@ -5271,8 +5235,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.brands.manage
       tags:
         - Customization
@@ -5315,8 +5279,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.brands.manage
       tags:
         - Customization
@@ -5337,8 +5301,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.brands.manage
       tags:
         - Customization
@@ -5381,8 +5345,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.brands.manage
       tags:
         - Customization
@@ -5403,8 +5367,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.brands.manage
       tags:
         - Customization
@@ -5447,8 +5411,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.brands.manage
       tags:
         - Customization
@@ -5469,8 +5433,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.brands.manage
       tags:
         - Customization
@@ -5495,8 +5459,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.captchas.read
       tags:
         - CAPTCHA
@@ -5547,8 +5511,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.captchas.manage
       tags:
         - CAPTCHA
@@ -5581,8 +5545,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.captchas.read
       tags:
         - CAPTCHA
@@ -5626,8 +5590,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.captchas.manage
       tags:
         - CAPTCHA
@@ -5671,8 +5635,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.captchas.manage
       tags:
         - CAPTCHA
@@ -5703,8 +5667,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.captchas.manage
       tags:
         - CAPTCHA
@@ -5730,8 +5694,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.deviceAssurance.read
       tags:
         - DeviceAssurance
@@ -5775,8 +5739,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.deviceAssurance.manage
       tags:
         - DeviceAssurance
@@ -5807,8 +5771,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.deviceAssurance.read
       tags:
         - DeviceAssurance
@@ -5850,8 +5814,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.deviceAssurance.manage
       tags:
         - DeviceAssurance
@@ -5884,8 +5848,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.deviceAssurance.manage
       tags:
         - DeviceAssurance
@@ -5941,8 +5905,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.devices.read
       tags:
         - Device
@@ -5973,8 +5937,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.devices.read
       tags:
         - Device
@@ -6003,8 +5967,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.devices.manage
       tags:
         - Device
@@ -6028,8 +5992,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.devices.manage
       tags:
         - Device
@@ -6053,8 +6017,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.devices.manage
       tags:
         - Device
@@ -6078,8 +6042,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.devices.manage
       tags:
         - Device
@@ -6103,8 +6067,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.devices.manage
       tags:
         - Device
@@ -6128,8 +6092,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.domains.read
       tags:
         - Domain
@@ -6160,8 +6124,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.domains.manage
       tags:
         - Domain
@@ -6192,8 +6156,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.domains.read
       tags:
         - Domain
@@ -6220,8 +6184,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.domains.manage
       tags:
         - Domain
@@ -6258,8 +6222,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.domains.manage
       tags:
         - Domain
@@ -6290,8 +6254,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.domains.manage
       tags:
         - Domain
@@ -6303,7 +6267,7 @@ paths:
   /api/v1/eventHooks:
     get:
       summary: List all Event Hooks
-      description: Success
+      description: Lists all event hooks
       operationId: listEventHooks
       responses:
         '200':
@@ -6319,8 +6283,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.eventHooks.read
       tags:
         - EventHook
@@ -6328,7 +6292,7 @@ paths:
         lifecycle: GA_NO_FLAG
     post:
       summary: Create an Event Hook
-      description: Success
+      description: Creates an event hook
       operationId: createEventHook
       x-codegen-request-body-name: eventHook
       requestBody:
@@ -6351,8 +6315,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.eventHooks.manage
       tags:
         - EventHook
@@ -6361,7 +6325,7 @@ paths:
   /api/v1/eventHooks/{eventHookId}:
     get:
       summary: Retrieve an Event Hook
-      description: Success
+      description: Retrieves an event hook
       operationId: getEventHook
       parameters:
         - name: eventHookId
@@ -6383,8 +6347,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.eventHooks.read
       tags:
         - EventHook
@@ -6392,7 +6356,7 @@ paths:
         lifecycle: GA_NO_FLAG
     put:
       summary: Replace an Event Hook
-      description: Success
+      description: Replaces an event hook
       operationId: updateEventHook
       parameters:
         - name: eventHookId
@@ -6423,8 +6387,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.eventHooks.manage
       tags:
         - EventHook
@@ -6432,7 +6396,7 @@ paths:
         lifecycle: GA_NO_FLAG
     delete:
       summary: Delete an Event Hook
-      description: Success
+      description: Deletes an event hook
       operationId: deleteEventHook
       parameters:
         - name: eventHookId
@@ -6451,8 +6415,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.eventHooks.manage
       tags:
         - EventHook
@@ -6461,7 +6425,7 @@ paths:
   /api/v1/eventHooks/{eventHookId}/lifecycle/activate:
     post:
       summary: Activate an Event Hook
-      description: Success
+      description: Activates an event hook
       operationId: activateEventHook
       parameters:
         - name: eventHookId
@@ -6483,8 +6447,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.eventHooks.manage
       tags:
         - EventHook
@@ -6493,7 +6457,7 @@ paths:
   /api/v1/eventHooks/{eventHookId}/lifecycle/deactivate:
     post:
       summary: Deactivate an Event Hook
-      description: Success
+      description: Deactivates an event hook
       operationId: deactivateEventHook
       parameters:
         - name: eventHookId
@@ -6515,8 +6479,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.eventHooks.manage
       tags:
         - EventHook
@@ -6525,7 +6489,7 @@ paths:
   /api/v1/eventHooks/{eventHookId}/lifecycle/verify:
     post:
       summary: Verify an Event Hook
-      description: Success
+      description: Verifies an event hook
       operationId: verifyEventHook
       parameters:
         - name: eventHookId
@@ -6547,8 +6511,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.eventHooks.manage
       tags:
         - EventHook
@@ -6557,7 +6521,7 @@ paths:
   /api/v1/features:
     get:
       summary: List all Features
-      description: Success
+      description: List all features
       operationId: listFeatures
       responses:
         '200':
@@ -6573,8 +6537,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.features.read
       tags:
         - Feature
@@ -6583,7 +6547,7 @@ paths:
   /api/v1/features/{featureId}:
     get:
       summary: Retrieve a Feature
-      description: Success
+      description: Retrieve a feature
       operationId: getFeature
       parameters:
         - name: featureId
@@ -6605,8 +6569,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.features.read
       tags:
         - Feature
@@ -6615,7 +6579,7 @@ paths:
   /api/v1/features/{featureId}/dependencies:
     get:
       summary: List all Dependencies
-      description: Success
+      description: List all dependencies
       operationId: listFeatureDependencies
       parameters:
         - name: featureId
@@ -6639,8 +6603,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.features.read
       tags:
         - Feature
@@ -6649,7 +6613,7 @@ paths:
   /api/v1/features/{featureId}/dependents:
     get:
       summary: List all Dependents
-      description: Success
+      description: List all dependents
       operationId: listFeatureDependents
       parameters:
         - name: featureId
@@ -6673,8 +6637,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.features.read
       tags:
         - Feature
@@ -6683,7 +6647,7 @@ paths:
   /api/v1/features/{featureId}/{lifecycle}:
     post:
       summary: Update a Feature Lifecycle
-      description: Success
+      description: Update a feature lifecycle
       operationId: updateFeatureLifecycle
       parameters:
         - name: featureId
@@ -6714,8 +6678,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.features.manage
       tags:
         - Feature
@@ -6773,8 +6737,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.read
       tags:
         - Group
@@ -6805,8 +6769,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.manage
       tags:
         - Group
@@ -6855,8 +6819,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.read
       tags:
         - Group
@@ -6887,8 +6851,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.manage
       tags:
         - Group
@@ -6923,8 +6887,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.read
       tags:
         - Group
@@ -6963,8 +6927,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.manage
       tags:
         - Group
@@ -6996,8 +6960,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.manage
       tags:
         - Group
@@ -7025,8 +6989,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.manage
       tags:
         - Group
@@ -7054,8 +7018,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.manage
       tags:
         - Group
@@ -7086,8 +7050,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.read
       tags:
         - Group
@@ -7126,8 +7090,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.manage
       tags:
         - Group
@@ -7154,8 +7118,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.manage
       tags:
         - Group
@@ -7200,8 +7164,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.read
       tags:
         - Group
@@ -7251,8 +7215,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.read
       tags:
         - Group
@@ -7290,8 +7254,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.manage
       tags:
         - Group
@@ -7324,8 +7288,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.manage
       tags:
         - Group
@@ -7362,8 +7326,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - RoleAssignment
@@ -7410,8 +7374,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - RoleAssignment
@@ -7447,8 +7411,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - RoleAssignment
@@ -7480,8 +7444,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - RoleAssignment
@@ -7529,8 +7493,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - RoleTarget
@@ -7539,7 +7503,7 @@ paths:
   /api/v1/groups/{groupId}/roles/{roleId}/targets/catalog/apps/{appName}:
     put:
       summary: Assign an Application Target to Administrator Role
-      description: Success
+      description: Assign an application target to administrator role
       operationId: addApplicationTargetToAdminRoleGivenToGroup
       parameters:
         - name: groupId
@@ -7568,8 +7532,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - RoleTarget
@@ -7577,7 +7541,7 @@ paths:
         lifecycle: GA_NO_FLAG
     delete:
       summary: Delete an Application Target from Application Administrator Role
-      description: Success
+      description: Delete an application target from application administrator role
       operationId: removeApplicationTargetFromApplicationAdministratorRoleGivenToGroup
       parameters:
         - name: groupId
@@ -7606,8 +7570,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - RoleTarget
@@ -7650,8 +7614,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - RoleTarget
@@ -7693,8 +7657,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - RoleTarget
@@ -7742,8 +7706,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - RoleTarget
@@ -7781,7 +7745,7 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.roles.manage
       tags:
         - RoleTarget
@@ -7818,7 +7782,7 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.roles.manage
       tags:
         - RoleTarget
@@ -7863,8 +7827,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.read
       tags:
         - Group
@@ -7897,8 +7861,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.manage
       tags:
         - Group
@@ -7930,8 +7894,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.groups.manage
       tags:
         - Group
@@ -7959,8 +7923,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - ResourceSet
@@ -8004,8 +7968,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - ResourceSet
@@ -8035,8 +7999,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - ResourceSet
@@ -8075,8 +8039,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - ResourceSet
@@ -8104,8 +8068,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - ResourceSet
@@ -8137,8 +8101,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - ResourceSet
@@ -8184,8 +8148,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - ResourceSet
@@ -8216,8 +8180,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - ResourceSet
@@ -8245,8 +8209,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - ResourceSet
@@ -8257,7 +8221,7 @@ paths:
       - $ref: '#/components/parameters/pathResourceSetId'
       - $ref: '#/components/parameters/pathRoleIdOrLabel'
     get:
-      summary: List all members of a Binding
+      summary: List all Members of a binding
       description: Lists all members of a resource set binding with pagination support
       operationId: listMembersOfBinding
       parameters:
@@ -8279,15 +8243,15 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - ResourceSet
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
     patch:
-      summary: Add more members to a Binding
+      summary: Add more Members to a binding
       description: Adds more members to a resource set binding
       operationId: addMembersToBinding
       x-codegen-request-body-name: instance
@@ -8326,8 +8290,182 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
+            - okta.roles.manage
+      tags:
+        - ResourceSet
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+  /api/v1/iam/resource-sets/{resourceSetId}/bindings/{roleIdOrLabel}/members/{memberId}:
+    parameters:
+      - $ref: '#/components/parameters/pathResourceSetId'
+      - $ref: '#/components/parameters/pathRoleIdOrLabel'
+      - $ref: '#/components/parameters/pathMemberId'
+    get:
+      summary: Retrieve a Member of a binding
+      description: Retreieves a member identified by `memberId` for a binding
+      operationId: getMemberOfBinding
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSetBindingMember'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/ResourceSetBindingMemberResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.roles.read
+      tags:
+        - ResourceSet
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+    delete:
+      summary: Unassign a Member from a binding
+      description: Unassigns a member identified by `memberId` from a binding
+      operationId: unassignMemberFromBinding
+      x-codegen-request-body-name: instance
+      responses:
+        '204':
+          description: No Content
+        '403':
+          description: Forbidden
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.roles.manage
+      tags:
+        - ResourceSet
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+  /api/v1/iam/resource-sets/{resourceSetId}/resources:
+    parameters:
+      - $ref: '#/components/parameters/pathResourceSetId'
+    get:
+      summary: List all Resources of a resource set
+      description: Lists all resources that make up the resource set
+      operationId: listResourceSetResources
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSetResources'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/ResourceSetResourcesResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.roles.read
+      tags:
+        - ResourceSet
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+    patch:
+      summary: Add a Resource to a resource set
+      description: Adds more resources to a resource set
+      operationId: addResourceSetResource
+      x-codegen-request-body-name: instance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceSetResourcePatchRequest'
+            examples:
+              Example Request:
+                $ref: '#/components/examples/ResourceSetResourcePatchRequestExample'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSet'
+              examples:
+                Example Response:
+                  $ref: '#/components/examples/ResourceSetResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.roles.manage
+      tags:
+        - ResourceSet
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+  /api/v1/iam/resource-sets/{resourceSetId}/resources/{resourceId}:
+    parameters:
+      - $ref: '#/components/parameters/pathResourceSetId'
+      - $ref: '#/components/parameters/pathResourceId'
+    delete:
+      summary: Delete a Resource from a resource set
+      description: Deletes a resource identified by `resourceId` from a resource set
+      operationId: deleteResourceSetResource
+      responses:
+        '204':
+          description: No Content
+        '403':
+          description: Forbidden
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Access Denied:
+                  $ref: '#/components/examples/ErrorAccessDenied'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - ResourceSet
@@ -8355,8 +8493,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - Role
@@ -8400,8 +8538,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - Role
@@ -8431,8 +8569,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - Role
@@ -8471,8 +8609,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - Role
@@ -8500,8 +8638,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - Role
@@ -8531,8 +8669,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - Role
@@ -8563,8 +8701,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - Role
@@ -8587,8 +8725,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - Role
@@ -8616,8 +8754,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - Role
@@ -8665,8 +8803,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.read
       tags:
         - IdentityProvider
@@ -8697,8 +8835,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.manage
       tags:
         - IdentityProvider
@@ -8736,8 +8874,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.read
       tags:
         - IdentityProvider
@@ -8768,8 +8906,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.manage
       tags:
         - IdentityProvider
@@ -8800,8 +8938,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.read
       tags:
         - IdentityProvider
@@ -8828,8 +8966,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.manage
       tags:
         - IdentityProvider
@@ -8860,8 +8998,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.read
       tags:
         - IdentityProvider
@@ -8900,8 +9038,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.manage
       tags:
         - IdentityProvider
@@ -8928,8 +9066,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.manage
       tags:
         - IdentityProvider
@@ -8962,8 +9100,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.read
       tags:
         - IdentityProvider
@@ -9002,8 +9140,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.manage
       tags:
         - IdentityProvider
@@ -9039,8 +9177,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.read
       tags:
         - IdentityProvider
@@ -9072,8 +9210,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.manage
       tags:
         - IdentityProvider
@@ -9129,8 +9267,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.manage
       tags:
         - IdentityProvider
@@ -9163,8 +9301,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.read
       tags:
         - IdentityProvider
@@ -9202,8 +9340,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.manage
       tags:
         - IdentityProvider
@@ -9239,8 +9377,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.read
       tags:
         - IdentityProvider
@@ -9281,8 +9419,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.manage
       tags:
         - IdentityProvider
@@ -9313,8 +9451,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.manage
       tags:
         - IdentityProvider
@@ -9345,8 +9483,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.manage
       tags:
         - IdentityProvider
@@ -9379,8 +9517,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.read
       tags:
         - IdentityProvider
@@ -9416,8 +9554,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.read
       tags:
         - IdentityProvider
@@ -9461,8 +9599,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - IdentityProvider
@@ -9494,8 +9632,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.manage
       tags:
         - IdentityProvider
@@ -9533,8 +9671,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.idps.read
       tags:
         - IdentityProvider
@@ -9543,7 +9681,7 @@ paths:
   /api/v1/inlineHooks:
     get:
       summary: List all Inline Hooks
-      description: Success
+      description: Lists all inline hooks
       operationId: listInlineHooks
       parameters:
         - name: type
@@ -9564,8 +9702,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.inlineHooks.read
       tags:
         - InlineHook
@@ -9573,7 +9711,7 @@ paths:
         lifecycle: GA_NO_FLAG
     post:
       summary: Create an Inline Hook
-      description: Success
+      description: Creates an inline hook
       operationId: createInlineHook
       x-codegen-request-body-name: inlineHook
       requestBody:
@@ -9596,8 +9734,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.inlineHooks.manage
       tags:
         - InlineHook
@@ -9606,7 +9744,7 @@ paths:
   /api/v1/inlineHooks/{inlineHookId}:
     get:
       summary: Retrieve an Inline Hook
-      description: Gets an inline hook by ID
+      description: Retrieves an inline hook by `inlineHookId`
       operationId: getInlineHook
       parameters:
         - name: inlineHookId
@@ -9628,8 +9766,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.inlineHooks.read
       tags:
         - InlineHook
@@ -9637,7 +9775,7 @@ paths:
         lifecycle: GA_NO_FLAG
     put:
       summary: Replace an Inline Hook
-      description: Updates an inline hook by ID
+      description: Replaces an inline hook by `inlineHookId`
       operationId: updateInlineHook
       parameters:
         - name: inlineHookId
@@ -9668,8 +9806,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.inlineHooks.manage
       tags:
         - InlineHook
@@ -9677,7 +9815,7 @@ paths:
         lifecycle: GA_NO_FLAG
     delete:
       summary: Delete an Inline Hook
-      description: Deletes the Inline Hook matching the provided id. Once deleted, the Inline Hook is unrecoverable. As a safety precaution, only Inline Hooks with a status of INACTIVE are eligible for deletion.
+      description: Deletes an inline hook by `inlineHookId`. Once deleted, the Inline Hook is unrecoverable. As a safety precaution, only Inline Hooks with a status of INACTIVE are eligible for deletion.
       operationId: deleteInlineHook
       parameters:
         - name: inlineHookId
@@ -9696,8 +9834,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.inlineHooks.manage
       tags:
         - InlineHook
@@ -9706,7 +9844,7 @@ paths:
   /api/v1/inlineHooks/{inlineHookId}/execute:
     post:
       summary: Execute an Inline Hook
-      description: Executes the Inline Hook matching the provided inlineHookId using the request body as the input. This will send the provided data through the Channel and return a response if it matches the correct data contract. This execution endpoint should only be used for testing purposes.
+      description: Executes the inline hook by `inlineHookId` using the request body as the input. This will send the provided data through the Channel and return a response if it matches the correct data contract. This execution endpoint should only be used for testing purposes.
       operationId: executeInlineHook
       parameters:
         - name: inlineHookId
@@ -9737,8 +9875,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.inlineHooks.manage
       tags:
         - InlineHook
@@ -9747,7 +9885,7 @@ paths:
   /api/v1/inlineHooks/{inlineHookId}/lifecycle/activate:
     post:
       summary: Activate an Inline Hook
-      description: Activates the Inline Hook matching the provided id
+      description: Activates the inline hook by `inlineHookId`
       operationId: activateInlineHook
       parameters:
         - name: inlineHookId
@@ -9769,8 +9907,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.inlineHooks.manage
       tags:
         - InlineHook
@@ -9779,7 +9917,7 @@ paths:
   /api/v1/inlineHooks/{inlineHookId}/lifecycle/deactivate:
     post:
       summary: Deactivate an Inline Hook
-      description: Deactivates the Inline Hook matching the provided id
+      description: Deactivates the inline hook by `inlineHookId`
       operationId: deactivateInlineHook
       parameters:
         - name: inlineHookId
@@ -9801,8 +9939,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.inlineHooks.manage
       tags:
         - InlineHook
@@ -9840,8 +9978,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.logStreams.read
       tags:
         - LogStream
@@ -9885,8 +10023,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.logStreams.manage
       tags:
         - LogStream
@@ -9916,8 +10054,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.logStreams.read
       tags:
         - LogStream
@@ -9956,8 +10094,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.logStreams.manage
       tags:
         - LogStream
@@ -9985,8 +10123,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.logStreams.manage
       tags:
         - LogStream
@@ -10016,8 +10154,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.logStreams.manage
       tags:
         - LogStream
@@ -10047,8 +10185,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.logStreams.manage
       tags:
         - LogStream
@@ -10106,8 +10244,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.logs.read
       tags:
         - SystemLog
@@ -10152,8 +10290,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.profileMappings.read
       tags:
         - ProfileMapping
@@ -10184,8 +10322,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.profileMappings.read
       tags:
         - ProfileMapping
@@ -10224,8 +10362,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.profileMappings.manage
       tags:
         - ProfileMapping
@@ -10256,8 +10394,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.schemas.read
       tags:
         - Schema
@@ -10288,8 +10426,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.schemas.read
       tags:
         - Schema
@@ -10334,8 +10472,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.schemas.manage
       tags:
         - Schema
@@ -10362,8 +10500,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.schemas.read
       tags:
         - Schema
@@ -10398,8 +10536,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.schemas.manage
       tags:
         - Schema
@@ -10427,8 +10565,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.logStreams.read
       tags:
         - Schema
@@ -10464,8 +10602,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.logStreams.read
       tags:
         - Schema
@@ -10474,7 +10612,7 @@ paths:
   /api/v1/meta/schemas/user/linkedObjects:
     get:
       summary: List all Linked Object Definitions
-      description: Success
+      description: List all linked object definitions
       operationId: listLinkedObjectDefinitions
       responses:
         '200':
@@ -10490,8 +10628,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.linkedObjects.read
       tags:
         - LinkedObject
@@ -10499,7 +10637,7 @@ paths:
         lifecycle: GA_NO_FLAG
     post:
       summary: Create a Linked Object Definition
-      description: Success
+      description: Create a linked object definition
       operationId: addLinkedObjectDefinition
       x-codegen-request-body-name: linkedObject
       requestBody:
@@ -10522,8 +10660,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.linkedObjects.manage
       tags:
         - LinkedObject
@@ -10538,7 +10676,7 @@ paths:
           type: string
     get:
       summary: Retrieve a Linked Object Definition
-      description: Success
+      description: Retrieve a linked object definition
       operationId: getLinkedObjectDefinition
       responses:
         '200':
@@ -10554,8 +10692,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.linkedObjects.read
       tags:
         - LinkedObject
@@ -10563,7 +10701,7 @@ paths:
         lifecycle: GA_NO_FLAG
     delete:
       summary: Delete a Linked Object Definition
-      description: Success
+      description: Delete a linked object definition
       operationId: deleteLinkedObjectDefinition
       responses:
         '204':
@@ -10576,8 +10714,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.linkedObjects.manage
       tags:
         - LinkedObject
@@ -10611,8 +10749,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.schemas.read
       tags:
         - Schema
@@ -10651,8 +10789,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.schemas.manage
       tags:
         - Schema
@@ -10677,8 +10815,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.userTypes.read
       tags:
         - UserType
@@ -10709,8 +10847,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.userTypes.manage
       tags:
         - UserType
@@ -10741,8 +10879,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.userTypes.read
       tags:
         - UserType
@@ -10775,8 +10913,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.userTypes.manage
       tags:
         - UserType
@@ -10809,8 +10947,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.userTypes.manage
       tags:
         - UserType
@@ -10831,8 +10969,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.userTypes.manage
       tags:
         - UserType
@@ -10856,8 +10994,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.orgs.read
       tags:
         - OrgSetting
@@ -10886,8 +11024,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.orgs.manage
       tags:
         - OrgSetting
@@ -10918,8 +11056,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.orgs.manage
       tags:
         - OrgSetting
@@ -10945,8 +11083,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.orgs.read
       tags:
         - OrgSetting
@@ -10977,8 +11115,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.orgs.read
       tags:
         - OrgSetting
@@ -11017,8 +11155,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.orgs.manage
       tags:
         - OrgSetting
@@ -11063,8 +11201,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.orgs.manage
       tags:
         - OrgSetting
@@ -11098,8 +11236,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.apps.manage
       tags:
         - OrgSetting
@@ -11123,8 +11261,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.orgs.read
       tags:
         - OrgSetting
@@ -11148,8 +11286,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.orgs.manage
       tags:
         - OrgSetting
@@ -11173,8 +11311,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.orgs.manage
       tags:
         - OrgSetting
@@ -11198,8 +11336,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.orgs.read
       tags:
         - OrgSetting
@@ -11223,8 +11361,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.orgs.manage
       tags:
         - OrgSetting
@@ -11248,8 +11386,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.orgs.manage
       tags:
         - OrgSetting
@@ -11273,8 +11411,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.orgs.read
       tags:
         - OrgSetting
@@ -11298,8 +11436,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.orgs.manage
       tags:
         - OrgSetting
@@ -11323,8 +11461,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.orgs.manage
       tags:
         - OrgSetting
@@ -11348,8 +11486,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.orgs.manage
       tags:
         - OrgSetting
@@ -11389,8 +11527,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.policies.read
       tags:
         - Policy
@@ -11427,8 +11565,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.policies.manage
       tags:
         - Policy
@@ -11464,8 +11602,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.policies.read
       tags:
         - Policy
@@ -11504,8 +11642,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.policies.manage
       tags:
         - Policy
@@ -11531,8 +11669,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.policies.manage
       tags:
         - Policy
@@ -11565,8 +11703,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.policies.manage
       tags:
         - Policy
@@ -11595,8 +11733,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.policies.manage
       tags:
         - Policy
@@ -11624,8 +11762,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.policies.manage
       tags:
         - Policy
@@ -11658,8 +11796,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.policies.read
       tags:
         - Policy
@@ -11698,8 +11836,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.policies.manage
       tags:
         - Policy
@@ -11735,8 +11873,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.policies.read
       tags:
         - Policy
@@ -11780,8 +11918,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.policies.manage
       tags:
         - Policy
@@ -11813,8 +11951,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.policies.manage
       tags:
         - Policy
@@ -11846,8 +11984,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.policies.manage
       tags:
         - Policy
@@ -11879,8 +12017,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.policies.manage
       tags:
         - Policy
@@ -11923,8 +12061,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.principalRateLimits.read
       tags:
         - PrincipalRateLimit
@@ -11965,8 +12103,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.principalRateLimits.manage
       tags:
         - PrincipalRateLimit
@@ -11996,8 +12134,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.principalRateLimits.read
       tags:
         - PrincipalRateLimit
@@ -12038,8 +12176,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.principalRateLimits.manage
       tags:
         - PrincipalRateLimit
@@ -12070,8 +12208,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.pushProviders.read
       tags:
         - PushProvider
@@ -12113,8 +12251,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.pushProviders.manage
       tags:
         - PushProvider
@@ -12147,8 +12285,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.pushProviders.read
       tags:
         - PushProvider
@@ -12194,8 +12332,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.pushProviders.manage
       tags:
         - PushProvider
@@ -12228,8 +12366,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.pushProviders.manage
       tags:
         - PushProvider
@@ -12270,8 +12408,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.riskEvents.manage
       tags:
         - RiskEvent
@@ -12296,8 +12434,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.riskProviders.read
       tags:
         - RiskProvider
@@ -12341,8 +12479,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.riskProviders.manage
       tags:
         - RiskProvider
@@ -12372,8 +12510,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.riskProviders.read
       tags:
         - RiskProvider
@@ -12412,8 +12550,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.riskProviders.manage
       tags:
         - RiskProvider
@@ -12441,8 +12579,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.riskProviders.manage
       tags:
         - RiskProvider
@@ -12475,8 +12613,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - Subscription
@@ -12512,8 +12650,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - Subscription
@@ -12545,8 +12683,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - Subscription
@@ -12578,8 +12716,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - Subscription
@@ -12611,7 +12749,7 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
+        - apiToken: []
       tags:
         - Session
       x-okta-lifecycle:
@@ -12643,8 +12781,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.sessions.read
       tags:
         - Session
@@ -12671,8 +12809,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.sessions.manage
       tags:
         - Session
@@ -12703,8 +12841,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.sessions.manage
       tags:
         - Session
@@ -12734,8 +12872,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.read
       tags:
         - Template
@@ -12766,8 +12904,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.manage
       tags:
         - Template
@@ -12798,8 +12936,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.read
       tags:
         - Template
@@ -12838,8 +12976,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.manage
       tags:
         - Template
@@ -12878,8 +13016,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.manage
       tags:
         - Template
@@ -12906,8 +13044,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.templates.manage
       tags:
         - Template
@@ -12930,8 +13068,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.threatInsights.read
       tags:
         - ThreatInsight
@@ -12962,8 +13100,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.threatInsights.manage
       tags:
         - ThreatInsight
@@ -12972,7 +13110,7 @@ paths:
   /api/v1/trustedOrigins:
     get:
       summary: List all Trusted Origins
-      description: Success
+      description: List all trusted origins
       operationId: listOrigins
       parameters:
         - name: q
@@ -13007,8 +13145,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.trustedOrigins.read
       tags:
         - TrustedOrigin
@@ -13016,7 +13154,7 @@ paths:
         lifecycle: GA_NO_FLAG
     post:
       summary: Create a Trusted Origin
-      description: Success
+      description: Create a trusted origin
       operationId: createOrigin
       x-codegen-request-body-name: trustedOrigin
       requestBody:
@@ -13039,8 +13177,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.trustedOrigins.manage
       tags:
         - TrustedOrigin
@@ -13049,7 +13187,7 @@ paths:
   /api/v1/trustedOrigins/{trustedOriginId}:
     get:
       summary: Retrieve a Trusted Origin
-      description: Success
+      description: Retrieve a trusted origin
       operationId: getOrigin
       parameters:
         - name: trustedOriginId
@@ -13071,8 +13209,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.trustedOrigins.read
       tags:
         - TrustedOrigin
@@ -13080,7 +13218,7 @@ paths:
         lifecycle: GA_NO_FLAG
     put:
       summary: Replace a Trusted Origin
-      description: Success
+      description: Replace a trusted origin
       operationId: updateOrigin
       parameters:
         - name: trustedOriginId
@@ -13111,8 +13249,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.trustedOrigins.manage
       tags:
         - TrustedOrigin
@@ -13120,7 +13258,7 @@ paths:
         lifecycle: GA_NO_FLAG
     delete:
       summary: Delete a Trusted Origin
-      description: Success
+      description: Delete a trusted origin
       operationId: deleteOrigin
       parameters:
         - name: trustedOriginId
@@ -13139,8 +13277,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.trustedOrigins.manage
       tags:
         - TrustedOrigin
@@ -13149,7 +13287,7 @@ paths:
   /api/v1/trustedOrigins/{trustedOriginId}/lifecycle/activate:
     post:
       summary: Activate a Trusted Origin
-      description: Success
+      description: Activate a trusted origin
       operationId: activateOrigin
       parameters:
         - name: trustedOriginId
@@ -13171,8 +13309,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.trustedOrigins.manage
       tags:
         - TrustedOrigin
@@ -13181,7 +13319,7 @@ paths:
   /api/v1/trustedOrigins/{trustedOriginId}/lifecycle/deactivate:
     post:
       summary: Deactivate a Trusted Origin
-      description: Success
+      description: Deactivate a trusted origin
       operationId: deactivateOrigin
       parameters:
         - name: trustedOriginId
@@ -13203,8 +13341,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.trustedOrigins.manage
       tags:
         - TrustedOrigin
@@ -13268,8 +13406,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.read
       tags:
         - User
@@ -13334,8 +13472,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -13373,7 +13511,7 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - OAuth 2.0:
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -13408,8 +13546,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.read
       tags:
         - User
@@ -13460,8 +13598,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -13513,8 +13651,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -13557,8 +13695,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -13591,8 +13729,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.read
       tags:
         - User
@@ -13625,8 +13763,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.read
       tags:
         - User
@@ -13678,8 +13816,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.read
       tags:
         - User
@@ -13711,8 +13849,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -13764,8 +13902,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.read
       tags:
         - User
@@ -13797,8 +13935,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -13852,8 +13990,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.read
       tags:
         - User
@@ -13890,8 +14028,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -13936,8 +14074,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -13977,8 +14115,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -14015,8 +14153,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -14062,8 +14200,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -14096,8 +14234,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.read
       tags:
         - UserFactor
@@ -14160,8 +14298,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - UserFactor
@@ -14194,8 +14332,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.read
       tags:
         - UserFactor
@@ -14228,7 +14366,7 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
+        - apiToken: []
       tags:
         - UserFactor
       x-okta-lifecycle:
@@ -14263,8 +14401,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.read
       tags:
         - UserFactor
@@ -14301,8 +14439,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - UserFactor
@@ -14347,8 +14485,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - UserFactor
@@ -14389,8 +14527,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.read
       tags:
         - UserFactor
@@ -14460,8 +14598,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - UserFactor
@@ -14512,8 +14650,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.read
       tags:
         - User
@@ -14540,8 +14678,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -14581,8 +14719,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.read
       tags:
         - User
@@ -14614,8 +14752,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -14648,8 +14786,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.read
       tags:
         - User
@@ -14682,8 +14820,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.read
       tags:
         - User
@@ -14721,8 +14859,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -14756,8 +14894,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -14788,8 +14926,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -14820,8 +14958,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -14858,8 +14996,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -14887,8 +15025,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -14924,8 +15062,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -14953,8 +15091,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -14982,8 +15120,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -15011,8 +15149,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -15060,8 +15198,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.read
       tags:
         - User
@@ -15093,8 +15231,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -15131,8 +15269,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - RoleAssignment
@@ -15176,8 +15314,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - RoleAssignment
@@ -15213,8 +15351,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - RoleAssignment
@@ -15246,8 +15384,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - RoleAssignment
@@ -15295,8 +15433,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - RoleTarget
@@ -15328,8 +15466,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - RoleTarget
@@ -15338,7 +15476,7 @@ paths:
   /api/v1/users/{userId}/roles/{roleId}/targets/catalog/apps/{appName}:
     put:
       summary: Assign an Application Target to Administrator Role
-      description: Success
+      description: Assign an application target to administrator role
       operationId: addApplicationTargetToAdminRoleForUser
       parameters:
         - name: userId
@@ -15367,8 +15505,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - RoleTarget
@@ -15376,7 +15514,7 @@ paths:
         lifecycle: GA_NO_FLAG
     delete:
       summary: Unassign an Application Target from Application Administrator Role
-      description: Success
+      description: Unassign an application target from application administrator role
       operationId: removeApplicationTargetFromApplicationAdministratorRoleForUser
       parameters:
         - name: userId
@@ -15405,8 +15543,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - RoleTarget
@@ -15449,8 +15587,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - RoleTarget
@@ -15492,8 +15630,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - RoleTarget
@@ -15502,7 +15640,7 @@ paths:
   /api/v1/users/{userId}/roles/{roleId}/targets/groups:
     get:
       summary: List all Group Targets for Role
-      description: Success
+      description: List all group targets for role
       operationId: listGroupTargetsForRole
       parameters:
         - name: userId
@@ -15541,8 +15679,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.read
       tags:
         - RoleTarget
@@ -15580,8 +15718,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - RoleTarget
@@ -15618,8 +15756,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.roles.manage
       tags:
         - RoleTarget
@@ -15653,8 +15791,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - User
@@ -15687,8 +15825,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.read
       tags:
         - Subscription
@@ -15724,8 +15862,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.read
       tags:
         - Subscription
@@ -15757,8 +15895,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - Subscription
@@ -15790,8 +15928,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.users.manage
       tags:
         - Subscription
@@ -15834,8 +15972,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.networkZones.read
       tags:
         - NetworkZone
@@ -15866,8 +16004,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.networkZones.manage
       tags:
         - NetworkZone
@@ -15898,8 +16036,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.networkZones.read
       tags:
         - NetworkZone
@@ -15938,8 +16076,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.networkZones.manage
       tags:
         - NetworkZone
@@ -15966,8 +16104,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.networkZones.manage
       tags:
         - NetworkZone
@@ -15998,8 +16136,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.networkZones.manage
       tags:
         - NetworkZone
@@ -16030,8 +16168,8 @@ paths:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
-        - API Token: []
-        - OAuth 2.0:
+        - apiToken: []
+        - oauth2:
             - okta.networkZones.manage
       tags:
         - NetworkZone
@@ -16039,12 +16177,12 @@ paths:
         lifecycle: GA_NO_FLAG
 components:
   securitySchemes:
-    API Token:
+    apiToken:
       description: 'Pass the API token as the Authorization header value prefixed with SSWS: `Authorization: SSWS {API Token}`'
       name: Authorization
       type: apiKey
       in: header
-    OAuth 2.0:
+    oauth2:
       type: oauth2
       description: 'Pass the access_token as the value of the Authorization header: `Authorization: Bearer {access_token}`'
       flows:
@@ -16127,13 +16265,13 @@ components:
           lastUpdated: 2021-11-11T20:38:10.000Z
           _links:
             self:
-              href: https://${yourOktaDomain}/api/v1/api-tokens/00Tabcdefg1234567890
+              href: https://{yourOktaDomain}/api/v1/api-tokens/00Tabcdefg1234567890
               hints:
                 allow:
                   - GET
                   - DELETE
             user:
-              href: https://${yourOktaDomain}/api/v1/users/00uabcdefg1234567890
+              href: https://{yourOktaDomain}/api/v1/users/00uabcdefg1234567890
               hints:
                 allow:
                   - GET
@@ -16147,13 +16285,13 @@ components:
           lastUpdated: 2021-11-11T20:38:10.000Z
           _links:
             self:
-              href: https://${yourOktaDomain}/api/v1/api-tokens/00T1234567890abcdefg
+              href: https://{yourOktaDomain}/api/v1/api-tokens/00T1234567890abcdefg
               hints:
                 allow:
                   - GET
                   - DELETE
             user:
-              href: https://${yourOktaDomain}/api/v1/users/00uabcdefg1234567890
+              href: https://{yourOktaDomain}/api/v1/users/00uabcdefg1234567890
               hints:
                 allow:
                   - GET
@@ -16169,13 +16307,13 @@ components:
         lastUpdated: 2021-11-11T20:38:10.000Z
         _links:
           self:
-            href: https://${yourOktaDomain}/api/v1/api-tokens/00Tabcdefg1234567890
+            href: https://{yourOktaDomain}/api/v1/api-tokens/00Tabcdefg1234567890
             hints:
               allow:
                 - GET
                 - DELETE
           user:
-            href: https://${yourOktaDomain}/api/v1/users/00uXXXXXXXXXXXXXXXXX
+            href: https://{yourOktaDomain}/api/v1/users/00uXXXXXXXXXXXXXXXXX
             hints:
               allow:
                 - GET
@@ -16493,14 +16631,14 @@ components:
         isDefault: false
         _links:
           self:
-            href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g5
+            href: https://{yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g5
             hints:
               allow:
                 - GET
                 - PUT
                 - DELETE
           themes:
-            href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g5/themes
+            href: https://{yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g5/themes
             hints:
               allow:
                 - GET
@@ -16521,24 +16659,24 @@ components:
         lastUpdated: 2021-11-11T20:38:10.000Z
         _links:
           self:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/customizations/oel11u6DqUiMbQkpl0g4
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/customizations/oel11u6DqUiMbQkpl0g4
             hints:
               allow:
                 - GET
                 - PUT
                 - DELETE
           template:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation
             hints:
               allow:
                 - GET
           preview:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/customizations/oel11u6DqUiMbQkpl0g4/preview
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/customizations/oel11u6DqUiMbQkpl0g4/preview
             hints:
               allow:
                 - GET
           test:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/test
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/test
             hints:
               allow:
                 - POST
@@ -16679,24 +16817,24 @@ components:
         lastUpdated: 2021-11-11T20:38:10.000Z
         _links:
           self:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/customizations/oel11u6DqUiMbQkpl0g4
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/customizations/oel11u6DqUiMbQkpl0g4
             hints:
               allow:
                 - GET
                 - PUT
                 - DELETE
           template:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation
             hints:
               allow:
                 - GET
           preview:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/customizations/oel11u6DqUiMbQkpl0g4/preview
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/customizations/oel11u6DqUiMbQkpl0g4/preview
             hints:
               allow:
                 - GET
           test:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/test
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/test
             hints:
               allow:
                 - POST
@@ -16705,13 +16843,13 @@ components:
         recipients: ALL_USERS
         _links:
           self:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/settings
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/settings
             hints:
               allow:
                 - GET
                 - PUT
           template:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation
             hints:
               allow:
                 - GET
@@ -16721,17 +16859,17 @@ components:
         body: <!DOCTYPE html><html><body><p>Hello, ${user.profile.firstName}. Click <a href="${activationLink}">here</a> to activate your account.</body></html>
         _links:
           self:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/default-content
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/default-content
             hints:
               allow:
                 - GET
           template:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation
             hints:
               allow:
                 - GET
           preview:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/default-content/preview
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/default-content/preview
             hints:
               allow:
                 - GET
@@ -16879,14 +17017,14 @@ components:
         isDefault: true
         _links:
           self:
-            href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4
+            href: https://{yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4
             hints:
               allow:
                 - GET
                 - PUT
                 - DELETE
           themes:
-            href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4/themes
+            href: https://{yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4/themes
             hints:
               allow:
                 - GET
@@ -16895,30 +17033,30 @@ components:
         name: UserActivation
         _links:
           self:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation
             hints:
               allow:
                 - GET
           settings:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/settings
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/settings
             hints:
               allow:
                 - GET
                 - PUT
           defaultContent:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/default-content
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/default-content
             hints:
               allow:
                 - GET
           customizations:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/customizations
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/customizations
             hints:
               allow:
                 - GET
                 - POST
                 - DELETE
           test:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/test
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/test
             hints:
               allow:
                 - POST
@@ -16988,20 +17126,20 @@ components:
         domainId: OcD11vyscTlIkpC7i0g4
         _links:
           self:
-            href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4/domains/OcD11vyscTlIkpC7i0g4
+            href: https://{yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4/domains/OcD11vyscTlIkpC7i0g4
             hints:
               allow:
                 - PUT
                 - DELETE
           brand:
-            href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4
+            href: https://{yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4
             hints:
               allow:
                 - GET
                 - PUT
                 - DELETE
           domain:
-            href: https://${yourOktaDomain}/api/v1/domains/OcD11vyscTlIkpC7i0g4
+            href: https://{yourOktaDomain}/api/v1/domains/OcD11vyscTlIkpC7i0g4
             hints:
               allow:
                 - GET
@@ -17016,14 +17154,14 @@ components:
           customPrivacyPolicyUrl: null
           _links:
             self:
-              href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4
+              href: https://{yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4
               hints:
                 allow:
                   - GET
                   - PUT
                   - DELETE
             themes:
-              href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4/themes
+              href: https://{yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4/themes
               hints:
                 allow:
                   - GET
@@ -17038,24 +17176,24 @@ components:
           lastUpdated: 2021-11-11T20:38:10.000Z
           _links:
             self:
-              href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/customizations/oel11u6DqUiMbQkpl0g4
+              href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/customizations/oel11u6DqUiMbQkpl0g4
               hints:
                 allow:
                   - GET
                   - PUT
                   - DELETE
             template:
-              href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation
+              href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation
               hints:
                 allow:
                   - GET
             preview:
-              href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/customizations/oel11u6DqUiMbQkpl0g4/preview
+              href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/customizations/oel11u6DqUiMbQkpl0g4/preview
               hints:
                 allow:
                   - GET
             test:
-              href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/test
+              href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/test
               hints:
                 allow:
                   - POST
@@ -17064,30 +17202,30 @@ components:
         - name: UserActivation
           _links:
             self:
-              href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation
+              href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation
               hints:
                 allow:
                   - GET
             settings:
-              href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/settings
+              href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/settings
               hints:
                 allow:
                   - GET
                   - PUT
             defaultContent:
-              href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/default-content
+              href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/default-content
               hints:
                 allow:
                   - GET
             customizations:
-              href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/customizations
+              href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/customizations
               hints:
                 allow:
                   - GET
                   - POST
                   - DELETE
             test:
-              href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/test
+              href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/test
               hints:
                 allow:
                   - POST
@@ -17309,40 +17447,40 @@ components:
     PreviewEmailCustomizationResponse:
       value:
         subject: Welcome to Okta!
-        body: <!DOCTYPE html><html><body><p>Hello, John. Click <a href="https://${yourOktaDomain}/...">here</a> to activate your account.</body></html>
+        body: <!DOCTYPE html><html><body><p>Hello, John. Click <a href="https://{yourOktaDomain}/...">here</a> to activate your account.</body></html>
         _links:
           self:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/customizations/oel2kk1zYJBJbeaGo0g4/preview
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/customizations/oel2kk1zYJBJbeaGo0g4/preview
             hints:
               allow:
                 - GET
           template:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation
             hints:
               allow:
                 - GET
           test:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/test
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/test
             hints:
               allow:
                 - POST
     PreviewEmailTemplateDefaultContentResponse:
       value:
         subject: Welcome to Okta!
-        body: <!DOCTYPE html><html><body><p>Hello, John. Click <a href="https://${yourOktaDomain}/...">here</a> to activate your account.</body></html>
+        body: <!DOCTYPE html><html><body><p>Hello, John. Click <a href="https://{yourOktaDomain}/...">here</a> to activate your account.</body></html>
         _links:
           self:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/default-content/preview
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/default-content/preview
             hints:
               allow:
                 - GET
           template:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation
             hints:
               allow:
                 - GET
           defaultContent:
-            href: https://${yourOktaDomain}/api/v1/brands/${brandId}/templates/email/UserActivation/test/default-content
+            href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/test/default-content
             hints:
               allow:
                 - POST
@@ -17432,13 +17570,21 @@ components:
     ResourceSetBindingAddMembersRequestExample:
       value:
         additions:
-          - https://${yourOktaDomain}/api/v1/groups/00guaxWZ0AOa5NFAj0g3
-          - https://${yourOktaDomain}/api/v1/users/00u67DU2qNCjNZYO0g3
+          - https://{yourOktaDomain}/api/v1/groups/00guaxWZ0AOa5NFAj0g3
+          - https://{yourOktaDomain}/api/v1/users/00u67DU2qNCjNZYO0g3
     ResourceSetBindingCreateRequestExample:
       value:
         role: cr0Yq6IJxGIr0ouum0g3
         members:
-          - https://${yourOktaDomain}/api/v1/groups/00guaxWZ0AOa5NFAj0g3
+          - https://{yourOktaDomain}/api/v1/groups/00guaxWZ0AOa5NFAj0g3
+    ResourceSetBindingMemberResponse:
+      value:
+        id: irb1qe6PGuMc7Oh8N0g4
+        created: '2021-02-06T16:20:57.000Z'
+        lastUpdated: '2021-02-06T16:20:57.000Z'
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/users/00uuk41Hjga5qGfQ30g3
     ResourceSetBindingMembersResponse:
       value:
         members:
@@ -17456,9 +17602,9 @@ components:
                 href: https://{yourOktaDomain}/api/v1/groups/00guaxWZ0AOa5NFAj0g3
         _links:
           binding:
-            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/${resource-set-id}/bindings/${role-id-or-name}
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g/bindings/cr0Yq6IJxGIr0ouum0g3
           next:
-            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/${resource-set-id}/bindings/${role-id-or-name}/members?after=${last-member-id}
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g/bindings/cr0Yq6IJxGIr0ouum0g3/members?after=0ouRq6IJmGIr3ouum0g3
     ResourceSetBindingResponseExample:
       value:
         _links:
@@ -17499,9 +17645,42 @@ components:
         label: SF-IT-People
         description: People in the IT department of San Francisco
         resources:
-          - https://${yourOktaDomain}/api/v1/groups/00guaxWZ0AOa5NFAj0g3
-          - https://${yourOktaDomain}/api/v1/groups/00gu67DU2qNCjNZYO0g3/users
-          - https://${yourOktaDomain}/api/v1/users
+          - https://{yourOktaDomain}/api/v1/groups/00guaxWZ0AOa5NFAj0g3
+          - https://{yourOktaDomain}/api/v1/groups/00gu67DU2qNCjNZYO0g3/users
+          - https://{yourOktaDomain}/api/v1/users
+    ResourceSetResourcePatchRequestExample:
+      value:
+        additions:
+          - https://{yourOktaDomain}/api/v1/groups/00guaxWZ0AOa5NFAj0g3
+          - https://{yourOktaDomain}/api/v1/groups/00gu67DU2qNCjNZYO0g3/users
+    ResourceSetResourcesResponse:
+      value:
+        resources:
+          - id: ire106sQKoHoXXsAe0g4
+            created: '2021-02-06T16:20:57.000Z'
+            lastUpdated: '2021-02-06T16:20:57.000Z'
+            _links:
+              self:
+                href: https://{yourOktaDomain}/api/v1/groups/00guaxWZ0AOa5NFAj0g3
+          - id: ire106riDrTYl4qA70g4
+            created: '2021-02-06T16:20:57.000Z'
+            lastUpdated: '2021-02-06T16:20:57.000Z'
+            _links:
+              self:
+                href: https://{yourOktaDomain}/api/v1/groups/00gu67DU2qNCjNZYO0g3/users
+          - id: irezvo4AwE2ngpMw40g3
+            created: '2021-02-06T16:20:57.000Z'
+            lastUpdated: '2021-02-06T16:20:57.000Z'
+            _links:
+              users:
+                href: https://{yourOktaDomain}/api/v1/users
+              groups:
+                href: https://{yourOktaDomain}/api/v1/groups
+        _links:
+          next:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g/resources?after=irezvn1ZZxLSIBM2J0g3
+          resource-set:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iamoJDFKaJxGIr0oamd9g
     ResourceSetResponse:
       value:
         id: iamoJDFKaJxGIr0oamd9g
@@ -17644,14 +17823,14 @@ components:
         customPrivacyPolicyUrl: https://www.someHost.com/privacy-policy
         _links:
           self:
-            href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4
+            href: https://{yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4
             hints:
               allow:
                 - GET
                 - PUT
                 - DELETE
           themes:
-            href: https://${yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4/themes
+            href: https://{yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4/themes
             hints:
               allow:
                 - GET
@@ -17847,6 +18026,14 @@ components:
         example: abcd1234
       required: true
       description: id of the log stream
+    pathMemberId:
+      name: memberId
+      in: path
+      schema:
+        type: string
+        example: irb1qe6PGuMc7Oh8N0g4
+      required: true
+      description: '`id` of a member'
     pathPermissionType:
       name: permissionType
       in: path
@@ -17877,6 +18064,14 @@ components:
       description: Id of the push provider
       schema:
         type: string
+    pathResourceId:
+      name: resourceId
+      in: path
+      schema:
+        type: string
+        example: ire106sQKoHoXXsAe0g4
+      required: true
+      description: '`id` of a resource'
     pathResourceSetId:
       name: resourceSetId
       in: path
@@ -19522,8 +19717,6 @@ components:
       properties:
         pageContent:
           type: string
-      required:
-        - pageContent
     DNSRecord:
       type: object
       properties:
@@ -23590,6 +23783,53 @@ components:
             resource-set:
               $ref: '#/components/schemas/HrefObject'
           readOnly: true
+    ResourceSetResource:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+          description: Timestamp when the role was created
+          readOnly: true
+        description:
+          type: string
+          description: Description of the resource set
+        id:
+          type: string
+          description: Unique key for the role
+          readOnly: true
+        lastUpdated:
+          type: string
+          format: date-time
+          description: Timestamp when the role was last updated
+          readOnly: true
+        _links:
+          type: object
+          additionalProperties:
+            type: object
+            properties: {}
+          readOnly: true
+    ResourceSetResourcePatchRequest:
+      type: object
+      properties:
+        additions:
+          type: array
+          items:
+            type: string
+    ResourceSetResources:
+      type: object
+      properties:
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceSetResource'
+        _links:
+          type: object
+          properties:
+            next:
+              $ref: '#/components/schemas/HrefObject'
+            resource-set:
+              $ref: '#/components/schemas/HrefObject'
     ResourceSets:
       type: object
       properties:
@@ -24080,10 +24320,6 @@ components:
         - $ref: '#/components/schemas/CustomizablePage'
         - type: object
           properties:
-            type:
-              $ref: '#/components/schemas/HostedPageType'
-            url:
-              type: string
             widgetCustomizations:
               type: object
               properties:
@@ -24129,8 +24365,6 @@ components:
                   type: string
             widgetVersion:
               $ref: '#/components/schemas/Version'
-          required:
-            - type
     SignInPageTouchPointVariant:
       type: string
       enum:

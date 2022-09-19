@@ -3,7 +3,7 @@
 ## Authentication
 
 Most calls to the Advanced Server Access (ASA) API require an HTTP `Authorization`
-header with a value of `Bearer ${AUTH_TOKEN}`.
+header with a value of `Bearer {AUTH_TOKEN}`.
 
 To retrieve an auth token, you need to [create a Service User and API
 key](https://help.okta.com/okta_help.htm?type=asa&id=ext_asa_service_users),
@@ -65,8 +65,8 @@ An example of a paginated request that contains the URL from the `rel="next"` Li
 
 ```bash
 curl -v -X GET \
--H "Authorization: Bearer ${jwt}" \
-https://app.scaleft.com/v1/teams/${team_name}/projects?offset=${next_page_offset}
+-H "Authorization: Bearer {jwt}" \
+https://app.scaleft.com/v1/teams/{team_name}/projects?offset={next_page_offset}
 ```
 
 Clients that want to fetch pages of less than 100 items (for testing
