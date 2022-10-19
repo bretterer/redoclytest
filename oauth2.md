@@ -73,6 +73,8 @@ meta:
 | okta.profileMappings.read        | Allows the app to read user profile mappings in your Okta organization. |
 | okta.pushProviders.manage        | Allows the app to create and manage push notification providers such as APNs and FCM. |
 | okta.pushProviders.read          | Allows the app to read push notification providers such as APNs and FCM. |
+| okta.rateLimits.manage           | Allows the app to create and manage rate limits in your Okta organization. |
+| okta.rateLimits.read             | Allows the app to read information about rate limits in your Okta organization. |
 | okta.riskEvents.manage           | Allows the app to publish risk events to your Okta organization. |
 | okta.riskProviders.manage        | Allows the app to create and manage risk provider integrations in your Okta organization. |
 | okta.riskProviders.read          | Allows the app to read all risk provider integrations in your Okta organization. |
