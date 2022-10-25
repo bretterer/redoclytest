@@ -5,6 +5,8 @@ reference:
     pages:
       - label: Overview
         page: openapi/okta-oauth/guides/overview.md
+      - label: Client authentication
+        page: openapi/okta-oauth/guides/client-auth.md
       - label: OAuth 2.0
         page: openapi/okta-oauth/oauth.page.yaml/*
   - group: Okta Management

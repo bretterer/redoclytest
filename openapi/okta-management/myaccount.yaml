@@ -38,8 +38,8 @@ paths:
   /idp/myaccount/emails:
     get:
       summary: List all Emails
-      description: List all emails
-      operationId: get-idp-myaccount-emails
+      description: Lists all emails
+      operationId: listEmails
       responses:
         '200':
           $ref: '#/components/responses/Email-Array-Response'
@@ -52,8 +52,8 @@ paths:
         - Email
     post:
       summary: Create an Email
-      description: Add a new email
-      operationId: post-idp-myaccount-emails
+      description: Creates a new email
+      operationId: createEmail
       requestBody:
         content:
           application/json:
@@ -124,8 +124,8 @@ paths:
         required: true
     get:
       summary: Retrieve an Email
-      description: Get an email by email id
-      operationId: 'get-idp-myaccount-emails-:id:'
+      description: Retrieves an email by email id
+      operationId: getEmail
       responses:
         '200':
           $ref: '#/components/responses/Verified-Email-Response'
@@ -138,8 +138,8 @@ paths:
         - Email
     delete:
       summary: Delete an Email
-      description: Delete an email by email id
-      operationId: 'delete-idp-myaccount-emails-:id:'
+      description: Deletes an email by email id
+      operationId: deleteEmail
       parameters: []
       responses:
         '204':
@@ -170,7 +170,7 @@ paths:
     post:
       summary: Send an Email Challenge
       description: Send a challenge on an email
-      operationId: post-idp-myaccount-emails-id-challenge
+      operationId: sendEmailChallenge
       requestBody:
         content:
           application/json:
@@ -326,7 +326,7 @@ paths:
     get:
       summary: Poll the Challenge for Email Magic Link
       description: Poll for challenge status for an email
-      operationId: get-idp-myaccount-emails-id-challenge-challengeId
+      operationId: pollChallengeForEmailMagicLink
       responses:
         '200':
           description: OK
@@ -462,7 +462,7 @@ paths:
     post:
       summary: Verify an Email OTP
       description: Verify a otp for an email
-      operationId: post-idp-myaccount-emails-id-verify
+      operationId: verifyEmailOtp
       requestBody:
         content:
           application/json:
@@ -499,8 +499,8 @@ paths:
   /idp/myaccount/phones:
     get:
       summary: List all Phones
-      description: Get all my phones
-      operationId: get-idp-myaccount-phones
+      description: Lists all my phones
+      operationId: listPhones
       responses:
         '200':
           $ref: '#/components/responses/Phone-Array-Response'
@@ -513,8 +513,8 @@ paths:
         - Phone
     post:
       summary: Create a Phone
-      description: Add a new phone
-      operationId: post-idp-myaccount-phones
+      description: Creates a new phone
+      operationId: createPhone
       requestBody:
         content:
           application/json:
@@ -572,8 +572,8 @@ paths:
         required: true
     get:
       summary: Retrieve a Phone
-      description: Get a phone given a phone id
-      operationId: get-idp-myaccount-phones-id
+      description: Retrieves a phone given a phone id
+      operationId: getPhone
       responses:
         '200':
           $ref: '#/components/responses/Verified-Phone-Response'
@@ -588,8 +588,8 @@ paths:
         - Phone
     delete:
       summary: Delete a Phone
-      description: Delete a phone given a phone id
-      operationId: delete-idp-myaccount-phones-id
+      description: Deletes a phone given a phone id
+      operationId: deletePhone
       responses:
         '204':
           description: No Content
@@ -617,7 +617,7 @@ paths:
     post:
       summary: Send a Phone Challenge
       description: Send challenge for a phone
-      operationId: post-idp-myaccount-phones-id-challenge
+      operationId: sendPhoneChallenge
       requestBody:
         content:
           application/json:
@@ -672,7 +672,7 @@ paths:
     post:
       summary: Verify a Phone Challenge
       description: Verify a phone challenge
-      operationId: post-idp-myaccount-phones-id-verify
+      operationId: verifyPhoneChallenge
       requestBody:
         content:
           application/json:
@@ -713,8 +713,8 @@ paths:
   /idp/myaccount/profile:
     get:
       summary: Retrieve my Profile
-      description: Get my profile
-      operationId: get-idp-myaccount-profile
+      description: Retrieves my profile
+      operationId: getProfile
       responses:
         '200':
           description: OK
@@ -749,7 +749,7 @@ paths:
     put:
       summary: Replace my Profile
       description: Update my profile
-      operationId: put-idp-myaccount-profile
+      operationId: replaceProfile
       requestBody:
         content:
           application/json:
@@ -804,8 +804,8 @@ paths:
   /idp/myaccount/profile/schema:
     get:
       summary: Retrieve my Profile Schema
-      description: Get my profile schema
-      operationId: get-idp-myaccount-profile-schema
+      description: Retrieves my profile schema
+      operationId: getProfileSchema
       responses:
         '200':
           description: OK

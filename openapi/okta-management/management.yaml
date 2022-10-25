@@ -2073,6 +2073,33 @@ paths:
         - Application
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
+  /api/v1/apps/{appId}/policies/{policyId}:
+    put:
+      summary: Assign an application to a specific policy
+      description: Assign an application to a specific policy. This unassigns the application from its currently assigned policy.
+      operationId: assignApplicationPolicy
+      parameters:
+        - in: path
+          name: appId
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: policyId
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.apps.manage
+      tags:
+        - Application
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
   /api/v1/apps/{appId}/tokens:
     get:
       summary: List all OAuth 2.0 Tokens
@@ -9332,6 +9359,7 @@ paths:
         - Role
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
+  /api/v1/identity-sources/{identitySourceId}/sessions: {}
   /api/v1/idps:
     get:
       summary: List all Identity Providers
@@ -17950,6 +17978,12 @@ components:
               hints:
                 allow:
                   - POST
+    ListSessionsResponse:
+      value:
+        - id: uij4ri8ZLk0ywyqxB0g4
+          identitySourceId: 0oa3l6l6WK6h0R0QW0g4
+          status: CREATED
+          importType: INCREMENTAL
     ListUsersResponse:
       value:
         - id: 00u118oQYT4TBGuay0g4
@@ -18759,6 +18793,12 @@ components:
       schema:
         type: string
         description: The ID of the email domain.
+    pathIdentitySourceId:
+      name: identitySourceId
+      in: path
+      required: true
+      schema:
+        type: string
     pathLogStreamId:
       name: logStreamId
       in: path
@@ -19473,11 +19513,11 @@ components:
       properties:
         pushStatus:
           type: string
-        suffix:
-          type: string
         template:
           type: string
         type:
+          type: string
+        userSuffix:
           type: string
     ApplicationFeature:
       type: object
@@ -19571,8 +19611,11 @@ components:
         - INACTIVE
       readOnly: true
     ApplicationLinks:
+      additionalProperties: true
       type: object
       properties:
+        accessPolicy:
+          $ref: '#/components/schemas/HrefObject'
         activate:
           $ref: '#/components/schemas/HrefObject'
         deactivate:
@@ -21894,6 +21937,29 @@ components:
         - OKTA
         - SAML2
         - X509
+    IdentitySourceSession:
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        identitySourceId:
+          type: string
+          readOnly: true
+        importType:
+          type: string
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/IdentitySourceSessionStatus'
+    IdentitySourceSessionStatus:
+      type: string
+      enum:
+        - CLOSED
+        - COMPLETED
+        - CREATED
+        - ERROR
+        - EXPIRED
+        - TRIGGERED
     IdpPolicyRuleAction:
       type: object
       properties:
@@ -23921,12 +23987,14 @@ components:
           type: string
           format: date-time
           readOnly: true
+          nullable: true
         id:
           type: string
         lastUpdated:
           type: string
           format: date-time
           readOnly: true
+          nullable: true
         name:
           type: string
         priority:
@@ -26403,6 +26471,8 @@ components:
         - $ref: '#/components/schemas/Application'
         - type: object
           properties:
+            credentials:
+              $ref: '#/components/schemas/ApplicationCredentials'
             name:
               type: string
               default: template_wsfed

@@ -51,7 +51,7 @@ paths:
     get:
       summary: Retrieve the OpenID Connect metadata
       description: Returns OpenID Connect metadata for the Org Authorization Server. This information can be used by clients to programmatically configure their interactions with Okta. Custom scopes are returned only when they are configured to be publicly discoverable. Custom claims are never returned.
-      operationId: wellKnownOpenIDConfiguration
+      operationId: getWellKnownOpenIDConfiguration
       parameters:
         - $ref: '#/components/parameters/queryClientId'
       responses:
@@ -226,8 +226,8 @@ paths:
         - OrgAS
   /oauth2/v1/clients:
     get:
-      summary: List all Client applications
-      description: Lists all the client Applications in your organization with optional pagination.
+      summary: List all Client Applications
+      description: Lists all the client applications with pagination
       operationId: listClients
       parameters:
         - $ref: '#/components/parameters/queryAfter'
@@ -263,9 +263,9 @@ paths:
       tags:
         - Client
     post:
-      summary: Create a Client application
+      summary: Create a Client Application
       description: |-
-        Adds a new Client application to your organization.
+        Creates a new client application.
 
         > **Note:** Apps can be created on the Apps endpoint (`/api/v1/apps`) and default to `consent_method=TRUSTED`, while those created with Dynamic Client Registration (`/oauth2/v1/clients`) default to `consent_method=REQUIRED`."
 
@@ -324,7 +324,7 @@ paths:
       - $ref: '#/components/parameters/pathClientId'
     get:
       summary: Retrieve a Client application
-      description: Retrieve a Client application by `clientId` from your organization.
+      description: Retrieves a Client application by `clientId`
       operationId: getClient
       responses:
         '200':
@@ -349,9 +349,9 @@ paths:
       tags:
         - Client
     put:
-      summary: Replace a Client application
+      summary: Replace a Client Application
       description: |-
-        Replace the settings for a Client application from your organization.
+        Replaces the settings for a client application.
 
         > **Note:** You must specifiy all settings when you update a client Application. Partial updates aren't supported. If any settings are missing when you update a client application, the update fails. The exceptions are that you can't include `client_secret_expires_at` or `client_id_issued_at` in the request, and you can omit the `client_secret`.
       operationId: replaceClient
@@ -389,8 +389,8 @@ paths:
       tags:
         - Client
     delete:
-      summary: Delete a Client application
-      description: Remove a Client application from your organization.
+      summary: Delete a Client Application
+      description: Deletes a client application
       operationId: deleteClient
       responses:
         '204':
@@ -443,7 +443,7 @@ paths:
   /oauth2/v1/device/authorize:
     post:
       summary: /device/authorize
-      description: This endpoint returns user code, device code, activation link, and a QR code activation link.
+      description: Returns a user code, device code, activation link, and QR code activation link
       operationId: deviceAuthorize
       requestBody: &ref_3
         content:
@@ -497,7 +497,7 @@ paths:
 
         Be sure that you are using the `/introspect` endpoint of the same authorization server that you used to create the token.
 
-        > **Note:** The `/revoke` endpoint requires client authentication. The method is configured per Client application. See the Security section for more information. For public clients (such as single-page and mobile apps) that don't have a `client_secret`, you must include the `client_id` as a query parameter when calling the `/introspect` endpoint. Make sure that you aren't passing the Authorization header in the request.
+        > **Note:** The `/revoke` endpoint requires client authentication. The method is configured per Client application. See [Client authentication methods] for more information. For public clients (such as single-page and mobile apps) that don't have a `client_secret`, you must include the `client_id` as a query parameter when calling the `/introspect` endpoint. Make sure that you aren't passing the Authorization header in the request.
       operationId: introspect
       requestBody: &ref_5
         content:
@@ -677,7 +677,7 @@ paths:
       description: |-
         The API takes an access or refresh token and revokes it. Revoked tokens are considered inactive at the introspection endpoint. A client may only revoke its own tokens. See [Revoke tokens](https://developer.okta.com/docs/guides/revoke-tokens/) for more information.
 
-        > **Note:** The `/revoke` endpoint requires client authentication. The method is configured per Client application. See the Security section for more information.
+        > **Note:** The `/revoke` endpoint requires client authentication. The method is configured per Client application. See [Client authentication methods](/openapi/okta-oauth/guides/client-auth/) for more information.
       operationId: revoke
       requestBody: &ref_12
         content:
@@ -721,7 +721,7 @@ paths:
       description: |-
         This endpoint returns access tokens, ID tokens, and refresh tokens depending on the request parameters. For password, client credentials, saml2 assertion, and refresh token flows, calling /token is the only step of the flow. For the authorization code flow, calling /token is the second step of the flow.
 
-        > **Note:** The `/token` endpoint requires client authentication. The method is configured per Client application. See the Security section for more information.
+        > **Note:** The `/token` endpoint requires client authentication. The method is configured per Client application. See [Client authentication methods](/openapi/okta-oauth/guides/client-auth/) for more information.
       operationId: token
       requestBody: &ref_14
         content:
@@ -818,7 +818,7 @@ paths:
     get:
       summary: Retrieve the OAuth 2.0 metadata
       description: Returns OAuth 2.0 metadata for the specified Custom Authorization Server. This information can be used by clients to programmatically configure their interactions with Okta. Custom scopes are returned only when they are configured to be publicly discoverable. Custom claims are never returned.
-      operationId: customASWellKnownOAuthConfiguration
+      operationId: getWellKnownOAuthConfigurationCustomAS
       parameters:
         - $ref: '#/components/parameters/queryClientId'
       responses:
@@ -843,7 +843,7 @@ paths:
     get:
       summary: Retrieve the OpenID Connect metadata
       description: Returns OpenID Connect metadata for the specified Custom Authorization Server. This information can be used by clients to programmatically configure their interactions with Okta. Custom scopes are returned only when they are configured to be publicly discoverable. Custom claims are never returned.
-      operationId: customASWellKnownOpenIDConfiguration
+      operationId: getWellKnownOpenIDConfigurationCustomAS
       parameters:
         - $ref: '#/components/parameters/queryClientId'
       responses:
@@ -881,7 +881,7 @@ paths:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
     post:
       summary: /device/authorize
-      description: This endpoint returns user code, device code, activation link, and a QR code activation link.
+      description: Returns a user code, device code, activation link, and QR code activation link
       operationId: deviceAuthorizeCustomAS
       requestBody: *ref_3
       responses: *ref_4
@@ -898,7 +898,7 @@ paths:
 
         Be sure that you are using the `/introspect` endpoint of the same authorization server that you used to create the token.
 
-        > **Note:** The `/revoke` endpoint requires client authentication. The method is configured per Client application. See the Security section for more information. For public clients (such as single-page and mobile apps) that don't have a `client_secret`, you must include the `client_id` as a query parameter when calling the `/introspect` endpoint. Make sure that you aren't passing the Authorization header in the request.
+        > **Note:** The `/revoke` endpoint requires client authentication. The method is configured per Client application. See [Client authentication methods](/openapi/okta-oauth/guides/client-auth/) for more information. For public clients (such as single-page and mobile apps) that don't have a `client_secret`, you must include the `client_id` as a query parameter when calling the `/introspect` endpoint. Make sure that you aren't passing the Authorization header in the request.
       operationId: introspectCustomAS
       requestBody: *ref_5
       responses: *ref_6
@@ -963,7 +963,7 @@ paths:
       description: |-
         The API takes an access or refresh token and revokes it. Revoked tokens are considered inactive at the introspection endpoint. A client may only revoke its own tokens. See [Revoke tokens](https://developer.okta.com/docs/guides/revoke-tokens/) for more information.
 
-        > **Note:** The `/revoke` endpoint requires client authentication. The method is configured per Client application. See the Security section for more information.
+        > **Note:** The `/revoke` endpoint requires client authentication. The method is configured per Client application. See [Client authentication methods](/openapi/okta-oauth/guides/client-auth/) for more information.
       operationId: revokeCustomAS
       requestBody: *ref_12
       responses: *ref_13
@@ -978,7 +978,7 @@ paths:
       description: |-
         This endpoint returns access tokens, ID tokens, and refresh tokens depending on the request parameters. For password, client credentials, saml2 assertion, and refresh token flows, calling /token is the only step of the flow. For the authorization code flow, calling /token is the second step of the flow.
 
-        > **Note:** The `/token` endpoint requires client authentication. The method is configured per Client application. See the Security section for more information.
+        > **Note:** The `/token` endpoint requires client authentication. The method is configured per Client application. See [Client authentication methods](/openapi/okta-oauth/guides/client-auth/) for more information.
       operationId: tokenCustomAS
       requestBody: *ref_14
       responses: *ref_15
