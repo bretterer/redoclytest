@@ -54,6 +54,8 @@ meta:
 | okta.eventHooks.read             | Allows the app to read information about Event Hooks in your Okta organization. |
 | okta.groups.manage               | Allows the app to manage existing groups in your Okta organization. |
 | okta.groups.read                 | Allows the app to read information about groups and their members in your Okta organization. |
+| okta.identitySources.manage      | Allows the custom identity sources to manage user entities in your Okta organization |
+| okta.identitySources.read        | Allows to read session information for custom identity sources in your Okta organization |
 | okta.idps.manage                 | Allows the app to create and manage Identity Providers in your Okta organization. |
 | okta.idps.read                   | Allows the app to read information about Identity Providers in your Okta organization. |
 | okta.inlineHooks.manage          | Allows the app to create and manage Inline Hooks in your Okta organization. |

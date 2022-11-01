@@ -1,5 +1,5 @@
 reference:
-  - page: index.md
+  - page: index.mdx
   - page: oauth2.md
   - group: OpenID Connect & OAuth 2.0
     pages:

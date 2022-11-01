@@ -34,6 +34,9 @@ tags:
   - name: Application
     x-displayName: Applications
     description: The Applications API provides operations to manage applications and/or assignments to users or groups for your organization.
+  - name: AttackProtection
+    x-displayName: Attack Protection
+    description: The Attack Protection API provides operations to configure the User Lockout Settings in your org to prevent brute-force attacks.
   - name: Authenticator
     x-displayName: Authenticators
     description: |-
@@ -125,6 +128,9 @@ tags:
   - name: IdentityProvider
     x-displayName: Identity Providers
     description: The Identity Providers API provides operations to manage federations with external Identity Providers (IdP). For example, your app can support signing in with credentials from Apple, Facebook, Google, LinkedIn, Microsoft, an enterprise IdP using SAML 2.0, or an IdP using the OpenID Connect (`OIDC`) protocol.
+  - name: IdentitySource
+    x-displayName: Identity Sources
+    description: The Okta Identity Source API provides a mechanism to synchronize an HR source (the custom identity source) with Okta user profiles in an org.
   - name: InlineHook
     x-displayName: Inline Hooks
     description: |-
@@ -9359,7 +9365,207 @@ paths:
         - Role
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
-  /api/v1/identity-sources/{identitySourceId}/sessions: {}
+  /api/v1/identity-sources/{identitySourceId}/sessions:
+    get:
+      summary: List all Identity Source Sessions
+      description: Lists all identity source sessions for the given identity source instance
+      operationId: listIdentitySourceSessions
+      parameters:
+        - $ref: '#/components/parameters/pathIdentitySourceId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentitySourceSession'
+              examples:
+                Sessions List:
+                  $ref: '#/components/examples/ListSessionsResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.identitySources.read
+      tags:
+        - IdentitySource
+      x-okta-lifecycle:
+        lifecycle: EA
+    post:
+      summary: Create an Identity Source Session
+      description: Creates an identity source session for the given identity source instance
+      operationId: createIdentitySourceSession
+      parameters:
+        - $ref: '#/components/parameters/pathIdentitySourceId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/IdentitySourceSession'
+              examples:
+                sessionsList:
+                  $ref: '#/components/examples/ListSessionsResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.identitySources.manage
+      tags:
+        - IdentitySource
+      x-okta-lifecycle:
+        lifecycle: EA
+  /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}:
+    get:
+      summary: Retrieve an Identity Source Session
+      description: Retrieve an identity source session for a given identity source id and session id
+      operationId: getIdentitySourceSession
+      parameters:
+        - $ref: '#/components/parameters/pathIdentitySourceId'
+        - $ref: '#/components/parameters/pathSessionId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentitySourceSession'
+              examples:
+                Session:
+                  $ref: '#/components/examples/ListSessionsResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.identitySources.read
+      tags:
+        - IdentitySource
+      x-okta-lifecycle:
+        lifecycle: EA
+    delete:
+      summary: Delete an Identity Source Session
+      description: Delete an identity source session for a given identity source id and session id
+      operationId: deleteIdentitySourceSession
+      parameters:
+        - $ref: '#/components/parameters/pathIdentitySourceId'
+        - $ref: '#/components/parameters/pathSessionId'
+      responses:
+        '204':
+          description: No Content
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.identitySources.manage
+      tags:
+        - IdentitySource
+      x-okta-lifecycle:
+        lifecycle: EA
+  /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/bulk-delete:
+    post:
+      summary: Upload the data to be deleted in Okta
+      description: Uploads entities that need to be deleted in Okta from the identity source for the given session
+      operationId: uploadIdentitySourceDataForDelete
+      parameters:
+        - $ref: '#/components/parameters/pathIdentitySourceId'
+        - $ref: '#/components/parameters/pathSessionId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkDeleteRequestBody'
+      responses:
+        '202':
+          description: Accepted
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.identitySources.manage
+      tags:
+        - IdentitySource
+      x-okta-lifecycle:
+        lifecycle: EA
+  /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/bulk-upsert:
+    post:
+      summary: Upload the data to be upserted in Okta
+      description: Uploads entities that need to be upserted in Okta from the identity source for the given session
+      operationId: uploadIdentitySourceDataForUpsert
+      parameters:
+        - $ref: '#/components/parameters/pathIdentitySourceId'
+        - $ref: '#/components/parameters/pathSessionId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkUpsertRequestBody'
+      responses:
+        '202':
+          description: Accepted
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.identitySources.manage
+      tags:
+        - IdentitySource
+      x-okta-lifecycle:
+        lifecycle: EA
+  /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/start-import:
+    post:
+      summary: Start the import from the Identity Source
+      description: Trigger identity source session to start the import from the Identity Source
+      operationId: startImportFromIdentitySource
+      parameters:
+        - $ref: '#/components/parameters/pathIdentitySourceId'
+        - $ref: '#/components/parameters/pathSessionId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/IdentitySourceSession'
+              examples:
+                sessionsList:
+                  $ref: '#/components/examples/TriggerSessionResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.identitySources.manage
+      tags:
+        - IdentitySource
+      x-okta-lifecycle:
+        lifecycle: EA
   /api/v1/idps:
     get:
       summary: List all Identity Providers
@@ -14271,6 +14477,12 @@ paths:
       operationId: getUser
       parameters:
         - $ref: '#/components/parameters/pathUserId'
+        - name: expand
+          in: query
+          description: 'Specifies additional metadata to include in the response. Possible value: `blocks`'
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: Success
@@ -14469,6 +14681,41 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AppLink'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.users.read
+      tags:
+        - User
+      x-okta-lifecycle:
+        lifecycle: GA_NO_FLAG
+  /api/v1/users/{userId}/blocks:
+    get:
+      summary: List all User Blocks
+      description: Lists information about how the user is blocked from accessing their account
+      operationId: listUserBlocks
+      parameters:
+        - $ref: '#/components/parameters/pathUserId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserBlock'
+              examples:
+                BlocksUnknownDevices:
+                  $ref: '#/components/examples/ListUserBlocksUnknownDevicesResponse'
+                BlocksAnyDevices:
+                  $ref: '#/components/examples/ListUserBlocksAnyDevicesResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -15848,7 +16095,7 @@ paths:
   /api/v1/users/{userId}/lifecycle/unlock:
     post:
       summary: Unlock a User
-      description: Unlocks a user with a `LOCKED_OUT` status and returns them to `ACTIVE` status.  Users will be able to login with their current password.
+      description: Unlocks a user with a `LOCKED_OUT` status or unlocks a user with an `ACTIVE` status that is blocked from unknown devices. Unlocked users have an `ACTIVE` status and can sign in with their current password.
       operationId: unlockUser
       parameters:
         - name: userId
@@ -16963,6 +17210,8 @@ components:
             okta.eventHooks.read: Allows the app to read information about Event Hooks in your Okta organization.
             okta.groups.manage: Allows the app to manage existing groups in your Okta organization.
             okta.groups.read: Allows the app to read information about groups and their members in your Okta organization.
+            okta.identitySources.manage: Allows the custom identity sources to manage user entities in your Okta organization
+            okta.identitySources.read: Allows to read session information for custom identity sources in your Okta organization
             okta.idps.manage: Allows the app to create and manage Identity Providers in your Okta organization.
             okta.idps.read: Allows the app to read information about Identity Providers in your Okta organization.
             okta.inlineHooks.manage: Allows the app to create and manage Inline Hooks in your Okta organization.
@@ -17984,6 +18233,14 @@ components:
           identitySourceId: 0oa3l6l6WK6h0R0QW0g4
           status: CREATED
           importType: INCREMENTAL
+    ListUserBlocksAnyDevicesResponse:
+      value:
+        - type: DEVICE_BASED
+          appliesTo: ANY_DEVICES
+    ListUserBlocksUnknownDevicesResponse:
+      value:
+        - type: DEVICE_BASED
+          appliesTo: UNKNOWN_DEVICES
     ListUsersResponse:
       value:
         - id: 00u118oQYT4TBGuay0g4
@@ -18582,6 +18839,12 @@ components:
         _links:
           next:
             href: https://{yourOktaDomain}/api/v1/iam/roles?after=cr0Fw7HKcWIroo88m3r1
+    TriggerSessionResponse:
+      value:
+        - id: uij4ri8ZLk0ywyqxB0g4
+          identitySourceId: 0oa3l6l6WK6h0R0QW0g4
+          status: TRIGGERED
+          importType: INCREMENTAL
     UpdateBrandRequest:
       value:
         customPrivacyPolicyUrl: https://www.someHost.com/privacy-policy
@@ -18877,6 +19140,12 @@ components:
         example: cr0Yq6IJxGIr0ouum0g3
       required: true
       description: '`id` or `label` of the role'
+    pathSessionId:
+      name: sessionId
+      in: path
+      required: true
+      schema:
+        type: string
     pathTemplateName:
       name: templateName
       in: path
@@ -20214,14 +20483,14 @@ components:
               type: string
             appLinkName:
               type: string
-        displayLanguage:
-          $ref: '#/components/schemas/Language'
         id:
           readOnly: true
           type: string
         isDefault:
           readOnly: true
           type: boolean
+        locale:
+          $ref: '#/components/schemas/Language'
         name:
           type: string
         removePoweredByOkta:
@@ -20278,6 +20547,28 @@ components:
               type: string
             settings:
               $ref: '#/components/schemas/SwaApplicationSettings'
+    BulkDeleteRequestBody:
+      type: object
+      properties:
+        entityType:
+          type: string
+          enum:
+            - USERS
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentitySourceUserProfileForDelete'
+    BulkUpsertRequestBody:
+      type: object
+      properties:
+        entityType:
+          type: string
+          enum:
+            - USERS
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentitySourceUserProfileForUpsert'
     CAPTCHAInstance:
       title: CAPTCHAInstance
       description: ''
@@ -21960,6 +22251,47 @@ components:
         - ERROR
         - EXPIRED
         - TRIGGERED
+    IdentitySourceUserProfileForDelete:
+      type: object
+      properties:
+        externalId:
+          type: string
+          maxLength: 512
+    IdentitySourceUserProfileForUpsert:
+      additionalProperties: true
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          minLength: 5
+          maxLength: 100
+        firstName:
+          type: string
+          minLength: 1
+          maxLength: 50
+          nullable: true
+        homeAddress:
+          type: string
+          maxLength: 4096
+          nullable: true
+        lastName:
+          type: string
+          minLength: 1
+          maxLength: 50
+          nullable: true
+        mobilePhone:
+          type: string
+          maxLength: 100
+          nullable: true
+        secondEmail:
+          type: string
+          format: email
+          minLength: 5
+          maxLength: 100
+        userName:
+          type: string
+          maxLength: 100
     IdpPolicyRuleAction:
       type: object
       properties:
@@ -25774,6 +26106,15 @@ components:
         activationUrl:
           type: string
           readOnly: true
+    UserBlock:
+      type: object
+      properties:
+        appliesTo:
+          type: string
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
     UserCondition:
       type: object
       properties:
@@ -25887,6 +26228,12 @@ components:
           type: string
         matchingValue:
           type: string
+    UserLockoutSettings:
+      type: object
+      properties:
+        preventBruteForceLockoutFromUnknownDevices:
+          type: boolean
+          description: Prevents brute-force lockout from unknown devices for the password authenticator.
     UserNextLogin:
       type: string
       enum:
