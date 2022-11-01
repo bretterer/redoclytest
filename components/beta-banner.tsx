@@ -14,11 +14,8 @@ export function BetaBanner() {
               Welcome to Okta’s new API reference portal!
             </Title>
             <div>
-              This portal is in BETA and content is continuously being added. Try out the new format and help us improve the site by providing feedback <a href="https://forms.gle/Y9XmNNTF2rPQwive7">here</a>. Should you need a more complete API reference for a production-level task, use the
+              This portal is in BETA and content is continuously being added. Try out the new format and help us improve the site by providing feedback  <Link to="https://forms.gle/Y9XmNNTF2rPQwive7">here</Link>. Should you need a more complete API reference for a production-level task, use the <Link to="https://developer.okta.com/docs/reference">existing Okta API Reference site</Link>.
             </div>
-            <Link to="https://developer.okta.com/docs/reference">
-              existing Okta API Reference site
-            </Link>
           </Text>
           <Image>
             <svg width="264" height="241" viewBox="0 0 264 241" fill="none" xmlns="http://www.w3.org/2000/svg">

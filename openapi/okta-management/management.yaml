@@ -34,9 +34,6 @@ tags:
   - name: Application
     x-displayName: Applications
     description: The Applications API provides operations to manage applications and/or assignments to users or groups for your organization.
-  - name: AttackProtection
-    x-displayName: Attack Protection
-    description: The Attack Protection API provides operations to configure the User Lockout Settings in your org to prevent brute-force attacks.
   - name: Authenticator
     x-displayName: Authenticators
     description: |-
@@ -105,9 +102,6 @@ tags:
   - name: Domain
     x-displayName: Domains
     description: The Domains API provides operations to manage custom domains for your organization.
-  - name: EmailDomain
-    x-displayName: Email Domains
-    description: The Email Domains API provides operations to manage custom domains for your organization.
   - name: EventHook
     x-displayName: Event Hooks
     description: |-
@@ -193,9 +187,9 @@ tags:
   - name: NetworkZone
     x-displayName: Network Zones
     description: |-
-      The Okta Zones API provides operations to manage Zones in your organization. There are two usage Zone types: Policy Network Zones and Blocklist Network Zones. Policy Network Zones are used to guide policy decisions. Blocklist Network Zones are used to deny access from certain IP addresses, locations, proxy types, or Autonomous System Numbers (ASNs) before policy evaluation.
+      The Okta Network Zones API provides operations to manage Zones in your organization. There are two usage Zone types: Policy Network Zones and Blocklist Network Zones. Policy Network Zones are used to guide policy decisions. Blocklist Network Zones are used to deny access from certain IP addresses, locations, proxy types, or Autonomous System Numbers (ASNs) before policy evaluation.
 
-      A default system Policy Network Zone is provided in your Okta org. You can use the Zones API to modify the default Policy Network Zone or to create a custom Policy or Blocklist Network Zone. When you create your custom Zone, you can specify if the Zone is an IP Zone or a Dynamic Zone. An IP Zone allows you to define network perimeters around a set of IPs, whereas a Dynamic Zone allows you to define network perimeters around location, IP type, and ASNs.
+      A default system Policy Network Zone is provided in your Okta org. You can use the Network Zones API to modify the default Policy Network Zone or to create a custom Policy or Blocklist Network Zone. When you create your custom Zone, you can specify if the Zone is an IP Zone or a Dynamic Zone. An IP Zone allows you to define network perimeters around a set of IPs, whereas a Dynamic Zone allows you to define network perimeters around location, IP type, and ASNs.
   - name: OrgSetting
     x-displayName: Org Settings
     description: The Org Settings API provides operations to manage your org account settings such as contact information, granting Okta Support access, and more.
@@ -16932,7 +16926,12 @@ paths:
   /api/v1/zones:
     get:
       summary: List all Network Zones
-      description: Lists all network zones with pagination. A subset of zones can be returned that match a supported filter expression or query.
+      description: |-
+        Lists all network zones with pagination. A subset of zones can be returned that match a supported filter expression or query.
+
+        This operation requires URL encoding. For example, `filter=(id eq "nzoul0wf9jyb8xwZm0g3" or id eq "nzoul1MxmGN18NDQT0g3")` is encoded as `filter=%28id+eq+%22nzoul0wf9jyb8xwZm0g3%22+or+id+eq+%22nzoul1MxmGN18NDQT0g3%22%29`.
+
+        Okta supports filtering on the `id` and `usage` properties. See [Filtering](https://developer.okta.com/docs/reference/core-okta-api/#filter) for more information on the expressions that are used in filtering.
       operationId: listNetworkZones
       parameters:
         - name: after
@@ -16975,7 +16974,10 @@ paths:
         lifecycle: GA_NO_FLAG
     post:
       summary: Create a Network Zone
-      description: Creates a new network zone to your Okta organization
+      description: |-
+        Creates a new network zone.
+        * At least one of either the `gateways` attribute or `proxies` attribute must be defined when creating a Network Zone.
+        * At least one of the following attributes must be defined: `proxyType`, `locations`, or `asns`.
       operationId: createNetworkZone
       x-codegen-request-body-name: zone
       requestBody:
@@ -17008,7 +17010,7 @@ paths:
   /api/v1/zones/{zoneId}:
     get:
       summary: Retrieve a Network Zone
-      description: Retrieves a network zone from your Okta organization by `id`
+      description: Retrieves a network zone by `zoneId`
       operationId: getNetworkZone
       parameters:
         - name: zoneId
@@ -17039,7 +17041,9 @@ paths:
         lifecycle: GA_NO_FLAG
     put:
       summary: Replace a Network Zone
-      description: Replaces a network zone
+      description: |-
+        Replaces a network zone by `zoneId`. The replaced network zone type must be the same as the existing type.
+        You may replace the usage (`POLICY`, `BLOCKLIST`) of a network zone by updating the `usage` attribute.
       operationId: replaceNetworkZone
       parameters:
         - name: zoneId
@@ -17079,7 +17083,7 @@ paths:
         lifecycle: GA_NO_FLAG
     delete:
       summary: Delete a Network Zone
-      description: Deletes network zone
+      description: Deletes network zone by `zoneId`
       operationId: deleteNetworkZone
       parameters:
         - name: zoneId
@@ -17108,7 +17112,7 @@ paths:
   /api/v1/zones/{zoneId}/lifecycle/activate:
     post:
       summary: Activate a Network Zone
-      description: Activates a network zone
+      description: Activates a network zone by `zoneId`
       operationId: activateNetworkZone
       parameters:
         - name: zoneId
@@ -17140,7 +17144,7 @@ paths:
   /api/v1/zones/{zoneId}/lifecycle/deactivate:
     post:
       summary: Deactivate a Network Zone
-      description: Deactivates a network zone
+      description: Deactivates a network zone by `zoneId`
       operationId: deactivateNetworkZone
       parameters:
         - name: zoneId
@@ -23120,6 +23124,10 @@ components:
           type: array
           items:
             type: string
+          description: 'Format of each array value: a string representation of an ASN numeric value'
+          maximum: 75
+          example:
+            - 23457
         created:
           type: string
           format: date-time
@@ -23128,6 +23136,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/NetworkZoneAddress'
+          description: |-
+            IP addresses (range or CIDR form) of this Zone.
+            The maximum array length is 150 entries for admin-created IP zones, 1000 entries for IP blocklist zones, and 5000 entries for the default system IP Zone.
         id:
           type: string
           readOnly: true
@@ -23139,22 +23150,37 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/NetworkZoneLocation'
+          description: The geolocations of this Zone
+          maximum: 75
         name:
           type: string
+          description: Unique name for this Zone. Maximum of 128 characters.
+          example: newNetworkZone
         proxies:
           type: array
           items:
             $ref: '#/components/schemas/NetworkZoneAddress'
+          description: |-
+            IP address (range or CIDR form) that are allowed to forward a request from gateway addresses.
+            These proxies are automatically trusted by Threat Insights, and used to identify the client IP of a request.
+            The maximum array length is 150 entries for admin-created zones and 5000 entries for the default system IP Zone.
         proxyType:
           type: string
+          description: 'One of: `""` or `null` (when not specified), `Any` (meaning any proxy), `Tor`, or `NotTorAnonymizer`'
+          example: ANY
         status:
           $ref: '#/components/schemas/NetworkZoneStatus'
         system:
           type: boolean
+          description: |-
+            Indicates if this is a system Network Zone. For admin-created zones, this is always `false`.
+            The system IP Policy Network Zone (`LegacyIpZone`) is included by default in your Okta org. Notice that `system=true` for the `LegacyIpZone` object. Admin users can modify the name of this default system Zone and can add up to 5000 gateway or proxy IP entries.
         type:
           $ref: '#/components/schemas/NetworkZoneType'
+          description: 'Type of Zone: `IP` or `DYNAMIC`'
         usage:
           $ref: '#/components/schemas/NetworkZoneUsage'
+          description: 'Usage of Zone: `POLICY` or `BLOCKLIST`'
         _links:
           type: object
           additionalProperties:
@@ -23162,6 +23188,8 @@ components:
             properties: {}
           readOnly: true
     NetworkZoneAddress:
+      description: Specifies the value of an IP address expressed using either `range` or `CIDR` form.
+      example: 1.2.3.4/24
       type: object
       properties:
         type:
@@ -23169,6 +23197,7 @@ components:
         value:
           type: string
     NetworkZoneAddressType:
+      example: CIDR
       type: string
       enum:
         - CIDR
@@ -23178,19 +23207,30 @@ components:
       properties:
         country:
           type: string
+          description: |-
+            Format of the country value: length 2 [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code.
+            Do not use continent codes as they are treated as generic codes for undesignated countries.
+          example: US
         region:
           type: string
+          description: |-
+            Format of the region value (optional): region code [ISO-3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) appended to country code (`countryCode-regionCode`), or `null` if empty.
+            Do not use continent codes as they are treated as generic codes for undesignated regions.
+          example: US-CA
     NetworkZoneStatus:
+      example: ACTIVE
       type: string
       enum:
         - ACTIVE
         - INACTIVE
     NetworkZoneType:
+      example: IP
       type: string
       enum:
         - DYNAMIC
         - IP
     NetworkZoneUsage:
+      example: BLOCKLIST
       type: string
       enum:
         - BLOCKLIST
@@ -23485,8 +23525,12 @@ components:
         - client_credentials
         - implicit
         - interaction_code
+        - interaction_code
         - password
         - refresh_token
+        - urn:ietf:params:oauth:grant-type:device_code
+        - urn:ietf:params:oauth:grant-type:saml2-bearer
+        - urn:ietf:params:oauth:grant-type:token-exchange
     OAuthResponseType:
       type: string
       enum:
