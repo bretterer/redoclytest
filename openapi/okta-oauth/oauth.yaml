@@ -40,12 +40,6 @@ tags:
   - name: OrgAS
     x-displayName: Org Authorization Server
     description: Every Okta org comes with a built-in authorization server called the Org Authorization Server. You use the Org Authorization Server to perform SSO with Okta for your OpenID Connect apps or to get an access token for the Okta APIs. You can't customize this authorization server with regards to audience, claims, policies, or scopes. Additionally, the resulting access token's issuer is `https://{yourOktaDomain}`, which indicates that only Okta can consume or validate it. The access token can't be used or validated by your own applications.
-x-tagGroups:
-  - name: OpenID Connect & OAuth 2.0
-    tags:
-      - Client
-      - OrgAS
-      - CustomAS
 paths:
   /.well-known/openid-configuration:
     get:

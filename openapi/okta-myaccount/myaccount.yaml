@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Okta MyAccount
+  title: MyAccount Management
   version: 1.0.0
   description: APIs for managing a user's own emails, phones, and profile.
   termsOfService: https://developer.okta.com/terms/
@@ -28,12 +28,6 @@ tags:
   - name: Email
   - name: Phone
   - name: Profile
-x-tagGroups:
-  - name: MyAccount
-    tags:
-      - Email
-      - Phone
-      - Profile
 paths:
   /idp/myaccount/emails:
     get:
@@ -169,7 +163,7 @@ paths:
         required: true
     post:
       summary: Send an Email Challenge
-      description: Send a challenge on an email
+      description: Sends a challenge on an email
       operationId: sendEmailChallenge
       requestBody:
         content:
@@ -325,7 +319,7 @@ paths:
         required: true
     get:
       summary: Poll the Challenge for Email Magic Link
-      description: Poll for challenge status for an email
+      description: Polls for challenge status for an email
       operationId: pollChallengeForEmailMagicLink
       responses:
         '200':
@@ -461,7 +455,7 @@ paths:
         required: true
     post:
       summary: Verify an Email OTP
-      description: Verify a otp for an email
+      description: Verifies a OTP for an email challenge
       operationId: verifyEmailOtp
       requestBody:
         content:
@@ -616,7 +610,7 @@ paths:
         required: true
     post:
       summary: Send a Phone Challenge
-      description: Send challenge for a phone
+      description: Sends a phone challenge
       operationId: sendPhoneChallenge
       requestBody:
         content:
@@ -671,7 +665,7 @@ paths:
         required: true
     post:
       summary: Verify a Phone Challenge
-      description: Verify a phone challenge
+      description: Verifies a phone challenge
       operationId: verifyPhoneChallenge
       requestBody:
         content:
@@ -748,7 +742,7 @@ paths:
         - Profile
     put:
       summary: Replace my Profile
-      description: Update my profile
+      description: Replaces my profile
       operationId: replaceProfile
       requestBody:
         content:

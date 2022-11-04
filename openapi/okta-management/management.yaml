@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Okta Management
+  title: Okta Admin Management
   description: Allows customers to easily access the Okta Management APIs
   termsOfService: https://developer.okta.com/terms/
   contact:
@@ -10,7 +10,7 @@ info:
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 3.0.0
+  version: 4.0.0
   x-logo:
     url: logo.svg
     backgroundColor: transparent
@@ -119,6 +119,9 @@ tags:
   - name: Group
     x-displayName: Groups
     description: The Groups API provides operations to manage Okta Groups and their user members for your organization.
+  - name: HookKey
+    x-displayName: Hook Keys
+    description: The Hook Keys API provides operations to manage hook keys for your organization.
   - name: IdentityProvider
     x-displayName: Identity Providers
     description: The Identity Providers API provides operations to manage federations with external Identity Providers (IdP). For example, your app can support signing in with credentials from Apple, Facebook, Google, LinkedIn, Microsoft, an enterprise IdP using SAML 2.0, or an IdP using the OpenID Connect (`OIDC`) protocol.
@@ -323,7 +326,7 @@ tags:
     x-displayName: Users
     description: The User API provides operations to manage users in your organization.
   - name: UserFactor
-    x-displayName: Factors
+    x-displayName: User Factors
     description: The Factors API provides operations to enroll, manage, and verify factors for multifactor authentication (MFA). Manage both administration and end-user accounts, or verify an individual factor at any time.
   - name: UserType
     x-displayName: User Types
@@ -348,6 +351,7 @@ paths:
                   $ref: '#/components/examples/WellKnownOrgMetadataResponseClassic'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
+      security: []
       tags:
         - OrgSetting
       x-okta-lifecycle:
@@ -836,7 +840,7 @@ paths:
         lifecycle: GA_NO_FLAG
     delete:
       summary: Revoke an API Token
-      description: Revoke an API token by id
+      description: Revokes an API token by `apiTokenId`
       operationId: revokeApiToken
       responses:
         '204':
@@ -1338,7 +1342,7 @@ paths:
   /api/v1/apps/{appId}/credentials/csrs/{csrId}/lifecycle/publish:
     post:
       summary: Publish a Certificate Signing Request
-      description: Updates a certificate signing request for the app with a signed X.509 certificate and adds it into the application key credentials
+      description: Publishes a certificate signing request for the app with a signed X.509 certificate and adds it into the application key credentials
       operationId: publishCsrFromApplication
       parameters:
         - name: appId
@@ -2035,7 +2039,7 @@ paths:
   /api/v1/apps/{appId}/logo:
     post:
       summary: Upload a Logo
-      description: The file must be in PNG, JPG, or GIF format, and less than 1 MB in size. For best results use landscape orientation, a transparent background, and a minimum size of 420px by 120px to prevent upscaling.
+      description: Uploads a logo for the application. The file must be in PNG, JPG, or GIF format, and less than 1 MB in size. For best results use landscape orientation, a transparent background, and a minimum size of 420px by 120px to prevent upscaling.
       operationId: uploadApplicationLogo
       parameters:
         - in: path
@@ -2075,8 +2079,8 @@ paths:
         lifecycle: GA_NO_FLAG
   /api/v1/apps/{appId}/policies/{policyId}:
     put:
-      summary: Assign an application to a specific policy
-      description: Assign an application to a specific policy. This unassigns the application from its currently assigned policy.
+      summary: Assign an Application to a Policy
+      description: Assigns an application to a policy identified by `policyId`. If the application was previously assigned to another policy, this removes that assignment.
       operationId: assignApplicationPolicy
       parameters:
         - in: path
@@ -2092,6 +2096,12 @@ paths:
       responses:
         '204':
           description: No Content
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
         - apiToken: []
         - oauth2:
@@ -2766,7 +2776,7 @@ paths:
         lifecycle: GA
     put:
       summary: Replace an Authorization Server
-      description: Replace an authorization server
+      description: Replaces an authorization server
       operationId: replaceAuthorizationServer
       parameters:
         - name: authServerId
@@ -2945,7 +2955,7 @@ paths:
         lifecycle: GA
     put:
       summary: Replace a Custom Token Claim
-      description: Replace a custom token claim
+      description: Replaces a custom token claim
       operationId: replaceOAuth2Claim
       parameters:
         - name: authServerId
@@ -3110,7 +3120,7 @@ paths:
         lifecycle: GA
     delete:
       summary: Revoke all Refresh Tokens for a Client
-      description: Revoke all refresh tokens for a client
+      description: Revokes all refresh tokens for a client
       operationId: revokeRefreshTokensForAuthorizationServerAndClient
       parameters:
         - name: authServerId
@@ -3189,7 +3199,7 @@ paths:
         lifecycle: GA
     delete:
       summary: Revoke a Refresh Token for a Client
-      description: Revoke a refresh token for a client
+      description: Revokes a refresh token for a client
       operationId: revokeRefreshTokenForAuthorizationServerAndClient
       parameters:
         - name: authServerId
@@ -3262,7 +3272,7 @@ paths:
   /api/v1/authorizationServers/{authServerId}/credentials/lifecycle/keyRotate:
     post:
       summary: Rotate all Credential Keys
-      description: Rotate all credential keys
+      description: Rotates all credential keys
       operationId: rotateAuthorizationServerKeys
       parameters:
         - name: authServerId
@@ -3704,7 +3714,7 @@ paths:
   /api/v1/authorizationServers/{authServerId}/policies/{policyId}/rules/{ruleId}:
     get:
       summary: Retrieve a Policy Rule
-      description: Returns a Policy Rule by ID that is defined in the specified Custom Authorization Server and Policy
+      description: Retrieves a policy rule by `ruleId`
       operationId: getAuthorizationServerPolicyRule
       parameters:
         - name: policyId
@@ -4040,7 +4050,7 @@ paths:
         lifecycle: GA
     put:
       summary: Replace a Custom Token Scope
-      description: Replace a custom token scope
+      description: Replaces a custom token scope
       operationId: replaceOAuth2Scope
       parameters:
         - name: authServerId
@@ -4469,10 +4479,6 @@ paths:
   /api/v1/brands/{brandId}/domains:
     parameters:
       - $ref: '#/components/parameters/pathBrandId'
-  /api/v1/brands/{brandId}/domains/{domainId}:
-    parameters:
-      - $ref: '#/components/parameters/pathBrandId'
-      - $ref: '#/components/parameters/pathDomainId'
   /api/v1/brands/{brandId}/pages/error:
     parameters:
       - $ref: '#/components/parameters/pathBrandId'
@@ -4658,7 +4664,7 @@ paths:
         lifecycle: EA
     put:
       summary: Replace the Preview Error Page
-      description: Replace the preview error page
+      description: Replaces the preview error page
       operationId: replacePreviewErrorPage
       requestBody:
         content:
@@ -4696,7 +4702,7 @@ paths:
         lifecycle: EA
     delete:
       summary: Reset the Preview Error Page
-      description: Reset the preview error page
+      description: Resets the preview error page
       operationId: resetPreviewErrorPage
       responses:
         '204':
@@ -4818,7 +4824,7 @@ paths:
         lifecycle: EA
     delete:
       summary: Reset the Customized Sign-in Page
-      description: Reset the customized sign-in page
+      description: Resets the customized sign-in page
       operationId: resetCustomizedSignInPage
       responses:
         '204':
@@ -4901,7 +4907,7 @@ paths:
         lifecycle: EA
     put:
       summary: Replace the Preview Sign-in Page
-      description: Replace the preview sign-in page
+      description: Replaces the preview sign-in page
       operationId: replacePreviewSignInPage
       requestBody:
         content:
@@ -4939,7 +4945,7 @@ paths:
         lifecycle: EA
     delete:
       summary: Reset the Preview Sign-in Page
-      description: Reset the preview sign-in page
+      description: Resets the preview sign-in page
       operationId: resetPreviewSignInPage
       responses:
         '204':
@@ -5360,7 +5366,7 @@ paths:
       - $ref: '#/components/parameters/pathCustomizationId'
     get:
       summary: Retrieve a Preview of an Email Customization
-      description: Generates a preview of an email customization. All variable references (e.g., `${user.profile.firstName}`) are populated using the current user's context.
+      description: Retrieves a preview of an email customization. All variable references (e.g., `${user.profile.firstName}`) are populated using the current user's context.
       operationId: getCustomizationPreview
       responses:
         '200':
@@ -5426,7 +5432,7 @@ paths:
       - $ref: '#/components/parameters/pathTemplateName'
     get:
       summary: Retrieve a Preview of the Email Template Default Content
-      description: Generates a preview of an email template's default content. All variable references (e.g., `${user.profile.firstName}`) are populated using the current user's context.
+      description: Retrieves a preview of an email template's default content. All variable references (e.g., `${user.profile.firstName}`) are populated using the current user's context.
       operationId: getEmailDefaultPreview
       parameters:
         - $ref: '#/components/parameters/queryLanguage'
@@ -5654,7 +5660,7 @@ paths:
       - $ref: '#/components/parameters/pathThemeId'
     post:
       summary: Upload the Background Image
-      description: Updates the background image for your Theme
+      description: Uploads and replaces the background image for the theme. The file must be in PNG, JPG, or GIF format and less than 2 MB in size.
       operationId: uploadBrandThemeBackgroundImage
       requestBody:
         content:
@@ -5720,7 +5726,7 @@ paths:
       - $ref: '#/components/parameters/pathThemeId'
     post:
       summary: Upload the Favicon
-      description: Updates the favicon for your theme
+      description: Uploads and replaces the favicon for the theme
       operationId: uploadBrandThemeFavicon
       requestBody:
         content:
@@ -5786,7 +5792,7 @@ paths:
       - $ref: '#/components/parameters/pathThemeId'
     post:
       summary: Upload the Logo
-      description: Updates the logo for your Theme
+      description: Uploads and replaces the logo for the theme. The file must be in PNG, JPG, or GIF format and less than 100kB in size. For best results use landscape orientation, a transparent background, and a minimum size of 300px by 50px to prevent upscaling.
       operationId: uploadBrandThemeLogo
       requestBody:
         content:
@@ -7053,7 +7059,7 @@ paths:
   /api/v1/features/{featureId}/{lifecycle}:
     post:
       summary: Update a Feature Lifecycle
-      description: Update a feature lifecycle
+      description: Updates a feature lifecycle
       operationId: updateFeatureLifecycle
       parameters:
         - name: featureId
@@ -8433,7 +8439,7 @@ paths:
         lifecycle: EA
     put:
       summary: Replace a key
-      description: Replace a key by `hookKeyId`
+      description: Replaces a key by `hookKeyId`
       operationId: replaceHookKey
       parameters:
         - name: hookKeyId
@@ -8850,7 +8856,7 @@ paths:
         lifecycle: GA_NO_FLAG
     patch:
       summary: Add more Members to a binding
-      description: Creates more members to a resource set binding
+      description: Adds more members to a resource set binding
       operationId: addMembersToBinding
       x-codegen-request-body-name: instance
       requestBody:
@@ -8902,7 +8908,7 @@ paths:
       - $ref: '#/components/parameters/pathMemberId'
     get:
       summary: Retrieve a Member of a binding
-      description: Retreieves a member identified by `memberId` for a binding
+      description: Retrieves a member identified by `memberId` for a binding
       operationId: getMemberOfBinding
       responses:
         '200':
@@ -8990,8 +8996,8 @@ paths:
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
     patch:
-      summary: Add a Resource to a resource set
-      description: Creates more resources to a resource set
+      summary: Add more Resource to a resource set
+      description: Adds more resources to a resource set
       operationId: addResourceSetResource
       x-codegen-request-body-name: instance
       requestBody:
@@ -9380,6 +9386,8 @@ paths:
                   $ref: '#/components/examples/ListSessionsResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -9410,6 +9418,8 @@ paths:
                   $ref: '#/components/examples/ListSessionsResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -9423,7 +9433,7 @@ paths:
   /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}:
     get:
       summary: Retrieve an Identity Source Session
-      description: Retrieve an identity source session for a given identity source id and session id
+      description: Retrieves an identity source session for a given identity source id and session id
       operationId: getIdentitySourceSession
       parameters:
         - $ref: '#/components/parameters/pathIdentitySourceId'
@@ -9440,6 +9450,8 @@ paths:
                   $ref: '#/components/examples/ListSessionsResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -9452,7 +9464,7 @@ paths:
         lifecycle: EA
     delete:
       summary: Delete an Identity Source Session
-      description: Delete an identity source session for a given identity source id and session id
+      description: Deletes an identity source session for a given `identitySourceId` and `sessionId`
       operationId: deleteIdentitySourceSession
       parameters:
         - $ref: '#/components/parameters/pathIdentitySourceId'
@@ -9462,6 +9474,8 @@ paths:
           description: No Content
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -9488,8 +9502,12 @@ paths:
       responses:
         '202':
           description: Accepted
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -9516,8 +9534,12 @@ paths:
       responses:
         '202':
           description: Accepted
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -9531,7 +9553,7 @@ paths:
   /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/start-import:
     post:
       summary: Start the import from the Identity Source
-      description: Trigger identity source session to start the import from the Identity Source
+      description: Starts the import from the identity source described by the uploaded bulk operations
       operationId: startImportFromIdentitySource
       parameters:
         - $ref: '#/components/parameters/pathIdentitySourceId'
@@ -9550,6 +9572,8 @@ paths:
                   $ref: '#/components/examples/TriggerSessionResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
@@ -9985,7 +10009,7 @@ paths:
         lifecycle: GA_NO_FLAG
     delete:
       summary: Revoke a Certificate Signing Request
-      description: Revoke a Certificate Signing Request and delete the key pair from the IdP
+      description: Revokes a certificate signing request and deletes the key pair from the IdP
       operationId: revokeCsrForIdentityProvider
       parameters:
         - name: idpId
@@ -10019,7 +10043,7 @@ paths:
   /api/v1/idps/{idpId}/credentials/csrs/{csrId}/lifecycle/publish:
     post:
       summary: Publish a Certificate Signing Request
-      description: Update the Certificate Signing Request with a signed X.509 certificate and add it into the signing key credentials for the IdP.
+      description: Publishes a certificate signing request with a signed X.509 certificate and adds it into the signing key credentials for the IdP
       operationId: publishCsrForIdentityProvider
       parameters:
         - name: idpId
@@ -10292,7 +10316,7 @@ paths:
   /api/v1/idps/{idpId}/users:
     get:
       summary: List all Users
-      description: Find all the users linked to an identity provider
+      description: Lists all users linked to the identity provider
       operationId: listIdentityProviderApplicationUsers
       parameters:
         - name: idpId
@@ -10994,7 +11018,7 @@ paths:
   /api/v1/logs:
     get:
       summary: List all System Log Events
-      description: The Okta System Log API provides read access to your organization’s system log. This API provides more functionality than the Events API
+      description: Lists all system log events. The Okta System Log API provides read access to your organization’s system log. This API provides more functionality than the Events API
       operationId: listLogEvents
       parameters:
         - name: since
@@ -11171,7 +11195,7 @@ paths:
   /api/v1/meta/layouts/apps/{appName}:
     get:
       summary: Retrieve the UI Layout for an Application
-      description: Takes an Application name as an input parameter and retrieves the App Instance page Layout for that Application
+      description: Retrieves the UI layout for an application by `appName`
       operationId: getApplicationLayout
       parameters:
         - name: appName
@@ -11234,7 +11258,7 @@ paths:
         lifecycle: GA_NO_FLAG
     post:
       summary: Update the default Application User Schema for an Application
-      description: Partial updates on the User Profile properties of the Application User Schema
+      description: Partially updates on the User Profile properties of the Application User Schema
       operationId: updateApplicationUserProfile
       parameters:
         - name: appInstanceId
@@ -11308,7 +11332,7 @@ paths:
         lifecycle: GA_NO_FLAG
     post:
       summary: Update the default Group Schema
-      description: Updates, adds or removes one or more custom Group Profile properties in the schema
+      description: Updates the default group schema. This updates, adds, or removes one or more custom Group Profile properties in the schema.
       operationId: updateGroupSchema
       requestBody:
         content:
@@ -11557,7 +11581,7 @@ paths:
         lifecycle: GA_NO_FLAG
     post:
       summary: Update a User Schema
-      description: Partial updates on the User Profile properties of the user schema
+      description: Partially updates on the User Profile properties of the user schema
       operationId: updateUserProfile
       x-codegen-request-body-name: userSchema
       requestBody:
@@ -11721,7 +11745,7 @@ paths:
         lifecycle: GA_NO_FLAG
     put:
       summary: Replace a User Type
-      description: Replace an existing User Type
+      description: Replaces an existing user type
       operationId: replaceUserType
       x-codegen-request-body-name: userType
       requestBody:
@@ -11802,7 +11826,7 @@ paths:
         lifecycle: GA_NO_FLAG
     post:
       summary: Update the Org Settings
-      description: Partially update the org settings depending on provided fields
+      description: Partially updates the org settings depending on provided fields
       operationId: updateOrgSettings
       requestBody:
         content:
@@ -11964,7 +11988,7 @@ paths:
   /api/v1/org/email/bounces/remove-list:
     post:
       summary: Remove Emails from Email Provider Bounce List
-      description: A list of email addresses to be removed from the set of email addresses that are bounced
+      description: Removes a list of email addresses to be removed from the set of email addresses that are bounced
       operationId: bulkRemoveEmailAddressBounces
       requestBody:
         content:
@@ -12010,7 +12034,7 @@ paths:
   /api/v1/org/logo:
     post:
       summary: Upload the Org Logo
-      description: Uploads and replaces the logo for your organization
+      description: Uploads and replaces the logo for your organization. The file must be in PNG, JPG, or GIF format and less than 100kB in size. For best results use landscape orientation, a transparent background, and a minimum size of 300px by 50px to prevent upscaling.
       operationId: uploadOrgLogo
       requestBody:
         content:
@@ -12070,7 +12094,7 @@ paths:
   /api/v1/org/preferences/hideEndUserFooter:
     post:
       summary: Update the Preference to Hide the Okta Dashboard Footer
-      description: Hide the Okta UI footer for all end users of your organization
+      description: Updates the preference hide the Okta UI footer for all end users of your organization
       operationId: updateOrgHideOktaUIFooter
       parameters: []
       responses:
@@ -12095,7 +12119,7 @@ paths:
   /api/v1/org/preferences/showEndUserFooter:
     post:
       summary: Update the Preference to Show the Okta Dashboard Footer
-      description: Makes the Okta UI footer visible for all end users of your organization
+      description: Updates the preference to show the Okta UI footer for all end users of your organization
       operationId: updateOrgShowOktaUIFooter
       parameters: []
       responses:
@@ -12245,7 +12269,7 @@ paths:
   /api/v1/org/privacy/oktaSupport/grant:
     post:
       summary: Grant Okta Support Access to your Org
-      description: Enables you to temporarily allow Okta Support to access your org as an administrator for eight hours
+      description: Grants Okta Support temporary access your org as an administrator for eight hours
       operationId: grantOktaSupport
       parameters: []
       responses:
@@ -13324,7 +13348,7 @@ paths:
   /api/v1/risk/events/ip:
     post:
       summary: Send multiple Risk Events
-      description: A Risk Provider can send Risk Events to Okta using this API. This API has a rate limit of 30 requests per minute. The caller should include multiple Risk Events (up to a maximum of 20 events) in a single payload to reduce the number of API calls. If a client has more risk signals to send than what the API supports, we recommend prioritizing posting high risk signals.
+      description: Sends multiple risk events to Okta. This API is intended for Risk Providers. This API has a rate limit of 30 requests per minute. The caller should include multiple Risk Events (up to a maximum of 20 events) in a single payload to reduce the number of API calls. If a client has more risk signals to send than what the API supports, we recommend prioritizing posting high risk signals.
       operationId: sendRiskEvents
       x-codegen-request-body-name: instance
       requestBody:
@@ -13536,7 +13560,7 @@ paths:
   /api/v1/roles/{roleTypeOrRoleId}/subscriptions:
     get:
       summary: List all Subscriptions of a Custom Role
-      description: When roleType List all subscriptions of a Role. Else when roleId List subscriptions of a Custom Role
+      description: Lists all subscriptions of a Role identified by `roleType` or of a Custom Role identified by `roleId`
       operationId: listRoleSubscriptions
       parameters:
         - in: path
@@ -13570,7 +13594,7 @@ paths:
   /api/v1/roles/{roleTypeOrRoleId}/subscriptions/{notificationType}:
     get:
       summary: List all Subscriptions of a Custom Role with a specific notification type
-      description: When roleType Get subscriptions of a Role with a specific notification type. Else when roleId Get subscription of a Custom Role with a specific notification type.
+      description: Lists all subscriptions with a specific notification type of a Role identified by `roleType` or of a Custom Role identified by `roleId`
       operationId: listRoleSubscriptionsByNotificationType
       parameters:
         - in: path
@@ -13607,7 +13631,7 @@ paths:
   /api/v1/roles/{roleTypeOrRoleId}/subscriptions/{notificationType}/subscribe:
     post:
       summary: Subscribe a Custom Role to a specific notification type
-      description: When roleType Subscribes a Role to a specific notification type. When you change the subscription status of a Role, it overrides the subscription of any individual user of that Role. Else when roleId Subscribes a Custom Role to a specific notification type. When you change the subscription status of a Custom Role, it overrides the subscription of any individual user of that Custom Role.
+      description: Subscribes a Role identified by `roleType` or of a Custom Role identified by `roleId` to a specific notification type. When you change the subscription status of a Role or Custom Role, it overrides the subscription of any individual user of that Role or Custom Role.
       operationId: subscribeRoleSubscriptionByNotificationType
       parameters:
         - in: path
@@ -13640,7 +13664,7 @@ paths:
   /api/v1/roles/{roleTypeOrRoleId}/subscriptions/{notificationType}/unsubscribe:
     post:
       summary: Unsubscribe a Custom Role from a specific notification type
-      description: When roleType Unsubscribes a Role from a specific notification type. When you change the subscription status of a Role, it overrides the subscription of any individual user of that Role. Else when roleId Unsubscribes a Custom Role from a specific notification type. When you change the subscription status of a Custom Role, it overrides the subscription of any individual user of that Custom Role.
+      description: Unsubscribes a Role identified by `roleType` or of a Custom Role identified by `roleId` from a specific notification type. When you change the subscription status of a Role or Custom Role, it overrides the subscription of any individual user of that Role or Custom Role.
       operationId: unsubscribeRoleSubscriptionByNotificationType
       parameters:
         - in: path
@@ -13766,7 +13790,7 @@ paths:
   /api/v1/sessions/{sessionId}/lifecycle/refresh:
     post:
       summary: Refresh a Session
-      description: Refresh a session
+      description: Refreshes a session
       operationId: refreshSession
       parameters:
         - name: sessionId
@@ -14298,7 +14322,7 @@ paths:
   /api/v1/users:
     get:
       summary: List all Users
-      description: Lists all users with pagination.  A subset of users can be returned that match a supported filter expression or search criteria.
+      description: Lists all users that do not have a status of 'DEPROVISIONED' (by default), up to the maximum (200 for most orgs), with pagination.  A subset of users can be returned that match a supported filter expression or search criteria.
       operationId: listUsers
       parameters:
         - name: q
@@ -15113,7 +15137,7 @@ paths:
   /api/v1/users/{userId}/credentials/forgot_password:
     post:
       summary: Initiate Forgot Password
-      description: Initiate forgot password flow. Generates a one-time token (OTT) that can be used to reset a user's password.
+      description: Initiates the forgot password flow. Generates a one-time token (OTT) that can be used to reset a user's password.
       operationId: forgotPassword
       parameters:
         - name: userId
@@ -15397,9 +15421,9 @@ paths:
       x-okta-lifecycle:
         lifecycle: GA_NO_FLAG
     delete:
-      summary: Delete a Factor
+      summary: Unenroll a Factor
       description: Unenrolls an existing factor for the specified user, allowing the user to enroll a new factor
-      operationId: deleteFactor
+      operationId: unenrollFactor
       parameters:
         - name: userId
           in: path
@@ -15437,7 +15461,7 @@ paths:
   /api/v1/users/{userId}/factors/{factorId}/lifecycle/activate:
     post:
       summary: Activate a Factor
-      description: The `sms` and `token:software:totp` factor types require activation to complete the enrollment process
+      description: Activates a factor. The `sms` and `token:software:totp` factor types require activation to complete the enrollment process.
       operationId: activateFactor
       parameters:
         - name: userId
@@ -15483,7 +15507,7 @@ paths:
   /api/v1/users/{userId}/factors/{factorId}/transactions/{transactionId}:
     get:
       summary: Retrieve a Factor Transaction Status
-      description: Polls factors verification transaction for status
+      description: Retrieves the factors verification transaction status
       operationId: getFactorTransactionStatus
       parameters:
         - name: userId
@@ -15892,7 +15916,7 @@ paths:
   /api/v1/users/{userId}/lifecycle/expire_password:
     post:
       summary: Expire Password
-      description: This operation transitions the user to the status of `PASSWORD_EXPIRED` so that the user is required to change their password at their next login
+      description: Expires a user's password and transitions the user to the status of `PASSWORD_EXPIRED` so that the user is required to change their password at their next login
       operationId: expirePassword
       parameters:
         - name: userId
@@ -15924,7 +15948,7 @@ paths:
   /api/v1/users/{userId}/lifecycle/expire_password_with_temp_password:
     post:
       summary: Expire Password and Set Temporary Password
-      description: This operation transitions the user to the status of `PASSWORD_EXPIRED` so that the user is required to change their password at their next login, and also sets the user's password to a temporary password returned in the response
+      description: Expires a user's password and transitions the user to the status of `PASSWORD_EXPIRED` so that the user is required to change their password at their next login, and also sets the user's password to a temporary password returned in the response
       operationId: expirePasswordAndGetTemporaryPassword
       parameters:
         - name: userId
@@ -15994,7 +16018,7 @@ paths:
   /api/v1/users/{userId}/lifecycle/reset_factors:
     post:
       summary: Reset all Factors
-      description: This operation resets all factors for the specified user. All MFA factor enrollments returned to the unenrolled state. The user's status remains ACTIVE. This link is present only if the user is currently enrolled in one or more MFA factors.
+      description: Resets all factors for the specified user. All MFA factor enrollments returned to the unenrolled state. The user's status remains ACTIVE. This link is present only if the user is currently enrolled in one or more MFA factors.
       operationId: resetFactors
       parameters:
         - name: userId
@@ -16022,9 +16046,9 @@ paths:
         lifecycle: GA_NO_FLAG
   /api/v1/users/{userId}/lifecycle/reset_password:
     post:
-      summary: Reset Password
+      summary: Generate a Reset Password Token
       description: Generates a one-time token (OTT) that can be used to reset a user's password.  The OTT link can be automatically emailed to the user or returned to the API caller and distributed using a custom flow.
-      operationId: resetPassword
+      operationId: generateResetPasswordToken
       parameters:
         - name: userId
           in: path

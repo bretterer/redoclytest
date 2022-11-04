@@ -15,7 +15,7 @@ toc:
   enable: true
 oasDefinitions:
   okta-management-api: ./openapi/okta-management/management.yaml
-  okta-myaccount-api: ./openapi/okta-management/myaccount.yaml
+  okta-myaccount-api: ./openapi/okta-myaccount/myaccount.yaml
   okta-oauth-api: ./openapi/okta-oauth/oauth.yaml
   asa-api: ./openapi/asa/asa.yaml
   # add links to definitions in our API registry by using a fully qualified URL.

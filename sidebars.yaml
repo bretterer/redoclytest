@@ -9,15 +9,18 @@ reference:
         page: openapi/okta-oauth/guides/client-auth.md
       - label: OAuth 2.0
         page: openapi/okta-oauth/oauth.page.yaml/*
-  - group: Okta Management
+  - group: Okta Admin Management
     pages:
       - label: Overview
         page: openapi/okta-management/guides/overview.md
-      - label: Okta Management
+      - label: Okta Admin Management
         page: openapi/okta-management/management.page.yaml/*
-        separatorLine: true
-      - label: MyAccount
-        page: openapi/okta-management/myaccount.page.yaml/*
+  - group: MyAccount Management
+    pages:
+      - label: Overview
+        page: openapi/okta-myaccount/guides/overview.md
+      - label: MyAccount Management
+        page: openapi/okta-myaccount/myaccount.page.yaml/*
   - group: Advanced Server Access
     pages:
       - label: Overview
