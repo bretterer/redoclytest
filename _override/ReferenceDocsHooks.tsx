@@ -3,7 +3,12 @@ import styled from 'styled-components'
 import * as Tokens from "@okta/odyssey-design-tokens"
 
 const LifecycleBadge = styled.span`
-    background: ${props => props.beta ? Tokens.ColorPaletteYellow500 : props.ea ? Tokens.ColorPalettePurple500 : props.ie ? Tokens.ColorPaletteBlue900 : Tokens.ColorPaletteNeutral500 };
+    background: ${
+        props => props.beta ? Tokens.ColorPaletteYellow500
+          : props.ea ? Tokens.ColorPalettePurple500
+          : props.ie ? Tokens.ColorPaletteBlue900
+          : props.cors ? Tokens.ColorPaletteNeutral500
+          : Tokens.ColorPaletteNeutral500 };
     border-radius: ${Tokens.BorderRadiusOuter};
     margin-right: ${Tokens.SpaceScale2};
     padding: ${Tokens.SpaceScale0};
@@ -22,7 +27,13 @@ const OAuth2ScopesTitle = styled.a`
     text-decoration: none;
 `
 
-const OAuth2Scope = styled.code`
+const IamPermissionsTitle = styled.span`
+    font-size: ${Tokens.FontScale2};
+    color: ${Tokens.ColorTextBody};
+    text-decoration: none;
+`
+
+const Code = styled.code`
     color: ${Tokens.ColorTextBody};
     font-size: ${Tokens.FontSizeBody};
     background-color: ${Tokens.ColorPaletteNeutral100};
@@ -36,6 +47,10 @@ function getLifecycleBadge(operation) {
             return <LifecycleBadge beta>Beta</ LifecycleBadge>
         } else if (lifecycle.lifecycle === "EA") {
             return <LifecycleBadge ea>Early Access</ LifecycleBadge>
+        } else if (lifecycle.lifecycle === "PRODUCT_DEV") {
+            return <LifecycleBadge product-dev>Product Dev</ LifecycleBadge>
+        } else if (lifecycle.lifecycle === "TEST") {
+            return <LifecycleBadge test>Test</ LifecycleBadge>
         }
     }
     return null
@@ -51,18 +66,28 @@ function getIdentityEngineBadge(operation) {
     return null
 }
 
+function getCorsBadge(operation) {
+    if (operation["x-okta-lifecycle"]) {
+        const lifecycle = operation["x-okta-lifecycle"]
+        if (lifecycle.isCorsEnabled) {
+            return <LifecycleBadge cors>CORS</ LifecycleBadge>
+        }
+    }
+    return null
+}
+
 function getOAuth2ScopeSection(operation) {
     if (operation.security) {
-        const oauth2Scheme = operation.security.find(scheme => "oauth2" in scheme)
+        const oauth2Scheme = operation.security.find(scheme => "oauth2" in scheme || "OAuth2" in scheme)
         if (oauth2Scheme) {
-            const scopes = oauth2Scheme["oauth2"]
+            const scopes = oauth2Scheme["oauth2"] || oauth2Scheme["OAuth2"]
             return (
                 <div>
                     <span>
                         <OAuth2ScopesTitle href="/oauth2">OAuth 2.0: </OAuth2ScopesTitle>
                     </span>
                     {scopes.map((scope) => {
-                        return <OAuth2Scope>{scope}</OAuth2Scope>
+                        return <Code>{scope}</Code>
                     })}
                 </div>
             )
@@ -70,6 +95,25 @@ function getOAuth2ScopeSection(operation) {
     }
     return null
 }
+
+export function getIamPermissions(rawOperation) {
+    // you get the operation model with raw operation info from the OAS definition
+    if (rawOperation['x-iam-permissions']) {
+      const permissions = rawOperation['x-iam-permissions']
+      return (
+        <div>
+            <span>
+                <IamPermissionsTitle>Admin permissions required: </IamPermissionsTitle>
+            </span>
+            {permissions.map((scope, index) => {
+                return <Code key={index}>{scope}</Code>
+            })}
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
 
 export function AfterOperationSummary({ operation }) {
     // you get the operation model with raw operation info from the OAS definition
@@ -80,7 +124,9 @@ export function AfterOperationSummary({ operation }) {
             <div>
                 { getIdentityEngineBadge(rawOperation) }
                 { getLifecycleBadge(rawOperation) }
+                { getCorsBadge(rawOperation) }
             </div>
+            { getIamPermissions(rawOperation) }
             { getOAuth2ScopeSection(rawOperation) }
         </LifecycleAndScopesContainer>
     )

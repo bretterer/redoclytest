@@ -14,7 +14,7 @@ Some endpoints require client authentication. To make requests to these endpoint
 When registering an OAuth 2.0 client application, specify an authentication method by including the [`token_endpoint_auth_method`](/openapi/okta-oauth/oauth/tag/Client/#tag/Client/operation/createClient!path=token_endpoint_auth_method&t=request) parameter.
 
 > **Note:** If you don't specify a method when registering your client, the default method is `client_secret_basic`.<p>
-To create a client application and specify the authentication method, see [Create a Client application](/openapi/okta-oauth/oauth/tag/Client/#tag/Client/operation/createClient). To change the client authentication method of an existing app, see [Replace an Application](https://oktadev.redoc.ly/openapi/okta-management/management/tag/Application/#tag/Application/operation/updateApplication).
+To create a client application and specify the authentication method, see [Create a Client application](/openapi/okta-oauth/oauth/tag/Client/#tag/Client/operation/createClient). To change the client authentication method of an existing app, see [Replace a Client Application](/openapi/okta-oauth/oauth/tag/Client/#tag/Client/operation/replaceClient).
 
 Okta supports the following authentication methods, detailed in the sections below:
 

@@ -14,9 +14,13 @@ logo:
 toc:
   enable: true
 oasDefinitions:
+  # Note this path must match the path the built spec is cp'd to in ../scripts/redocly-build-okta-developer.sh
   okta-management-api: ./openapi/okta-management/management.yaml
+  # Note this path must match the path the built spec is cp'd to in ../scripts/redocly-build-okta-developer.sh
   okta-myaccount-api: ./openapi/okta-myaccount/myaccount.yaml
+  # Note this path must match the path the built spec is cp'd to in ../scripts/redocly-build-okta-developer.sh
   okta-oauth-api: ./openapi/okta-oauth/oauth.yaml
+  # Note this path must match the path the built spec is cp'd to in ../scripts/redocly-build-okta-developer.sh
   asa-api: ./openapi/asa/asa.yaml
   # add links to definitions in our API registry by using a fully qualified URL.
 stylesheets:

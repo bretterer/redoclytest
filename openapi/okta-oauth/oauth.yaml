@@ -62,6 +62,9 @@ paths:
           $ref: '#/components/responses/Error400InvalidClientId'
       tags:
         - OrgAS
+      x-okta-lifecycle:
+        lifecycle: GA
+        isCorsEnabled: true
   /oauth2/v1/authorize:
     get:
       summary: /authorize
@@ -70,7 +73,7 @@ paths:
 
         > **Note:** Requests to the `/authorize` endpoint should redirect the browser (user agent) to the endpoint. You can't use AJAX with this endpoint. Example responses are intentionally omitted, but include displaying a sign-in prompt, redirecting to the client application, or displaying an error.
       operationId: authorize
-      parameters: &ref_1
+      parameters:
         - name: acr_values
           in: query
           description: |-
@@ -213,11 +216,13 @@ paths:
             Using the `state` parameter is also a countermeasure to several other known attacks as outlined in [OAuth 2.0 Threat Model and Security Considerations](https://tools.ietf.org/html/rfc6819).
           schema:
             type: string
-      responses: &ref_2
+      responses:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       tags:
         - OrgAS
+      x-okta-lifecycle:
+        lifecycle: GA
   /oauth2/v1/clients:
     get:
       summary: List all Client Applications
@@ -256,6 +261,8 @@ paths:
             - okta.clients.read
       tags:
         - Client
+      x-okta-lifecycle:
+        lifecycle: GA
     post:
       summary: Create a Client Application
       description: |-
@@ -313,6 +320,8 @@ paths:
             - okta.clients.manage
       tags:
         - Client
+      x-okta-lifecycle:
+        lifecycle: GA
   /oauth2/v1/clients/{clientId}:
     parameters:
       - $ref: '#/components/parameters/pathClientId'
@@ -342,6 +351,9 @@ paths:
             - okta.clients.read
       tags:
         - Client
+      x-okta-lifecycle:
+        lifecycle: GA
+        isCorsEnabled: true
     put:
       summary: Replace a Client Application
       description: |-
@@ -382,6 +394,8 @@ paths:
             - okta.clients.manage
       tags:
         - Client
+      x-okta-lifecycle:
+        lifecycle: GA
     delete:
       summary: Delete a Client Application
       description: Deletes a client application
@@ -402,6 +416,8 @@ paths:
             - okta.clients.manage
       tags:
         - Client
+      x-okta-lifecycle:
+        lifecycle: GA
   /oauth2/v1/clients/{clientId}/lifecycle/newSecret:
     parameters:
       - $ref: '#/components/parameters/pathClientId'
@@ -434,17 +450,19 @@ paths:
             - okta.clients.manage
       tags:
         - Client
+      x-okta-lifecycle:
+        lifecycle: GA
   /oauth2/v1/device/authorize:
     post:
       summary: /device/authorize
       description: Returns a user code, device code, activation link, and QR code activation link
       operationId: deviceAuthorize
-      requestBody: &ref_3
+      requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/DeviceAuthorizeRequest'
-      responses: &ref_4
+      responses:
         '200':
           description: Based on the type of token and whether it is active, the returned JSON contains a different set of information.
           content:
@@ -476,13 +494,16 @@ paths:
                   $ref: '#/components/examples/OAuthError401InvalidClient_NoCreds'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
-      security: &ref_0
+      security:
         - Client authentication `client_secret_basic`: []
         - Client authentication `client_secret_post`: []
         - Client authentication `client_secret_jwt`: []
         - Client authentication `private_key_jwt`: []
       tags:
         - OrgAS
+      x-okta-lifecycle:
+        lifecycle: GA
+        isCorsEnabled: true
   /oauth2/v1/introspect:
     post:
       summary: /introspect
@@ -493,12 +514,12 @@ paths:
 
         > **Note:** The `/revoke` endpoint requires client authentication. The method is configured per Client application. See [Client authentication methods] for more information. For public clients (such as single-page and mobile apps) that don't have a `client_secret`, you must include the `client_id` as a query parameter when calling the `/introspect` endpoint. Make sure that you aren't passing the Authorization header in the request.
       operationId: introspect
-      requestBody: &ref_5
+      requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/IntrospectionRequest'
-      responses: &ref_6
+      responses:
         '200':
           description: Based on the type of token and whether it is active, the returned JSON contains a different set of information.
           content:
@@ -536,9 +557,16 @@ paths:
                   $ref: '#/components/examples/OAuthError401InvalidClient_NoCreds'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
-      security: *ref_0
+      security:
+        - Client authentication `client_secret_basic`: []
+        - Client authentication `client_secret_post`: []
+        - Client authentication `client_secret_jwt`: []
+        - Client authentication `private_key_jwt`: []
       tags:
         - OrgAS
+      x-okta-lifecycle:
+        lifecycle: GA
+        isCorsEnabled: true
   /oauth2/v1/keys:
     get:
       summary: /keys
@@ -557,7 +585,7 @@ paths:
           description: The `client_id` of a Client application. Providing this optional parameter will include any public keys associated with the signing keys of the application.
           schema:
             type: string
-      responses: &ref_7
+      responses:
         '200':
           description: Success
           headers:
@@ -576,6 +604,9 @@ paths:
           $ref: '#/components/responses/ErrorTooManyRequests429'
       tags:
         - OrgAS
+      x-okta-lifecycle:
+        lifecycle: GA
+        isCorsEnabled: true
   /oauth2/v1/logout:
     get:
       summary: /logout
@@ -588,7 +619,7 @@ paths:
 
         > **Note:** When making requests to the `/logout` endpoint, the browser (user agent) should be redirected to the endpoint. You can't use AJAX with this endpoint. We may load an interstitial to do client-side logic before redirecting to the `post_logout_redirect_uri`, or login page if no redirect is provided.
       operationId: logout
-      parameters: &ref_8
+      parameters:
         - name: id_token_hint
           in: query
           description: A valid ID token with a subject that matches the current session.
@@ -601,11 +632,13 @@ paths:
           schema:
             type: string
         - $ref: '#/components/parameters/queryState'
-      responses: &ref_9
+      responses:
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
       tags:
         - OrgAS
+      x-okta-lifecycle:
+        lifecycle: GA
   /oauth2/v1/par:
     post:
       summary: /par
@@ -614,12 +647,12 @@ paths:
 
         The `/par` endpoint allows an OAuth 2.0 client to push the payload of an authorization request directly to the authorization server. The authorization server provides a request URI value in the response. The request URI is a reference to the authorization request payload data in a subsequent call to the `/authorize` endpoint through a user agent.
       operationId: par
-      requestBody: &ref_10
+      requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ParRequest'
-      responses: &ref_11
+      responses:
         '200':
           description: Success
           content:
@@ -662,9 +695,16 @@ paths:
                   $ref: '#/components/examples/OAuthError403AccessDenied_NeedOpenidScope'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
-      security: *ref_0
+      security:
+        - Client authentication `client_secret_basic`: []
+        - Client authentication `client_secret_post`: []
+        - Client authentication `client_secret_jwt`: []
+        - Client authentication `private_key_jwt`: []
       tags:
         - OrgAS
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isIdentityEngine: true
   /oauth2/v1/revoke:
     post:
       summary: /revoke
@@ -673,12 +713,12 @@ paths:
 
         > **Note:** The `/revoke` endpoint requires client authentication. The method is configured per Client application. See [Client authentication methods](/openapi/okta-oauth/guides/client-auth/) for more information.
       operationId: revoke
-      requestBody: &ref_12
+      requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/RevokeRequest'
-      responses: &ref_13
+      responses:
         '200':
           description: A successful revocation is denoted by an HTTP 200 OK response. Note that revoking an invalid, expired, or revoked token is still considered a success so as to not leak information.
           content: {}
@@ -706,9 +746,16 @@ paths:
                   $ref: '#/components/examples/OAuthError401InvalidClient_NoCreds'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
-      security: *ref_0
+      security:
+        - Client authentication `client_secret_basic`: []
+        - Client authentication `client_secret_post`: []
+        - Client authentication `client_secret_jwt`: []
+        - Client authentication `private_key_jwt`: []
       tags:
         - OrgAS
+      x-okta-lifecycle:
+        lifecycle: GA
+        isCorsEnabled: true
   /oauth2/v1/token:
     post:
       summary: /token
@@ -717,7 +764,7 @@ paths:
 
         > **Note:** The `/token` endpoint requires client authentication. The method is configured per Client application. See [Client authentication methods](/openapi/okta-oauth/guides/client-auth/) for more information.
       operationId: token
-      requestBody: &ref_14
+      requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
@@ -729,7 +776,7 @@ paths:
                 $ref: '#/components/examples/TokenRequestSamlBearerExample'
               Resource Owner Password Flow:
                 $ref: '#/components/examples/TokenRequestPassword'
-      responses: &ref_15
+      responses:
         '200':
           description: Based on the scopes requested. Generally speaking, the scopes specified in a request are included in the access token in the response.
           content:
@@ -767,15 +814,21 @@ paths:
                   $ref: '#/components/examples/OAuthError401InvalidClient_NoCreds'
         '429':
           $ref: '#/components/responses/ErrorTooManyRequests429'
-      security: *ref_0
+      security:
+        - Client authentication `client_secret_basic`: []
+        - Client authentication `client_secret_post`: []
+        - Client authentication `client_secret_jwt`: []
+        - Client authentication `private_key_jwt`: []
       tags:
         - OrgAS
+      x-okta-lifecycle:
+        lifecycle: GA
   /oauth2/v1/userinfo:
     get:
       summary: /userinfo
       description: Returns information about the user that is the subject of the access token. Many of these claims are also included in the [ID token](https://developer.okta.com/docs/reference/api/oidc/#id-token), but calling this endpoint always returns all of the user's claims. The ID token can be configured to include a subset of the user's claims. See [Scope-dependent claims](https://developer.okta.com/docs/reference/api/oidc/#scope-dependent-claims-not-always-returned) for more information.
       operationId: userinfo
-      responses: &ref_16
+      responses:
         '200':
           description: Success
           content:
@@ -806,6 +859,9 @@ paths:
             - openid
       tags:
         - OrgAS
+      x-okta-lifecycle:
+        lifecycle: GA
+        isCorsEnabled: true
   /oauth2/{authorizationServerId}/.well-known/oauth-authorization-server:
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
@@ -831,6 +887,9 @@ paths:
           $ref: '#/components/responses/Error404AuthorizationServerNotFound'
       tags:
         - CustomAS
+      x-okta-lifecycle:
+        lifecycle: GA
+        isCorsEnabled: true
   /oauth2/{authorizationServerId}/.well-known/openid-configuration:
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
@@ -856,6 +915,9 @@ paths:
           $ref: '#/components/responses/Error404AuthorizationServerNotFound'
       tags:
         - CustomAS
+      x-okta-lifecycle:
+        lifecycle: GA
+        isCorsEnabled: true
   /oauth2/{authorizationServerId}/v1/authorize:
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
@@ -866,10 +928,156 @@ paths:
 
         > **Note:** Requests to the `/authorize` endpoint should redirect the browser (user agent) to the endpoint. You can't use AJAX with this endpoint. Example responses are intentionally omitted, but include displaying a sign-in prompt, redirecting to the client application, or displaying an error.
       operationId: authorizeCustomAS
-      parameters: *ref_1
-      responses: *ref_2
+      parameters:
+        - name: acr_values
+          in: query
+          description: |-
+            <x-lifecycle class="ea"></x-lifecycle>
+            An optional parameter that can be included in the authentication request. This parameter increases the level of user assurance.
+
+            <x-lifecycle class="oie"></x-lifecycle>
+            Several values are only supported with Identity Engine. See [predefined acr values](https://developer.okta.com/docs/guides/step-up-authentication/main/#predefined-parameter-values).
+
+            > **Note:** Multiple space-delimited values may be provided. The authorization server will choose one and reflect the chosen value in any resulting tokens.
+          schema:
+            $ref: '#/components/schemas/AcrValue'
+        - name: client_id
+          in: query
+          description: Obtained during either manual client registration or via the Dynamic Client Registration API. It identifies the client and must match the value preregistered in Okta.
+          schema:
+            type: string
+        - name: code_challenge
+          in: query
+          description: A challenge for [PKCE](https://developer.okta.com/docs/guides/implement-grant-type/authcodepkce/main/). The challenge is verified in the access token request.
+          schema:
+            type: string
+        - name: code_challenge_method
+          in: query
+          description: Method used to derive the code challenge for [PKCE](https://developer.okta.com/docs/guides/implement-grant-type/authcodepkce/main/).
+          schema:
+            $ref: '#/components/schemas/CodeChallengeMethod'
+        - name: display
+          in: query
+          description: The `display` parameter to be passed to the Social Identity Provider when performing Social Login.
+          schema:
+            type: string
+        - name: idp_scope
+          in: query
+          description: An Okta Extension to the OpenID Specification. A space delimited list of scopes to be provided to the external Identity Provider when performing [Social login](https://developer.okta.com/docs/concepts/identity-providers/). These scopes are used in addition to the scopes already configured on the Identity Provider.
+          schema:
+            type: string
+        - name: idp
+          in: query
+          description: An Okta Extension to the OpenID Specification. The ID of the Identity Provider to use if there's no Okta Session.
+          schema:
+            type: string
+        - name: login_hint
+          in: query
+          description: A username to prepopulate if prompting for authentication.
+          schema:
+            type: string
+        - name: max_age
+          in: query
+          description: Allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.
+          schema:
+            type: integer
+        - name: nonce
+          in: query
+          description: A value that is returned in the ID token. It is used to mitigate replay attacks. The value is required for Implicit and Hybrid flows, but optional for Auth Code flows. See [OIDC Specs](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest).
+          schema:
+            type: string
+        - name: prompt
+          in: query
+          description: |-
+            If no `prompt` parameter is specified, the standard behavior occurs:
+            * If an Okta session already exists and meets the assurance requirements of the app, the user is silently authenticated. Otherwise, the user is prompted to authenticate.
+            * If scopes are requested that require consent and consent isn't yet given by the authenticated user, the user is prompted to give consent.
+
+            There are four possible values for this parameter:
+
+            * `none`: Don't prompt for authentication or consent. If an Okta session already exists, the user is silently authenticated. Otherwise, an error is returned.
+            * `login`: Always prompt the user for authentication, regardless of whether they have an Okta session.
+            * `consent`: Depending on the values set for `consent_method` in the app and `consent` on the scope, display the Okta consent dialog, even if the user has already given consent. User consent is available for Custom Authorization Servers (requires the API Access Management feature and the User Consent feature enabled).
+            * `login consent` or `consent login` (order doesn't matter): The user is always prompted for authentication, and the user consent dialog appears depending on the [values set for `consent_method` in the app and `consent` on the scope](https://developer.okta.com/docs/reference/api/apps/#add-oauth-20-client-application), even if the user has already given consent.
+          schema:
+            $ref: '#/components/schemas/Prompt'
+        - name: redirect_uri
+          in: query
+          description: Callback location where the authorization code or tokens should be sent. It must match the value preregistered in Okta during client registration.
+          schema:
+            type: string
+        - name: response_type
+          in: query
+          description: Any combination of `code`, `token`, and `id_token`. The combination determines the [flow](https://developer.okta.com/docs/concepts/oauth-openid/#recommended-flow-by-application-type).
+          schema:
+            $ref: '#/components/schemas/ResponseTypesSupported'
+        - name: response_mode
+          in: query
+          description: |-
+            How the authorization response should be returned. If `id_token` or `token` is specified in the `response_type`, then `query` isn't allowed as a response mode. Defaults to `fragment` in implicit and hybrid flows.
+            Each value for `response_mode` delivers different behavior:
+            * `fragment` - Parameters are encoded in the URL fragment added to the `redirect_uri` when redirecting back to the client.
+            * `query` - Parameters are encoded in the query string added to the `redirect_uri` when redirecting back to the client.
+            * `form_post` - Parameters are encoded as HTML form values (`application/x-www-form-urlencoded` format) and are transmitted via the HTTP POST method to the client.
+            * `okta_post_message` - Uses [HTML5 Web Messaging](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) (for example, `window.postMessage()`) instead of the redirect for the authorization response from the `/authorize` endpoint.
+
+              `okta_post_message` is an adaptation of the [Web Message Response Mode](https://tools.ietf.org/html/draft-sakimura-oauth-wmrm-00#section-4.1).
+              This value provides a secure way for a single-page application to perform a sign-in flow in a pop-up window or an iFrame and receive the ID token, access token, and/or authorization code back in the parent page without leaving the context of that page. The data object for the `postMessage` call is in the next section.
+          schema:
+            $ref: '#/components/schemas/ResponseMode'
+        - name: request_uri
+          in: query
+          description: Location where the authorization request payload data is referenced in an authorization request to the `/authorize` endpoint. This is returned from a Pushed Authorization Request at the `/par` endpoint.
+          schema:
+            type: string
+        - name: request
+          in: query
+          description: |-
+            A JWT created by the client that enables requests to be passed as a single, self-contained parameter. See [Parameter details](#parameter-details).
+
+            * You must sign the JWT using either the app's client secret or a private key whose public key is registered on the app's JWKSet.
+            * The JWT can't be encrypted.
+            >  **Note:** See [Build a JWT for client authentication](https://developer.okta.com/docs/guides/build-self-signed-jwt/) for information on how to build a JWT.
+            * Okta supports the [HMAC](https://tools.ietf.org/html/rfc7518#section-3.2), [RSA](https://tools.ietf.org/html/rfc7518#section-3.3) and [ECDSA](https://tools.ietf.org/html/rfc7518#section-3.4) signature algorithms. HMAC signatures require that the client has a `token_endpoint_auth_method` that uses a `client_secret`. RSA and ECDSA signatures requires that the client registers a public key.
+            * We recommend that you don't duplicate any request parameters in both the JWT and the query URI itself. However, you can do so with `state`, `nonce`, `code_challenge`, and `code_challenge_method`. In those cases, the values in the JWT overrides the query URI values.
+            * Okta validates the `request` parameter in the following ways:
+              1. `iss` is required and must be the `client_id`.
+              2. `aud` is required and must be the same value as the Authorization Server issuer that mints the ID or access token. This value is published in the metadata for your Authorization Server.
+              3. JWT lifetime is evaluated using the `iat` and `exp` claims, if present. If the JWT is expired or not yet valid, Okta returns an `invalid_request_object` error. Okta rejects JWTs that expire more than one hour in the future.
+              4. Okta rejects the JWT if the `jti` claim is present and it has already been processed.
+          schema:
+            type: string
+        - name: scope
+          in: query
+          description: |-
+            A space-delimited string of scopes requested. This includes:
+            * The OpenID Connect and OAuth 2.0 reserved scopes: `openid`, `profile`, `email`, `address`, `phone`, `offline_access`, and `groups`
+            * The Okta reserved scope `device_sso`
+            * Any custom scopes defined in the matching Custom Authorization Server
+          schema:
+            type: string
+        - name: sessionToken
+          in: query
+          description: An Okta Extension to the OpenID Specification. Okta one-time session token. This allows an API-based user sign-in flow (rather than the Okta sign-in UI).
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: |-
+            A value to be returned with the token. The client application can use it to remember the state of its interaction with the end user at the time of the authentication call. It can contain alphanumeric, comma, period, underscore, and hyphen characters. 
+
+            Okta requires the OAuth 2.0 `state` parameter on all requests to the `/authorize` endpoint to prevent cross-site request forgery (CSRF).
+            The OAuth 2.0 specification [requires](https://tools.ietf.org/html/rfc6749#section-10.12) that clients protect their redirect URIs against CSRF by sending a value in the authorize request that binds the request to the user-agent's authenticated state.
+            Using the `state` parameter is also a countermeasure to several other known attacks as outlined in [OAuth 2.0 Threat Model and Security Considerations](https://tools.ietf.org/html/rfc6819).
+          schema:
+            type: string
+      responses:
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
       tags:
         - CustomAS
+      x-okta-lifecycle:
+        lifecycle: GA
   /oauth2/{authorizationServerId}/v1/device/authorize:
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
@@ -877,11 +1085,53 @@ paths:
       summary: /device/authorize
       description: Returns a user code, device code, activation link, and QR code activation link
       operationId: deviceAuthorizeCustomAS
-      requestBody: *ref_3
-      responses: *ref_4
-      security: *ref_0
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DeviceAuthorizeRequest'
+      responses:
+        '200':
+          description: Based on the type of token and whether it is active, the returned JSON contains a different set of information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceAuthorizeResponse'
+              examples:
+                Device Authorize:
+                  $ref: '#/components/examples/DeviceAuthorizeResponseExample'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                Missing Scopes:
+                  $ref: '#/components/examples/OAuthError400InvalidScope_MissingScopes'
+                Multiple Client Credentials Provided:
+                  $ref: '#/components/examples/OAuthError400InvalidRequest_MultipleClientCreds'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                Missing Client Credentials:
+                  $ref: '#/components/examples/OAuthError401InvalidClient_NoCreds'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - Client authentication `client_secret_basic`: []
+        - Client authentication `client_secret_post`: []
+        - Client authentication `client_secret_jwt`: []
+        - Client authentication `private_key_jwt`: []
       tags:
         - CustomAS
+      x-okta-lifecycle:
+        lifecycle: GA
+        isCorsEnabled: true
   /oauth2/{authorizationServerId}/v1/introspect:
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
@@ -894,11 +1144,59 @@ paths:
 
         > **Note:** The `/revoke` endpoint requires client authentication. The method is configured per Client application. See [Client authentication methods](/openapi/okta-oauth/guides/client-auth/) for more information. For public clients (such as single-page and mobile apps) that don't have a `client_secret`, you must include the `client_id` as a query parameter when calling the `/introspect` endpoint. Make sure that you aren't passing the Authorization header in the request.
       operationId: introspectCustomAS
-      requestBody: *ref_5
-      responses: *ref_6
-      security: *ref_0
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntrospectionRequest'
+      responses:
+        '200':
+          description: Based on the type of token and whether it is active, the returned JSON contains a different set of information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntrospectionResponse'
+              examples:
+                Access Token:
+                  $ref: '#/components/examples/IntrospectionAccessToken'
+                Refresh Token:
+                  $ref: '#/components/examples/IntrospectionRefreshToken'
+                Inactive Token:
+                  $ref: '#/components/examples/IntrospectionInactiveToken'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                Missing `token` Parameter:
+                  $ref: '#/components/examples/OAuthError400InvalidRequest_MissingToken'
+                Client Assertion Type Incorrect for JWT Request:
+                  $ref: '#/components/examples/OAuthError400InvalidRequest_AssertionTypeInvalid'
+                Multiple Client Credentials Provided:
+                  $ref: '#/components/examples/OAuthError400InvalidRequest_MultipleClientCreds'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                Missing Client Credentials:
+                  $ref: '#/components/examples/OAuthError401InvalidClient_NoCreds'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - Client authentication `client_secret_basic`: []
+        - Client authentication `client_secret_post`: []
+        - Client authentication `client_secret_jwt`: []
+        - Client authentication `private_key_jwt`: []
       tags:
         - CustomAS
+      x-okta-lifecycle:
+        lifecycle: GA
+        isCorsEnabled: true
   /oauth2/{authorizationServerId}/v1/keys:
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
@@ -913,9 +1211,28 @@ paths:
 
         > **Note:** The information returned from this endpoint could lag slightly, but will eventually be up-to-date.
       operationId: oauthKeysCustomAS
-      responses: *ref_7
+      responses:
+        '200':
+          description: Success
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              example: max-age=3832304, must-revalidate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthKeys'
+              examples:
+                User information:
+                  $ref: '#/components/examples/OAuthKeysExample'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
       tags:
         - CustomAS
+      x-okta-lifecycle:
+        lifecycle: GA
+        isCorsEnabled: true
   /oauth2/{authorizationServerId}/v1/logout:
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
@@ -930,10 +1247,26 @@ paths:
 
         > **Note:** Requests to the `/logout` endpoint should redirect the browser (user agent) to the endpoint. You can't use AJAX with this endpoint. We may load an interstitial to do client-side logic before finally redirecting to the `post_logout_redirect_uri` or sign-in page if no redirect is provided.
       operationId: logoutCustomAS
-      parameters: *ref_8
-      responses: *ref_9
+      parameters:
+        - name: id_token_hint
+          in: query
+          description: A valid ID token with a subject that matches the current session.
+          schema:
+            type: string
+          required: true
+        - name: post_logout_redirect_uri
+          in: query
+          description: Location to redirect to after the logout is performed. It must match the value preregistered in Okta during client registration.
+          schema:
+            type: string
+        - $ref: '#/components/parameters/queryState'
+      responses:
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
       tags:
         - CustomAS
+      x-okta-lifecycle:
+        lifecycle: GA
   /oauth2/{authorizationServerId}/v1/par:
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
@@ -944,11 +1277,64 @@ paths:
 
         The `/par` endpoint allows an OAuth 2.0 client to push the payload of an authorization request directly to the authorization server. The authorization server provides a `request_uri` value in the response that can be used as a reference to the authorization request payload data in a subsequent call to the `/authorize` endpoint through a user agent.
       operationId: parCustomAS
-      requestBody: *ref_10
-      responses: *ref_11
-      security: *ref_0
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParResponse'
+              examples:
+                Successful Request:
+                  $ref: '#/components/examples/ParResponseExample'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                Missing Scopes:
+                  $ref: '#/components/examples/OAuthError400InvalidScope_MissingScopes'
+                Invalid `response_type`:
+                  $ref: '#/components/examples/OAuthError400UnsupportedResponseType'
+                Invalid `response_mode`:
+                  $ref: '#/components/examples/OAuthError400UnsupportedResponseMode'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                Missing Client Credentials:
+                  $ref: '#/components/examples/OAuthError401InvalidClient_InvalidClientId'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                ID Tokens require `openid` scope:
+                  $ref: '#/components/examples/OAuthError403AccessDenied_NeedOpenidScope'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - Client authentication `client_secret_basic`: []
+        - Client authentication `client_secret_post`: []
+        - Client authentication `client_secret_jwt`: []
+        - Client authentication `private_key_jwt`: []
       tags:
         - CustomAS
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isIdentityEngine: true
   /oauth2/{authorizationServerId}/v1/revoke:
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
@@ -959,11 +1345,49 @@ paths:
 
         > **Note:** The `/revoke` endpoint requires client authentication. The method is configured per Client application. See [Client authentication methods](/openapi/okta-oauth/guides/client-auth/) for more information.
       operationId: revokeCustomAS
-      requestBody: *ref_12
-      responses: *ref_13
-      security: *ref_0
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RevokeRequest'
+      responses:
+        '200':
+          description: A successful revocation is denoted by an HTTP 200 OK response. Note that revoking an invalid, expired, or revoked token is still considered a success so as to not leak information.
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                Missing `token` Parameter:
+                  $ref: '#/components/examples/OAuthError400InvalidRequest_MissingToken'
+                Client Assertion Type Incorrect for JWT Request:
+                  $ref: '#/components/examples/OAuthError400InvalidRequest_AssertionTypeInvalid'
+                Multiple Client Credentials Provided:
+                  $ref: '#/components/examples/OAuthError400InvalidRequest_MultipleClientCreds'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                Missing Client Credentials:
+                  $ref: '#/components/examples/OAuthError401InvalidClient_NoCreds'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - Client authentication `client_secret_basic`: []
+        - Client authentication `client_secret_post`: []
+        - Client authentication `client_secret_jwt`: []
+        - Client authentication `private_key_jwt`: []
       tags:
         - CustomAS
+      x-okta-lifecycle:
+        lifecycle: GA
+        isCorsEnabled: true
   /oauth2/{authorizationServerId}/v1/token:
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
@@ -974,11 +1398,65 @@ paths:
 
         > **Note:** The `/token` endpoint requires client authentication. The method is configured per Client application. See [Client authentication methods](/openapi/okta-oauth/guides/client-auth/) for more information.
       operationId: tokenCustomAS
-      requestBody: *ref_14
-      responses: *ref_15
-      security: *ref_0
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+            examples:
+              Authorization Code Flow w/ Client Credentials:
+                $ref: '#/components/examples/TokenRequestAuthorizationCodeWithCredsExample'
+              Saml Bearer:
+                $ref: '#/components/examples/TokenRequestSamlBearerExample'
+              Resource Owner Password Flow:
+                $ref: '#/components/examples/TokenRequestPassword'
+      responses:
+        '200':
+          description: Based on the scopes requested. Generally speaking, the scopes specified in a request are included in the access token in the response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+              examples:
+                Token Response:
+                  $ref: '#/components/examples/TokenResponseExample'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                Invalid Authorization Code:
+                  $ref: '#/components/examples/OAuthError400InvalidGrant_InvalidAuthCode'
+                Mismatched Client:
+                  $ref: '#/components/examples/OAuthError400InvalidGrant_MismatchedClient'
+                Multiple Client Credentials Provided:
+                  $ref: '#/components/examples/OAuthError400InvalidRequest_MultipleClientCreds'
+                Missing Scopes:
+                  $ref: '#/components/examples/OAuthError400InvalidScope_MissingScopes'
+                Unsupported Grant Type:
+                  $ref: '#/components/examples/OAuthError400UnsupportedGrantType'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                Missing Client Credentials:
+                  $ref: '#/components/examples/OAuthError401InvalidClient_NoCreds'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - Client authentication `client_secret_basic`: []
+        - Client authentication `client_secret_post`: []
+        - Client authentication `client_secret_jwt`: []
+        - Client authentication `private_key_jwt`: []
       tags:
         - CustomAS
+      x-okta-lifecycle:
+        lifecycle: GA
   /oauth2/{authorizationServerId}/v1/userinfo:
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
@@ -986,12 +1464,40 @@ paths:
       summary: /userinfo
       description: Returns information about the user that is the subject of the access token. Many of these claims are also included in the [ID token](https://developer.okta.com/docs/reference/api/oidc/#id-token), but calling this endpoint always returns all of the user's claims. The ID token can be configured to include a subset of the user's claims. See [Scope-dependent claims](https://developer.okta.com/docs/reference/api/oidc/#scope-dependent-claims-not-always-returned) for more information.
       operationId: userinfoCustomAS
-      responses: *ref_16
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+              examples:
+                User information:
+                  $ref: '#/components/examples/UserInfoExample'
+        '401':
+          description: Unauthorized
+          headers:
+            WWW-Authenticate:
+              schema:
+                type: string
+              example: Bearer error="invalid_token", error_description="The access token is invalid"
+        '403':
+          description: Forbidden
+          headers:
+            WWW-Authenticate:
+              schema:
+                type: string
+              example: Bearer error="insufficient_scope", error_description="The access token must provide access to at least one of these scopes - profile, email, address or phone"
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
         - oauth2:
             - openid
       tags:
         - CustomAS
+      x-okta-lifecycle:
+        lifecycle: GA
+        isCorsEnabled: true
 components:
   securitySchemes:
     apiToken:
