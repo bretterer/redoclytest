@@ -69,6 +69,9 @@ tags:
       The vendor implementations supported by Okta are both invisible. They each run risk-analysis software in the background during user sign in to determine the likelihood that the user is a bot. This risk analysis is based on the settings that you configure with the provider that you choose.
 
       Before you configure your org to use CAPTCHA, sign in to the vendor of your choice or sign up for an account. For more details, refer to [CAPTCHA integration](https://help.okta.com/okta_help.htm?type=oie&id=csh-captcha).
+  - name: CustomDomain
+    x-displayName: Custom Domains
+    description: The Custom Domains API provides operations to manage custom domains for your organization.
   - name: Customization
     x-displayName: Customizations
     description: |-
@@ -99,9 +102,6 @@ tags:
   - name: DeviceAssurance
     x-displayName: Device Assurance Policies
     description: The Device Assurance Policies API provides operations to manage device assurance policies in your organization.
-  - name: Domain
-    x-displayName: Domains
-    description: The Domains API provides operations to manage custom domains for your organization.
   - name: EventHook
     x-displayName: Event Hooks
     description: |-
@@ -355,7 +355,8 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/agentPools:
     get:
       summary: List all Agent Pools
@@ -385,7 +386,7 @@ paths:
       tags:
         - AgentPools
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/agentPools/{poolId}/updates:
     get:
       summary: List all Agent Pool updates
@@ -416,7 +417,7 @@ paths:
       tags:
         - AgentPools
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create an Agent Pool update
       description: Creates an Agent pool update \n For user flow 2 manual update, starts the update immediately. \n For user flow 3, schedules the update based on the configured update window and delay.
@@ -451,7 +452,7 @@ paths:
       tags:
         - AgentPools
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/agentPools/{poolId}/updates/settings:
     parameters:
       - $ref: '#/components/parameters/pathPoolId'
@@ -479,7 +480,7 @@ paths:
       tags:
         - AgentPools
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Update an Agent Pool update settings
       description: Updates an agent pool update settings
@@ -512,7 +513,7 @@ paths:
       tags:
         - AgentPools
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/agentPools/{poolId}/updates/{updateId}:
     parameters:
       - $ref: '#/components/parameters/pathPoolId'
@@ -541,7 +542,7 @@ paths:
       tags:
         - AgentPools
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Update an Agent Pool update by id
       description: Updates Agent pool update and return latest agent pool update
@@ -574,7 +575,7 @@ paths:
       tags:
         - AgentPools
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete an Agent Pool update
       description: Deletes Agent pool update
@@ -595,7 +596,7 @@ paths:
       tags:
         - AgentPools
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/agentPools/{poolId}/updates/{updateId}/activate:
     parameters:
       - $ref: '#/components/parameters/pathPoolId'
@@ -624,7 +625,7 @@ paths:
       tags:
         - AgentPools
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/agentPools/{poolId}/updates/{updateId}/deactivate:
     parameters:
       - $ref: '#/components/parameters/pathPoolId'
@@ -653,7 +654,7 @@ paths:
       tags:
         - AgentPools
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/agentPools/{poolId}/updates/{updateId}/pause:
     parameters:
       - $ref: '#/components/parameters/pathPoolId'
@@ -682,7 +683,7 @@ paths:
       tags:
         - AgentPools
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/agentPools/{poolId}/updates/{updateId}/resume:
     parameters:
       - $ref: '#/components/parameters/pathPoolId'
@@ -711,7 +712,7 @@ paths:
       tags:
         - AgentPools
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/agentPools/{poolId}/updates/{updateId}/retry:
     parameters:
       - $ref: '#/components/parameters/pathPoolId'
@@ -740,7 +741,7 @@ paths:
       tags:
         - AgentPools
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/agentPools/{poolId}/updates/{updateId}/stop:
     parameters:
       - $ref: '#/components/parameters/pathPoolId'
@@ -769,7 +770,7 @@ paths:
       tags:
         - AgentPools
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/api-tokens:
     get:
       summary: List all API Token Metadata
@@ -806,7 +807,7 @@ paths:
       tags:
         - ApiToken
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/api-tokens/{apiTokenId}:
     parameters:
       - $ref: '#/components/parameters/pathApiTokenId'
@@ -837,7 +838,7 @@ paths:
       tags:
         - ApiToken
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Revoke an API Token
       description: Revokes an API token by `apiTokenId`
@@ -858,7 +859,7 @@ paths:
       tags:
         - ApiToken
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps:
     get:
       summary: List all Applications
@@ -916,7 +917,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create an Application
       description: Creates a new application to your Okta organization
@@ -959,7 +960,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}:
     get:
       summary: Retrieve an Application
@@ -995,7 +996,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace an Application
       description: Replaces an application
@@ -1035,7 +1036,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete an Application
       description: Deletes an inactive application
@@ -1063,7 +1064,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/connections/default:
     get:
       summary: Retrieve the default Provisioning Connection
@@ -1095,7 +1096,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Update the default Provisioning Connection
       description: Updates the default provisioning connection for application
@@ -1138,7 +1139,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/connections/default/lifecycle/activate:
     post:
       summary: Activate the default Provisioning Connection
@@ -1166,7 +1167,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/connections/default/lifecycle/deactivate:
     post:
       summary: Deactivate the default Provisioning Connection for an Application
@@ -1194,7 +1195,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/credentials/csrs:
     get:
       summary: List all Certificate Signing Requests
@@ -1228,7 +1229,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Generate a Certificate Signing Request
       description: Generates a new key pair and returns the Certificate Signing Request for it
@@ -1268,7 +1269,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/credentials/csrs/{csrId}:
     get:
       summary: Retrieve a Certificate Signing Request
@@ -1305,7 +1306,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Revoke a Certificate Signing Request
       description: Revokes a certificate signing request and deletes the key pair from the application
@@ -1338,7 +1339,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/credentials/csrs/{csrId}/lifecycle/publish:
     post:
       summary: Publish a Certificate Signing Request
@@ -1395,7 +1396,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/credentials/keys:
     get:
       summary: List all Key Credentials
@@ -1429,7 +1430,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/credentials/keys/generate:
     post:
       summary: Generate a Key Credential
@@ -1465,7 +1466,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/credentials/keys/{keyId}:
     get:
       summary: Retrieve a Key Credential
@@ -1502,7 +1503,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/credentials/keys/{keyId}/clone:
     post:
       summary: Clone a Key Credential
@@ -1545,7 +1546,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/features:
     get:
       summary: List all Features
@@ -1579,7 +1580,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/features/{name}:
     get:
       summary: Retrieve a Feature
@@ -1616,7 +1617,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Update a Feature
       description: Updates a Feature object for an application
@@ -1660,7 +1661,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/grants:
     get:
       summary: List all Scope Consent Grants
@@ -1696,7 +1697,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Grant Consent to Scope
       description: Grants consent for the application to request an OAuth 2.0 Okta scope
@@ -1734,7 +1735,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/grants/{grantId}:
     get:
       summary: Retrieve a Scope Consent Grant
@@ -1773,7 +1774,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Revoke a Scope Consent Grant
       description: Revokes permission for the application to request the given scope
@@ -1804,7 +1805,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/groups:
     get:
       summary: List all Assigned Groups
@@ -1858,7 +1859,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/groups/{groupId}:
     get:
       summary: Retrieve an Assigned Group
@@ -1899,7 +1900,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Assign a Group
       description: Assigns a group to an application
@@ -1944,7 +1945,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Unassign a Group
       description: Unassigns a group from an application
@@ -1977,7 +1978,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/lifecycle/activate:
     post:
       summary: Activate an Application
@@ -2006,7 +2007,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/lifecycle/deactivate:
     post:
       summary: Deactivate an Application
@@ -2035,7 +2036,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/logo:
     post:
       summary: Upload a Logo
@@ -2076,7 +2077,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/policies/{policyId}:
     put:
       summary: Assign an Application to a Policy
@@ -2109,7 +2110,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/tokens:
     get:
       summary: List all OAuth 2.0 Tokens
@@ -2157,7 +2158,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Revoke all OAuth 2.0 Tokens
       description: Revokes all tokens for the specified application
@@ -2185,7 +2186,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/tokens/{tokenId}:
     get:
       summary: Retrieve an OAuth 2.0 Token
@@ -2226,7 +2227,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Revoke an OAuth 2.0 Token
       description: Revokes the specified token for the specified application
@@ -2259,7 +2260,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/users:
     get:
       summary: List all Assigned Users
@@ -2321,7 +2322,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Assign a User
       description: Assigns an user to an application with [credentials](#application-user-credentials-object) and an app-specific [profile](#application-user-profile-object). Profile mappings defined for the application are first applied before applying any profile properties specified in the request.
@@ -2361,7 +2362,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/apps/{appId}/users/{userId}:
     get:
       summary: Retrieve an Assigned User
@@ -2402,7 +2403,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Update an Application Profile for Assigned User
       description: Updates a user's profile for an application
@@ -2447,7 +2448,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Unassign a User
       description: Unassigns a user from an application
@@ -2486,7 +2487,7 @@ paths:
       tags:
         - Application
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/authenticators:
     get:
       summary: List all Authenticators
@@ -4151,7 +4152,7 @@ paths:
       tags:
         - Behavior
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create a Behavior Detection Rule
       description: Creates a new behavior detection rule
@@ -4196,7 +4197,7 @@ paths:
       tags:
         - Behavior
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/behaviors/{behaviorId}:
     parameters:
       - $ref: '#/components/parameters/pathBehaviorId'
@@ -4231,7 +4232,7 @@ paths:
       tags:
         - Behavior
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace a Behavior Detection Rule
       description: Replaces a Behavior Detection Rule by `behaviorId`
@@ -4285,7 +4286,7 @@ paths:
       tags:
         - Behavior
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete a Behavior Detection Rule
       description: Deletes a Behavior Detection Rule by `behaviorId`
@@ -4313,7 +4314,7 @@ paths:
       tags:
         - Behavior
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/behaviors/{behaviorId}/lifecycle/activate:
     post:
       summary: Activate a Behavior Detection Rule
@@ -4344,7 +4345,7 @@ paths:
       tags:
         - Behavior
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/behaviors/{behaviorId}/lifecycle/deactivate:
     post:
       summary: Deactivate a Behavior Detection Rule
@@ -4375,7 +4376,7 @@ paths:
       tags:
         - Behavior
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/brands:
     get:
       summary: List all Brands
@@ -4404,7 +4405,7 @@ paths:
       tags:
         - Customization
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/brands/{brandId}:
     parameters:
       - $ref: '#/components/parameters/pathBrandId'
@@ -4435,7 +4436,7 @@ paths:
       tags:
         - Customization
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace a Brand
       description: Replaces a brand by `brandId`
@@ -4475,7 +4476,7 @@ paths:
       tags:
         - Customization
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/brands/{brandId}/domains:
     parameters:
       - $ref: '#/components/parameters/pathBrandId'
@@ -5590,7 +5591,7 @@ paths:
       tags:
         - Customization
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/brands/{brandId}/themes/{themeId}:
     parameters:
       - $ref: '#/components/parameters/pathBrandId'
@@ -5619,7 +5620,7 @@ paths:
       tags:
         - Customization
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace a Theme
       description: Replaces a theme for a brand
@@ -5653,7 +5654,7 @@ paths:
       tags:
         - Customization
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/brands/{brandId}/themes/{themeId}/background-image:
     parameters:
       - $ref: '#/components/parameters/pathBrandId'
@@ -5697,7 +5698,7 @@ paths:
       tags:
         - Customization
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete the Background Image
       description: Deletes a Theme background image
@@ -5719,7 +5720,7 @@ paths:
       tags:
         - Customization
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/brands/{brandId}/themes/{themeId}/favicon:
     parameters:
       - $ref: '#/components/parameters/pathBrandId'
@@ -5763,7 +5764,7 @@ paths:
       tags:
         - Customization
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete the Favicon
       description: Deletes a Theme favicon. The theme will use the default Okta favicon.
@@ -5785,7 +5786,7 @@ paths:
       tags:
         - Customization
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/brands/{brandId}/themes/{themeId}/logo:
     parameters:
       - $ref: '#/components/parameters/pathBrandId'
@@ -5829,7 +5830,7 @@ paths:
       tags:
         - Customization
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete the Logo
       description: Deletes a Theme logo. The theme will use the default Okta logo.
@@ -5851,7 +5852,7 @@ paths:
       tags:
         - Customization
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/captchas:
     get:
       summary: List all CAPTCHA instances
@@ -6489,9 +6490,9 @@ paths:
         isIdentityEngine: true
   /api/v1/domains:
     get:
-      summary: List all Domains
-      description: Lists all verified custom Domains for the org
-      operationId: listDomains
+      summary: List all Custom Domains
+      description: Lists all verified Custom Domains for the org
+      operationId: listCustomDomains
       responses:
         '200':
           description: Success
@@ -6508,13 +6509,13 @@ paths:
         - oauth2:
             - okta.domains.read
       tags:
-        - Domain
+        - CustomDomain
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
-      summary: Create a Domain
-      description: Creates your domain
-      operationId: createDomain
+      summary: Create a Custom Domain
+      description: Creates your Custom Domain
+      operationId: createCustomDomain
       x-codegen-request-body-name: domain
       requestBody:
         content:
@@ -6540,14 +6541,14 @@ paths:
         - oauth2:
             - okta.domains.manage
       tags:
-        - Domain
+        - CustomDomain
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/domains/{domainId}:
     get:
-      summary: Retrieve a Domain
-      description: Retrieves a Domain by `id`
-      operationId: getDomain
+      summary: Retrieve a Custom Domain
+      description: Retrieves a Custom Domain by `id`
+      operationId: getCustomDomain
       parameters:
         - name: domainId
           in: path
@@ -6572,13 +6573,13 @@ paths:
         - oauth2:
             - okta.domains.read
       tags:
-        - Domain
+        - CustomDomain
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
-      summary: Delete a Domain
-      description: Deletes a Domain by `id`
-      operationId: deleteDomain
+      summary: Delete a Custom Domain
+      description: Deletes a Custom Domain by `id`
+      operationId: deleteCustomDomain
       parameters:
         - name: domainId
           in: path
@@ -6600,13 +6601,13 @@ paths:
         - oauth2:
             - okta.domains.manage
       tags:
-        - Domain
+        - CustomDomain
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/domains/{domainId}/certificate:
     put:
       summary: Upsert the Certificate
-      description: Creates or replaces the certificate for the domain
+      description: Creates or replaces the certificate for the custom domain
       operationId: upsertCertificate
       parameters:
         - name: domainId
@@ -6638,13 +6639,13 @@ paths:
         - oauth2:
             - okta.domains.manage
       tags:
-        - Domain
+        - CustomDomain
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/domains/{domainId}/verify:
     post:
-      summary: Verify a Domain
-      description: Verifies the Domain by `id`
+      summary: Verify a Custom Domain
+      description: Verifies the Custom Domain by `id`
       operationId: verifyDomain
       parameters:
         - name: domainId
@@ -6670,12 +6671,9 @@ paths:
         - oauth2:
             - okta.domains.manage
       tags:
-        - Domain
+        - CustomDomain
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
-  /api/v1/email-domains: {}
-  /api/v1/email-domains/{emailDomainId}: {}
-  /api/v1/email-domains/{emailDomainId}/verify: {}
+        lifecycle: GA
   /api/v1/eventHooks:
     get:
       summary: List all Event Hooks
@@ -6701,7 +6699,7 @@ paths:
       tags:
         - EventHook
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create an Event Hook
       description: Creates an event hook
@@ -6733,7 +6731,7 @@ paths:
       tags:
         - EventHook
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/eventHooks/{eventHookId}:
     get:
       summary: Retrieve an Event Hook
@@ -6765,7 +6763,7 @@ paths:
       tags:
         - EventHook
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace an Event Hook
       description: Replaces an event hook
@@ -6805,7 +6803,7 @@ paths:
       tags:
         - EventHook
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete an Event Hook
       description: Deletes an event hook
@@ -6833,7 +6831,7 @@ paths:
       tags:
         - EventHook
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/eventHooks/{eventHookId}/lifecycle/activate:
     post:
       summary: Activate an Event Hook
@@ -6865,7 +6863,7 @@ paths:
       tags:
         - EventHook
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/eventHooks/{eventHookId}/lifecycle/deactivate:
     post:
       summary: Deactivate an Event Hook
@@ -6897,7 +6895,7 @@ paths:
       tags:
         - EventHook
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/eventHooks/{eventHookId}/lifecycle/verify:
     post:
       summary: Verify an Event Hook
@@ -6929,7 +6927,7 @@ paths:
       tags:
         - EventHook
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/features:
     get:
       summary: List all Features
@@ -6955,7 +6953,7 @@ paths:
       tags:
         - Feature
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/features/{featureId}:
     get:
       summary: Retrieve a Feature
@@ -6987,7 +6985,7 @@ paths:
       tags:
         - Feature
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/features/{featureId}/dependencies:
     get:
       summary: List all Dependencies
@@ -7021,7 +7019,7 @@ paths:
       tags:
         - Feature
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/features/{featureId}/dependents:
     get:
       summary: List all Dependents
@@ -7055,7 +7053,7 @@ paths:
       tags:
         - Feature
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/features/{featureId}/{lifecycle}:
     post:
       summary: Update a Feature Lifecycle
@@ -7096,7 +7094,7 @@ paths:
       tags:
         - Feature
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/groups:
     get:
       summary: List all Groups
@@ -7155,7 +7153,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create a Group
       description: Creates a new group with `OKTA_GROUP` type
@@ -7187,7 +7185,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/groups/rules:
     get:
       summary: List all Group Rules
@@ -7237,7 +7235,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create a Group Rule
       description: Creates a group rule to dynamically add users to the specified group if they match the condition
@@ -7269,7 +7267,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/groups/rules/{ruleId}:
     get:
       summary: Retrieve a Group Rule
@@ -7305,7 +7303,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace a Group Rule
       description: Replaces a group rule. Only `INACTIVE` rules can be updated.
@@ -7345,7 +7343,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete a group Rule
       description: Deletes a specific group rule by `ruleId`
@@ -7378,7 +7376,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/groups/rules/{ruleId}/lifecycle/activate:
     post:
       summary: Activate a Group Rule
@@ -7407,7 +7405,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/groups/rules/{ruleId}/lifecycle/deactivate:
     post:
       summary: Deactivate a Group Rule
@@ -7436,7 +7434,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/groups/{groupId}:
     get:
       summary: Retrieve a Group
@@ -7468,7 +7466,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace a Group
       description: Replaces the profile for a group with `OKTA_GROUP` type
@@ -7508,7 +7506,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete a Group
       description: Deletes a group with `OKTA_GROUP` type
@@ -7536,7 +7534,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/groups/{groupId}/apps:
     get:
       summary: List all Assigned Applications
@@ -7582,7 +7580,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/groups/{groupId}/owners:
     get:
       summary: List all Group Owners
@@ -7633,7 +7631,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Assign a Group Owner
       description: Assigns a group owner
@@ -7672,7 +7670,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/groups/{groupId}/owners/{ownerId}:
     delete:
       summary: Delete a Group Owner
@@ -7706,7 +7704,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/groups/{groupId}/roles:
     get:
       summary: List all Assigned Roles of Group
@@ -7744,7 +7742,7 @@ paths:
       tags:
         - RoleAssignment
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Assign a Role to a Group
       description: Assigns a role to a group
@@ -7792,7 +7790,7 @@ paths:
       tags:
         - RoleAssignment
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/groups/{groupId}/roles/{roleId}:
     get:
       summary: Retrieve a Role assigned to Group
@@ -7829,7 +7827,7 @@ paths:
       tags:
         - RoleAssignment
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Unassign a Role from a Group
       description: Unassigns a role identified by `roleId` assigned to group identified by `groupId`
@@ -7862,7 +7860,7 @@ paths:
       tags:
         - RoleAssignment
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/groups/{groupId}/roles/{roleId}/targets/catalog/apps:
     get:
       summary: List all Application Targets for an Application Administrator Role
@@ -7911,7 +7909,7 @@ paths:
       tags:
         - RoleTarget
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/groups/{groupId}/roles/{roleId}/targets/catalog/apps/{appName}:
     put:
       summary: Assign an Application Target to Administrator Role
@@ -7950,7 +7948,7 @@ paths:
       tags:
         - RoleTarget
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Unassign an Application Target from Application Administrator Role
       description: Unassigns an application target from application administrator role
@@ -7988,7 +7986,7 @@ paths:
       tags:
         - RoleTarget
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/groups/{groupId}/roles/{roleId}/targets/catalog/apps/{appName}/{applicationId}:
     put:
       summary: Assign an Application Instance Target to Application Administrator Role
@@ -8032,7 +8030,7 @@ paths:
       tags:
         - RoleTarget
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Unassign an Application Instance Target from an Application Administrator Role
       description: Unassigns an application instance target from application administrator role
@@ -8075,7 +8073,7 @@ paths:
       tags:
         - RoleTarget
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/groups/{groupId}/roles/{roleId}/targets/groups:
     get:
       summary: List all Group Targets for a Group Role
@@ -8124,7 +8122,7 @@ paths:
       tags:
         - RoleTarget
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/groups/{groupId}/roles/{roleId}/targets/groups/{targetGroupId}:
     put:
       summary: Assign a Group Target to a Group Role
@@ -8163,7 +8161,7 @@ paths:
       tags:
         - RoleTarget
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Unassign a Group Target from a Group Role
       description: Unassigns a group target from a group role
@@ -8201,7 +8199,7 @@ paths:
       tags:
         - RoleTarget
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/groups/{groupId}/users:
     get:
       summary: List all Member Users
@@ -8247,7 +8245,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/groups/{groupId}/users/{userId}:
     put:
       summary: Assign a User
@@ -8281,7 +8279,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Unassign a User
       description: Unassigns a user from a group with 'OKTA_GROUP' type
@@ -8314,7 +8312,7 @@ paths:
       tags:
         - Group
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/hook-keys:
     get:
       summary: List all keys
@@ -8533,7 +8531,7 @@ paths:
       tags:
         - ResourceSet
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create a Resource Set
       description: Creates a new resource set
@@ -8578,7 +8576,7 @@ paths:
       tags:
         - ResourceSet
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/iam/resource-sets/{resourceSetId}:
     parameters:
       - $ref: '#/components/parameters/pathResourceSetId'
@@ -8609,7 +8607,7 @@ paths:
       tags:
         - ResourceSet
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace a Resource Set
       description: Replaces a resource set by `resourceSetId`
@@ -8649,7 +8647,7 @@ paths:
       tags:
         - ResourceSet
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete a Resource Set
       description: Deletes a role by `resourceSetId`
@@ -8678,7 +8676,7 @@ paths:
       tags:
         - ResourceSet
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/iam/resource-sets/{resourceSetId}/bindings:
     parameters:
       - $ref: '#/components/parameters/pathResourceSetId'
@@ -8711,7 +8709,7 @@ paths:
       tags:
         - ResourceSet
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create a Resource Set Binding
       description: Creates a new resource set binding
@@ -8758,7 +8756,7 @@ paths:
       tags:
         - ResourceSet
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/iam/resource-sets/{resourceSetId}/bindings/{roleIdOrLabel}:
     parameters:
       - $ref: '#/components/parameters/pathResourceSetId'
@@ -8790,7 +8788,7 @@ paths:
       tags:
         - ResourceSet
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete a Binding
       description: Deletes a resource set binding by `resourceSetId` and `roleIdOrLabel`
@@ -8819,7 +8817,7 @@ paths:
       tags:
         - ResourceSet
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/iam/resource-sets/{resourceSetId}/bindings/{roleIdOrLabel}/members:
     parameters:
       - $ref: '#/components/parameters/pathResourceSetId'
@@ -8853,7 +8851,7 @@ paths:
       tags:
         - ResourceSet
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     patch:
       summary: Add more Members to a binding
       description: Adds more members to a resource set binding
@@ -8900,7 +8898,7 @@ paths:
       tags:
         - ResourceSet
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/iam/resource-sets/{resourceSetId}/bindings/{roleIdOrLabel}/members/{memberId}:
     parameters:
       - $ref: '#/components/parameters/pathResourceSetId'
@@ -8933,7 +8931,7 @@ paths:
       tags:
         - ResourceSet
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Unassign a Member from a binding
       description: Unassigns a member identified by `memberId` from a binding
@@ -8963,7 +8961,7 @@ paths:
       tags:
         - ResourceSet
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/iam/resource-sets/{resourceSetId}/resources:
     parameters:
       - $ref: '#/components/parameters/pathResourceSetId'
@@ -8994,7 +8992,7 @@ paths:
       tags:
         - ResourceSet
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     patch:
       summary: Add more Resource to a resource set
       description: Adds more resources to a resource set
@@ -9041,7 +9039,7 @@ paths:
       tags:
         - ResourceSet
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/iam/resource-sets/{resourceSetId}/resources/{resourceId}:
     parameters:
       - $ref: '#/components/parameters/pathResourceSetId'
@@ -9074,7 +9072,7 @@ paths:
       tags:
         - ResourceSet
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/iam/roles:
     get:
       summary: List all Roles
@@ -9103,7 +9101,7 @@ paths:
       tags:
         - Role
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create a Role
       description: Creates a new role
@@ -9148,7 +9146,7 @@ paths:
       tags:
         - Role
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/iam/roles/{roleIdOrLabel}:
     parameters:
       - $ref: '#/components/parameters/pathRoleIdOrLabel'
@@ -9179,7 +9177,7 @@ paths:
       tags:
         - Role
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace a Role
       description: Replaces a role by `roleIdOrLabel`
@@ -9219,7 +9217,7 @@ paths:
       tags:
         - Role
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete a Role
       description: Deletes a role by `roleIdOrLabel`
@@ -9248,7 +9246,7 @@ paths:
       tags:
         - Role
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/iam/roles/{roleIdOrLabel}/permissions:
     parameters:
       - $ref: '#/components/parameters/pathRoleIdOrLabel'
@@ -9279,7 +9277,7 @@ paths:
       tags:
         - Role
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/iam/roles/{roleIdOrLabel}/permissions/{permissionType}:
     parameters:
       - $ref: '#/components/parameters/pathRoleIdOrLabel'
@@ -9311,7 +9309,7 @@ paths:
       tags:
         - Role
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create a Permission
       description: Creates a permission specified by `permissionType` to the role
@@ -9335,7 +9333,7 @@ paths:
       tags:
         - Role
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete a Permission
       description: Deletes a permission from a role by `permissionType`
@@ -9364,7 +9362,7 @@ paths:
       tags:
         - Role
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/identity-sources/{identitySourceId}/sessions:
     get:
       summary: List all Identity Source Sessions
@@ -9632,7 +9630,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create an Identity Provider
       description: Creates a new identity provider integration
@@ -9664,7 +9662,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/idps/credentials/keys:
     get:
       summary: List all Credential Keys
@@ -9703,7 +9701,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create an X.509 Certificate Public Key
       description: Creates a new X.509 certificate credential to the IdP key store.
@@ -9735,7 +9733,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/idps/credentials/keys/{keyId}:
     get:
       summary: Retrieve an Credential Key
@@ -9767,7 +9765,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete a Signing Credential Key
       description: Deletes a specific IdP Key Credential by `kid` if it is not currently being used by an Active or Inactive IdP
@@ -9795,7 +9793,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/idps/{idpId}:
     get:
       summary: Retrieve an Identity Provider
@@ -9827,7 +9825,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace an Identity Provider
       description: Replaces an identity provider integration by `idpId`
@@ -9867,7 +9865,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete an Identity Provider
       description: Deletes an identity provider integration by `idpId`
@@ -9895,7 +9893,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/idps/{idpId}/credentials/csrs:
     get:
       summary: List all Certificate Signing Requests
@@ -9929,7 +9927,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Generate a Certificate Signing Request
       description: Generates a new key pair and returns a Certificate Signing Request for it
@@ -9969,7 +9967,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/idps/{idpId}/credentials/csrs/{csrId}:
     get:
       summary: Retrieve a Certificate Signing Request
@@ -10006,7 +10004,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Revoke a Certificate Signing Request
       description: Revokes a certificate signing request and deletes the key pair from the IdP
@@ -10039,7 +10037,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/idps/{idpId}/credentials/csrs/{csrId}/lifecycle/publish:
     post:
       summary: Publish a Certificate Signing Request
@@ -10096,7 +10094,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/idps/{idpId}/credentials/keys:
     get:
       summary: List all Signing Credential Keys
@@ -10130,7 +10128,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/idps/{idpId}/credentials/keys/generate:
     post:
       summary: Generate a new Signing Credential Key
@@ -10169,7 +10167,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/idps/{idpId}/credentials/keys/{keyId}:
     get:
       summary: Retrieve a Signing Credential Key
@@ -10206,7 +10204,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/idps/{idpId}/credentials/keys/{keyId}/clone:
     post:
       summary: Clone a Signing Credential Key
@@ -10248,7 +10246,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/idps/{idpId}/lifecycle/activate:
     post:
       summary: Activate an Identity Provider
@@ -10280,7 +10278,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/idps/{idpId}/lifecycle/deactivate:
     post:
       summary: Deactivate an Identity Provider
@@ -10312,7 +10310,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/idps/{idpId}/users:
     get:
       summary: List all Users
@@ -10346,7 +10344,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/idps/{idpId}/users/{userId}:
     get:
       summary: Retrieve a User
@@ -10383,7 +10381,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Link a User to a Social IdP
       description: Links an Okta user to an existing Social Identity Provider. This does not support the SAML2 Identity Provider Type
@@ -10428,7 +10426,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Unlink a User from IdP
       description: Unlinks the link between the Okta user and the IdP user
@@ -10461,7 +10459,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/idps/{idpId}/users/{userId}/credentials/tokens:
     get:
       summary: List all Tokens from a OIDC Identity Provider
@@ -10500,7 +10498,7 @@ paths:
       tags:
         - IdentityProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/inlineHooks:
     get:
       summary: List all Inline Hooks
@@ -10531,7 +10529,7 @@ paths:
       tags:
         - InlineHook
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create an Inline Hook
       description: Creates an inline hook
@@ -10563,7 +10561,7 @@ paths:
       tags:
         - InlineHook
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/inlineHooks/{inlineHookId}:
     get:
       summary: Retrieve an Inline Hook
@@ -10595,7 +10593,7 @@ paths:
       tags:
         - InlineHook
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace an Inline Hook
       description: Replaces an inline hook by `inlineHookId`
@@ -10635,7 +10633,7 @@ paths:
       tags:
         - InlineHook
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete an Inline Hook
       description: Deletes an inline hook by `inlineHookId`. Once deleted, the Inline Hook is unrecoverable. As a safety precaution, only Inline Hooks with a status of INACTIVE are eligible for deletion.
@@ -10663,7 +10661,7 @@ paths:
       tags:
         - InlineHook
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/inlineHooks/{inlineHookId}/execute:
     post:
       summary: Execute an Inline Hook
@@ -10704,7 +10702,7 @@ paths:
       tags:
         - InlineHook
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/inlineHooks/{inlineHookId}/lifecycle/activate:
     post:
       summary: Activate an Inline Hook
@@ -10736,7 +10734,7 @@ paths:
       tags:
         - InlineHook
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/inlineHooks/{inlineHookId}/lifecycle/deactivate:
     post:
       summary: Deactivate an Inline Hook
@@ -10768,7 +10766,7 @@ paths:
       tags:
         - InlineHook
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/logStreams:
     get:
       summary: List all Log Streams
@@ -11073,7 +11071,8 @@ paths:
       tags:
         - SystemLog
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/mappings:
     get:
       summary: List all Profile Mappings
@@ -11194,9 +11193,9 @@ paths:
         lifecycle: GA
   /api/v1/meta/layouts/apps/{appName}:
     get:
-      summary: Retrieve the UI Layout for an Application
-      description: Retrieves the UI layout for an application by `appName`
-      operationId: getApplicationLayout
+      summary: Retrieve the links for UI schemas for an Application
+      description: Retrieves the links for UI schemas for an Application given `appName`
+      operationId: getAppUISchemaLinks
       parameters:
         - name: appName
           in: path
@@ -11209,7 +11208,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApplicationLayout'
+                $ref: '#/components/schemas/ApplicationLayouts'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -11223,7 +11222,7 @@ paths:
       tags:
         - Schema
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/meta/schemas/apps/{appInstanceId}/default:
     get:
       summary: Retrieve the default Application User Schema for an Application
@@ -11255,7 +11254,7 @@ paths:
       tags:
         - Schema
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Update the default Application User Schema for an Application
       description: Partially updates on the User Profile properties of the Application User Schema
@@ -11301,7 +11300,7 @@ paths:
       tags:
         - Schema
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/meta/schemas/group/default:
     get:
       summary: Retrieve the default Group Schema
@@ -11329,7 +11328,7 @@ paths:
       tags:
         - Schema
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Update the default Group Schema
       description: Updates the default group schema. This updates, adds, or removes one or more custom Group Profile properties in the schema.
@@ -11365,7 +11364,7 @@ paths:
       tags:
         - Schema
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/meta/schemas/logStream:
     get:
       summary: List the Log Stream Schemas
@@ -11457,7 +11456,7 @@ paths:
       tags:
         - LinkedObject
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create a Linked Object Definition
       description: Creates a linked object definition
@@ -11489,7 +11488,7 @@ paths:
       tags:
         - LinkedObject
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/meta/schemas/user/linkedObjects/{linkedObjectName}:
     parameters:
       - name: linkedObjectName
@@ -11521,7 +11520,7 @@ paths:
       tags:
         - LinkedObject
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete a Linked Object Definition
       description: Deletes a linked object definition
@@ -11543,7 +11542,7 @@ paths:
       tags:
         - LinkedObject
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/meta/schemas/user/{schemaId}:
     parameters:
       - name: schemaId
@@ -11578,7 +11577,7 @@ paths:
       tags:
         - Schema
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Update a User Schema
       description: Partially updates on the User Profile properties of the user schema
@@ -11618,7 +11617,7 @@ paths:
       tags:
         - Schema
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/meta/types/user:
     get:
       summary: List all User Types
@@ -11644,7 +11643,7 @@ paths:
       tags:
         - UserType
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create a User Type
       description: Creates a new User Type. A default User Type is automatically created along with your org, and you may add another 9 User Types for a maximum of 10.
@@ -11676,7 +11675,7 @@ paths:
       tags:
         - UserType
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/meta/types/user/{typeId}:
     parameters:
       - name: typeId
@@ -11708,7 +11707,7 @@ paths:
       tags:
         - UserType
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Update a User Type
       description: Updates an existing User Type
@@ -11742,7 +11741,7 @@ paths:
       tags:
         - UserType
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace a User Type
       description: Replaces an existing user type
@@ -11776,7 +11775,7 @@ paths:
       tags:
         - UserType
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete a User Type
       description: Deletes a User Type permanently. This operation is not permitted for the default type, nor for any User Type that has existing users
@@ -11798,7 +11797,7 @@ paths:
       tags:
         - UserType
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/org:
     get:
       summary: Retrieve the Org Settings
@@ -11823,7 +11822,7 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Update the Org Settings
       description: Partially updates the org settings depending on provided fields
@@ -11853,7 +11852,7 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace the Org Settings
       description: Replaces the settings of your organization
@@ -11885,7 +11884,7 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/org/contacts:
     get:
       summary: Retrieve the Org Contact Types
@@ -11912,7 +11911,7 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/org/contacts/{contactType}:
     get:
       summary: Retrieve the User of the Contact Type
@@ -11944,7 +11943,7 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace the User of the Contact Type
       description: Replaces the User associated with the specified Contact Type
@@ -11984,7 +11983,7 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/org/email/bounces/remove-list:
     post:
       summary: Remove Emails from Email Provider Bounce List
@@ -12030,7 +12029,7 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/org/logo:
     post:
       summary: Upload the Org Logo
@@ -12065,7 +12064,7 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/org/preferences:
     get:
       summary: Retrieve the Org Preferences
@@ -12090,7 +12089,7 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/org/preferences/hideEndUserFooter:
     post:
       summary: Update the Preference to Hide the Okta Dashboard Footer
@@ -12115,7 +12114,7 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/org/preferences/showEndUserFooter:
     post:
       summary: Update the Preference to Show the Okta Dashboard Footer
@@ -12140,7 +12139,7 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/org/privacy/oktaCommunication:
     get:
       summary: Retrieve the Okta Communication Settings
@@ -12165,7 +12164,7 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/org/privacy/oktaCommunication/optIn:
     post:
       summary: Opt in all Users to Okta Communication emails
@@ -12190,7 +12189,7 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/org/privacy/oktaCommunication/optOut:
     post:
       summary: Opt out all Users from Okta Communication emails
@@ -12215,7 +12214,7 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/org/privacy/oktaSupport:
     get:
       summary: Retrieve the Okta Support Settings
@@ -12240,7 +12239,7 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/org/privacy/oktaSupport/extend:
     post:
       summary: Extend Okta Support Access
@@ -12265,7 +12264,7 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/org/privacy/oktaSupport/grant:
     post:
       summary: Grant Okta Support Access to your Org
@@ -12290,7 +12289,7 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/org/privacy/oktaSupport/revoke:
     post:
       summary: Revoke Okta Support Access
@@ -12315,7 +12314,7 @@ paths:
       tags:
         - OrgSetting
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/policies:
     get:
       summary: List all Policies
@@ -12356,7 +12355,7 @@ paths:
       tags:
         - Policy
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create a Policy
       description: Creates a policy
@@ -12394,7 +12393,7 @@ paths:
       tags:
         - Policy
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/policies/{policyId}:
     get:
       summary: Retrieve a Policy
@@ -12431,7 +12430,7 @@ paths:
       tags:
         - Policy
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace a Policy
       description: Replaces a policy
@@ -12471,7 +12470,7 @@ paths:
       tags:
         - Policy
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete a Policy
       description: Deletes a policy
@@ -12498,7 +12497,7 @@ paths:
       tags:
         - Policy
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/policies/{policyId}/clone:
     post:
       summary: Clone an existing policy
@@ -12562,7 +12561,7 @@ paths:
       tags:
         - Policy
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/policies/{policyId}/lifecycle/deactivate:
     post:
       summary: Deactivate a Policy
@@ -12591,7 +12590,7 @@ paths:
       tags:
         - Policy
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/policies/{policyId}/rules:
     get:
       summary: List all Policy Rules
@@ -12625,7 +12624,7 @@ paths:
       tags:
         - Policy
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create a Policy Rule
       description: Creates a policy rule
@@ -12665,7 +12664,7 @@ paths:
       tags:
         - Policy
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/policies/{policyId}/rules/{ruleId}:
     get:
       summary: Retrieve a Policy Rule
@@ -12702,7 +12701,7 @@ paths:
       tags:
         - Policy
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace a Policy Rule
       description: Replaces a policy rules
@@ -12747,7 +12746,7 @@ paths:
       tags:
         - Policy
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete a Policy Rule
       description: Deletes a policy rule
@@ -12780,7 +12779,7 @@ paths:
       tags:
         - Policy
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/policies/{policyId}/rules/{ruleId}/lifecycle/activate:
     post:
       summary: Activate a Policy Rule
@@ -12813,7 +12812,7 @@ paths:
       tags:
         - Policy
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/policies/{policyId}/rules/{ruleId}/lifecycle/deactivate:
     post:
       summary: Deactivate a Policy Rule
@@ -12846,7 +12845,7 @@ paths:
       tags:
         - Policy
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/principal-rate-limits:
     get:
       summary: List all Principal Rate Limits
@@ -13225,7 +13224,7 @@ paths:
       tags:
         - RateLimitSettings
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace the Rate Limit Admin Notification Settings
       description: Replaces the Rate Limit Admin Notification Settings and returns the configured properties
@@ -13267,7 +13266,7 @@ paths:
       tags:
         - RateLimitSettings
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/rate-limit-settings/per-client:
     get:
       summary: Retrieve the Per-Client Rate Limit Settings
@@ -13298,7 +13297,7 @@ paths:
       tags:
         - RateLimitSettings
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace the Per-Client Rate Limit Settings
       description: Replaces the Per-Client Rate Limit Settings and returns the configured properties
@@ -13344,7 +13343,7 @@ paths:
       tags:
         - RateLimitSettings
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/risk/events/ip:
     post:
       summary: Send multiple Risk Events
@@ -13385,7 +13384,7 @@ paths:
       tags:
         - RiskEvent
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/risk/providers:
     get:
       summary: List all Risk Providers
@@ -13411,7 +13410,7 @@ paths:
       tags:
         - RiskProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create a Risk Provider
       description: Creates a risk provider. A maximum of 3 providers can be created. By default, one risk provider is created by Okta.
@@ -13456,7 +13455,7 @@ paths:
       tags:
         - RiskProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/risk/providers/{riskProviderId}:
     parameters:
       - $ref: '#/components/parameters/pathRiskProviderId'
@@ -13487,7 +13486,7 @@ paths:
       tags:
         - RiskProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace a Risk Provider
       description: Replaces a risk provider by `riskProviderId`
@@ -13527,7 +13526,7 @@ paths:
       tags:
         - RiskProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete a Risk Provider
       description: Deletes a CAPTCHA instance by `riskProviderId`
@@ -13556,7 +13555,7 @@ paths:
       tags:
         - RiskProvider
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/roles/{roleTypeOrRoleId}/subscriptions:
     get:
       summary: List all Subscriptions of a Custom Role
@@ -13590,7 +13589,7 @@ paths:
       tags:
         - Subscription
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/roles/{roleTypeOrRoleId}/subscriptions/{notificationType}:
     get:
       summary: List all Subscriptions of a Custom Role with a specific notification type
@@ -13627,7 +13626,7 @@ paths:
       tags:
         - Subscription
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/roles/{roleTypeOrRoleId}/subscriptions/{notificationType}/subscribe:
     post:
       summary: Subscribe a Custom Role to a specific notification type
@@ -13660,7 +13659,7 @@ paths:
       tags:
         - Subscription
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/roles/{roleTypeOrRoleId}/subscriptions/{notificationType}/unsubscribe:
     post:
       summary: Unsubscribe a Custom Role from a specific notification type
@@ -13693,7 +13692,7 @@ paths:
       tags:
         - Subscription
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/sessions:
     post:
       summary: Create a Session with Session Token
@@ -13724,7 +13723,7 @@ paths:
       tags:
         - Session
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/sessions/{sessionId}:
     get:
       summary: Retrieve a Session
@@ -13758,7 +13757,7 @@ paths:
       tags:
         - Session
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Revoke a Session
       description: Revokes a session
@@ -13786,7 +13785,7 @@ paths:
       tags:
         - Session
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/sessions/{sessionId}/lifecycle/refresh:
     post:
       summary: Refresh a Session
@@ -13818,7 +13817,7 @@ paths:
       tags:
         - Session
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/templates/sms:
     get:
       summary: List all SMS Templates
@@ -13849,7 +13848,7 @@ paths:
       tags:
         - Template
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create an SMS Template
       description: Creates a new custom SMS template
@@ -13881,7 +13880,7 @@ paths:
       tags:
         - Template
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/templates/sms/{templateId}:
     get:
       summary: Retrieve an SMS Template
@@ -13913,7 +13912,7 @@ paths:
       tags:
         - Template
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Update an SMS Template
       description: Updates an SMS template
@@ -13953,7 +13952,7 @@ paths:
       tags:
         - Template
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace an SMS Template
       description: Replaces the SMS template
@@ -13993,7 +13992,7 @@ paths:
       tags:
         - Template
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete an SMS Template
       description: Deletes an SMS template
@@ -14021,7 +14020,7 @@ paths:
       tags:
         - Template
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/threats/configuration:
     get:
       summary: Retrieve the ThreatInsight Configuration
@@ -14045,7 +14044,7 @@ paths:
       tags:
         - ThreatInsight
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Update the ThreatInsight Configuration
       description: Updates ThreatInsight configuration
@@ -14077,7 +14076,7 @@ paths:
       tags:
         - ThreatInsight
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/trustedOrigins:
     get:
       summary: List all Trusted Origins
@@ -14122,7 +14121,7 @@ paths:
       tags:
         - TrustedOrigin
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create a Trusted Origin
       description: Creates a trusted origin
@@ -14154,7 +14153,7 @@ paths:
       tags:
         - TrustedOrigin
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/trustedOrigins/{trustedOriginId}:
     get:
       summary: Retrieve a Trusted Origin
@@ -14186,7 +14185,7 @@ paths:
       tags:
         - TrustedOrigin
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace a Trusted Origin
       description: Replaces a trusted origin
@@ -14226,7 +14225,7 @@ paths:
       tags:
         - TrustedOrigin
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete a Trusted Origin
       description: Deletes a trusted origin
@@ -14254,7 +14253,7 @@ paths:
       tags:
         - TrustedOrigin
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/trustedOrigins/{trustedOriginId}/lifecycle/activate:
     post:
       summary: Activate a Trusted Origin
@@ -14286,7 +14285,7 @@ paths:
       tags:
         - TrustedOrigin
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/trustedOrigins/{trustedOriginId}/lifecycle/deactivate:
     post:
       summary: Deactivate a Trusted Origin
@@ -14318,7 +14317,7 @@ paths:
       tags:
         - TrustedOrigin
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/users:
     get:
       summary: List all Users
@@ -14383,7 +14382,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
     post:
       summary: Create a User
       description: Creates a new user in your Okta organization with or without credentials
@@ -14449,7 +14449,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{associatedUserId}/linkedObjects/{primaryRelationshipName}/{primaryUserId}:
     put:
       summary: Create a Linked Object for two User
@@ -14487,7 +14488,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}:
     get:
       summary: Retrieve a User
@@ -14529,7 +14531,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
     post:
       summary: Update a User
       description: Updates a user partially determined by the request parameters
@@ -14581,7 +14584,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
     put:
       summary: Replace a User
       description: Replaces a user's profile and/or credentials using strict-update semantics
@@ -14634,7 +14638,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
     delete:
       summary: Delete a User
       description: Deletes a user permanently. This operation can only be performed on users that have a `DEPROVISIONED` status.  **This action cannot be recovered!**. Calling this on an `ACTIVE` user will transition the user to `DEPROVISIONED`.
@@ -14678,7 +14683,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/appLinks:
     get:
       summary: List all Assigned Application Links
@@ -14712,42 +14718,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
-  /api/v1/users/{userId}/blocks:
-    get:
-      summary: List all User Blocks
-      description: Lists information about how the user is blocked from accessing their account
-      operationId: listUserBlocks
-      parameters:
-        - $ref: '#/components/parameters/pathUserId'
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/UserBlock'
-              examples:
-                BlocksUnknownDevices:
-                  $ref: '#/components/examples/ListUserBlocksUnknownDevicesResponse'
-                BlocksAnyDevices:
-                  $ref: '#/components/examples/ListUserBlocksAnyDevicesResponse'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '404':
-          $ref: '#/components/responses/ErrorResourceNotFound404'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - apiToken: []
-        - oauth2:
-            - okta.users.read
-      tags:
-        - User
-      x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/clients:
     get:
       summary: List all Clients
@@ -14781,7 +14753,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/clients/{clientId}/grants:
     get:
       summary: List all Grants for a Client
@@ -14834,7 +14807,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
     delete:
       summary: Revoke all Grants for a Client
       description: Revokes all grants for the specified user and client
@@ -14867,7 +14841,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/clients/{clientId}/tokens:
     get:
       summary: List all Refresh Tokens for a Client
@@ -14920,7 +14895,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
     delete:
       summary: Revoke all Refresh Tokens for a Client
       description: Revokes all refresh tokens issued for the specified User and Client
@@ -14953,7 +14929,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/clients/{clientId}/tokens/{tokenId}:
     get:
       summary: Retrieve a Refresh Token for a Client
@@ -15008,7 +14985,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
     delete:
       summary: Revoke a Token for a Client
       description: Revokes the specified refresh token
@@ -15046,7 +15024,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/credentials/change_password:
     post:
       summary: Change Password
@@ -15092,7 +15071,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/credentials/change_recovery_question:
     post:
       summary: Change Recovery Question
@@ -15133,7 +15113,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/credentials/forgot_password:
     post:
       summary: Initiate Forgot Password
@@ -15171,7 +15152,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/credentials/forgot_password_recovery_question:
     post:
       summary: Reset Password with Recovery Question
@@ -15218,7 +15200,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/factors:
     get:
       summary: List all Factors
@@ -15252,7 +15235,7 @@ paths:
       tags:
         - UserFactor
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Enroll a Factor
       description: Enrolls a user with a supported factor
@@ -15316,7 +15299,7 @@ paths:
       tags:
         - UserFactor
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/users/{userId}/factors/catalog:
     get:
       summary: List all Supported Factors
@@ -15350,7 +15333,7 @@ paths:
       tags:
         - UserFactor
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/users/{userId}/factors/questions:
     get:
       summary: List all Supported Security Questions
@@ -15382,7 +15365,8 @@ paths:
       tags:
         - UserFactor
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/factors/{factorId}:
     get:
       summary: Retrieve a Factor
@@ -15419,7 +15403,7 @@ paths:
       tags:
         - UserFactor
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Unenroll a Factor
       description: Unenrolls an existing factor for the specified user, allowing the user to enroll a new factor
@@ -15457,7 +15441,7 @@ paths:
       tags:
         - UserFactor
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/users/{userId}/factors/{factorId}/lifecycle/activate:
     post:
       summary: Activate a Factor
@@ -15503,7 +15487,7 @@ paths:
       tags:
         - UserFactor
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/users/{userId}/factors/{factorId}/transactions/{transactionId}:
     get:
       summary: Retrieve a Factor Transaction Status
@@ -15545,7 +15529,7 @@ paths:
       tags:
         - UserFactor
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/users/{userId}/factors/{factorId}/verify:
     post:
       summary: Verify an MFA Factor
@@ -15616,7 +15600,7 @@ paths:
       tags:
         - UserFactor
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/users/{userId}/grants:
     get:
       summary: List all User Grants
@@ -15668,7 +15652,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
     delete:
       summary: Revoke all User Grants
       description: Revokes all grants for a specified user
@@ -15696,7 +15681,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/grants/{grantId}:
     get:
       summary: Retrieve a User Grant
@@ -15737,7 +15723,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
     delete:
       summary: Revoke a User Grant
       description: Revokes one grant for a specified user
@@ -15770,7 +15757,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/groups:
     get:
       summary: List all Groups
@@ -15804,7 +15792,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/idps:
     get:
       summary: List all Identity Providers
@@ -15838,7 +15827,7 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/users/{userId}/lifecycle/activate:
     post:
       summary: Activate a User
@@ -15877,7 +15866,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/lifecycle/deactivate:
     post:
       summary: Deactivate a User
@@ -15912,7 +15902,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/lifecycle/expire_password:
     post:
       summary: Expire Password
@@ -15944,7 +15935,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/lifecycle/expire_password_with_temp_password:
     post:
       summary: Expire Password and Set Temporary Password
@@ -15976,7 +15968,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/lifecycle/reactivate:
     post:
       summary: Reactivate a User
@@ -16014,7 +16007,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/lifecycle/reset_factors:
     post:
       summary: Reset all Factors
@@ -16043,7 +16037,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/lifecycle/reset_password:
     post:
       summary: Generate a Reset Password Token
@@ -16080,7 +16075,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/lifecycle/suspend:
     post:
       summary: Suspend a User
@@ -16109,7 +16105,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/lifecycle/unlock:
     post:
       summary: Unlock a User
@@ -16138,7 +16135,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/lifecycle/unsuspend:
     post:
       summary: Unsuspend a User
@@ -16167,7 +16165,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/linkedObjects/{relationshipName}:
     get:
       summary: List all Linked Objects
@@ -16216,7 +16215,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
     delete:
       summary: Delete a Linked Object
       description: Deletes linked objects for a user, relationshipName can be ONLY a primary relationship name
@@ -16249,7 +16249,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/roles:
     get:
       summary: List all Roles assigned to a User
@@ -16287,7 +16288,7 @@ paths:
       tags:
         - RoleAssignment
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Assign a Role to a User
       description: Assigns a role to a user identified by `userId`
@@ -16332,7 +16333,7 @@ paths:
       tags:
         - RoleAssignment
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/users/{userId}/roles/{roleId}:
     get:
       summary: Retrieve a Role assigned to a User
@@ -16369,7 +16370,7 @@ paths:
       tags:
         - RoleAssignment
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Unassign a Role from a User
       description: Unassigns a role identified by `roleId` from a user identified by `userId`
@@ -16402,7 +16403,7 @@ paths:
       tags:
         - RoleAssignment
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/users/{userId}/roles/{roleId}/targets/catalog/apps:
     get:
       summary: List all Application Targets for Application Administrator Role
@@ -16451,7 +16452,7 @@ paths:
       tags:
         - RoleTarget
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Assign all Apps as Target to Role
       description: Assigns all Apps as Target to Role
@@ -16484,7 +16485,7 @@ paths:
       tags:
         - RoleTarget
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/users/{userId}/roles/{roleId}/targets/catalog/apps/{appName}:
     put:
       summary: Assign an Application Target to Administrator Role
@@ -16523,7 +16524,7 @@ paths:
       tags:
         - RoleTarget
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Unassign an Application Target from an Application Administrator Role
       description: Unassigns an application target from application administrator role
@@ -16561,7 +16562,7 @@ paths:
       tags:
         - RoleTarget
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/users/{userId}/roles/{roleId}/targets/catalog/apps/{appName}/{applicationId}:
     put:
       summary: Assign an Application Instance Target to an Application Administrator Role
@@ -16605,7 +16606,7 @@ paths:
       tags:
         - RoleTarget
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Unassign an Application Instance Target from an Application Administrator Role
       description: Unassigns an application instance target from an application administrator role
@@ -16648,7 +16649,7 @@ paths:
       tags:
         - RoleTarget
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/users/{userId}/roles/{roleId}/targets/groups:
     get:
       summary: List all Group Targets for Role
@@ -16697,7 +16698,7 @@ paths:
       tags:
         - RoleTarget
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/users/{userId}/roles/{roleId}/targets/groups/{groupId}:
     put:
       summary: Assign a Group Target to Role
@@ -16736,7 +16737,7 @@ paths:
       tags:
         - RoleTarget
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Unassign a Group Target from Role
       description: Unassigns a Group Target from Role
@@ -16774,7 +16775,7 @@ paths:
       tags:
         - RoleTarget
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/users/{userId}/sessions:
     delete:
       summary: Revoke all User Sessions
@@ -16809,7 +16810,8 @@ paths:
       tags:
         - User
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
+        isCorsEnabled: true
   /api/v1/users/{userId}/subscriptions:
     get:
       summary: List all Subscriptions
@@ -16843,7 +16845,7 @@ paths:
       tags:
         - Subscription
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/users/{userId}/subscriptions/{notificationType}:
     get:
       summary: List all Subscriptions by type
@@ -16880,7 +16882,7 @@ paths:
       tags:
         - Subscription
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/users/{userId}/subscriptions/{notificationType}/subscribe:
     post:
       summary: Subscribe to a specific notification type
@@ -16913,7 +16915,7 @@ paths:
       tags:
         - Subscription
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/users/{userId}/subscriptions/{notificationType}/unsubscribe:
     post:
       summary: Unsubscribe from a specific notification type
@@ -16946,7 +16948,7 @@ paths:
       tags:
         - Subscription
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/zones:
     get:
       summary: List all Network Zones
@@ -16995,7 +16997,7 @@ paths:
       tags:
         - NetworkZone
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     post:
       summary: Create a Network Zone
       description: |-
@@ -17030,7 +17032,7 @@ paths:
       tags:
         - NetworkZone
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/zones/{zoneId}:
     get:
       summary: Retrieve a Network Zone
@@ -17062,7 +17064,7 @@ paths:
       tags:
         - NetworkZone
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     put:
       summary: Replace a Network Zone
       description: |-
@@ -17104,7 +17106,7 @@ paths:
       tags:
         - NetworkZone
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
     delete:
       summary: Delete a Network Zone
       description: Deletes network zone by `zoneId`
@@ -17132,7 +17134,7 @@ paths:
       tags:
         - NetworkZone
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/zones/{zoneId}/lifecycle/activate:
     post:
       summary: Activate a Network Zone
@@ -17164,7 +17166,7 @@ paths:
       tags:
         - NetworkZone
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
   /api/v1/zones/{zoneId}/lifecycle/deactivate:
     post:
       summary: Deactivate a Network Zone
@@ -17196,7 +17198,7 @@ paths:
       tags:
         - NetworkZone
       x-okta-lifecycle:
-        lifecycle: GA_NO_FLAG
+        lifecycle: GA
 components:
   securitySchemes:
     apiToken:
@@ -17286,9 +17288,9 @@ components:
           tokenWindow: P30D
           id: 00Tabcdefg1234567890
           clientName: Okta API
-          expiresAt: 2021-12-11T20:38:10.000Z
-          created: 2021-11-09T20:38:10.000Z
-          lastUpdated: 2021-11-11T20:38:10.000Z
+          expiresAt: '2021-12-11T20:38:10.000Z'
+          created: '2021-11-09T20:38:10.000Z'
+          lastUpdated: '2021-11-11T20:38:10.000Z'
           _links:
             self:
               href: https://{yourOktaDomain}/api/v1/api-tokens/00Tabcdefg1234567890
@@ -17306,9 +17308,9 @@ components:
           tokenWindow: PT5M
           id: 00T1234567890abcdefg
           clientName: Okta API
-          expiresAt: 2021-11-11T20:43:10.000Z
-          created: 2021-11-09T20:38:10.000Z
-          lastUpdated: 2021-11-11T20:38:10.000Z
+          expiresAt: '2021-11-11T20:43:10.000Z'
+          created: '2021-11-09T20:38:10.000Z'
+          lastUpdated: '2021-11-11T20:38:10.000Z'
           _links:
             self:
               href: https://{yourOktaDomain}/api/v1/api-tokens/00T1234567890abcdefg
@@ -17328,9 +17330,9 @@ components:
         tokenWindow: P30D
         id: 00Tabcdefg1234567890
         clientName: Okta API
-        expiresAt: 2021-12-11T20:38:10.000Z
-        created: 2021-11-09T20:38:10.000Z
-        lastUpdated: 2021-11-11T20:38:10.000Z
+        expiresAt: '2021-12-11T20:38:10.000Z'
+        created: '2021-11-09T20:38:10.000Z'
+        lastUpdated: '2021-11-11T20:38:10.000Z'
         _links:
           self:
             href: https://{yourOktaDomain}/api/v1/api-tokens/00Tabcdefg1234567890
@@ -17442,7 +17444,7 @@ components:
             hints:
               allow:
                 - GET
-    AuthenticatorResponseEmail: &ref_0
+    AuthenticatorResponseEmail:
       value:
         type: email
         id: aut1nbsPHh7jNjjyP0g4
@@ -17471,7 +17473,7 @@ components:
             hints:
               allow:
                 - POST
-    AuthenticatorResponsePassword: &ref_1
+    AuthenticatorResponsePassword:
       value:
         type: password
         id: aut1nbtrJKKA9m45a0g4
@@ -17492,7 +17494,7 @@ components:
             hints:
               allow:
                 - GET
-    AuthenticatorResponsePhone: &ref_2
+    AuthenticatorResponsePhone:
       value:
         type: phone
         id: aut1nbuyD8m1ckAYc0g4
@@ -17545,7 +17547,7 @@ components:
             hints:
               allow:
                 - POST
-    AuthenticatorResponseWebAuthn: &ref_3
+    AuthenticatorResponseWebAuthn:
       value:
         type: security_key
         id: aut1nd8PQhGcQtSxB0g4
@@ -17573,10 +17575,106 @@ components:
                 - POST
     AuthenticatorsResponse:
       value:
-        - *ref_0
-        - *ref_1
-        - *ref_2
-        - *ref_3
+        - value:
+            type: email
+            id: aut1nbsPHh7jNjjyP0g4
+            key: okta_email
+            status: ACTIVE
+            name: Email
+            created: '2020-07-26T21:05:23.000Z'
+            lastUpdated: '2020-07-28T21:45:52.000Z'
+            settings:
+              allowedFor: any
+              tokenLifetimeInMinutes: 5
+            _links:
+              self:
+                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbsPHh7jNjjyP0g4
+                hints:
+                  allow:
+                    - GET
+                    - PUT
+              methods:
+                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbsPHh7jNjjyP0g4/methods
+                hints:
+                  allow:
+                    - GET
+              deactivate:
+                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbsPHh7jNjjyP0g4/lifecycle/deactivate
+                hints:
+                  allow:
+                    - POST
+        - value:
+            type: password
+            id: aut1nbtrJKKA9m45a0g4
+            key: okta_password
+            status: ACTIVE
+            name: Password
+            created: '2020-07-26T21:05:23.000Z'
+            lastUpdated: '2020-07-26T21:05:23.000Z'
+            _links:
+              self:
+                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbtrJKKA9m45a0g4
+                hints:
+                  allow:
+                    - GET
+                    - PUT
+              methods:
+                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbtrJKKA9m45a0g4/methods
+                hints:
+                  allow:
+                    - GET
+        - value:
+            type: phone
+            id: aut1nbuyD8m1ckAYc0g4
+            key: phone_number
+            status: INACTIVE
+            name: Phone
+            created: '2020-07-26T21:05:23.000Z'
+            lastUpdated: '2020-07-29T00:21:29.000Z'
+            settings:
+              allowedFor: none
+            _links:
+              self:
+                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbuyD8m1ckAYc0g4
+                hints:
+                  allow:
+                    - GET
+                    - PUT
+              methods:
+                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbuyD8m1ckAYc0g4/methods
+                hints:
+                  allow:
+                    - GET
+              activate:
+                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nbuyD8m1ckAYc0g4/lifecycle/activate
+                hints:
+                  allow:
+                    - POST
+        - value:
+            type: security_key
+            id: aut1nd8PQhGcQtSxB0g4
+            key: webauthn
+            status: ACTIVE
+            name: Security Key or Biometric
+            created: '2020-07-26T21:16:37.000Z'
+            lastUpdated: '2020-07-27T18:59:30.000Z'
+            _links:
+              self:
+                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4
+                hints:
+                  allow:
+                    - GET
+                    - PUT
+              methods:
+                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/methods
+                hints:
+                  allow:
+                    - GET
+              deactivate:
+                href: https://{yourOktaDomain}/api/v1/authenticators/aut1nd8PQhGcQtSxB0g4/lifecycle/deactivate
+                hints:
+                  allow:
+                    - POST
     BehaviorRuleRequest:
       value:
         name: My Behavior Rule
@@ -17589,8 +17687,8 @@ components:
         settings:
           velocityKph: 805
         status: ACTIVE
-        created: 2021-11-09T20:38:10.000Z
-        lastUpdated: 2021-11-11T20:38:10.000Z
+        created: '2021-11-09T20:38:10.000Z'
+        lastUpdated: '2021-11-11T20:38:10.000Z'
         _link:
           self:
             href: https://your-subdomain.okta.com/api/v1/behaviors/abcd1234
@@ -17642,9 +17740,6 @@ components:
                 - POST
                 - PUT
                 - DELETE
-    CreateBrandDomainRequest:
-      value:
-        domainId: OcD11vyscTlIkpC7i0g4
     CreateBrandRequest:
       value:
         name: My Awesome Brand
@@ -17681,8 +17776,8 @@ components:
         body: <!DOCTYPE html><html><body><p>Bonjour ${user.profile.firstName}. <a href="${activationLink}">Activer le compte</a></p></body></html>
         isDefault: false
         id: oel11u6DqUiMbQkpl0g4
-        created: 2021-11-09T20:38:10.000Z
-        lastUpdated: 2021-11-11T20:38:10.000Z
+        created: '2021-11-09T20:38:10.000Z'
+        lastUpdated: '2021-11-11T20:38:10.000Z'
         _links:
           self:
             href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/customizations/oel11u6DqUiMbQkpl0g4
@@ -17749,8 +17844,8 @@ components:
       value:
         id: dae3m8o4rWhwReDeM1c5
         name: Device Assurance Example
-        lastUpdate: 2022-01-01T00:00:00.000Z
-        createdUpdate: 2022-01-01T00:00:00.000Z
+        lastUpdate: '2022-01-01T00:00:00.000Z'
+        createdUpdate: '2022-01-01T00:00:00.000Z'
         lastUpdatedBy: 00u217pyf72CdUrBt1c5
         createdBy: 00u217pyf72CdUrBt1c5
         osVersion:
@@ -17839,8 +17934,8 @@ components:
         subject: Welcome to ${org.name}!
         body: <!DOCTYPE html><html><body><p>Hello, ${user.profile.firstName}. Click <a href="${activationLink}">here</a> to activate your account.</body></html>
         id: oel11u6DqUiMbQkpl0g4
-        created: 2021-11-09T20:38:10.000Z
-        lastUpdated: 2021-11-11T20:38:10.000Z
+        created: '2021-11-09T20:38:10.000Z'
+        lastUpdated: '2021-11-11T20:38:10.000Z'
         _links:
           self:
             href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/customizations/oel11u6DqUiMbQkpl0g4
@@ -18005,14 +18100,6 @@ components:
         errorLink: E0000189
         errorId: oae8L1-UkcNTeGi5xVQ28_lww
         errorCauses: []
-    ErrorLinkDefaultBrand:
-      value:
-        errorCode: E0000203
-        errorSummary: Failed to associate this domain with the given brandId
-        errorLink: E0000203
-        errorId: oaeAdRqprFuTyKokyYPbURJkA
-        errorCauses:
-          - errorSummary: The default brand cannot be mapped to a domain
     ErrorPushProviderUsedByCustomAppAuthenticator:
       value:
         errorCode: E0000187
@@ -18147,30 +18234,6 @@ components:
               - $ref: '#/definitions/base'
         title: Okta group
         type: object
-    LinkBrandDomain:
-      value:
-        domainId: OcD11vyscTlIkpC7i0g4
-        _links:
-          self:
-            href: https://{yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4/domains/OcD11vyscTlIkpC7i0g4
-            hints:
-              allow:
-                - PUT
-                - DELETE
-          brand:
-            href: https://{yourOktaDomain}/api/v1/brands/bnd114iNkrcN6aR680g4
-            hints:
-              allow:
-                - GET
-                - PUT
-                - DELETE
-          domain:
-            href: https://{yourOktaDomain}/api/v1/domains/OcD11vyscTlIkpC7i0g4
-            hints:
-              allow:
-                - GET
-                - PUT
-                - DELETE
     ListBrandsResponse:
       value:
         - id: bnd114iNkrcN6aR680g4
@@ -18198,8 +18261,8 @@ components:
           subject: Welcome to ${org.name}!
           body: <!DOCTYPE html><html><body><p>Hello, ${user.profile.firstName}. Click <a href="${activationLink}">here</a> to activate your account.</body></html>
           id: oel11u6DqUiMbQkpl0g4
-          created: 2021-11-09T20:38:10.000Z
-          lastUpdated: 2021-11-11T20:38:10.000Z
+          created: '2021-11-09T20:38:10.000Z'
+          lastUpdated: '2021-11-11T20:38:10.000Z'
           _links:
             self:
               href: https://{yourOktaDomain}/api/v1/brands/{brandId}/templates/email/UserActivation/customizations/oel11u6DqUiMbQkpl0g4
@@ -18273,12 +18336,12 @@ components:
       value:
         - id: 00u118oQYT4TBGuay0g4
           status: ACTIVE
-          created: 2022-04-04T15:56:05.000Z
+          created: '2022-04-04T15:56:05.000Z'
           activated: null
           statusChanged: null
-          lastLogin: 2022-05-04T19:50:52.000Z
-          lastUpdated: 2022-05-05T18:15:44.000Z
-          passwordChanged: 2022-04-04T16:00:22.000Z
+          lastLogin: '2022-05-04T19:50:52.000Z'
+          lastUpdated: '2022-05-05T18:15:44.000Z'
+          passwordChanged: '2022-04-04T16:00:22.000Z'
           type:
             id: oty1162QAr8hJjTaq0g4
           profile:
@@ -18324,7 +18387,7 @@ components:
             href: http://{yourOktaDomain}/api/v1/logStreams/0oa1orqUGCIoCGNxf0g4/lifecycle/deactivate
             method: POST
     LogStreamSchemaAws:
-      value: &ref_4
+      value:
         $schema: https://json-schema.org/draft/2020-12/schema
         $id: http://{yourOktaDomain}/api/v1/meta/schemas/logStream/aws_eventbridge
         title: AWS EventBridge
@@ -18396,9 +18459,76 @@ components:
             name: Name can't exceed 100 characters.
     LogStreamSchemaList:
       value:
-        - *ref_4
-        - &ref_5
-          $schema: https://json-schema.org/draft/2020-12/schema
+        - $schema: https://json-schema.org/draft/2020-12/schema
+          $id: http://{yourOktaDomain}/api/v1/meta/schemas/logStream/aws_eventbridge
+          title: AWS EventBridge
+          type: object
+          properties:
+            settings:
+              description: Configuration properties specific to AWS EventBridge
+              type: object
+              properties:
+                accountId:
+                  title: AWS Account ID
+                  description: Your Amazon AWS Account ID.
+                  type: string
+                  writeOnce: true
+                  pattern: ^\d{12}$
+                eventSourceName:
+                  title: AWS Event Source Name
+                  description: An alphanumeric name (no spaces) to identify this event source in AWS EventBridge.
+                  type: string
+                  writeOnce: true
+                  pattern: ^[\.\-_A-Za-z0-9]{1,75}$
+                region:
+                  title: AWS Region
+                  description: The destination AWS region for your system log events.
+                  type: string
+                  writeOnce: true
+                  oneOf:
+                    - title: US East (Ohio)
+                      const: us-east-2
+                    - title: US East (N. Virginia)
+                      const: us-east-1
+                    - title: US West (N. California)
+                      const: us-west-1
+                    - title: US West (Oregon)
+                      const: us-west-2
+                    - title: Canada (Central)
+                      const: ca-central-1
+                    - title: Europe (Frankfurt)
+                      const: eu-central-1
+                    - title: Europe (Ireland)
+                      const: eu-west-1
+                    - title: Europe (London)
+                      const: eu-west-2
+                    - title: Europe (Paris)
+                      const: eu-west-3
+                    - title: Europe (Milan)
+                      const: eu-south-1
+                    - title: Europe (Stockholm)
+                      const: eu-north-1
+              required:
+                - eventSourceName
+                - accountId
+                - region
+              errorMessage:
+                properties:
+                  accountId: Account number must be 12 digits.
+                  eventSourceName: Event source name can use numbers, letters, the symbols ".", "-" or "_". It must use fewer than 76 characters.
+            name:
+              title: Name
+              description: A name for this log stream in Okta
+              type: string
+              writeOnce: false
+              pattern: ^.{1,100}$
+          required:
+            - name
+            - settings
+          errorMessage:
+            properties:
+              name: Name can't exceed 100 characters.
+        - $schema: https://json-schema.org/draft/2020-12/schema
           $id: http://{yourOktaDomain}/api/v1/meta/schemas/logStream/splunk_cloud_logstreaming
           title: Splunk Cloud
           type: object
@@ -18438,7 +18568,46 @@ components:
             properties:
               name: Name can't exceed 100 characters.
     LogStreamSchemaSplunk:
-      value: *ref_5
+      value:
+        $schema: https://json-schema.org/draft/2020-12/schema
+        $id: http://{yourOktaDomain}/api/v1/meta/schemas/logStream/splunk_cloud_logstreaming
+        title: Splunk Cloud
+        type: object
+        properties:
+          settings:
+            description: Configuration properties specific to Splunk Cloud
+            type: object
+            properties:
+              host:
+                title: Host
+                description: 'The domain for your Splunk Cloud instance without http or https. For example: acme.splunkcloud.com'
+                type: string
+                writeOnce: false
+                pattern: ^([a-z0-9]+(-[a-z0-9]+)*){1,100}\.splunkcloud(gc|fed)?\.com$
+              token:
+                title: HEC Token
+                description: The token from your Splunk Cloud HTTP Event Collector (HEC).
+                type: string
+                writeOnce: false
+                pattern: '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}'
+            required:
+              - host
+              - token
+            errorMessage:
+              properties:
+                host: 'Host should be a domain without http or https. For example: acme.splunkcloud.com'
+          name:
+            title: Name
+            description: A name for this log stream in Okta
+            type: string
+            writeOnce: false
+            pattern: ^.{1,100}$
+        required:
+          - name
+          - settings
+        errorMessage:
+          properties:
+            name: Name can't exceed 100 characters.
     PerClientRateLimitSettingsEnforceDefault:
       value:
         defaultMode: ENFORCE
@@ -18574,7 +18743,7 @@ components:
         id: ppctekcmngGaqeiBxB0g4
         name: APNs Example
         providerType: APNS
-        lastUpdatedDate: 2022-01-01T00:00:00.000Z
+        lastUpdatedDate: '2022-01-01T00:00:00.000Z'
         configuration:
           keyId: KEY_ID
           teamId: TEAM_ID
@@ -18609,7 +18778,7 @@ components:
         id: ppctekcmngGaqeiBxB0g4
         name: FCM Example
         providerType: FCM
-        lastUpdatedDate: 2022-01-01T00:00:00.000Z
+        lastUpdatedDate: '2022-01-01T00:00:00.000Z'
         configuration:
           projectId: PROJECT_ID
           fileName: fileName.p8
@@ -19070,13 +19239,6 @@ components:
         example: guo4a5u7JHHhjXrMK0g4
       required: true
       description: '`id` of the device'
-    pathDomainId:
-      name: domainId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The ID of the domain.
     pathEmailDomainId:
       name: emailDomainId
       in: path
@@ -19652,6 +19814,7 @@ components:
           type: string
           format: date-time
           readOnly: true
+          nullable: true
         profile:
           type: object
           additionalProperties:
@@ -19895,6 +20058,23 @@ components:
           additionalProperties: {}
         scope:
           type: string
+    ApplicationLayouts:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            general:
+              $ref: '#/components/schemas/ApplicationLayoutsLinksItem'
+            signOn:
+              $ref: '#/components/schemas/ApplicationLayoutsLinksItem'
+            provisioning:
+              $ref: '#/components/schemas/ApplicationLayoutsLinksItem'
+          readOnly: true
+    ApplicationLayoutsLinksItem:
+      items:
+        $ref: '#/components/schemas/HrefObject'
+      type: array
     ApplicationLicensing:
       type: object
       properties:
@@ -20531,23 +20711,6 @@ components:
               $ref: '#/components/schemas/HrefObject'
           readOnly: true
           type: object
-    BrandDomain:
-      type: object
-      properties:
-        domainId:
-          type: string
-          readOnly: true
-        _links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/HrefObject'
-            brand:
-              $ref: '#/components/schemas/HrefObject'
-            domain:
-              $ref: '#/components/schemas/HrefObject'
-          readOnly: true
-          description: Links to resources related to this brand domain
     BrandDomains:
       title: BrandDomains
       items:
@@ -20741,12 +20904,6 @@ components:
           properties:
             expression:
               type: string
-    CreateBrandDomainRequest:
-      title: CreateBrandDomainRequest
-      type: object
-      properties:
-        domainId:
-          type: string
     CreateBrandRequest:
       title: CreateBrandRequest
       type: object
@@ -22662,7 +22819,7 @@ components:
         alternateId:
           type: string
           readOnly: true
-        detail:
+        detailEntry:
           type: object
           additionalProperties:
             type: object
@@ -23263,6 +23420,7 @@ components:
       type: string
       enum:
         - AD_AGENT
+        - AGENT_AUTO_UPDATE_NOTIFICATION
         - APP_IMPORT
         - CONNECTOR_AGENT
         - IWA_AGENT
@@ -23548,7 +23706,6 @@ components:
         - authorization_code
         - client_credentials
         - implicit
-        - interaction_code
         - interaction_code
         - password
         - refresh_token

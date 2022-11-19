@@ -1,3 +1,7 @@
+/* 
+Lifecycle badge custom tags for markdown useable in *.md and embedded in OAS yaml descriptions.
+Keep in sync with LifecycleBadge in ReferenceDocsHooks.tsx (react component used in automation)
+*/
 x-lifecycle {
   color: #ffffff;
   border-radius: 4px;
@@ -24,4 +28,10 @@ x-lifecycle.oie {
 }
 x-lifecycle.oie::before {
   content: 'Identity Engine';
+}
+x-lifecycle.cors {
+  background: #d7d7dc;
+}
+x-lifecycle.cors::before {
+  content: 'CORS';
 }

@@ -44,6 +44,8 @@ paths:
             - okta.myaccount.email.read
       tags:
         - Email
+      x-okta-lifecycle:
+        lifecycle: GA
     post:
       summary: Create an Email
       description: Creates a new email
@@ -108,6 +110,8 @@ paths:
             - okta.myaccount.email.manage
       tags:
         - Email
+      x-okta-lifecycle:
+        lifecycle: GA
   /idp/myaccount/emails/{id}:
     parameters:
       - schema:
@@ -130,6 +134,8 @@ paths:
             - okta.myaccount.email.read
       tags:
         - Email
+      x-okta-lifecycle:
+        lifecycle: GA
     delete:
       summary: Delete an Email
       description: Deletes an email by email id
@@ -153,6 +159,8 @@ paths:
             - okta.myaccount.email.manage
       tags:
         - Email
+      x-okta-lifecycle:
+        lifecycle: GA
   /idp/myaccount/emails/{id}/challenge:
     parameters:
       - schema:
@@ -303,6 +311,8 @@ paths:
             - okta.myaccount.email.manage
       tags:
         - Email
+      x-okta-lifecycle:
+        lifecycle: GA
   /idp/myaccount/emails/{id}/challenge/{challengeId}:
     parameters:
       - schema:
@@ -440,6 +450,8 @@ paths:
             - okta.myaccount.email.manage
       tags:
         - Email
+      x-okta-lifecycle:
+        lifecycle: GA
   /idp/myaccount/emails/{id}/challenge/{challengeId}/verify:
     parameters:
       - schema:
@@ -490,6 +502,8 @@ paths:
             - okta.myaccount.email.manage
       tags:
         - Email
+      x-okta-lifecycle:
+        lifecycle: GA
   /idp/myaccount/phones:
     get:
       summary: List all Phones
@@ -505,6 +519,8 @@ paths:
             - okta.myaccount.phone.read
       tags:
         - Phone
+      x-okta-lifecycle:
+        lifecycle: GA
     post:
       summary: Create a Phone
       description: Creates a new phone
@@ -556,6 +572,8 @@ paths:
             - okta.myaccount.phone.manage
       tags:
         - Phone
+      x-okta-lifecycle:
+        lifecycle: GA
   /idp/myaccount/phones/{id}:
     parameters:
       - schema:
@@ -580,6 +598,8 @@ paths:
             - okta.myaccount.phone.read
       tags:
         - Phone
+      x-okta-lifecycle:
+        lifecycle: GA
     delete:
       summary: Delete a Phone
       description: Deletes a phone given a phone id
@@ -600,6 +620,8 @@ paths:
             - okta.myaccount.phone.manage
       tags:
         - Phone
+      x-okta-lifecycle:
+        lifecycle: GA
   /idp/myaccount/phones/{id}/challenge:
     parameters:
       - schema:
@@ -655,6 +677,8 @@ paths:
             - okta.myaccount.phone.manage
       tags:
         - Phone
+      x-okta-lifecycle:
+        lifecycle: GA
   /idp/myaccount/phones/{id}/verify:
     parameters:
       - schema:
@@ -704,6 +728,8 @@ paths:
             - okta.myaccount.phone.manage
       tags:
         - Phone
+      x-okta-lifecycle:
+        lifecycle: GA
   /idp/myaccount/profile:
     get:
       summary: Retrieve my Profile
@@ -740,6 +766,8 @@ paths:
             - okta.myaccount.profile.manage
       tags:
         - Profile
+      x-okta-lifecycle:
+        lifecycle: GA
     put:
       summary: Replace my Profile
       description: Replaces my profile
@@ -795,6 +823,8 @@ paths:
             - okta.myaccount.profile.manage
       tags:
         - Profile
+      x-okta-lifecycle:
+        lifecycle: GA
   /idp/myaccount/profile/schema:
     get:
       summary: Retrieve my Profile Schema
@@ -853,6 +883,8 @@ paths:
             - okta.myaccount.profile.manage
       tags:
         - Profile
+      x-okta-lifecycle:
+        lifecycle: GA
 components:
   schemas:
     Email:
