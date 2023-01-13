@@ -8,6 +8,7 @@ const LifecycleBadge = styled.span`
           : props.ea ? Tokens.ColorPalettePurple500
           : props.ie ? Tokens.ColorPaletteBlue900
           : props.cors ? Tokens.ColorPaletteNeutral500
+          : props.sku ? Tokens.ColorPaletteGreen500
           : Tokens.ColorPaletteNeutral500 };
     border-radius: ${Tokens.BorderRadiusOuter};
     margin-right: ${Tokens.SpaceScale2};
@@ -56,12 +57,21 @@ function getLifecycleBadge(operation) {
     return null
 }
 
-function getIdentityEngineBadge(operation) {
-    if (operation["x-okta-lifecycle"]) {
-        const lifecycle = operation["x-okta-lifecycle"]
-        if (lifecycle.isIdentityEngine) {
-            return <LifecycleBadge ie>Identity Engine</ LifecycleBadge>
-        }
+// TODO need to confirm which other SKUs we want to advertise
+function getSkuBadges(operation) {
+    if (operation["x-okta-lifecycle"] && operation["x-okta-lifecycle"].SKUs) {
+        const skus = operation["x-okta-lifecycle"].SKUs
+        return (
+            <span>
+                {skus.map((sku) => {
+                    if (sku === "Okta Identity Engine") {
+                        return <LifecycleBadge ie>Identity Engine</LifecycleBadge>
+                    } else {
+                        return <LifecycleBadge sku>{sku}</LifecycleBadge>
+                    }
+                })}
+            </span>
+        )
     }
     return null
 }
@@ -122,9 +132,9 @@ export function AfterOperationSummary({ operation }) {
     return (
         <LifecycleAndScopesContainer>
             <div>
-                { getIdentityEngineBadge(rawOperation) }
                 { getLifecycleBadge(rawOperation) }
                 { getCorsBadge(rawOperation) }
+                { getSkuBadges(rawOperation) }
             </div>
             { getIamPermissions(rawOperation) }
             { getOAuth2ScopeSection(rawOperation) }

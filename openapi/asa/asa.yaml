@@ -87,7 +87,7 @@ paths:
                       type: auth_token.issue
                       via: null
                     id: UD5pqjIhjKVQPmmqMiGMpQ==
-                    timestamp: '2022-11-18T18:00:13.429731139Z'
+                    timestamp: '2023-01-11T23:53:12.445962908Z'
                 related_objects:
                   FWUysQmguH4ns9NT1Uszl5j2a1t9SK2lYNACeu03uBs=:
                     object:
@@ -142,7 +142,7 @@ paths:
       description: |-
         Returns a list of ASA Clients. By default, this API returns the ASA Clients for the requesting ASA User. You can provide query options to filter by ASA User or state.
 
-        This endpoint requires one of the following roles: `access_admin`, `reporting_user`, or `access_user`.
+        This endpoint requires one of the following roles: `access_user`, `access_admin`, or `reporting_user`.
       operationId: ListClients
       parameters:
         - description: The UUID of the object used as an offset for pagination
@@ -630,7 +630,7 @@ paths:
       description: |-
         Lists the ASA Groups for a Team
 
-        This endpoint requires one of the following roles: `access_admin`, `access_user`, or `reporting_user`.
+        This endpoint requires one of the following roles: `access_user`, `reporting_user`, or `access_admin`.
       operationId: ListGroups
       parameters:
         - description: The UUID of the object used as an offset for pagination
@@ -685,7 +685,7 @@ paths:
             application/json:
               example:
                 list:
-                  - id: 7aa61d03-6337-4f87-ac16-9b02cf4e934e
+                  - id: d7c223a7-c08a-498e-872b-efb898baf0ea
                     name: compsons
                     roles:
                       - access_user
@@ -694,7 +694,7 @@ paths:
                     federated_from_team: william-faulkner
                     federation_approved_at: '2018-04-07T00:00:00Z'
                     deleted_at: '0001-01-01T00:00:00Z'
-                  - id: 3fc2c75f-85ef-4151-bbba-363b7a6c2bc4
+                  - id: 5eb273d4-e7ee-4687-aa17-6a23c995e01a
                     name: compsons
                     roles:
                       - access_user
@@ -762,7 +762,7 @@ paths:
                 deleted_at: '0001-01-01T00:00:00Z'
                 federated_from_team: null
                 federation_approved_at: null
-                id: 3fc2c75f-85ef-4151-bbba-363b7a6c2bc4
+                id: 5eb273d4-e7ee-4687-aa17-6a23c995e01a
                 name: compsons
                 roles:
                   - access_user
@@ -779,7 +779,7 @@ paths:
       description: |-
         Fetches details regarding a single ASA Group
 
-        This endpoint requires one of the following roles: `reporting_user`, `access_admin`, or `access_user`.
+        This endpoint requires one of the following roles: `access_admin`, `access_user`, or `reporting_user`.
       operationId: GetGroup
       parameters:
         - description: The name of your Team
@@ -802,7 +802,7 @@ paths:
                 deleted_at: '0001-01-01T00:00:00Z'
                 federated_from_team: null
                 federation_approved_at: null
-                id: 3fc2c75f-85ef-4151-bbba-363b7a6c2bc4
+                id: 5eb273d4-e7ee-4687-aa17-6a23c995e01a
                 name: compsons
                 roles:
                   - access_user
@@ -881,7 +881,7 @@ paths:
       description: |-
         Lists the Attributes for an ASA Group
 
-        This endpoint requires one of the following roles: `access_admin`, `access_user`, or `reporting_user`.
+        This endpoint requires one of the following roles: `reporting_user`, `access_admin`, or `access_user`.
       operationId: ListGroupAttributes
       parameters:
         - description: The UUID of the object used as an offset for pagination
@@ -961,7 +961,7 @@ paths:
       description: |-
         Fetches the details of an Attribute for an ASA Group
 
-        This endpoint requires one of the following roles: `access_admin`, `access_user`, or `reporting_user`.
+        This endpoint requires one of the following roles: `access_user`, `reporting_user`, or `access_admin`.
       operationId: FetchGroupAttribute
       parameters:
         - description: The name of your Team
@@ -1144,7 +1144,7 @@ paths:
               example:
                 list:
                   - team_name: william-faulkner
-                    id: c8b0fc83-9c5c-47a4-9353-9e44df51ebef
+                    id: cd9bc510-8cce-4fd5-b4b8-1c7f938afe20
                     name: Benjy.Compson
                     status: DISABLED
                     details:
@@ -1206,7 +1206,7 @@ paths:
                 first_name: Jason
                 full_name: Jason Compson IV
                 last_name: Compson
-              id: 2a83d6bc-5f4b-42bd-9f01-4d0f4014c710
+              id: 63add65e-7c70-416e-93c5-86c1e56ca9bd
               name: Jason.Compson.IV
               oauth_client_application_id: null
               role_grants: null
@@ -1260,7 +1260,7 @@ paths:
       description: |-
         Lists ASA Users of a Team not assigned to an ASA Group
 
-        This endpoint requires one of the following roles: `reporting_user`, `access_user`, or `access_admin`.
+        This endpoint requires one of the following roles: `access_user`, `access_admin`, or `reporting_user`.
       operationId: ListUsersNotInGroup
       parameters:
         - description: The UUID of the object used as an offset for pagination
@@ -1323,7 +1323,7 @@ paths:
               example:
                 list:
                   - team_name: william-faulkner
-                    id: 2a83d6bc-5f4b-42bd-9f01-4d0f4014c710
+                    id: 63add65e-7c70-416e-93c5-86c1e56ca9bd
                     name: Jason.Compson.IV
                     status: ACTIVE
                     details:
@@ -1590,7 +1590,7 @@ paths:
       description: |-
         Lists Projects for a Team
 
-        This endpoint requires one of the following roles: `access_admin`, `authenticated_client`, `client`, `reporting_user`, or `access_user`.
+        This endpoint requires one of the following roles: `access_user`, `access_admin`, `authenticated_client`, `client`, or `reporting_user`.
       operationId: ListProjects
       parameters:
         - description: The UUID of the object used as an offset for pagination
@@ -1641,7 +1641,7 @@ paths:
               example:
                 list:
                   - name: the-sound-and-the-fury
-                    id: 0b3602af-c5e9-4c6f-a9f5-73c9285a0820
+                    id: 6d5de0e1-f454-4904-be7d-2f3ef1bac477
                     team: william-faulkner
                     force_shared_ssh_users: false
                     shared_admin_user_name: null
@@ -1657,7 +1657,7 @@ paths:
                     ssh_session_recording: true
                     rdp_session_recording: true
                   - name: the-sound-and-the-fury
-                    id: 0b3602af-c5e9-4c6f-a9f5-73c9285a0820
+                    id: 6d5de0e1-f454-4904-be7d-2f3ef1bac477
                     team: william-faulkner
                     force_shared_ssh_users: false
                     shared_admin_user_name: null
@@ -1740,7 +1740,7 @@ paths:
                 force_shared_ssh_users: false
                 forward_traffic: true
                 gateway_selector: env in (dev,prod),region=us-west-2,release notin (canary,stable)
-                id: 0b3602af-c5e9-4c6f-a9f5-73c9285a0820
+                id: 6d5de0e1-f454-4904-be7d-2f3ef1bac477
                 name: the-sound-and-the-fury
                 next_unix_gid: 63001
                 next_unix_uid: 60001
@@ -1787,7 +1787,7 @@ paths:
                 force_shared_ssh_users: false
                 forward_traffic: true
                 gateway_selector: env in (dev,prod),region=us-west-2,release notin (canary,stable)
-                id: 0b3602af-c5e9-4c6f-a9f5-73c9285a0820
+                id: 6d5de0e1-f454-4904-be7d-2f3ef1bac477
                 name: the-sound-and-the-fury
                 next_unix_gid: 63001
                 next_unix_uid: 60001
@@ -1874,7 +1874,7 @@ paths:
       description: |-
         Lists Client Configuration Options for a Project. Use Client Configuration Options to automatically pass settings to any Client sign in to a server in this Project.
 
-        This endpoint requires one of the following roles: `access_admin`, or `access_user`.
+        This endpoint requires one of the following roles: `access_user`, or `access_admin`.
       operationId: ListClientConfigOptions
       parameters:
         - description: The name of your Team
@@ -1895,10 +1895,10 @@ paths:
             application/json:
               example:
                 list:
-                  - id: a301538c-589a-4e73-8597-b729f1823759
+                  - id: 248fb13e-d94b-4f16-a583-bf8ec1b51116
                     config_key: ssh.insecure_forward_agent
                     config_value: host
-                  - id: dbf3fa32-b4cc-4821-ab7b-8130a2ca6dd7
+                  - id: 0c1867ff-4605-4f08-b7de-2c2448a53393
                     config_key: ssh.port_forward_method
                     config_value: netcat
               schema:
@@ -1959,7 +1959,7 @@ paths:
               example:
                 config_key: ssh.insecure_forward_agent
                 config_value: host
-                id: a301538c-589a-4e73-8597-b729f1823759
+                id: 248fb13e-d94b-4f16-a583-bf8ec1b51116
               schema:
                 $ref: '#/components/schemas/ClientConfigOption'
           description: The Client Configuration Option was created
@@ -2024,12 +2024,12 @@ paths:
             application/json:
               example:
                 list:
-                  - id: d509abb9-b928-483d-9a1f-8ec63500b9c6
+                  - id: c5e5daa3-b247-4a43-a42f-4f1d2949bb1d
                     project_name: the-sound-and-the-fury
                     provider: aws
                     account_id: '123456789012'
                     description: Dev AWS account
-                  - id: 77199c13-26e7-4d5c-8ec8-c33ad6b15ada
+                  - id: e24bbd85-26ae-4202-b709-60ab8f8ed18f
                     project_name: the-sound-and-the-fury
                     provider: gce
                     account_id: '630225935076'
@@ -2081,7 +2081,7 @@ paths:
               example:
                 account_id: '123456789012'
                 description: Dev AWS account
-                id: d509abb9-b928-483d-9a1f-8ec63500b9c6
+                id: c5e5daa3-b247-4a43-a42f-4f1d2949bb1d
                 project_name: the-sound-and-the-fury
                 provider: aws
               schema:
@@ -2095,7 +2095,7 @@ paths:
       description: |-
         Fetches a Cloud Accounts in a Project
 
-        This endpoint requires one of the following roles: `access_user`, or `reporting_user`.
+        This endpoint requires one of the following roles: `reporting_user`, or `access_user`.
       operationId: GetProjectCloudAccount
       parameters:
         - description: The name of your Team
@@ -2123,7 +2123,7 @@ paths:
               example:
                 account_id: '123456789012'
                 description: Dev AWS account
-                id: d509abb9-b928-483d-9a1f-8ec63500b9c6
+                id: c5e5daa3-b247-4a43-a42f-4f1d2949bb1d
                 project_name: the-sound-and-the-fury
                 provider: aws
               schema:
@@ -2164,7 +2164,7 @@ paths:
               example:
                 account_id: '123456789012'
                 description: Dev AWS account
-                id: d509abb9-b928-483d-9a1f-8ec63500b9c6
+                id: c5e5daa3-b247-4a43-a42f-4f1d2949bb1d
                 project_name: the-sound-and-the-fury
                 provider: aws
               schema:
@@ -2243,7 +2243,7 @@ paths:
               example:
                 account_id: '123456789012'
                 description: Dev AWS account
-                id: d509abb9-b928-483d-9a1f-8ec63500b9c6
+                id: c5e5daa3-b247-4a43-a42f-4f1d2949bb1d
                 project_name: the-sound-and-the-fury
                 provider: aws
               schema:
@@ -2257,7 +2257,7 @@ paths:
       description: |-
         Lists all the ASA Groups in a Project
 
-        This endpoint requires one of the following roles: `access_user`, `access_admin`, or `reporting_user`.
+        This endpoint requires one of the following roles: `access_admin`, `reporting_user`, or `access_user`.
       operationId: ListProjectGroups
       parameters:
         - description: The name of your Team
@@ -2282,7 +2282,7 @@ paths:
                     group: compsons
                     project: the-sound-and-the-fury
                     name: compsons
-                    group_id: ba8cb6bf-5853-40ce-bfb9-fe0176fe3e6b
+                    group_id: 7d10ca1f-9f2d-4e4f-a095-9ace2417cdd2
                     server_access: false
                     server_admin: true
                     create_server_group: true
@@ -2393,7 +2393,7 @@ paths:
                 create_server_group: true
                 deleted_at: null
                 group: compsons
-                group_id: ba8cb6bf-5853-40ce-bfb9-fe0176fe3e6b
+                group_id: 7d10ca1f-9f2d-4e4f-a095-9ace2417cdd2
                 id: ''
                 name: compsons
                 profile_attributes:
@@ -2721,7 +2721,7 @@ paths:
       description: |-
         Lists Server Enrollment Tokens within a Project
 
-        This endpoint requires one of the following roles: `server_enrollment_token_viewer`, `access_user`, or `access_admin`.
+        This endpoint requires one of the following roles: `access_admin`, `server_enrollment_token_viewer`, or `access_user`.
       operationId: ListServerEnrollmentTokens
       parameters:
         - description: The name of your Team
@@ -2898,7 +2898,7 @@ paths:
                     unix_gid: 63001
                     admin: true
                     windows_server_user_name: benjy
-                    id: 276e4739-128c-48cb-916f-62dce96c68e1
+                    id: d9721c83-c4ba-43d0-a6d2-43772987f8c7
                   - user_name: quentincompson
                     server_user_name: quentin
                     status: DELETED
@@ -2907,7 +2907,7 @@ paths:
                     unix_gid: 63002
                     admin: false
                     windows_server_user_name: quentin
-                    id: 8dd581c9-2847-45ad-a5ea-ac42651d13c8
+                    id: a7d8f5f2-fcff-4ee6-ab1a-47955698904a
               schema:
                 properties:
                   list:
@@ -2934,7 +2934,7 @@ paths:
       description: |-
         Fetches a specific Server User for a Project
 
-        This endpoint requires one of the following roles: `access_user`, `access_admin`, or `reporting_user`.
+        This endpoint requires one of the following roles: `access_admin`, `reporting_user`, or `access_user`.
       operationId: GetServerUserForProject
       parameters:
         - description: The name of your Team
@@ -2969,7 +2969,7 @@ paths:
                   unix_gid: 63001
                   admin: true
                   windows_server_user_name: benjy
-                  id: 276e4739-128c-48cb-916f-62dce96c68e1
+                  id: d9721c83-c4ba-43d0-a6d2-43772987f8c7
               schema:
                 properties:
                   list:
@@ -3018,7 +3018,7 @@ paths:
               example:
                 list:
                   - team_name: william-faulkner
-                    id: 725e0348-3045-4ad9-b1a3-a086f754bc2e
+                    id: f0cf7304-e3a0-4fb9-9564-3145af24c748
                     project_name: the-sound-and-the-fury
                     hostname: harvard
                     alt_names: null
@@ -3042,7 +3042,7 @@ paths:
                     deleted_at: '0001-01-01T00:00:00Z'
                     instance_id: null
                   - team_name: william-faulkner
-                    id: 5702f20b-4178-4eb8-80ba-457cf04c840e
+                    id: a02c73c7-9527-4993-8920-723e29a377ac
                     project_name: the-sound-and-the-fury
                     hostname: jefferson
                     alt_names: null
@@ -3133,7 +3133,7 @@ paths:
                 cloud_provider: null
                 deleted_at: '0001-01-01T00:00:00Z'
                 hostname: bastion.dev.com
-                id: c17f405b-1af1-4caf-a191-fa6a617c5e36
+                id: c31b6603-4566-4d30-9a7a-d64a6d61579a
                 instance_details: null
                 instance_id: null
                 last_seen: '0001-01-01T00:00:00Z'
@@ -3189,7 +3189,7 @@ paths:
                 cloud_provider: null
                 deleted_at: '0001-01-01T00:00:00Z'
                 hostname: harvard
-                id: 725e0348-3045-4ad9-b1a3-a086f754bc2e
+                id: f0cf7304-e3a0-4fb9-9564-3145af24c748
                 instance_details: null
                 instance_id: null
                 last_seen: '0001-01-01T00:00:00Z'
@@ -3255,7 +3255,7 @@ paths:
       description: |-
         Removes a Server from a Project
 
-        This endpoint requires one of the following roles: `access_admin`, or `server_admin`.
+        This endpoint requires one of the following roles: `server_admin`, or `access_admin`.
       operationId: RemoveServer
       parameters:
         - description: The name of your Team
@@ -3287,7 +3287,7 @@ paths:
       description: |-
         Lists Services available for a Server
 
-        This endpoint requires one of the following roles: `server_admin`, `reporting_user`, `access_user`, or `access_admin`.
+        This endpoint requires one of the following roles: `access_user`, `access_admin`, `server_admin`, or `reporting_user`.
       operationId: ListServicesForServer
       parameters:
         - description: The name of your Team
@@ -3438,7 +3438,7 @@ paths:
       description: |-
         Lists all the Servers enrolled in a Team that the requesting ASA User has access to
 
-        This endpoint requires one of the following roles: `access_user`, `access_admin`, `authenticated_client`, `reporting_user`, or `server_admin`.
+        This endpoint requires one of the following roles: `reporting_user`, `server_admin`, `access_user`, `access_admin`, or `authenticated_client`.
       operationId: ListServers
       parameters:
         - description: The UUID of the object used as an offset for pagination
@@ -3518,6 +3518,11 @@ paths:
           name: managed
           schema:
             type: string
+        - description: If 'true', only include AD servers. If 'false', only include Non AD servers
+          in: query
+          name: AdServers
+          schema:
+            type: string
         - description: If 'true', only include unmanaged servers with credential issuance enabled. If 'false', only include unmanaged servers with credential issuance disabled.
           in: query
           name: credentialed
@@ -3541,7 +3546,7 @@ paths:
               example:
                 list:
                   - team_name: william-faulkner
-                    id: 725e0348-3045-4ad9-b1a3-a086f754bc2e
+                    id: f0cf7304-e3a0-4fb9-9564-3145af24c748
                     project_name: the-sound-and-the-fury
                     hostname: harvard
                     alt_names: null
@@ -3565,7 +3570,7 @@ paths:
                     deleted_at: '0001-01-01T00:00:00Z'
                     instance_id: null
                   - team_name: william-faulkner
-                    id: 5702f20b-4178-4eb8-80ba-457cf04c840e
+                    id: a02c73c7-9527-4993-8920-723e29a377ac
                     project_name: the-sound-and-the-fury
                     hostname: jefferson
                     alt_names: null
@@ -4158,7 +4163,7 @@ paths:
       description: |-
         Fetches Team-level settings for a specific Team, such as authentication and enrollment details
 
-        This endpoint requires one of the following roles: `access_admin`, `instance_admin`, or `access_user`.
+        This endpoint requires one of the following roles: `access_user`, `access_admin`, `instance_admin`, or `pam_admin`.
       operationId: GetTeamSettings
       parameters:
         - description: The name of your Team
@@ -4191,7 +4196,7 @@ paths:
       description: |-
         Updates Team-level settings. Partial updates are permitted. To unset a previous setting, set its value tto `null`.
 
-        This endpoint requires one of the following roles: `access_admin`, or `instance_admin`.
+        This endpoint requires one of the following roles: `access_admin`, `instance_admin`, or `pam_admin`.
       operationId: UpdateTeamSettings
       parameters:
         - description: The name of your Team
@@ -4227,7 +4232,7 @@ paths:
       description: |-
         Fetches general statistics about a Team
 
-        This endpoint requires the `access_admin` role.
+        This endpoint requires one of the following roles: `pam_admin`, or `access_admin`.
       operationId: FetchStatsForTeam
       parameters:
         - description: The name of your Team
@@ -4318,7 +4323,7 @@ paths:
               example:
                 list:
                   - team_name: william-faulkner
-                    id: 2a83d6bc-5f4b-42bd-9f01-4d0f4014c710
+                    id: 63add65e-7c70-416e-93c5-86c1e56ca9bd
                     name: Jason.Compson.IV
                     status: ACTIVE
                     details:
@@ -4331,7 +4336,7 @@ paths:
                     role_grants: null
                     deleted_at: null
                   - team_name: william-faulkner
-                    id: c8b0fc83-9c5c-47a4-9353-9e44df51ebef
+                    id: cd9bc510-8cce-4fd5-b4b8-1c7f938afe20
                     name: Benjy.Compson
                     status: DISABLED
                     details:
@@ -4344,7 +4349,7 @@ paths:
                     role_grants: null
                     deleted_at: null
                   - team_name: william-faulkner
-                    id: 09de7e38-eda5-455d-9865-4f14e139ef04
+                    id: 49518217-01c3-44c2-9397-7be186543499
                     name: Quentin.Compson.III
                     status: DELETED
                     details:
@@ -4408,7 +4413,7 @@ paths:
                   first_name: Jason
                   full_name: Jason Compson IV
                   last_name: Compson
-                id: 2a83d6bc-5f4b-42bd-9f01-4d0f4014c710
+                id: 63add65e-7c70-416e-93c5-86c1e56ca9bd
                 name: Jason.Compson.IV
                 oauth_client_application_id: null
                 role_grants: null
@@ -4450,7 +4455,7 @@ paths:
                 first_name: James
                 full_name: James Compson IV
                 last_name: Compson
-              id: 2a83d6bc-5f4b-42bd-9f01-4d0f4014c710
+              id: 63add65e-7c70-416e-93c5-86c1e56ca9bd
               name: James.Compson.IV
               oauth_client_application_id: null
               role_grants: null
@@ -4472,7 +4477,7 @@ paths:
       description: |-
         Lists the Attributes for an ASA User
 
-        This endpoint requires one of the following roles: `access_user`, `reporting_user`, or `access_admin`.
+        This endpoint requires one of the following roles: `access_admin`, `access_user`, or `reporting_user`.
       operationId: ListUserAttributes
       parameters:
         - description: The UUID of the object used as an offset for pagination
@@ -4702,7 +4707,7 @@ paths:
             application/json:
               example:
                 list:
-                  - id: 3fc2c75f-85ef-4151-bbba-363b7a6c2bc4
+                  - id: 5eb273d4-e7ee-4687-aa17-6a23c995e01a
                     name: compsons
                     roles:
                       - access_user
@@ -5177,9 +5182,9 @@ components:
                   propertyName: ArgsType
                 nullable: true
                 oneOf:
+                  - $ref: '#/components/schemas/custom'
                   - $ref: '#/components/schemas/any'
                   - $ref: '#/components/schemas/none'
-                  - $ref: '#/components/schemas/custom'
                 type: object
               args_type:
                 discriminator:
@@ -5190,9 +5195,9 @@ components:
                   propertyName: CommandType
                 nullable: true
                 oneOf:
-                  - $ref: '#/components/schemas/executable'
                   - $ref: '#/components/schemas/raw'
                   - $ref: '#/components/schemas/directory'
+                  - $ref: '#/components/schemas/executable'
                 type: object
               command:
                 discriminator:
@@ -5814,9 +5819,9 @@ components:
               gce: '#/components/schemas/gce'
             propertyName: CloudProvider
           oneOf:
+            - $ref: '#/components/schemas/aws'
             - $ref: '#/components/schemas/gce'
             - $ref: '#/components/schemas/azure'
-            - $ref: '#/components/schemas/aws'
           readOnly: true
           type: object
         labels:
@@ -6093,9 +6098,9 @@ components:
         attribute_name:
           description: 'Accepted values: `unix_group_name`, `unix_gid`, or `windows_group_name`'
           enum:
+            - unix_gid
             - unix_group_name
             - windows_group_name
-            - unix_gid
           readOnly: true
           type: string
         attribute_value:
@@ -6231,14 +6236,14 @@ components:
           description: 'Accepted values: `unix_user_name`, `unix_uid`, `unix_gid`, or `windows_user_name`.'
           enum:
             - unix_uid
-            - unix_gid
             - user_home_dir
-            - active_directory_identity
-            - unix_user_name
             - user_shell
             - gecos_field
-            - active_directory_passwordless_identity
+            - unix_user_name
             - windows_user_name
+            - active_directory_passwordless_identity
+            - unix_gid
+            - active_directory_identity
           readOnly: true
           type: string
         attribute_value:
@@ -6256,15 +6261,15 @@ components:
               windows_user_name: '#/components/schemas/windows_user_name'
             propertyName: AttributeName
           oneOf:
-            - $ref: '#/components/schemas/windows_user_name'
             - $ref: '#/components/schemas/user_shell'
             - $ref: '#/components/schemas/gecos_field'
-            - $ref: '#/components/schemas/active_directory_passwordless_identity'
             - $ref: '#/components/schemas/unix_user_name'
+            - $ref: '#/components/schemas/windows_user_name'
             - $ref: '#/components/schemas/unix_uid'
-            - $ref: '#/components/schemas/unix_gid'
             - $ref: '#/components/schemas/user_home_dir'
+            - $ref: '#/components/schemas/unix_gid'
             - $ref: '#/components/schemas/active_directory_identity'
+            - $ref: '#/components/schemas/active_directory_passwordless_identity'
           type: object
         id:
           description: The unique identifier for the attribute
@@ -6287,15 +6292,15 @@ components:
         attribute_name:
           description: 'Accepted values: `unix_group_name`, `unix_gid`, or `windows_group_name`'
           enum:
-            - unix_uid
-            - unix_gid
-            - user_home_dir
-            - active_directory_identity
-            - unix_user_name
             - user_shell
             - gecos_field
-            - active_directory_passwordless_identity
+            - unix_user_name
             - windows_user_name
+            - unix_uid
+            - user_home_dir
+            - unix_gid
+            - active_directory_identity
+            - active_directory_passwordless_identity
           type: string
         attribute_value:
           description: Accepted values for `unix_group_name` and `windows_group_name` are strings with a character length between 0 and 255. Accepted value for `unix_gid` is a number between 100 and 2147483647.
@@ -6312,15 +6317,15 @@ components:
               windows_user_name: '#/components/schemas/windows_user_name'
             propertyName: AttributeName
           oneOf:
-            - $ref: '#/components/schemas/unix_user_name'
-            - $ref: '#/components/schemas/unix_uid'
             - $ref: '#/components/schemas/unix_gid'
-            - $ref: '#/components/schemas/user_home_dir'
             - $ref: '#/components/schemas/active_directory_identity'
+            - $ref: '#/components/schemas/active_directory_passwordless_identity'
+            - $ref: '#/components/schemas/unix_user_name'
             - $ref: '#/components/schemas/windows_user_name'
+            - $ref: '#/components/schemas/unix_uid'
+            - $ref: '#/components/schemas/user_home_dir'
             - $ref: '#/components/schemas/user_shell'
             - $ref: '#/components/schemas/gecos_field'
-            - $ref: '#/components/schemas/active_directory_passwordless_identity'
           type: object
       required:
         - attribute_name
@@ -6331,9 +6336,9 @@ components:
         attribute_name:
           description: Accepted names include `unix_group_name`, `windows_group_name`, and `unix_gid`.
           enum:
+            - unix_group_name
             - windows_group_name
             - unix_gid
-            - unix_group_name
           type: string
         attribute_value:
           description: Accepted values for `unix_group_name` and `windows_group_name` are strings of length 0 to 255 and for `unix_gid`, a number between 100 to 2147483647.

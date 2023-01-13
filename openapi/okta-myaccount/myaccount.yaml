@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: MyAccount Management
   version: 1.0.0
-  description: APIs for managing a user's own emails, phones, and profile.
+  description: APIs for managing a user's own emails, phones, profile, and app authenticators.
   termsOfService: https://developer.okta.com/terms/
   contact:
     name: Okta Developer Team
@@ -25,10 +25,225 @@ servers:
         default: subdomain.okta.com
         description: The domain of your organization. This can be a provided subdomain of an official okta domain (okta.com, oktapreview.com, etc) or one of your configured custom domains.
 tags:
+  - name: AppAuthenticator
+    x-displayName: App Authenticators
+    description: The My Account App Authenticators API provides operations to enroll, update and delete an app authenticator enrollment. The API also allows a user to view and verify pending notification challenges. Current support of the API is only applicable to custom authenticators. See the [Custom authenticator integration guide](https://developer.okta.com/docs/guides/authenticators-custom-authenticator/android/main/).
   - name: Email
   - name: Phone
   - name: Profile
 paths:
+  /idp/myaccount/app-authenticators:
+    post:
+      summary: Create an app authenticator enrollment
+      description: Creates an app authenticator enrollment
+      operationId: createAppAuthenticatorEnrollment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppAuthenticatorEnrollmentRequest'
+            examples:
+              Create App Authenticator Enrollment:
+                $ref: '#/components/examples/CreateAppAuthenticatorEnrollment'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/AppAuthenticatorEnrollment'
+        '400':
+          description: Bad Request
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Access Denied
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - oauth2:
+            - okta.myAccount.appAuthenticator.manage
+      tags:
+        - AppAuthenticator
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+  /idp/myaccount/app-authenticators/challenge/{challengeId}/verify:
+    parameters:
+      - $ref: '#/components/parameters/appAuthenticatorChallengeId'
+    post:
+      summary: Verify a push notification challenge response from the app authenticator
+      description: Verifies a push notification challenge from the app authenticator
+      operationId: verifyAppAuthenticatorPushNotificationChallenge
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PushNotificationVerification'
+            examples:
+              Push Notification Challenge Response:
+                $ref: '#/components/examples/VerifyPushNotificationChallengeRequest'
+              JWT Header:
+                $ref: '#/components/examples/VerifyPushNotificationChallengeJWTHeader'
+              JWT Payload:
+                $ref: '#/components/examples/VerifyPushNotificationChallengeJWTPayload'
+      responses:
+        '200':
+          description: Verification Success
+        '204':
+          description: User denied challenge attempt
+        '400':
+          description: Bad Request
+      security: []
+      tags:
+        - AppAuthenticator
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+  /idp/myaccount/app-authenticators/{enrollmentId}:
+    parameters:
+      - $ref: '#/components/parameters/appAuthenticatorEnrollmentId'
+    patch:
+      summary: Update an app authenticator enrollment
+      description: 'Updates an app authenticator enrollment. Allowed operations: update the user verification key, remove the user verification key, update the push token, and updating the push method transaction types.'
+      operationId: updateAppAuthenticatorEnrollment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAppAuthenticatorEnrollmentRequest'
+            examples:
+              Update App Authenticator Enrollment Push Token:
+                $ref: '#/components/examples/UpdateAppAuthenticatorEnrollmentPushToken'
+              Enroll App Authenticator Enrollment User Verification Key:
+                $ref: '#/components/examples/UpdateAppAuthenticatorEnrollmentUserVerificationKey'
+              Unenroll App Authenticator Enrollment User Verification Key:
+                $ref: '#/components/examples/UnenrollAppAuthenticatorEnrollmentUserVerificationKey'
+              Update App Authenticator Enrollment Transaction Type:
+                $ref: '#/components/examples/UpdateAppAuthenticatorEnrollmentTransactionType'
+              Update App Authenticator Enrollment Push Token and Enroll User Verification Key:
+                $ref: '#/components/examples/UpdateAppAuthenticatorEnrollmentPushTokenAndUserVerificationKey'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/merge-patch+json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/UpdateAppAuthenticatorEnrollmentRequest'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Access Denied
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - oauth2:
+            - okta.myAccount.appAuthenticator.manage
+      tags:
+        - AppAuthenticator
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+    delete:
+      summary: Delete an app authenticator enrollment
+      description: Deletes an app authenticator enrollment
+      operationId: deleteAppAuthenticatorEnrollment
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Access Denied
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - oauth2:
+            - okta.myAccount.appAuthenticator.manage
+      tags:
+        - AppAuthenticator
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+  /idp/myaccount/app-authenticators/{enrollmentId}/push/notifications:
+    parameters:
+      - $ref: '#/components/parameters/appAuthenticatorEnrollmentId'
+    get:
+      summary: List all pending push notification challenges
+      description: Lists all pending push notification challenges
+      operationId: listAppAuthenticatorPendingPushNotificationChallenges
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PushNotificationChallenge'
+              examples:
+                Success Response:
+                  $ref: '#/components/examples/GetPendingNotificationsSuccessResponse'
+                JWT Header:
+                  $ref: '#/components/examples/GetPendingNotificationsJWTHeader'
+                JWT Payload:
+                  $ref: '#/components/examples/GetPendingNotificationsJWTPayload'
+      security:
+        - oauth2:
+            - okta.myAccount.appAuthenticator.read
+      tags:
+        - AppAuthenticator
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
   /idp/myaccount/emails:
     get:
       summary: List all Emails
@@ -41,11 +256,12 @@ paths:
           $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
       security:
         - oauth2:
-            - okta.myaccount.email.read
+            - okta.myAccount.email.read
       tags:
         - Email
       x-okta-lifecycle:
         lifecycle: GA
+        isGenerallyAvailable: true
     post:
       summary: Create an Email
       description: Creates a new email
@@ -107,11 +323,12 @@ paths:
           $ref: '#/components/responses/Error-EmailConflict-Response-409'
       security:
         - oauth2:
-            - okta.myaccount.email.manage
+            - okta.myAccount.email.manage
       tags:
         - Email
       x-okta-lifecycle:
         lifecycle: GA
+        isGenerallyAvailable: true
   /idp/myaccount/emails/{id}:
     parameters:
       - schema:
@@ -131,11 +348,12 @@ paths:
           $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
       security:
         - oauth2:
-            - okta.myaccount.email.read
+            - okta.myAccount.email.read
       tags:
         - Email
       x-okta-lifecycle:
         lifecycle: GA
+        isGenerallyAvailable: true
     delete:
       summary: Delete an Email
       description: Deletes an email by email id
@@ -156,11 +374,12 @@ paths:
           $ref: '#/components/responses/Error-EmailResourceNotFound-Response-404'
       security:
         - oauth2:
-            - okta.myaccount.email.manage
+            - okta.myAccount.email.manage
       tags:
         - Email
       x-okta-lifecycle:
         lifecycle: GA
+        isGenerallyAvailable: true
   /idp/myaccount/emails/{id}/challenge:
     parameters:
       - schema:
@@ -308,11 +527,12 @@ paths:
           $ref: '#/components/responses/Error-EmailResourceNotFound-Response-404'
       security:
         - oauth2:
-            - okta.myaccount.email.manage
+            - okta.myAccount.email.manage
       tags:
         - Email
       x-okta-lifecycle:
         lifecycle: GA
+        isGenerallyAvailable: true
   /idp/myaccount/emails/{id}/challenge/{challengeId}:
     parameters:
       - schema:
@@ -447,11 +667,12 @@ paths:
           $ref: '#/components/responses/Error-EmailChallengeResourceNotFound-Response-404'
       security:
         - oauth2:
-            - okta.myaccount.email.manage
+            - okta.myAccount.email.read
       tags:
         - Email
       x-okta-lifecycle:
         lifecycle: GA
+        isGenerallyAvailable: true
   /idp/myaccount/emails/{id}/challenge/{challengeId}/verify:
     parameters:
       - schema:
@@ -499,11 +720,12 @@ paths:
           $ref: '#/components/responses/Error-EmailChallengeResourceNotFound-Response-404'
       security:
         - oauth2:
-            - okta.myaccount.email.manage
+            - okta.myAccount.email.manage
       tags:
         - Email
       x-okta-lifecycle:
         lifecycle: GA
+        isGenerallyAvailable: true
   /idp/myaccount/phones:
     get:
       summary: List all Phones
@@ -516,11 +738,12 @@ paths:
           $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
       security:
         - oauth2:
-            - okta.myaccount.phone.read
+            - okta.myAccount.phone.read
       tags:
         - Phone
       x-okta-lifecycle:
         lifecycle: GA
+        isGenerallyAvailable: true
     post:
       summary: Create a Phone
       description: Creates a new phone
@@ -569,11 +792,12 @@ paths:
           $ref: '#/components/responses/Error-FailedToSendOutOfBandChallenge-Response-500'
       security:
         - oauth2:
-            - okta.myaccount.phone.manage
+            - okta.myAccount.phone.manage
       tags:
         - Phone
       x-okta-lifecycle:
         lifecycle: GA
+        isGenerallyAvailable: true
   /idp/myaccount/phones/{id}:
     parameters:
       - schema:
@@ -595,11 +819,12 @@ paths:
           $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
       security:
         - oauth2:
-            - okta.myaccount.phone.read
+            - okta.myAccount.phone.read
       tags:
         - Phone
       x-okta-lifecycle:
         lifecycle: GA
+        isGenerallyAvailable: true
     delete:
       summary: Delete a Phone
       description: Deletes a phone given a phone id
@@ -617,11 +842,12 @@ paths:
           $ref: '#/components/responses/Error-InvalidFactorId-Response-404'
       security:
         - oauth2:
-            - okta.myaccount.phone.manage
+            - okta.myAccount.phone.manage
       tags:
         - Phone
       x-okta-lifecycle:
         lifecycle: GA
+        isGenerallyAvailable: true
   /idp/myaccount/phones/{id}/challenge:
     parameters:
       - schema:
@@ -674,11 +900,12 @@ paths:
           $ref: '#/components/responses/Error-FailedToSendOutOfBandChallenge-Response-500'
       security:
         - oauth2:
-            - okta.myaccount.phone.manage
+            - okta.myAccount.phone.manage
       tags:
         - Phone
       x-okta-lifecycle:
         lifecycle: GA
+        isGenerallyAvailable: true
   /idp/myaccount/phones/{id}/verify:
     parameters:
       - schema:
@@ -725,11 +952,12 @@ paths:
           $ref: '#/components/responses/Error-InvalidTransaction-Response-409'
       security:
         - oauth2:
-            - okta.myaccount.phone.manage
+            - okta.myAccount.phone.manage
       tags:
         - Phone
       x-okta-lifecycle:
         lifecycle: GA
+        isGenerallyAvailable: true
   /idp/myaccount/profile:
     get:
       summary: Retrieve my Profile
@@ -762,12 +990,12 @@ paths:
           $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
       security:
         - oauth2:
-            - okta.myaccount.profile.read
-            - okta.myaccount.profile.manage
+            - okta.myAccount.profile.read
       tags:
         - Profile
       x-okta-lifecycle:
         lifecycle: GA
+        isGenerallyAvailable: true
     put:
       summary: Replace my Profile
       description: Replaces my profile
@@ -820,11 +1048,12 @@ paths:
           $ref: '#/components/responses/Error-NoAccessForAdminUser-Response-403'
       security:
         - oauth2:
-            - okta.myaccount.profile.manage
+            - okta.myAccount.profile.manage
       tags:
         - Profile
       x-okta-lifecycle:
         lifecycle: GA
+        isGenerallyAvailable: true
   /idp/myaccount/profile/schema:
     get:
       summary: Retrieve my Profile Schema
@@ -879,14 +1108,180 @@ paths:
           $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
       security:
         - oauth2:
-            - okta.myaccount.profile.read
-            - okta.myaccount.profile.manage
+            - okta.myAccount.profile.read
       tags:
         - Profile
       x-okta-lifecycle:
         lifecycle: GA
+        isGenerallyAvailable: true
 components:
   schemas:
+    AppAuthenticatorEnrollment:
+      description: App authenticator enrollment object
+      type: object
+      properties:
+        authenticatorId:
+          type: string
+          readOnly: true
+        createdDate:
+          type: string
+          format: date-time
+          readOnly: true
+        device:
+          type: object
+          properties:
+            id:
+              type: string
+            status:
+              type: string
+              enum:
+                - ACTIVE
+            createdDate:
+              type: string
+              format: date-time
+            lastUpdated:
+              type: string
+              format: date-time
+            clientInstanceId:
+              type: string
+          readOnly: true
+        id:
+          type: string
+          readOnly: true
+        lastUpdated:
+          type: string
+          format: date-time
+          readOnly: true
+        links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  minLength: 1
+                hints:
+                  type: object
+                  properties:
+                    allow:
+                      type: array
+                      items:
+                        type: string
+                        enum:
+                          - PATCH
+                          - DELETE
+          readOnly: true
+        methods:
+          type: object
+          properties:
+            push:
+              type: object
+        user:
+          type: object
+          properties:
+            id:
+              type: string
+            username:
+              type: string
+          readOnly: true
+    AppAuthenticatorEnrollmentRequest:
+      description: App Authenticator enrollment request
+      type: object
+      properties:
+        authenticatorId:
+          type: string
+        device:
+          type: object
+          properties:
+            secureHardwarePresent:
+              type: boolean
+              description: Indicates if the device is equipped with TPM storage for storing signing keys.
+            clientInstanceKey:
+              $ref: '#/components/schemas/KeyObject'
+              description: A public key in Json Web Keys format that is not tied to a user. It can be used to identify a device across orgs.
+            osVersion:
+              type: string
+            clientInstanceBundleId:
+              type: string
+            platform:
+              type: string
+              enum:
+                - ANDROID
+                - IOS
+            manufacturer:
+              type: string
+              example:
+                - APPLE
+                - Google
+            deviceAttestation:
+              type: object
+            clientInstanceVersion:
+              type: string
+            clientInstanceDeviceSdkVersion:
+              type: string
+            model:
+              type: string
+              example:
+                - iPhone 14
+                - Pixel 4
+            displayName:
+              type: string
+              description: The device's display name.
+            udid:
+              type: string
+          required:
+            - clientInstanceKey
+            - clientInstanceBundleId
+            - clientInstanceVersion
+            - clientInstanceDeviceSdkVersion
+            - osVersion
+            - platform
+            - displayName
+        methods:
+          type: object
+          required:
+            - push
+          properties:
+            push:
+              type: object
+              required:
+                - pushToken
+                - keys
+              properties:
+                apsEnvironment:
+                  type: string
+                  description: Target APS type that application registers to. Required for iOS enrollments.
+                  enum:
+                    - PRODUCTION
+                    - DEVELOPMENT
+                pushToken:
+                  type: string
+                keys:
+                  type: object
+                  required:
+                    - proofOfPossession
+                  properties:
+                    proofOfPossession:
+                      $ref: '#/components/schemas/KeyObject'
+                    userVerification:
+                      $ref: '#/components/schemas/KeyObject'
+                    capabilities:
+                      $ref: '#/components/schemas/AppAuthenticatorMethodCapabilities'
+      required:
+        - authenticatorId
+        - device
+        - methods
+    AppAuthenticatorMethodCapabilities:
+      type: object
+      properties:
+        transactionTypes:
+          type: array
+          items:
+            type: string
+            enum:
+              - LOGIN
+              - CIBA
     Email:
       description: Email Object
       type: object
@@ -1000,6 +1395,72 @@ components:
           type: string
           example: Bad request because XYZ is missing.
           readOnly: true
+    KeyEC:
+      type: object
+      properties:
+        crv:
+          type: string
+          enum:
+            - P-256
+        kid:
+          type: string
+          description: The unique identifier of the key.
+        kty:
+          type: string
+          enum:
+            - EC
+          description: The type of public key.
+        okta:kpr:
+          type: string
+          enum:
+            - HARDWARE
+            - SOFTWARE
+        x:
+          type: string
+          description: The public x coordinate for the elliptic curve point.
+        'y':
+          type: string
+          description: The public y coordinate for the elliptic curve point.
+      required:
+        - x
+        - 'y'
+        - kty
+        - okta:kpr
+        - crv
+        - kid
+    KeyObject:
+      oneOf:
+        - $ref: '#/components/schemas/KeyEC'
+        - $ref: '#/components/schemas/KeyRSA'
+      type: object
+    KeyRSA:
+      type: object
+      properties:
+        e:
+          type: string
+          description: The key exponent of a RSA key.
+        kid:
+          type: string
+          description: The unique identifier of the key.
+        kty:
+          type: string
+          enum:
+            - RSA
+          description: The type of public key.
+        'n':
+          type: string
+          description: The modulus of the RSA key.
+        okta:kpr:
+          type: string
+          enum:
+            - HARDWARE
+            - SOFTWARE
+      required:
+        - 'n'
+        - e
+        - kty
+        - okta:kpr
+        - kid
     Phone:
       description: Phone Object
       type: object
@@ -1097,6 +1558,28 @@ components:
                   type: string
                   format: uri
                   readOnly: true
+    PushNotificationChallenge:
+      description: Push notification challenge request object for an app authenticator
+      type: object
+      properties:
+        challenge:
+          type: string
+          description: JWT issued at the time of a push notification challenge
+        payloadVersion:
+          type: string
+          enum:
+            - IDXv1
+    PushNotificationVerification:
+      description: Push notification challenge response object for an app authenticator
+      type: object
+      properties:
+        challengeResponse:
+          type: string
+          description: JWT issued by the app authenticator at the time of push notification verification
+        method:
+          type: string
+          enum:
+            - push
     Schema:
       title: Schema
       description: Describes a user's directory profile schema (based on UD).
@@ -1123,6 +1606,43 @@ components:
                   type: string
                   format: uri
                   readOnly: true
+    UpdateAppAuthenticatorEnrollmentRequest:
+      type: object
+      properties:
+        methods:
+          type: object
+          properties:
+            push:
+              type: object
+              properties:
+                pushToken:
+                  type: string
+                keys:
+                  type: object
+                  properties:
+                    userVerification:
+                      $ref: '#/components/schemas/KeyObject'
+                      nullable: true
+                capabilities:
+                  type: object
+                  $ref: '#/components/schemas/AppAuthenticatorMethodCapabilities'
+  parameters:
+    appAuthenticatorChallengeId:
+      name: challengeId
+      in: path
+      required: true
+      description: Id of the challenge associated with the app authenticator.
+      schema:
+        type: string
+        example: ft-hqOpHM8yxcGvE0cN7UXWVodVyP0omKW
+    appAuthenticatorEnrollmentId:
+      name: enrollmentId
+      in: path
+      required: true
+      description: Id of the user's app authenticator enrollment
+      schema:
+        type: string
+        example: pfd7rzcmvlhmE0Y1w0g4
   responses:
     Verified-Email-Response:
       description: Example response
@@ -1816,6 +2336,187 @@ components:
                 errorId: oaejUwz8U5FQ_SyggQwz1kC3w
                 errorCauses:
                   - errorSummary: Phone authenticator is not enabled for your org.
+  examples:
+    CreateAppAuthenticatorEnrollment:
+      value:
+        authenticatorId: aut12i8bdXk90NIfr0q5
+        device:
+          secureHardwarePresent: true
+          clientInstanceKey:
+            x: O0N1H3AIXj5p5cpQx5RUzowIRz1iPnheo7SbEC-CtFw
+            'y': Cea3KAFqsyxqPni2QJ6LjjqgRKgRHpsVzkNazd3m8To
+            kty: EC
+            okta:kpr: HARDWARE
+            crv: P-256
+            kid: DF47DEE2-D1B0-40B6-BEB7-09134CC4A19B
+          osVersion: '14.3'
+          clientInstanceBundleId: com.company.authenticatorApp
+          platform: IOS
+          manufacturer: APPLE
+          deviceAttestation: {}
+          clientInstanceVersion: 6.4.0
+          clientInstanceDeviceSdkVersion: DeviceSDK 1.0.0
+          model: iPhone
+          displayName: My device name
+          udid: 4956095A-D99E-4A4E-A6DC-9E63E5978722
+        methods:
+          push:
+            apsEnvironment: development
+            pushToken: 667b773e90871f014805f45f770c90d161b84b609d167039b2c388c7bacfdaa1
+            keys:
+              proofOfPossession:
+                x: hFr-xcGSMHbWKq2_SUAOMkif1ARYAU-X_8ZGprOhxfw
+                'y': HVqAxDCiGcV7H0QAQas6CMbh2wyG-cPU_cwXv3kPqcI
+                kty: EC
+                okta:kpr: HARDWARE
+                crv: P-256
+                kid: 2078892D-BC96-4C8C-A3FA-34045C002C4A
+              userVerification:
+                x: V0p-5JFpcen4Iep94ihs00Kjezw9sblfMSUW-cJxTRk
+                'y': wgJ9SFT3iaT6cqS08TBIBg_K-20r_4FMGFUlN2BXFJc
+                kty: EC
+                okta:kpr: HARDWARE
+                crv: P-256
+                kid: 80D6AC7B-B640-4899-A32C-CA7B98BE0AE6
+            capabilities:
+              transactionTypes:
+                - LOGIN
+                - CIBA
+    GetPendingNotificationsJWTHeader:
+      value:
+        - kid: seD0hUMrcpFtlVVTmkDyJ0mGxlEygWEZ42ts9z4ih9M
+          typ: okta-pushbind+jwt
+          alg: RS256
+    GetPendingNotificationsJWTPayload:
+      value:
+        - iss: https://{{yourOktaDomain}}
+          aud: okta.63c081db-1f13-5084-882f-e79e1e5e2da7
+          exp: 1648339796
+          iat: 1648339496
+          jti: ft-hqOpHM8yxcGvE0cN7UXWVodVyP0omKW
+          nonce: LA_OIcYdr4R0GqMDJ08p
+          transactionId: ft-hqOpHM8yxcGvE0cN7UXWVodVyP0omKW
+          signals:
+            - id
+            - displayName
+            - platform
+            - manufacturer
+            - model
+            - osVersion
+            - serialNumber
+            - udid
+            - sid
+            - imei
+            - meid
+            - secureHardwarePresent
+            - deviceAttestation
+          verificationUri: https://{{yourOktaDomain}}/idp/myaccount/app-authenticators/challenge/ft-hqOpHM8yxcGvE0cN7UXWVodVyP0omKW/verify
+          orgId: 00o54bswOJKhBhzy20w5
+          appInstanceName: Okta Dashboard
+          method: push
+          methodEnrollmentId: opf6aeq9U2hoM8aqO0w5
+          userMediation: REQUIRED
+          userVerification: PREFERRED
+          authenticatorEnrollmentId": pfd7rzcmvlhmE0Y1w0g4
+          challengeContext:
+            clientOS: MAC_OS_X
+            clientLocation: San Francisco, California, United States
+            transactionTime: '2022-03-27T00:04:56.861Z'
+            transactionType: LOGIN
+            bindingMessage: Required if transactionType = CIBA
+          userId: 00u44bx5BuSpiLUMl0w5
+          ver: 0
+    GetPendingNotificationsSuccessResponse:
+      value:
+        - payloadVersion: IDXv1
+          challenge: Your encoded challenge request JWT
+    UnenrollAppAuthenticatorEnrollmentUserVerificationKey:
+      value:
+        methods:
+          push:
+            keys:
+              userVerification: null
+    UpdateAppAuthenticatorEnrollmentPushToken:
+      value:
+        methods:
+          push:
+            pushToken: 667b713e90871f014805f45f770c90d161b84b609d167039b2c388c7bacfdaa1
+    UpdateAppAuthenticatorEnrollmentPushTokenAndUserVerificationKey:
+      value:
+        methods:
+          push:
+            pushToken: 667b713e90871f014805f45f770c90d161b84b609d167039b2c388c7bacfdaa1
+            keys:
+              userVerification:
+                x: V0p-5JFpcen4Iep94ihs00Kjezw9sblfMSUW-cJxTRk
+                'y': wgJ9SFT3iaT6cqS08TBIBg_K-20r_4FMGFUlN2BXFJc
+                kty: EC
+                okta:kpr: HARDWARE
+                crv: P-256
+                kid: 80D6AC7B-B640-4899-A32C-CA7B98BE0AE6
+    UpdateAppAuthenticatorEnrollmentTransactionType:
+      value:
+        methods:
+          push:
+            capabilities:
+              transactionTypes:
+                - LOGIN
+                - CIBA
+    UpdateAppAuthenticatorEnrollmentUserVerificationKey:
+      value:
+        methods:
+          push:
+            keys:
+              userVerification:
+                x: V0p-5JFpcen4Iep94ihs00Kjezw9sblfMSUW-cJxTRk
+                'y': wgJ9SFT3iaT6cqS08TBIBg_K-20r_4FMGFUlN2BXFJc
+                kty: EC
+                okta:kpr: HARDWARE
+                crv: P-256
+                kid: 80D6AC7B-B640-4899-A32C-CA7B98BE0AE6
+    VerifyPushNotificationChallengeJWTHeader:
+      value:
+        typ: okta-pushbind+jwt
+        kid: b33b262d-b054-4519-833e-0893f53616ec
+        alg: RS256
+    VerifyPushNotificationChallengeJWTPayload:
+      value:
+        iss: pfd7rzcmvlhmE0Y1w0g4
+        sub: 00u12xkg3YOQqFyeC0g6
+        aud: https://{{yourOktaDomain}}
+        jti: 9866e66d-e173-487a-878b-4059ffb15255
+        iat: 1648687225
+        exp: 1648687525
+        nbf: 1648686925
+        methodEnrollmentId: opf13zf81eK3VfeHE0g6
+        tx: ftxWtAah8d4Gv-P-ZcMdbSmELeRlRShWNR
+        nonce: 4OvrzlCotGBJIVCAzHb9
+        deviceSignals:
+          id: guo13zf7vXryjyUCU0g6
+          isHardwareProtectionEnabled: false,
+          deviceAttestation:
+            clientInstanceKeyAttestation: eyJraWQiOiIyODY5OTFmYi0zMzg2LTRmZDMtOGE0OC1jODVmYzJiOWJkODMiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJjbGkxM3pmN3dmWjI3eENSUTBnNiIsInN1YiI6Imd1bzEzemY3dlhyeWp5VUNVMGc2IiwiYXVkIjoiaHR0cHM6XC9cL2RldmljZXNkay5oaW9rdGFuZS5jb20iLCJzdWJqZWN0VHlwZSI6IkRFVklDRSIsImp0aSI6IjQxNWM1MDNiLWQxMDMtNDEwYi1hM2Q1LTE4YzFhZTEzNzJkZCIsImlhdCI6MTY0ODY4NzIyNSwiZXhwIjoxNjQ4Njg3NTI1LCJuYmYiOjE2NDg2ODY5MjV9.fOFEVGHqdQJx6LQHgxAyOhPi-pJOGbuEZ0aeIVhurSgCrxzdXWml94uRn2ykU1JfIOBwtiIDihRE8HiozQZUVqgpxYkAiOCicc1ZlsY2rCCTR_G5qGhDyvnIVt1LuirNt1vwLJY8W0LbJ5sXeiQRjvNENsdOFA4l-88AMev3oxRi0VC0lKtFiNu6zvXlPuf3armUZXGFr04LcMMCA7yobmtl85fuxCcaQ2mDEvOpjNDQmPPnUQKlGKN6Po4YbjLnb0Vb_nx45mGNe8jTo2GZv2e38fejLhCvS8cIaxtEMGe7ixbw0V3e_PfRjNQVR54F8IkO0HW3OHzShYaWUwhDaQ
+          model: Pixel 4
+          manufacturer: Google
+          displayName: Pixel 4
+          platform": ANDROID
+          osVersion": 12:2022-03-05
+          clientInstanceId": cli13zf7wfZ27xCRQ0g6
+          clientInstanceBundleId: com.okta.devices.push.app
+          clientInstanceVersion: 1
+          clientInstanceDeviceSdkVersion: DeviceSDK 0.37.0
+          secureHardwarePresent: true
+          screenLockType: BIOMETRIC
+          diskEncryptionType: USER
+        keyType: proofOfPossession
+        challengeResponseContext:
+          originHeader: ''
+          userConsent: APPROVED_CONSENT_PROMPT
+          transactionType: LOGIN
+    VerifyPushNotificationChallengeRequest:
+      value:
+        method: push
+        challengeResponse: Your encoded challenge response JWT
   securitySchemes:
     oauth2:
       type: oauth2
@@ -1825,9 +2526,11 @@ components:
           authorizationUrl: /oauth2/v1/authorize
           tokenUrl: /oauth2/v1/token
           scopes:
-            okta.myaccount.email.manage: Write access to user emails
-            okta.myaccount.email.read: Read access to user emails
-            okta.myaccount.phone.manage: Write access to user phones
-            okta.myaccount.phone.read: Read access to user phones
-            okta.myaccount.profile.manage: Write access to user profile & schema
-            okta.myaccount.profile.read: Read access to user profile & schema
+            okta.myAccount.appAuthenticator.manage: Write access to user app authenticator enrollments
+            okta.myAccount.appAuthenticator.read: Read access to user app authenticator enrollments
+            okta.myAccount.email.manage: Write access to user emails
+            okta.myAccount.email.read: Read access to user emails
+            okta.myAccount.phone.manage: Write access to user phones
+            okta.myAccount.phone.read: Read access to user phones
+            okta.myAccount.profile.manage: Write access to user profile and schema
+            okta.myAccount.profile.read: Read access to user profile and schema

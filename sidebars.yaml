@@ -1,6 +1,9 @@
 reference:
   - page: index.mdx
   - page: oauth2.md
+  - label: Postman Collections
+    href: https://www.postman.com/okta-eng/workspace/okta-public-api-collections/overview
+    external: true
   - group: OpenID Connect & OAuth 2.0
     pages:
       - label: Overview

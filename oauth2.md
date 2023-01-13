@@ -98,11 +98,13 @@ meta:
 
 ## MyAccount Management
 
-| Scope                         | Description |
-| ----------------------------- | --------- |
-| okta.myaccount.email.manage   | Write access to user emails |
-| okta.myaccount.email.read     | Read access to user emails |
-| okta.myaccount.phone.manage   | Write access to user phones |
-| okta.myaccount.phone.read     | Read access to user phones |
-| okta.myaccount.profile.manage | Write access to user profile & schema |
-| okta.myaccount.profile.read   | Read access to user profile & schema |
+| Scope                                  | Description |
+| -------------------------------------- | --------- |
+| okta.myAccount.appAuthenticator.manage | Write access to user app authenticator enrollments |
+| okta.myAccount.appAuthenticator.read   | Read access to user app authenticator enrollments |
+| okta.myAccount.email.manage            | Write access to user emails |
+| okta.myAccount.email.read              | Read access to user emails |
+| okta.myAccount.phone.manage            | Write access to user phones |
+| okta.myAccount.phone.read              | Read access to user phones |
+| okta.myAccount.profile.manage          | Write access to user profile and schema |
+| okta.myAccount.profile.read            | Read access to user profile and schema |
