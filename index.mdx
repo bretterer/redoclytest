@@ -4,7 +4,7 @@ title: Reference overview
 
 import { BetaBanner } from './components/beta-banner.tsx';
 
-<BetaBanner />    
+<BetaBanner />
 
 
 # Reference overview
@@ -104,7 +104,9 @@ Ensure that the `User-Agent` string that your app constructs is in the correct f
 
 We recommend that you use a template like the following to format the `User-Agent` string:
 
-`User-Agent: Mozilla/5.0 (<system-information>) <platform> (<platform-details>) <extensions>`
+```
+User-Agent: Mozilla/5.0 (<system-information>) <platform> (<platform-details>) <extensions>
+```
 
 Okta recommends making test API calls, then checking for the related entries in the [System Log](/openapi/okta-management/management/tag/SystemLog/). Testing helps you ensure that Okta can parse both the `OS` and `Browser` fields from the `User-Agent` header that is passed by your application.
 
@@ -204,9 +206,10 @@ The expression language that is used in the filter and search parameters support
 
 The attribute names are case-sensitive while attribute operators are case-insensitive. For example, the following two expressions evaluate to the same logical value:
 
-    filter=firstName Eq "john"
+- `filter=profile.firstName Eq "john"`
 
-    filter=firstName eq "john"
+- `filter=profile.firstName eq "john"`
+
 
 The filter and search parameters must contain at least one valid Boolean expression. Each expression must contain an attribute name followed by an attribute operator and optional value. Multiple expressions can be combined using two logical operators. Furthermore, you can group expressions together using `()`.
 

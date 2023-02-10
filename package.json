@@ -11,6 +11,25 @@
   },
   "dependencies": {
     "@okta/odyssey-design-tokens": "^0.11.1",
-    "@redocly/developer-portal": "1.1.0-beta.120"
-  }
+    "@redocly/developer-portal": "^1.1.0-beta.122"
+  },
+  "resolutions": {
+    "glob-parent": "6.0.2",
+    "**/yaml-loader/loader-utils": "1.4.2",
+    "loader-utils": "2.0.4",
+    "**/body-parser/debug": "3.1.0",
+    "**/compression/debug": "3.1.0",
+    "**/detect-port-alt/debug": "3.1.0",
+    "**/expand-brackets/debug": "3.1.0",
+    "**/express/debug": "3.1.0",
+    "**/express/**/debug": "3.1.0",
+    "**/server/debug": "3.1.0",
+    "**/send/debug": "3.1.0",
+    "**/finalhandler/debug": "3.1.0",
+    "**/serve-index/debug": "3.1.0",
+    "**/snapdragon/debug": "3.1.0",
+    "**/stream-parser/debug": "3.1.0",
+    "**/unist-util-select/debug": "3.1.0"
+  },
+  "packageManager": "yarn@1.22.19"
 }
