@@ -51,6 +51,8 @@ meta:
 | okta.devices.read                | Allows the app to read the existing device's profile and search devices. |
 | okta.domains.manage              | Allows the app to manage custom Domains for your Okta organization. |
 | okta.domains.read                | Allows the app to read information about custom Domains for your Okta organization. |
+| okta.emailDomains.manage         | Allows the app to manage Email Domains for your Okta organization. |
+| okta.emailDomains.read           | Allows the app to read information about Email Domains for your Okta organization. |
 | okta.emailServers.manage         | Allows the app to manage Email Servers for your Okta organization. |
 | okta.emailServers.read           | Allows the app to read information about Email Servers for your Okta organization. |
 | okta.eventHooks.manage           | Allows the app to create and manage Event Hooks in your Okta organization. |
