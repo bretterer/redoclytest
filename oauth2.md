@@ -113,13 +113,15 @@ meta:
 
 ## MyAccount Management
 
-| Scope                                  | Description |
-| -------------------------------------- | --------- |
-| okta.myAccount.appAuthenticator.manage | Write access to user app authenticator enrollments |
-| okta.myAccount.appAuthenticator.read   | Read access to user app authenticator enrollments |
-| okta.myAccount.email.manage            | Write access to user emails |
-| okta.myAccount.email.read              | Read access to user emails |
-| okta.myAccount.phone.manage            | Write access to user phones |
-| okta.myAccount.phone.read              | Read access to user phones |
-| okta.myAccount.profile.manage          | Write access to user profile and schema |
-| okta.myAccount.profile.read            | Read access to user profile and schema |
+| Scope                                              | Description |
+| -------------------------------------------------- | --------- |
+| okta.myAccount.appAuthenticator.maintenance.manage | Write access to non-sensitive attributes of user app authenticator enrollments |
+| okta.myAccount.appAuthenticator.maintenance.read   | Read access to non-sensitive attributes of user app authenticator enrollments |
+| okta.myAccount.appAuthenticator.manage             | Write access to user app authenticator enrollments |
+| okta.myAccount.appAuthenticator.read               | Read access to user app authenticator enrollments |
+| okta.myAccount.email.manage                        | Write access to user emails |
+| okta.myAccount.email.read                          | Read access to user emails |
+| okta.myAccount.phone.manage                        | Write access to user phones |
+| okta.myAccount.phone.read                          | Read access to user phones |
+| okta.myAccount.profile.manage                      | Write access to user profile and schema |
+| okta.myAccount.profile.read                        | Read access to user profile and schema |
