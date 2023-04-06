@@ -33,6 +33,8 @@ meta:
 | okta.agentPools.read             | Allows the app to read agent pools in your Okta organization. |
 | okta.apiTokens.manage            | Allows the app to manage API Tokens in your Okta organization. |
 | okta.apiTokens.read              | Allows the app to read API Tokens in your Okta organization. |
+| okta.appGrants.manage            | Allows the app to create and manage grants in your Okta organization. |
+| okta.appGrants.read              | Allows the app to read grants in your Okta organization. |
 | okta.apps.manage                 | Allows the app to create and manage Apps in your Okta organization. |
 | okta.apps.read                   | Allows the app to read information about Apps in your Okta organization. |
 | okta.authenticators.manage       | Allows the app to manage all authenticators (e.g. enrollments, reset). |
@@ -121,6 +123,8 @@ meta:
 | okta.myAccount.appAuthenticator.read               | Read access to user app authenticator enrollments |
 | okta.myAccount.email.manage                        | Write access to user emails |
 | okta.myAccount.email.read                          | Read access to user emails |
+| okta.myAccount.password.manage                     | Write access to user password |
+| okta.myAccount.password.read                       | Read access to user password metadata |
 | okta.myAccount.phone.manage                        | Write access to user phones |
 | okta.myAccount.phone.read                          | Read access to user phones |
 | okta.myAccount.profile.manage                      | Write access to user profile and schema |

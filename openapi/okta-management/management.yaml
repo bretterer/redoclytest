@@ -10,7 +10,7 @@ info:
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 5.2.0
+  version: 5.3.0
   x-logo:
     url: logo.svg
     backgroundColor: transparent
@@ -60,7 +60,7 @@ tags:
       * Email
       * WebAuthn
       * Duo
-      * Custom App <ea>Early Access</ea>
+      * Custom App
   - name: AuthorizationServer
     x-displayName: Authorization Servers
     description: Authorization Servers generate OAuth 2.0 and OpenID Connect tokens, including access tokens and ID tokens. The Okta Management API gives you the ability to configure and manage Authorization Servers and the security policies that are attached to them.
@@ -369,7 +369,7 @@ paths:
       tags:
         - Authenticator
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: LIMITED_GA
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
@@ -1675,6 +1675,8 @@ paths:
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
         - apiToken: []
+        - oauth2:
+            - okta.appGrants.read
       tags:
         - Application
       x-okta-lifecycle:
@@ -1708,6 +1710,8 @@ paths:
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
         - apiToken: []
+        - oauth2:
+            - okta.appGrants.manage
       tags:
         - Application
       x-okta-lifecycle:
@@ -1741,6 +1745,8 @@ paths:
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
         - apiToken: []
+        - oauth2:
+            - okta.appGrants.read
       tags:
         - Application
       x-okta-lifecycle:
@@ -1762,6 +1768,8 @@ paths:
           $ref: '#/components/responses/ErrorTooManyRequests429'
       security:
         - apiToken: []
+        - oauth2:
+            - okta.appGrants.manage
       tags:
         - Application
       x-okta-lifecycle:
@@ -2948,7 +2956,7 @@ paths:
       tags:
         - AuthorizationServer
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: false
         SKUs:
           - API Access Management
@@ -2987,7 +2995,7 @@ paths:
       tags:
         - AuthorizationServer
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: false
         SKUs:
           - API Access Management
@@ -3016,7 +3024,7 @@ paths:
       tags:
         - AuthorizationServer
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: false
         SKUs:
           - API Access Management
@@ -4388,7 +4396,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Brand'
+                  $ref: '#/components/schemas/BrandWithEmbedded'
               examples:
                 Get brands response:
                   $ref: '#/components/examples/ListBrandsResponse'
@@ -4456,7 +4464,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Brand'
+                $ref: '#/components/schemas/BrandWithEmbedded'
               examples:
                 Get brand response:
                   $ref: '#/components/examples/GetBrandResponse'
@@ -6891,6 +6899,8 @@ paths:
         lifecycle: GA
         isGenerallyAvailable: true
   /api/v1/email-domains:
+    parameters:
+      - $ref: '#/components/parameters/queryExpandEmailDomain'
     get:
       summary: List all Email Domains
       description: Lists all the Email Domains in your org
@@ -6903,7 +6913,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/EmailDomainResponse'
+                  $ref: '#/components/schemas/EmailDomainResponseWithEmbedded'
               examples:
                 List email domain response:
                   $ref: '#/components/examples/EmailDomainResponse'
@@ -6973,6 +6983,7 @@ paths:
   /api/v1/email-domains/{emailDomainId}:
     parameters:
       - $ref: '#/components/parameters/pathEmailDomainId'
+      - $ref: '#/components/parameters/queryExpandEmailDomain'
     get:
       summary: Retrieve an Email Domain
       description: Retrieves an Email Domain by `emailDomainId`
@@ -6983,7 +6994,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EmailDomainResponse'
+                $ref: '#/components/schemas/EmailDomainResponseWithEmbedded'
               examples:
                 Retrieve email domain response:
                   $ref: '#/components/examples/EmailDomainResponse'
@@ -8591,7 +8602,7 @@ paths:
       tags:
         - HookKey
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: true
     post:
       summary: Create a key
@@ -8624,7 +8635,7 @@ paths:
       tags:
         - HookKey
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: true
   /api/v1/hook-keys/public/{publicKeyId}:
     parameters:
@@ -8653,7 +8664,7 @@ paths:
       tags:
         - HookKey
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: true
   /api/v1/hook-keys/{hookKeyId}:
     parameters:
@@ -8682,7 +8693,7 @@ paths:
       tags:
         - HookKey
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: true
     put:
       summary: Replace a key
@@ -8717,7 +8728,7 @@ paths:
       tags:
         - HookKey
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: true
     delete:
       summary: Delete a key
@@ -8740,7 +8751,7 @@ paths:
       tags:
         - HookKey
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: true
   /api/v1/iam/resource-sets:
     get:
@@ -13408,7 +13419,7 @@ paths:
       tags:
         - PushProvider
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: LIMITED_GA
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
@@ -13453,7 +13464,7 @@ paths:
       tags:
         - PushProvider
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: LIMITED_GA
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
@@ -13489,7 +13500,7 @@ paths:
       tags:
         - PushProvider
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: LIMITED_GA
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
@@ -13536,7 +13547,7 @@ paths:
       tags:
         - PushProvider
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: LIMITED_GA
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
@@ -13570,7 +13581,7 @@ paths:
       tags:
         - PushProvider
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: LIMITED_GA
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
@@ -14976,7 +14987,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateUserRequest'
+              $ref: '#/components/schemas/User'
         required: true
       responses:
         '200':
@@ -17422,7 +17433,7 @@ paths:
       tags:
         - ApiServiceIntegrations
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: true
     post:
       summary: Create an API Service Integration instance
@@ -17460,7 +17471,7 @@ paths:
       tags:
         - ApiServiceIntegrations
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: true
   /integrations/api/v1/api-services/{apiServiceId}:
     parameters:
@@ -17494,7 +17505,7 @@ paths:
       tags:
         - ApiServiceIntegrations
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: true
     delete:
       summary: Delete an API Service Integration instance
@@ -17518,7 +17529,7 @@ paths:
       tags:
         - ApiServiceIntegrations
       x-okta-lifecycle:
-        lifecycle: EA
+        lifecycle: GA
         isGenerallyAvailable: true
 components:
   examples:
@@ -19693,6 +19704,19 @@ components:
               allow:
                 - GET
                 - PUT
+    RoleAssignedUsersResponseExample:
+      value:
+        value:
+          - id: 00u118oQYT4TBGuay0g4
+            orn: orn:okta:00o5rb5mt2H3d1TJd0h7:users:00u118oQYT4TBGuay0g4
+            _links:
+              self:
+                href: http://your-subdomain.okta.com/api/v1/users/00u118oQYT4TBGuay0g4
+              roles:
+                href: http://your-subdomain.okta.com/api/v1/users/00u118oQYT4TBGuay0g4/roles
+        _links:
+          next:
+            href: http://your-subdomain.okta.com/api/v1/iam/assignees/users?after=00u118oQYT4TBGuay0g4&limit=1
     RoleRequest:
       value:
         label: UserCreator
@@ -20628,6 +20652,19 @@ components:
             - themes
             - domains
             - emailDomain
+      description: Specifies additional metadata to be included in the response
+    queryExpandEmailDomain:
+      name: expand
+      in: query
+      style: form
+      explode: false
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - brands
       description: Specifies additional metadata to be included in the response
     queryExpandEmailTemplate:
       name: expand
@@ -22246,26 +22283,6 @@ components:
           type: string
         removePoweredByOkta:
           type: boolean
-        _embedded:
-          type: object
-          properties:
-            themes:
-              type: array
-              items:
-                $ref: '#/components/schemas/ThemeResponse'
-            domains:
-              items:
-                $ref: '#/components/schemas/DomainResponse'
-              type: array
-            emailDomain:
-              $ref: '#/components/schemas/EmailDomainResponse'
-          readOnly: true
-        _links:
-          allOf:
-            - $ref: '#/components/schemas/LinksSelf'
-            - properties:
-                themes:
-                  $ref: '#/components/schemas/HrefObject'
     BrandDomains:
       title: BrandDomains
       items:
@@ -22288,6 +22305,31 @@ components:
           type: string
         removePoweredByOkta:
           type: boolean
+    BrandWithEmbedded:
+      allOf:
+        - $ref: '#/components/schemas/Brand'
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            themes:
+              type: array
+              items:
+                $ref: '#/components/schemas/ThemeResponse'
+            domains:
+              items:
+                $ref: '#/components/schemas/DomainResponse'
+              type: array
+            emailDomain:
+              $ref: '#/components/schemas/EmailDomainResponse'
+          readOnly: true
+        _links:
+          allOf:
+            - $ref: '#/components/schemas/LinksSelf'
+            - properties:
+                themes:
+                  $ref: '#/components/schemas/HrefObject'
     BrowserPluginApplication:
       allOf:
         - $ref: '#/components/schemas/Application'
@@ -23092,6 +23134,19 @@ components:
           type: string
         validationStatus:
           $ref: '#/components/schemas/EmailDomainStatus'
+    EmailDomainResponseWithEmbedded:
+      allOf:
+        - $ref: '#/components/schemas/EmailDomainResponse'
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            brands:
+              type: array
+              items:
+                $ref: '#/components/schemas/Brand'
+          readOnly: true
     EmailDomainStatus:
       type: string
       enum:
@@ -24490,7 +24545,7 @@ components:
       enum:
         - USER
     LinksNext:
-      description: Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the current status of an application using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. This object is used for dynamic discovery of related resources and lifecycle operations.
+      description: Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the current status of an application using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. Use the `LinksNext` object for dynamic discovery of related resources and lifecycle operations.
       type: object
       properties:
         next:
@@ -24512,6 +24567,13 @@ components:
               $ref: '#/components/schemas/HrefObjectActivateLink'
             deactivate:
               $ref: '#/components/schemas/HrefObjectDeactivateLink'
+    LinksSelfAndRoles:
+      allOf:
+        - $ref: '#/components/schemas/LinksSelf'
+        - type: object
+          properties:
+            roles:
+              $ref: '#/components/schemas/HrefObject'
     ListProfileMappings:
       description: |-
         A collection of the profile mappings that include a subset of the profile mapping object's properties. The Profile Mapping object describes a mapping between an Okta User's and an App User's properties using [JSON Schema Draft 4](https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-04).
@@ -24985,7 +25047,7 @@ components:
                 type: string
                 uniqueItems: true
           x-okta-lifecycle:
-            lifecycle: EA
+            lifecycle: GA
             isGenerallyAvailable: false
             SKUs: []
         enroll:
@@ -25435,6 +25497,7 @@ components:
         - password
         - refresh_token
         - urn:ietf:params:oauth:grant-type:device_code
+        - urn:ietf:params:oauth:grant-type:jwt-bearer
         - urn:ietf:params:oauth:grant-type:saml2-bearer
         - urn:ietf:params:oauth:grant-type:token-exchange
     OAuthResponseType:
@@ -25567,6 +25630,13 @@ components:
           type: string
         consent_method:
           $ref: '#/components/schemas/OpenIdConnectApplicationConsentMethod'
+        dpop_bound_access_tokens:
+          type: boolean
+          description: Indicates that the client application uses Demonstrating Proof-of-Possession (DPoP) for token requests. If `true`, the authorization server rejects token requests from this client that don't contain the DPoP header.
+          default: false
+          x-okta-lifecycle:
+            lifecycle: EA
+            isGenerallyAvailable: true
         grant_types:
           type: array
           items:
@@ -26622,7 +26692,7 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/ProfileMappingProperty'
-          readOnly: true
+          readOnly: false
         source:
           type: object
           $ref: '#/components/schemas/ProfileMappingSource'
@@ -27374,6 +27444,26 @@ components:
           readOnly: true
         _links:
           $ref: '#/components/schemas/LinksSelf'
+    RoleAssignedUser:
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        orn:
+          type: string
+          readOnly: true
+        _links:
+          $ref: '#/components/schemas/LinksSelfAndRoles'
+    RoleAssignedUsers:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleAssignedUser'
+        _links:
+          $ref: '#/components/schemas/LinksNext'
     RoleAssignmentType:
       type: string
       enum:
@@ -29119,6 +29209,8 @@ components:
             okta.agentPools.read: Allows the app to read agent pools in your Okta organization.
             okta.apiTokens.manage: Allows the app to manage API Tokens in your Okta organization.
             okta.apiTokens.read: Allows the app to read API Tokens in your Okta organization.
+            okta.appGrants.manage: Allows the app to create and manage grants in your Okta organization.
+            okta.appGrants.read: Allows the app to read grants in your Okta organization.
             okta.apps.manage: Allows the app to create and manage Apps in your Okta organization.
             okta.apps.read: Allows the app to read information about Apps in your Okta organization.
             okta.authenticators.manage: Allows the app to manage all authenticators (e.g. enrollments, reset).
