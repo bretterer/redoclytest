@@ -39,7 +39,8 @@ paths:
       summary: List all Emails
       description: |-
         Lists all of the current user's email information: a collection of links for each email that describe the acceptable operations.
-         > **Note:** Admin users can't make POST requests to the `/idp/myaccount/emails` endpoint.
+
+        > **Note:** Admin users can't make POST requests to the `/idp/myaccount/emails` endpoint.
       operationId: listEmails
       responses:
         '200':
@@ -58,7 +59,8 @@ paths:
       summary: Create an Email
       description: |-
         Creates a primary or secondary email address for the user's account. The new email address has an `UNVERIFIED` status.
-         > **Note:** Admin users can't make POST requests to the `/idp/myaccount/emails` endpoint.
+
+        > **Note:** Admin users can't make POST requests to the `/idp/myaccount/emails` endpoint.
       operationId: createEmail
       requestBody:
         content:
@@ -2646,10 +2648,6 @@ components:
           authorizationUrl: /oauth2/v1/authorize
           tokenUrl: /oauth2/v1/token
           scopes:
-            okta.myAccount.appAuthenticator.maintenance.manage: Write access to non-sensitive attributes of user app authenticator enrollments
-            okta.myAccount.appAuthenticator.maintenance.read: Read access to non-sensitive attributes of user app authenticator enrollments
-            okta.myAccount.appAuthenticator.manage: Write access to user app authenticator enrollments
-            okta.myAccount.appAuthenticator.read: Read access to user app authenticator enrollments
             okta.myAccount.email.manage: Write access to user emails
             okta.myAccount.email.read: Read access to user emails
             okta.myAccount.password.manage: Write access to user password
