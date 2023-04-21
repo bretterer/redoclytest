@@ -2388,40 +2388,6 @@ paths:
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
-    post:
-      summary: Create an Authenticator
-      description: Creates an authenticator. You can use this operation as part of the "Create a custom authenticator" flow. See the [Custom authenticator integration guide](https://developer.okta.com/docs/guides/authenticators-custom-authenticator/android/main/).
-      operationId: createAuthenticator
-      parameters:
-        - in: query
-          name: activate
-          description: Whether to execute the activation lifecycle operation when Okta creates the authenticator
-          schema:
-            type: boolean
-            default: false
-      x-codegen-request-body-name: authenticator
-      requestBody:
-        $ref: '#/components/requestBodies/AuthenticatorRequestBody'
-      responses:
-        '200':
-          $ref: '#/components/responses/AuthenticatorResponse'
-        '400':
-          $ref: '#/components/responses/ErrorApiValidationFailed400'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - apiToken: []
-        - oauth2:
-            - okta.authenticators.manage
-      tags:
-        - Authenticator
-      x-okta-lifecycle:
-        lifecycle: LIMITED_GA
-        isGenerallyAvailable: false
-        SKUs:
-          - Okta Identity Engine
   /api/v1/authenticators/{authenticatorId}:
     parameters:
       - $ref: '#/components/parameters/pathAuthenticatorId'

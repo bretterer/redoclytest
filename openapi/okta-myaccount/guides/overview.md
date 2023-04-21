@@ -17,7 +17,6 @@ Accept: application/json; okta-version=1.0.0
 ```
 
 #### Access Token assurance
-> Note: Access Token assurance doesn't apply to the MyAccount App Authenticators API.
 
 MyAccount operations that create, update, or delete resources require Access Tokens up to 15 minutes old. API calls with Access Tokens older than 15 minutes require re-authentication. If you don't re-authenticate the token, the API returns a 403 error with the following content in the header:
 

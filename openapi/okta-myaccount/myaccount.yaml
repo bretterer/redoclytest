@@ -25,9 +25,6 @@ servers:
         default: subdomain.okta.com
         description: The domain of your organization. This can be an official Okta domain (okta.com, oktapreview.com, etc) or one of your configured custom domains.
 tags:
-  - name: AppAuthenticator
-    x-displayName: App Authenticators
-    description: The MyAccount App Authenticators API provides operations to enroll, update, and delete an app authenticator. The API also allows users to view and verify pending notification challenges. The API only supports custom authenticators. See the [Custom authenticator integration guide](https://developer.okta.com/docs/guides/authenticators-custom-authenticator/android/main/).
   - name: Email
     description: The MyAccount Email API provides operations to enroll, update, and delete emails. The API also provides utilities to create, view, and answer verification challenges.
   - name: Password
@@ -37,44 +34,6 @@ tags:
   - name: Profile
     description: The MyAccount Profile API provides operations to enroll, and update profile fields. The API also allows viewing of all allowed profile fields.
 paths:
-  /idp/myaccount/app-authenticators/challenge/{challengeId}/verify:
-    parameters:
-      - $ref: '#/components/parameters/appAuthenticatorChallengeId'
-    post:
-      summary: Verify a push notification challenge response from the app authenticator
-      description: Verifies a push notification challenge from the app authenticator
-      operationId: verifyAppAuthenticatorPushNotificationChallenge
-      requestBody:
-        content:
-          application/json;okta-version=1.0.0:
-            schema:
-              $ref: '#/components/schemas/PushNotificationVerification'
-            examples:
-              Push Notification Challenge Response:
-                $ref: '#/components/examples/VerifyPushNotificationChallengeRequest'
-              JWT Header:
-                $ref: '#/components/examples/VerifyPushNotificationChallengeJWTHeader'
-              JWT Payload:
-                $ref: '#/components/examples/VerifyPushNotificationChallengeJWTPayload'
-      responses:
-        '200':
-          description: Verification Success
-        '204':
-          description: User denied challenge attempt
-        '400':
-          description: Bad Request
-      security: []
-      tags:
-        - AppAuthenticator
-      x-okta-lifecycle:
-        lifecycle: GA
-        isGenerallyAvailable: true
-  /idp/myaccount/app-authenticators/{enrollmentId}:
-    parameters:
-      - $ref: '#/components/parameters/appAuthenticatorEnrollmentId'
-  /idp/myaccount/app-authenticators/{enrollmentId}/push/notifications:
-    parameters:
-      - $ref: '#/components/parameters/appAuthenticatorEnrollmentId'
   /idp/myaccount/emails:
     get:
       summary: List all Emails
