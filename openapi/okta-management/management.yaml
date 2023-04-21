@@ -10,7 +10,7 @@ info:
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 5.3.0
+  version: 5.1.0
   x-logo:
     url: logo.svg
     backgroundColor: transparent
@@ -194,7 +194,7 @@ tags:
       If you created multiple User Types, they all share the same Linked Object definitions. For example, if you have separate User Types for employees and contractors, a link could designate an employee as the manager for a contractor, with the contractor being a subordinate of that employee.
   - name: LogStream
     x-displayName: Log Streaming
-    description: The Log Streaming API provides operations to manage Log Stream configurations for an org. You can configure up to two Log Stream integrations per org.
+    description: The Log Streaming API provides operations to manage log stream configurations for an org. You can configure up to two log stream integrations per org.
   - name: NetworkZone
     x-displayName: Network Zones
     description: |-
@@ -216,9 +216,6 @@ tags:
   - name: ProfileMapping
     x-displayName: Profile Mappings
     description: The Mappings API provides operations to manage the mapping of Profile properties between an Okta User and an App User using [Okta Expression Language](https://developer.okta.com/docs/reference/okta-expression-language). More information on Okta User and App User Profiles can be found in Okta's [User profiles](https://developer.okta.com/docs/concepts/user-profiles/#what-is-the-okta-universal-directory).
-  - name: PushProvider
-    x-displayName: Push Providers
-    description: The Push Providers API provides operations to manage Push Providers for your organization.
   - name: RateLimitSettings
     x-displayName: Rate Limit Settings
     description: The Rate Limit Settings APIs provide operations to manage settings and configurations surrounding rate limiting in your Okta organization.
@@ -340,39 +337,6 @@ tags:
     x-displayName: User Types
     description: The User Types API provides operations to manage User Types.
 paths:
-  /.well-known/app-authenticator-configuration:
-    get:
-      summary: Retrieve the Well-Known App Authenticator Configuration
-      description: Retrieves the well-known app authenticator configuration, which includes an app authenticator's settings, supported methods and various other configuration details
-      operationId: getWellKnownAppAuthenticatorConfiguration
-      parameters:
-        - name: oauthClientId
-          in: query
-          description: Filters app authenticator configurations by `oauthClientId`
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/WellKnownAppAuthenticatorConfiguration'
-        '400':
-          $ref: '#/components/responses/ErrorMissingRequiredParameter400'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security: []
-      tags:
-        - Authenticator
-      x-okta-lifecycle:
-        lifecycle: LIMITED_GA
-        isGenerallyAvailable: false
-        SKUs:
-          - Okta Identity Engine
   /.well-known/okta-organization:
     get:
       summary: Retrieve the Well-Known Org Metadata
@@ -2424,40 +2388,6 @@ paths:
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
-    post:
-      summary: Create an Authenticator
-      description: Creates an authenticator. You can use this operation as part of the "Create a custom authenticator" flow. See the [Custom authenticator integration guide](https://developer.okta.com/docs/guides/authenticators-custom-authenticator/android/main/).
-      operationId: createAuthenticator
-      parameters:
-        - in: query
-          name: activate
-          description: Whether to execute the activation lifecycle operation when Okta creates the authenticator
-          schema:
-            type: boolean
-            default: false
-      x-codegen-request-body-name: authenticator
-      requestBody:
-        $ref: '#/components/requestBodies/AuthenticatorRequestBody'
-      responses:
-        '200':
-          $ref: '#/components/responses/AuthenticatorResponse'
-        '400':
-          $ref: '#/components/responses/ErrorApiValidationFailed400'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - apiToken: []
-        - oauth2:
-            - okta.authenticators.manage
-      tags:
-        - Authenticator
-      x-okta-lifecycle:
-        lifecycle: LIMITED_GA
-        isGenerallyAvailable: false
-        SKUs:
-          - Okta Identity Engine
   /api/v1/authenticators/{authenticatorId}:
     parameters:
       - $ref: '#/components/parameters/pathAuthenticatorId'
@@ -2956,7 +2886,7 @@ paths:
       tags:
         - AuthorizationServer
       x-okta-lifecycle:
-        lifecycle: GA
+        lifecycle: EA
         isGenerallyAvailable: false
         SKUs:
           - API Access Management
@@ -2995,7 +2925,7 @@ paths:
       tags:
         - AuthorizationServer
       x-okta-lifecycle:
-        lifecycle: GA
+        lifecycle: EA
         isGenerallyAvailable: false
         SKUs:
           - API Access Management
@@ -3024,7 +2954,7 @@ paths:
       tags:
         - AuthorizationServer
       x-okta-lifecycle:
-        lifecycle: GA
+        lifecycle: EA
         isGenerallyAvailable: false
         SKUs:
           - API Access Management
@@ -8028,6 +7958,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/GroupOwner'
+              examples:
+                ListsOneOwnerOfaGroup:
+                  $ref: '#/components/examples/ListsOwnerOneResponse'
+                ListsMultipleOwnersOfaGroup:
+                  $ref: '#/components/examples/ListsOwnersMultipleResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -8057,7 +7992,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GroupOwner'
+              $ref: '#/components/schemas/AssignGroupOwnerRequestBody'
+            examples:
+              AssignAGroupOwner:
+                $ref: '#/components/examples/AssignGroupOwnerRequest'
         required: true
       responses:
         '201':
@@ -8066,6 +8004,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GroupOwner'
+              examples:
+                AssignAGroupOwner:
+                  $ref: '#/components/examples/AssignGroupOwnerResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -8602,7 +8543,7 @@ paths:
       tags:
         - HookKey
       x-okta-lifecycle:
-        lifecycle: GA
+        lifecycle: EA
         isGenerallyAvailable: true
     post:
       summary: Create a key
@@ -8635,7 +8576,7 @@ paths:
       tags:
         - HookKey
       x-okta-lifecycle:
-        lifecycle: GA
+        lifecycle: EA
         isGenerallyAvailable: true
   /api/v1/hook-keys/public/{publicKeyId}:
     parameters:
@@ -8664,7 +8605,7 @@ paths:
       tags:
         - HookKey
       x-okta-lifecycle:
-        lifecycle: GA
+        lifecycle: EA
         isGenerallyAvailable: true
   /api/v1/hook-keys/{hookKeyId}:
     parameters:
@@ -8693,7 +8634,7 @@ paths:
       tags:
         - HookKey
       x-okta-lifecycle:
-        lifecycle: GA
+        lifecycle: EA
         isGenerallyAvailable: true
     put:
       summary: Replace a key
@@ -8728,7 +8669,7 @@ paths:
       tags:
         - HookKey
       x-okta-lifecycle:
-        lifecycle: GA
+        lifecycle: EA
         isGenerallyAvailable: true
     delete:
       summary: Delete a key
@@ -8750,6 +8691,50 @@ paths:
             - okta.inlineHooks.manage
       tags:
         - HookKey
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: true
+  /api/v1/iam/assignees/users:
+    get:
+      summary: List all Users with Role Assignments
+      description: Lists all users with Role Assignments
+      operationId: listUsersWithRoleAssignments
+      parameters:
+        - name: after
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Specifies the number of results returned. Defaults to `100`.
+          schema:
+            type: integer
+            format: int32
+            default: 100
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleAssignedUsers'
+              examples:
+                User List:
+                  $ref: '#/components/examples/RoleAssignedUsersResponseExample'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.roles.read
+      tags:
+        - RoleAssignment
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: true
@@ -10924,21 +10909,17 @@ paths:
   /api/v1/logStreams:
     get:
       summary: List all Log Streams
-      description: Lists all log streams. You can request a paginated list or a subset of Log Streams that match a supported filter expression.
+      description: Lists all Log Stream objects in your org. You can request a paginated list or a subset of Log Streams that match a supported filter expression.
       operationId: listLogStreams
       parameters:
         - $ref: '#/components/parameters/queryAfter'
         - $ref: '#/components/parameters/queryLimit'
         - name: filter
           in: query
-          description: SCIM filter expression that filters the results. This expression only supports the `eq` operator on either the `status` or `type`.
+          description: An expression that [filters](/#filter) the returned objects. You can only use the `eq` operator on either the `status` or `type` properties in the filter expression.
           schema:
             type: string
-          examples:
-            Filter on type for AWS EventBridge:
-              value: type eq "aws_eventbridge"
-            Filter on status for `ACTIVE` Log Streams:
-              value: status eq "ACTIVE"
+            example: type eq "aws_eventbridge"
       responses:
         '200':
           description: OK
@@ -10948,6 +10929,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/LogStream'
+              examples:
+                ExampleGetAllResponse:
+                  $ref: '#/components/examples/LogStreamGetAllResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '429':
@@ -10964,7 +10948,7 @@ paths:
         SKUs: []
     post:
       summary: Create a Log Stream
-      description: Creates a new log stream
+      description: Creates a new Log Stream object
       operationId: createLogStream
       x-codegen-request-body-name: instance
       requestBody:
@@ -10973,8 +10957,8 @@ paths:
             schema:
               $ref: '#/components/schemas/LogStream'
             examples:
-              Example Request:
-                $ref: '#/components/examples/LogStreamRequest'
+              LogStreamPostRequestExample:
+                $ref: '#/components/examples/LogStreamPostRequest'
         required: true
       responses:
         '200':
@@ -10984,8 +10968,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/LogStream'
               examples:
-                Example Response:
-                  $ref: '#/components/examples/LogStreamResponse'
+                LogStreamPostResponseExample:
+                  $ref: '#/components/examples/LogStreamPostResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -11014,7 +10998,7 @@ paths:
       - $ref: '#/components/parameters/pathLogStreamId'
     get:
       summary: Retrieve a Log Stream
-      description: Retrieves a log stream by `logStreamId`
+      description: Retrieves a Log Stream object by ID
       operationId: getLogStream
       responses:
         '200':
@@ -11024,8 +11008,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/LogStream'
               examples:
-                Example Response:
-                  $ref: '#/components/examples/LogStreamResponse'
+                LogStreamGetRequestExample:
+                  $ref: '#/components/examples/LogStreamPostResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -11044,17 +11028,26 @@ paths:
         SKUs: []
     put:
       summary: Replace a Log Stream
-      description: Replaces a log stream by `logStreamId`
+      description: |-
+        Replaces the Log Stream object properties for a given ID.
+
+        This operation is typically used to update the configuration of a Log Stream.
+        Depending on the type of Log Stream you want to update, certain properties can't be modified after the Log Stream is initially created.
+        Use the [Retrieve the Log Stream Schema for the schema type](/openapi/okta-management/management/tag/Schema/#tag/Schema/operation/getLogStreamSchema) request to determine which properties you can update for the specific Log Stream type.
+        Log Stream properties with the `"writeOnce" : true` attribute can't be updated after creation.
+        You must still specify these `writeOnce` properties in the request body with the original values in the PUT request.
+
+        > **Note:** You don't have to specify properties that have both the `"writeOnce": true` and the `"writeOnly": true` attributes in the PUT request body. These property values are ignored even if you add them in the PUT request body.
       operationId: replaceLogStream
       x-codegen-request-body-name: instance
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LogStream'
+              $ref: '#/components/schemas/LogStreamPutSchema'
             examples:
-              Example Request:
-                $ref: '#/components/examples/LogStreamRequest'
+              LogStreamPutRequestExample:
+                $ref: '#/components/examples/LogStreamPutRequest'
         required: true
       responses:
         '200':
@@ -11064,8 +11057,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/LogStream'
               examples:
-                Example Response:
-                  $ref: '#/components/examples/LogStreamResponse'
+                LogStreamPostResponseExample:
+                  $ref: '#/components/examples/LogStreamPutResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -11086,7 +11079,7 @@ paths:
         SKUs: []
     delete:
       summary: Delete a Log Stream
-      description: Deletes a log stream by `logStreamId`
+      description: Deletes a Log Stream object from your org by ID
       operationId: deleteLogStream
       responses:
         '204':
@@ -11130,8 +11123,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/LogStream'
               examples:
-                Example Response:
-                  $ref: '#/components/examples/LogStreamResponse'
+                LogStreamActivateResponseExample:
+                  $ref: '#/components/examples/LogStreamActivateResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -11163,8 +11156,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/LogStream'
               examples:
-                Example Response:
-                  $ref: '#/components/examples/LogStreamResponse'
+                LogStreamDeactivateResponseExample:
+                  $ref: '#/components/examples/LogStreamDeactivateResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -13388,203 +13381,9 @@ paths:
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: true
-  /api/v1/push-providers:
-    get:
-      summary: List all Push Providers
-      description: Lists all push providers
-      operationId: listPushProviders
-      parameters:
-        - name: type
-          in: query
-          description: Filters push providers by `providerType`
-          schema:
-            $ref: '#/components/schemas/ProviderType'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/PushProvider'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - apiToken: []
-        - oauth2:
-            - okta.pushProviders.read
-      tags:
-        - PushProvider
-      x-okta-lifecycle:
-        lifecycle: LIMITED_GA
-        isGenerallyAvailable: false
-        SKUs:
-          - Okta Identity Engine
-    post:
-      summary: Create a Push Provider
-      description: Creates a new push provider
-      operationId: createPushProvider
-      x-codegen-request-body-name: pushProvider
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PushProvider'
-            examples:
-              APNs:
-                $ref: '#/components/examples/PushProviderAPNsRequest'
-              FCM:
-                $ref: '#/components/examples/PushProviderFCMRequest'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PushProvider'
-              examples:
-                APNs:
-                  $ref: '#/components/examples/PushProviderAPNsResponse'
-                FCM:
-                  $ref: '#/components/examples/PushProviderFCMResponse'
-        '400':
-          $ref: '#/components/responses/ErrorApiValidationFailed400'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - apiToken: []
-        - oauth2:
-            - okta.pushProviders.manage
-      tags:
-        - PushProvider
-      x-okta-lifecycle:
-        lifecycle: LIMITED_GA
-        isGenerallyAvailable: false
-        SKUs:
-          - Okta Identity Engine
   /api/v1/push-providers/{pushProviderId}:
     parameters:
       - $ref: '#/components/parameters/pathPushProviderId'
-    get:
-      summary: Retrieve a Push Provider
-      description: Retrieves a push provider by `pushProviderId`
-      operationId: getPushProvider
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PushProvider'
-              examples:
-                APNs:
-                  $ref: '#/components/examples/PushProviderAPNsResponse'
-                FCM:
-                  $ref: '#/components/examples/PushProviderFCMResponse'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '404':
-          $ref: '#/components/responses/ErrorResourceNotFound404'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - apiToken: []
-        - oauth2:
-            - okta.pushProviders.read
-      tags:
-        - PushProvider
-      x-okta-lifecycle:
-        lifecycle: LIMITED_GA
-        isGenerallyAvailable: false
-        SKUs:
-          - Okta Identity Engine
-    put:
-      summary: Replace a Push Provider
-      description: Replaces a push provider by `pushProviderId`
-      operationId: replacePushProvider
-      x-codegen-request-body-name: pushProvider
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PushProvider'
-            examples:
-              APNs:
-                $ref: '#/components/examples/PushProviderAPNsRequest'
-              FCM:
-                $ref: '#/components/examples/PushProviderFCMRequest'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PushProvider'
-              examples:
-                APNs:
-                  $ref: '#/components/examples/PushProviderAPNsResponse'
-                FCM:
-                  $ref: '#/components/examples/PushProviderFCMResponse'
-        '400':
-          $ref: '#/components/responses/ErrorApiValidationFailed400'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '404':
-          $ref: '#/components/responses/ErrorResourceNotFound404'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - apiToken: []
-        - oauth2:
-            - okta.pushProviders.manage
-      tags:
-        - PushProvider
-      x-okta-lifecycle:
-        lifecycle: LIMITED_GA
-        isGenerallyAvailable: false
-        SKUs:
-          - Okta Identity Engine
-    delete:
-      summary: Delete a Push Provider
-      description: Deletes a push provider by `pushProviderId`. If the push provider is currently being used in the org by a custom authenticator, the delete will not be allowed.
-      operationId: deletePushProvider
-      responses:
-        '204':
-          description: No Content
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '404':
-          $ref: '#/components/responses/ErrorResourceNotFound404'
-        '409':
-          description: Conflict
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                Cannot remove push provider in use by a custom app authenticator:
-                  $ref: '#/components/examples/ErrorPushProviderUsedByCustomAppAuthenticator'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - apiToken: []
-        - oauth2:
-            - okta.pushProviders.manage
-      tags:
-        - PushProvider
-      x-okta-lifecycle:
-        lifecycle: LIMITED_GA
-        isGenerallyAvailable: false
-        SKUs:
-          - Okta Identity Engine
   /api/v1/rate-limit-settings/admin-notifications:
     get:
       summary: Retrieve the Rate Limit Admin Notification Settings
@@ -13823,8 +13622,8 @@ paths:
               items:
                 $ref: '#/components/schemas/RiskEvent'
             examples:
-              Example Request:
-                $ref: '#/components/examples/RiskEventsRequest'
+              RiskEventsRequestExample:
+                $ref: '#/components/examples/RiskEventsRequestExample'
         required: true
       responses:
         '202':
@@ -13894,7 +13693,7 @@ paths:
             schema:
               $ref: '#/components/schemas/RiskProvider'
             examples:
-              Request example:
+              RiskProviderRequestExample:
                 $ref: '#/components/examples/RiskProviderRequest'
         required: true
       responses:
@@ -13905,7 +13704,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/RiskProvider'
               examples:
-                Response example:
+                RiskProviderPostResponseExample:
                   $ref: '#/components/examples/RiskProviderResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
@@ -13945,7 +13744,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/RiskProvider'
               examples:
-                Response example:
+                RiskProviderGetResponseExample:
                   $ref: '#/components/examples/RiskProviderResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
@@ -14768,6 +14567,7 @@ paths:
             type: string
         - name: sortOrder
           in: query
+          description: Sorting is done in ASCII sort order (that is, by ASCII character value), but isn't case sensitive.
           schema:
             type: string
       responses:
@@ -14881,13 +14681,6 @@ paths:
       summary: Retrieve a User
       description: Retrieves a user from your Okta organization
       operationId: getUser
-      parameters:
-        - name: expand
-          in: query
-          description: 'Specifies additional metadata to include in the response. Possible value: `blocks`'
-          required: false
-          schema:
-            type: string
       responses:
         '200':
           description: Success
@@ -15779,6 +15572,51 @@ paths:
             schema:
               $ref: '#/components/schemas/ActivateFactorRequest'
         required: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserFactor'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.users.manage
+      tags:
+        - UserFactor
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: true
+  /api/v1/users/{userId}/factors/{factorId}/resend:
+    parameters:
+      - $ref: '#/components/parameters/pathUserId'
+      - $ref: '#/components/parameters/pathFactorId'
+    post:
+      summary: Resend a factor enrollment
+      description: Resends a factor challenge (SMS/call/email OTP) as part of an enrollment flow. The current rate limit is one OTP challenge (call or SMS) per device every 30 seconds. Okta round-robins between SMS providers with every resend request to help ensure delivery of an SMS OTP across different carriers.
+      operationId: resendEnrollFactor
+      parameters:
+        - name: templateId
+          in: query
+          description: ID of SMS template (only for SMS factor)
+          schema:
+            type: string
+      requestBody:
+        description: Factor
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserFactor'
+        required: true
       responses:
         '200':
           description: Success
@@ -17433,7 +17271,7 @@ paths:
       tags:
         - ApiServiceIntegrations
       x-okta-lifecycle:
-        lifecycle: GA
+        lifecycle: EA
         isGenerallyAvailable: true
     post:
       summary: Create an API Service Integration instance
@@ -17471,7 +17309,7 @@ paths:
       tags:
         - ApiServiceIntegrations
       x-okta-lifecycle:
-        lifecycle: GA
+        lifecycle: EA
         isGenerallyAvailable: true
   /integrations/api/v1/api-services/{apiServiceId}:
     parameters:
@@ -17505,7 +17343,7 @@ paths:
       tags:
         - ApiServiceIntegrations
       x-okta-lifecycle:
-        lifecycle: GA
+        lifecycle: EA
         isGenerallyAvailable: true
     delete:
       summary: Delete an API Service Integration instance
@@ -17529,7 +17367,7 @@ paths:
       tags:
         - ApiServiceIntegrations
       x-okta-lifecycle:
-        lifecycle: GA
+        lifecycle: EA
         isGenerallyAvailable: true
 components:
   examples:
@@ -17750,6 +17588,21 @@ components:
             allOf:
               - $ref: '#/definitions/base'
               - $ref: '#/definitions/custom'
+    AssignGroupOwnerRequest:
+      summary: Assign a group owner request example
+      value:
+        id: 00u1cmc03xjzePoWD0h8
+        type: USER
+    AssignGroupOwnerResponse:
+      summary: Assign a group owner response example
+      value:
+        id: 00u1cmc03xjzePoWD0h8
+        type: USER
+        resolved: true
+        originId: null
+        originType: OKTA_DIRECTORY
+        displayName: Oliver Putnam
+        lastUpdated: Wed Mar 29 18:34:31 UTC 2023
     AuthenticatorRequestDuo:
       value:
         key: duo
@@ -18882,7 +18735,94 @@ components:
           _links:
             self:
               href: http://your-subdomain.okta.com/api/v1/users/00u118oQYT4TBGuay0g4
-    LogStreamRequest:
+    ListsOwnerOneResponse:
+      summary: Lists a response with one owner
+      value:
+        - id: 00g1gae1k0znUcLuU0h8
+          type: GROUP
+          resolved: true
+          originId: 'null'
+          originType: OKTA_DIRECTORY
+          displayName: Product & Engineering
+          lastUpdated: '2023-03-29 18:18:37.0'
+    ListsOwnersMultipleResponse:
+      summary: Lists a response with multiple owners
+      value:
+        - id: 00u1cmbqjkkmFXeqb0h8
+          type: USER
+          resolved: true
+          originId: 'null'
+          originType: OKTA_DIRECTORY
+          displayName: Mabel Mora
+          lastUpdated: '2023-03-29T18:30:58.000Z'
+        - id: 00u1cmc52x5B86cnZ0h8
+          type: USER
+          resolved: true
+          originId: 'null'
+          originType: OKTA_DIRECTORY
+          displayName: Cinda Canning
+          lastUpdated: '2023-03-29T18:30:55.000Z'
+    LogStreamActivateResponse:
+      summary: Activate Log Stream response
+      value:
+        id: 0oa1orqUGCIoCGNxf0g4
+        type: aws_eventbridge
+        name: Example AWS EventBridge
+        lastUpdated: '2023-03-24T21:22:43.000Z'
+        created: '2023-03-24T21:02:43.000Z'
+        status: ACTIVE
+        settings:
+          accountId: '123456789012'
+          eventSourceName: your-event-source-name
+          region: us-east-2
+        _links:
+          self:
+            href: http://{yourOktaDomain}/api/v1/logStreams/0oa1orqUGCIoCGNxf0g4
+            method: GET
+          deactivate:
+            href: http://{yourOktaDomain}/api/v1/logStreams/0oa1orqUGCIoCGNxf0g4/lifecycle/deactivate
+            method: POST
+    LogStreamDeactivateResponse:
+      summary: Deactivate Log Stream response
+      value:
+        id: 0oa7agphh5FT7H521d7
+        type: splunk_cloud_logstreaming
+        name: Splunk Cloud Example
+        lastUpdated: '2023-03-24T21:23:00.000Z'
+        created: '2023-03-24T21:15:13.000Z'
+        status: INACTIVE
+        settings:
+          edition: aws
+          host: okexample.splunkcloud.com
+        _links:
+          self:
+            href: http://{yourOktaDomain}/api/v1/logStreams/0oa7agphh5FT7H521d7
+            method: GET
+          activate:
+            href: http://{yourOktaDomain}/api/v1/logStreams/0oa7agphh5FT7H521d7/lifecycle/activate
+            method: POST
+    LogStreamGetAllResponse:
+      summary: Lists all Log Streams
+      value:
+        - id: 0oa1orqUGCIoCGNxf0g4
+          type: aws_eventbridge
+          name: Example AWS EventBridge
+          lastUpdated: '2023-03-24T21:02:43.000Z'
+          created: '2023-03-24T21:02:43.000Z'
+          status: ACTIVE
+          settings:
+            accountId: '123456789012'
+            eventSourceName: your-event-source-name
+            region: us-east-2
+          _links:
+            self:
+              href: http://{yourOktaDomain}/api/v1/logStreams/0oa1orqUGCIoCGNxf0g4
+              method: GET
+            deactivate:
+              href: http://{yourOktaDomain}/api/v1/logStreams/0oa1orqUGCIoCGNxf0g4/lifecycle/deactivate
+              method: POST
+    LogStreamPostRequest:
+      summary: Create an AWS EventBridge Log Stream
       value:
         type: aws_eventbridge
         name: Example AWS EventBridge
@@ -18890,13 +18830,43 @@ components:
           eventSourceName: your-event-source-name
           accountId: '123456789012'
           region: us-east-2
-    LogStreamResponse:
+    LogStreamPostResponse:
+      summary: AWS EventBridge Log Stream response
       value:
         id: 0oa1orqUGCIoCGNxf0g4
         type: aws_eventbridge
         name: Example AWS EventBridge
-        lastUpdated: '2021-10-21T16:55:30.000Z'
-        created: '2021-10-21T16:55:29.000Z'
+        lastUpdated: '2023-03-24T21:02:43.000Z'
+        created: '2023-03-24T21:02:43.000Z'
+        status: ACTIVE
+        settings:
+          accountId: '123456789012'
+          eventSourceName: your-event-source-name
+          region: us-east-2
+        _links:
+          self:
+            href: http://{yourOktaDomain}/api/v1/logStreams/0oa1orqUGCIoCGNxf0g4
+            method: GET
+          deactivate:
+            href: http://{yourOktaDomain}/api/v1/logStreams/0oa1orqUGCIoCGNxf0g4/lifecycle/deactivate
+            method: POST
+    LogStreamPutRequest:
+      summary: Replace AWS EventBridge name
+      value:
+        type: aws_eventbridge
+        name: Updated AWS EventBridge
+        settings:
+          eventSourceName: your-event-source-name
+          accountId: '123456789012'
+          region: us-east-2
+    LogStreamPutResponse:
+      summary: Replace AWS EventBridge name response
+      value:
+        id: 0oa1orqUGCIoCGNxf0g4
+        type: aws_eventbridge
+        name: Updated AWS EventBridge
+        lastUpdated: '2023-03-24T21:12:43.000Z'
+        created: '2023-03-24T21:02:43.000Z'
         status: ACTIVE
         settings:
           accountId: '123456789012'
@@ -19647,7 +19617,8 @@ components:
         _links:
           self:
             href: https://{yourOktaDomain}/api/v1/mappings/prm1k48weFSOnEUnw0g4
-    RiskEventsRequest:
+    RiskEventsRequestExample:
+      summary: Risk Events payload example
       value:
         - timestamp: '2021-01-20T00:00:00.001Z'
           subjects:
@@ -19685,11 +19656,13 @@ components:
                 - GET
                 - PUT
     RiskProviderRequest:
+      summary: Risk Provider payload example
       value:
         name: Risk-Partner-X
         action: log_only
         clientId: 00ckjsfgjkdkjdkkljjsd
     RiskProviderResponse:
+      summary: Risk Provider response example
       value:
         id: 00rp12r4skkjkjgsn
         action: log_only
@@ -20240,6 +20213,7 @@ components:
         example: iJoqkwx50mrgX4T9LcaH
     pathGroupId:
       name: groupId
+      description: The `id` of the group
       in: path
       required: true
       schema:
@@ -20247,6 +20221,7 @@ components:
         example: 00g1emaKYZTWRYYRRTSK
     pathGroupRuleId:
       name: groupRuleId
+      description: The `id` of the group rule
       in: path
       required: true
       schema:
@@ -20330,9 +20305,9 @@ components:
       in: path
       schema:
         type: string
-        example: abcd1234
+        example: 0oa1orzg0CHSgPcjZ0g4
       required: true
-      description: id of the log stream
+      description: Unique identifier for the Log Stream
     pathLogStreamType:
       name: logStreamType
       in: path
@@ -20375,6 +20350,7 @@ components:
       schema:
         type: string
     pathOwnerId:
+      description: The `id` of the group owner
       name: ownerId
       in: path
       required: true
@@ -21604,6 +21580,14 @@ components:
           type: boolean
         web:
           type: boolean
+    AssignGroupOwnerRequestBody:
+      type: object
+      properties:
+        id:
+          description: The `id` of the group owner
+          type: string
+        type:
+          $ref: '#/components/schemas/GroupOwnerType'
     AssignRoleRequest:
       type: object
       properties:
@@ -22008,17 +21992,36 @@ components:
           format: date-time
         timezone:
           type: string
+    AwsAccountId:
+      description: Your AWS account ID
+      minLength: 12
+      maxLength: 12
+      example: 123456789012
+      type: string
+    AwsEventSourceName:
+      description: An alphanumeric name (no spaces) to identify this event source in AWS EventBridge
+      minLength: 1
+      maxLength: 75
+      example: your-event-source-name
+      type: string
+      pattern: ^[a-zA-Z0-9.\-_]$
     AwsRegion:
-      description: An AWS region
+      description: The destination AWS region where your event source is located
       type: string
       enum:
+        - ap-northeast-1
+        - ap-northeast-2
+        - ap-northeast-3
+        - ap-south-1
+        - ap-southeast-1
+        - ap-southeast-2
         - ca-central-1
         - eu-central-1
         - eu-north-1
-        - eu-south-1
         - eu-west-1
         - eu-west-2
         - eu-west-3
+        - sa-east-1
         - us-east-1
         - us-east-2
         - us-west-1
@@ -23615,33 +23618,38 @@ components:
       type: object
       properties:
         displayName:
+          description: The display name of the group owner
           type: string
           readOnly: true
         id:
+          description: The `id` of the group owner
           type: string
-          readOnly: true
         lastUpdated:
+          description: Timestamp when the group owner was last updated
           type: string
           format: date-time
           readOnly: true
         originId:
+          description: The ID of the app instance if the `originType` is `APPLICATION`. This value is `NULL` if `originType` is `OKTA_DIRECTORY`.
           type: string
         originType:
           $ref: '#/components/schemas/GroupOwnerOriginType'
         resolved:
+          description: If `originType`is APPLICATION, this parameter is set to `FALSE` until the owner’s `originId` is reconciled with an associated Okta ID.
           type: boolean
         type:
           $ref: '#/components/schemas/GroupOwnerType'
     GroupOwnerOriginType:
+      description: The source where group ownership is managed
       type: string
       enum:
         - APPLICATION
         - OKTA_DIRECTORY
     GroupOwnerType:
+      description: The entity type of the owner
       type: string
       enum:
         - GROUP
-        - UNKNOWN
         - USER
     GroupPolicyRuleCondition:
       type: object
@@ -23655,6 +23663,7 @@ components:
           items:
             type: string
     GroupProfile:
+      additionalProperties: true
       type: object
       properties:
         description:
@@ -24850,31 +24859,50 @@ components:
         created:
           type: string
           format: date-time
-          description: Timestamp when the Log Stream was created
+          description: Timestamp when the Log Stream object was created
           readOnly: true
+          example: '2022-10-21T16:59:59.000Z'
         id:
           type: string
-          description: Unique key for the Log Stream
+          description: Unique identifier for the Log Stream
           readOnly: true
+          example: 0oa1orzg0CHSgPcjZ0g4
         lastUpdated:
           type: string
           format: date-time
-          description: Timestamp when the Log Stream was last updated
+          description: Timestamp when the Log Stream object was last updated
           readOnly: true
+          example: '2022-10-21T17:15:10.000Z'
         name:
-          type: string
-          description: Unique name for the Log Stream
+          $ref: '#/components/schemas/LogStreamName'
         status:
-          $ref: '#/components/schemas/LifecycleStatus'
+          type: string
+          description: Lifecycle status of the Log Stream object
+          enum:
+            - ACTIVE
+            - INACTIVE
+          readOnly: true
         type:
           $ref: '#/components/schemas/LogStreamType'
         _links:
-          $ref: '#/components/schemas/LinksSelfAndLifecycle'
+          $ref: '#/components/schemas/LogStreamLinksSelfAndLifecycle'
+      required:
+        - created
+        - id
+        - lastUpdated
+        - name
+        - status
+        - type
+        - _links
       discriminator:
         propertyName: type
         mapping:
           aws_eventbridge: '#/components/schemas/LogStreamAws'
           splunk_cloud_logstreaming: '#/components/schemas/LogStreamSplunk'
+    LogStreamActivateLink:
+      allOf:
+        - $ref: '#/components/schemas/LogStreamLinkObject'
+        - description: Link to activate the resource
     LogStreamAws:
       allOf:
         - $ref: '#/components/schemas/LogStream'
@@ -24882,6 +24910,69 @@ components:
           properties:
             settings:
               $ref: '#/components/schemas/LogStreamSettingsAws'
+          required:
+            - settings
+    LogStreamAwsPutSchema:
+      allOf:
+        - $ref: '#/components/schemas/LogStreamPutSchema'
+        - type: object
+          properties:
+            settings:
+              $ref: '#/components/schemas/LogStreamSettingsAws'
+          required:
+            - settings
+    LogStreamDeactivateLink:
+      allOf:
+        - $ref: '#/components/schemas/LogStreamLinkObject'
+        - description: Link to deactivate the resource
+    LogStreamLinkObject:
+      title: Log Stream Link object
+      type: object
+      properties:
+        href:
+          type: string
+          description: The URI of the resource
+        method:
+          type: string
+          description: HTTP method allowed for the resource
+          enum:
+            - GET
+            - POST
+      required:
+        - href
+      readOnly: true
+    LogStreamLinksSelfAndLifecycle:
+      description: Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the current status of an application using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. This object is used for dynamic discovery of related resources and lifecycle operations.
+      type: object
+      properties:
+        activate:
+          $ref: '#/components/schemas/LogStreamActivateLink'
+        deactivate:
+          $ref: '#/components/schemas/LogStreamDeactivateLink'
+        self:
+          $ref: '#/components/schemas/LogStreamSelfLink'
+      required:
+        - self
+      readOnly: true
+    LogStreamName:
+      description: Unique name for the Log Stream object
+      example: My AWS EventBridge log stream
+      type: string
+    LogStreamPutSchema:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/LogStreamName'
+        type:
+          $ref: '#/components/schemas/LogStreamType'
+      required:
+        - name
+        - type
+      discriminator:
+        propertyName: type
+        mapping:
+          aws_eventbridge: '#/components/schemas/LogStreamAwsPutSchema'
+          splunk_cloud_logstreaming: '#/components/schemas/LogStreamSplunkPutSchema'
     LogStreamSchema:
       type: object
       properties:
@@ -24915,42 +25006,49 @@ components:
           readOnly: true
         _links:
           $ref: '#/components/schemas/LinksSelf'
-    LogStreamSettings:
-      type: object
+    LogStreamSelfLink:
+      allOf:
+        - $ref: '#/components/schemas/LogStreamLinkObject'
+        - description: Link to the resource (self)
     LogStreamSettingsAws:
-      allOf:
-        - $ref: '#/components/schemas/LogStreamSettings'
-        - description: The AWS EventBridge Settings object specifies the configuration for the `aws_eventbridge` Log Stream type. This can't be modified after creation.
-          type: object
-          properties:
-            accountId:
-              type: string
-              description: Your AWS account ID
-              minLength: 12
-              maxLength: 12
-            eventSourceName:
-              type: string
-              description: An alphanumeric name (no spaces) to identify this event source in AWS EventBridge
-              pattern: ^[a-zA-Z0-9.\-_]$
-              minLength: 1
-              maxLength: 75
-            region:
-              $ref: '#/components/schemas/AwsRegion'
+      description: Specifies the configuration for the `aws_eventbridge` Log Stream type. This configuration can't be modified after creation.
+      type: object
+      properties:
+        accountId:
+          $ref: '#/components/schemas/AwsAccountId'
+        eventSourceName:
+          $ref: '#/components/schemas/AwsEventSourceName'
+        region:
+          $ref: '#/components/schemas/AwsRegion'
+      required:
+        - accountId
+        - eventSourceName
+        - region
     LogStreamSettingsSplunk:
-      allOf:
-        - $ref: '#/components/schemas/LogStreamSettings'
-        - description: The Splunk Cloud Settings object specifies the configuration for the `splunk_cloud_logstreaming` Log Stream type.
-          type: object
-          properties:
-            host:
-              type: string
-              description: 'The domain name for your Splunk Cloud instance. Don''t include `http` or `https` in the string. For example: `acme.splunkcloud.com`'
-              minLength: 17
-              maxLength: 116
-            token:
-              type: string
-              description: The HEC token for your Splunk Cloud HTTP Event Collector
-              pattern: (?i)^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
+      description: Specifies the configuration for the `splunk_cloud_logstreaming` Log Stream type.
+      type: object
+      properties:
+        edition:
+          $ref: '#/components/schemas/SplunkEdition'
+        host:
+          $ref: '#/components/schemas/SplunkHost'
+        token:
+          $ref: '#/components/schemas/SplunkToken'
+      required:
+        - edition
+        - host
+        - token
+    LogStreamSettingsSplunkPut:
+      description: Specifies the configuration for the `splunk_cloud_logstreaming` Log Stream type.
+      type: object
+      properties:
+        edition:
+          $ref: '#/components/schemas/SplunkEdition'
+        host:
+          $ref: '#/components/schemas/SplunkHost'
+      required:
+        - edition
+        - host
     LogStreamSplunk:
       allOf:
         - $ref: '#/components/schemas/LogStream'
@@ -24958,8 +25056,26 @@ components:
           properties:
             settings:
               $ref: '#/components/schemas/LogStreamSettingsSplunk'
+          required:
+            - settings
+    LogStreamSplunkPutSchema:
+      allOf:
+        - $ref: '#/components/schemas/LogStreamPutSchema'
+        - type: object
+          properties:
+            settings:
+              $ref: '#/components/schemas/LogStreamSettingsSplunkPut'
+          required:
+            - settings
     LogStreamType:
-      description: The Log Stream type specifies the streaming provider used. Okta supports [AWS EventBridge](https://aws.amazon.com/eventbridge/) and [Splunk Cloud](https://www.splunk.com/en_us/software/splunk-cloud-platform.html).
+      description: |-
+        Specifies the streaming provider used
+
+        Supported providers:
+          * `aws_eventbridge` ([AWS EventBridge](https://aws.amazon.com/eventbridge))
+          * `splunk_cloud_logstreaming` ([Splunk Cloud](https://www.splunk.com/en_us/software/splunk-cloud-platform.html))
+
+        Select the provider type to see provider-specific configurations in the `settings` property:
       type: string
       enum:
         - aws_eventbridge
@@ -25047,7 +25163,7 @@ components:
                 type: string
                 uniqueItems: true
           x-okta-lifecycle:
-            lifecycle: GA
+            lifecycle: EA
             isGenerallyAvailable: false
             SKUs: []
         enroll:
@@ -25630,13 +25746,6 @@ components:
           type: string
         consent_method:
           $ref: '#/components/schemas/OpenIdConnectApplicationConsentMethod'
-        dpop_bound_access_tokens:
-          type: boolean
-          description: Indicates that the client application uses Demonstrating Proof-of-Possession (DPoP) for token requests. If `true`, the authorization server rejects token requests from this client that don't contain the DPoP header.
-          default: false
-          x-okta-lifecycle:
-            lifecycle: EA
-            isGenerallyAvailable: true
         grant_types:
           type: array
           items:
@@ -27336,7 +27445,7 @@ components:
           type: string
           description: Additional reasons for the risk level of the IP
           maxLength: 512
-          pattern: ^[a-zA-Z0-9.\-_]$
+          pattern: ^[a-zA-Z0-9 .\-_]*$
         riskLevel:
           $ref: '#/components/schemas/RiskEventSubjectRiskLevel'
       required:
@@ -27998,6 +28107,26 @@ components:
           type: array
           items:
             type: string
+    SplunkEdition:
+      description: Edition of the Splunk Cloud instance
+      example: aws
+      type: string
+      enum:
+        - aws
+        - aws_govcloud
+        - gcp
+    SplunkHost:
+      description: 'The domain name for your Splunk Cloud instance. Don''t include `http` or `https` in the string. For example: `acme.splunkcloud.com`'
+      minLength: 17
+      maxLength: 116
+      example: acme.splunkcloud.com
+      type: string
+    SplunkToken:
+      description: The HEC token for your Splunk Cloud HTTP Event Collector. The token value is set at object creation, but isn't returned.
+      example: 11111111-1111-2222-2222-222222222222
+      writeOnly: true
+      type: string
+      pattern: (?i)^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
     Subscription:
       type: object
       properties:
@@ -28408,6 +28537,9 @@ components:
           type: string
           format: date-time
           readOnly: true
+        profile:
+          type: object
+          description: Factor-specific attributes
         provider:
           $ref: '#/components/schemas/FactorProvider'
         status:
@@ -29262,8 +29394,6 @@ components:
             okta.principalRateLimits.read: Allows the app to read information about Principal Rate Limits in your Okta organization.
             okta.profileMappings.manage: Allows the app to manage user profile mappings in your Okta organization.
             okta.profileMappings.read: Allows the app to read user profile mappings in your Okta organization.
-            okta.pushProviders.manage: Allows the app to create and manage push notification providers such as APNs and FCM.
-            okta.pushProviders.read: Allows the app to read push notification providers such as APNs and FCM.
             okta.rateLimits.manage: Allows the app to create and manage rate limits in your Okta organization.
             okta.rateLimits.read: Allows the app to read information about rate limits in your Okta organization.
             okta.realms.manage: Allows the app to create new realms and to manage their details.
