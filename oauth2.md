@@ -86,8 +86,6 @@ meta:
 | okta.principalRateLimits.read    | Allows the app to read information about Principal Rate Limits in your Okta organization. |
 | okta.profileMappings.manage      | Allows the app to manage user profile mappings in your Okta organization. |
 | okta.profileMappings.read        | Allows the app to read user profile mappings in your Okta organization. |
-| okta.pushProviders.manage        | Allows the app to create and manage push notification providers such as APNs and FCM. |
-| okta.pushProviders.read          | Allows the app to read push notification providers such as APNs and FCM. |
 | okta.rateLimits.manage           | Allows the app to create and manage rate limits in your Okta organization. |
 | okta.rateLimits.read             | Allows the app to read information about rate limits in your Okta organization. |
 | okta.realms.manage               | Allows the app to create new realms and to manage their details. |
@@ -115,17 +113,13 @@ meta:
 
 ## MyAccount Management
 
-| Scope                                              | Description |
-| -------------------------------------------------- | --------- |
-| okta.myAccount.appAuthenticator.maintenance.manage | Write access to non-sensitive attributes of user app authenticator enrollments |
-| okta.myAccount.appAuthenticator.maintenance.read   | Read access to non-sensitive attributes of user app authenticator enrollments |
-| okta.myAccount.appAuthenticator.manage             | Write access to user app authenticator enrollments |
-| okta.myAccount.appAuthenticator.read               | Read access to user app authenticator enrollments |
-| okta.myAccount.email.manage                        | Write access to user emails |
-| okta.myAccount.email.read                          | Read access to user emails |
-| okta.myAccount.password.manage                     | Write access to user password |
-| okta.myAccount.password.read                       | Read access to user password metadata |
-| okta.myAccount.phone.manage                        | Write access to user phones |
-| okta.myAccount.phone.read                          | Read access to user phones |
-| okta.myAccount.profile.manage                      | Write access to user profile and schema |
-| okta.myAccount.profile.read                        | Read access to user profile and schema |
+| Scope                          | Description |
+| ------------------------------ | --------- |
+| okta.myAccount.email.manage    | Write access to user emails |
+| okta.myAccount.email.read      | Read access to user emails |
+| okta.myAccount.password.manage | Write access to user password |
+| okta.myAccount.password.read   | Read access to user password metadata |
+| okta.myAccount.phone.manage    | Write access to user phones |
+| okta.myAccount.phone.read      | Read access to user phones |
+| okta.myAccount.profile.manage  | Write access to user profile and schema |
+| okta.myAccount.profile.read    | Read access to user profile and schema |

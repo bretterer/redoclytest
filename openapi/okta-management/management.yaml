@@ -337,6 +337,39 @@ tags:
     x-displayName: User Types
     description: The User Types API provides operations to manage User Types.
 paths:
+  /.well-known/app-authenticator-configuration:
+    get:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+      summary: Retrieve the Well-Known App Authenticator Configuration
+      description: Retrieves the well-known app authenticator configuration, which includes an app authenticator's settings, supported methods and various other configuration details
+      operationId: getWellKnownAppAuthenticatorConfiguration
+      parameters:
+        - name: oauthClientId
+          in: query
+          description: Filters app authenticator configurations by `oauthClientId`
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WellKnownAppAuthenticatorConfiguration'
+        '400':
+          $ref: '#/components/responses/ErrorMissingRequiredParameter400'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security: []
+      tags:
+        - Authenticator
   /.well-known/okta-organization:
     get:
       summary: Retrieve the Well-Known Org Metadata
@@ -2381,40 +2414,6 @@ paths:
         - apiToken: []
         - oauth2:
             - okta.authenticators.read
-      tags:
-        - Authenticator
-      x-okta-lifecycle:
-        lifecycle: LIMITED_GA
-        isGenerallyAvailable: false
-        SKUs:
-          - Okta Identity Engine
-    post:
-      summary: Create an Authenticator
-      description: Creates an authenticator. You can use this operation as part of the "Create a custom authenticator" flow. See the [Custom authenticator integration guide](https://developer.okta.com/docs/guides/authenticators-custom-authenticator/android/main/).
-      operationId: createAuthenticator
-      parameters:
-        - in: query
-          name: activate
-          description: Whether to execute the activation lifecycle operation when Okta creates the authenticator
-          schema:
-            type: boolean
-            default: false
-      x-codegen-request-body-name: authenticator
-      requestBody:
-        $ref: '#/components/requestBodies/AuthenticatorRequestBody'
-      responses:
-        '200':
-          $ref: '#/components/responses/AuthenticatorResponse'
-        '400':
-          $ref: '#/components/responses/ErrorApiValidationFailed400'
-        '403':
-          $ref: '#/components/responses/ErrorAccessDenied403'
-        '429':
-          $ref: '#/components/responses/ErrorTooManyRequests429'
-      security:
-        - apiToken: []
-        - oauth2:
-            - okta.authenticators.manage
       tags:
         - Authenticator
       x-okta-lifecycle:
@@ -13415,9 +13414,193 @@ paths:
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: true
+  /api/v1/push-providers:
+    get:
+      summary: List all Push Providers
+      description: Lists all push providers
+      operationId: listPushProviders
+      parameters:
+        - name: type
+          in: query
+          description: Filters push providers by `providerType`
+          schema:
+            $ref: '#/components/schemas/ProviderType'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PushProvider'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+      tags:
+        - PushProvider
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+    post:
+      summary: Create a Push Provider
+      description: Creates a new push provider
+      operationId: createPushProvider
+      x-codegen-request-body-name: pushProvider
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PushProvider'
+            examples:
+              APNs:
+                $ref: '#/components/examples/PushProviderAPNsRequest'
+              FCM:
+                $ref: '#/components/examples/PushProviderFCMRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PushProvider'
+              examples:
+                APNs:
+                  $ref: '#/components/examples/PushProviderAPNsResponse'
+                FCM:
+                  $ref: '#/components/examples/PushProviderFCMResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+      tags:
+        - PushProvider
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
   /api/v1/push-providers/{pushProviderId}:
     parameters:
       - $ref: '#/components/parameters/pathPushProviderId'
+    get:
+      summary: Retrieve a Push Provider
+      description: Retrieves a push provider by `pushProviderId`
+      operationId: getPushProvider
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PushProvider'
+              examples:
+                APNs:
+                  $ref: '#/components/examples/PushProviderAPNsResponse'
+                FCM:
+                  $ref: '#/components/examples/PushProviderFCMResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+      tags:
+        - PushProvider
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+    put:
+      summary: Replace a Push Provider
+      description: Replaces a push provider by `pushProviderId`
+      operationId: replacePushProvider
+      x-codegen-request-body-name: pushProvider
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PushProvider'
+            examples:
+              APNs:
+                $ref: '#/components/examples/PushProviderAPNsRequest'
+              FCM:
+                $ref: '#/components/examples/PushProviderFCMRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PushProvider'
+              examples:
+                APNs:
+                  $ref: '#/components/examples/PushProviderAPNsResponse'
+                FCM:
+                  $ref: '#/components/examples/PushProviderFCMResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+      tags:
+        - PushProvider
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+    delete:
+      summary: Delete a Push Provider
+      description: Deletes a push provider by `pushProviderId`. If the push provider is currently being used in the org by a custom authenticator, the delete will not be allowed.
+      operationId: deletePushProvider
+      responses:
+        '204':
+          description: No Content
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '409':
+          description: Conflict
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Cannot remove push provider in use by a custom app authenticator:
+                  $ref: '#/components/examples/ErrorPushProviderUsedByCustomAppAuthenticator'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+      tags:
+        - PushProvider
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
   /api/v1/rate-limit-settings/admin-notifications:
     get:
       summary: Retrieve the Rate Limit Admin Notification Settings
@@ -29428,8 +29611,6 @@ components:
             okta.principalRateLimits.read: Allows the app to read information about Principal Rate Limits in your Okta organization.
             okta.profileMappings.manage: Allows the app to manage user profile mappings in your Okta organization.
             okta.profileMappings.read: Allows the app to read user profile mappings in your Okta organization.
-            okta.pushProviders.manage: Allows the app to create and manage push notification providers such as APNs and FCM.
-            okta.pushProviders.read: Allows the app to read push notification providers such as APNs and FCM.
             okta.rateLimits.manage: Allows the app to create and manage rate limits in your Okta organization.
             okta.rateLimits.read: Allows the app to read information about rate limits in your Okta organization.
             okta.realms.manage: Allows the app to create new realms and to manage their details.

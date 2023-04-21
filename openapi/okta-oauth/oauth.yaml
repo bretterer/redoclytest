@@ -219,6 +219,71 @@ paths:
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: true
+  /oauth2/v1/bc/authorize:
+    post:
+      x-okta-lifecycle:
+        isCorsEnabled: true
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+      summary: /bc/authorize
+      description: |-
+        This endpoint returns a unique identifier (`auth_req_id`) that identifies the authentication flow while it tries to authenticate the user in the background. This `auth_req_id` value is used in subsequent token requests to the `/token` endpoint.
+
+        > **Note:** The `/bc/authorize` endpoint requires client authentication. The method is configured per client application. See [Client authentication methods](/openapi/okta-oauth/guides/client-auth/) for more information.
+      operationId: bcAuthorize
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BackchannelAuthorizeRequest'
+            examples:
+              Request with `login_hint`:
+                $ref: '#/components/examples/BCAuthorizeRequestLoginHintExample'
+              Request with `id_token_hint`:
+                $ref: '#/components/examples/BCAuthorizeRequestIdTokenHintExample'
+              Request with signed `request`:
+                $ref: '#/components/examples/BCAuthorizeSignedRequestExample'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BackchannelAuthorizeResponse'
+              examples:
+                Back Response:
+                  $ref: '#/components/examples/BackchannelAuthorizeResponseExample'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                Multiple Client Credentials Provided:
+                  $ref: '#/components/examples/OAuthError400InvalidRequest_MultipleClientCreds'
+                Missing Scopes:
+                  $ref: '#/components/examples/OAuthError400InvalidScope_MissingScopes'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                Missing Client Credentials:
+                  $ref: '#/components/examples/OAuthError401InvalidClient_NoCreds'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - Client authentication `client_secret_basic`: []
+        - Client authentication `client_secret_post`: []
+        - Client authentication `client_secret_jwt`: []
+        - Client authentication `private_key_jwt`: []
+      tags:
+        - OrgAS
   /oauth2/v1/clients:
     get:
       summary: List all Client Applications
@@ -1193,6 +1258,70 @@ paths:
   /oauth2/{authorizationServerId}/v1/bc/authorize:
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
+    post:
+      x-okta-lifecycle:
+        isCorsEnabled: true
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+      summary: /bc/authorize
+      description: |-
+        This endpoint returns a unique identifier (`auth_req_id`) that identifies the authentication flow while it tries to authenticate the user in the background. This `auth_req_id` value is used in subsequent token requests to the `/token` endpoint.
+
+        > **Note:** The `/bc/authorize` endpoint requires client authentication. The method is configured per client application. See [Client authentication methods](/openapi/okta-oauth/guides/client-auth/) for more information.
+      operationId: bcAuthorizeCustomAS
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BackchannelAuthorizeRequest'
+            examples:
+              Request with `login_hint`:
+                $ref: '#/components/examples/BCAuthorizeRequestLoginHintExample'
+              Request with `id_token_hint`:
+                $ref: '#/components/examples/BCAuthorizeRequestIdTokenHintExample'
+              Request with signed `request`:
+                $ref: '#/components/examples/BCAuthorizeSignedRequestExample'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BackchannelAuthorizeResponse'
+              examples:
+                Back Response:
+                  $ref: '#/components/examples/BackchannelAuthorizeResponseExample'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                Multiple Client Credentials Provided:
+                  $ref: '#/components/examples/OAuthError400InvalidRequest_MultipleClientCreds'
+                Missing Scopes:
+                  $ref: '#/components/examples/OAuthError400InvalidScope_MissingScopes'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                Missing Client Credentials:
+                  $ref: '#/components/examples/OAuthError401InvalidClient_NoCreds'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - Client authentication `client_secret_basic`: []
+        - Client authentication `client_secret_post`: []
+        - Client authentication `client_secret_jwt`: []
+        - Client authentication `private_key_jwt`: []
+      tags:
+        - CustomAS
   /oauth2/{authorizationServerId}/v1/challenge:
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
@@ -3102,6 +3231,26 @@ components:
         authorization_endpoint:
           type: string
           description: URL of the authorization server's authorization endpoint.
+        backchannel_authentication_request_signing_alg_values_supported:
+          description: A list of signing algorithms that this authorization server supports for signed requests.
+          type: array
+          items:
+            $ref: '#/components/schemas/SigningAlgorithm'
+          x-okta-lifecycle:
+            lifecycle: EA
+            isGenerallyAvailable: false
+            SKUs:
+              - Okta Identity Engine
+        backchannel_token_delivery_modes_supported:
+          description: The delivery modes that this authorization server supports for Client-Initiated Backchannel Authentication.
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenDeliveryMode'
+          x-okta-lifecycle:
+            lifecycle: EA
+            isGenerallyAvailable: false
+            SKUs:
+              - Okta Identity Engine
         claims_supported:
           description: A list of the claims supported by this authorization server.
           type: array
@@ -3365,6 +3514,15 @@ components:
       allOf:
         - $ref: '#/components/schemas/TokenRequest'
         - type: object
+          properties:
+            auth_req_id:
+              type: string
+              description: The value is what was returned from `/bc/authorize`.
+              x-okta-lifecycle:
+                lifecycle: EA
+                isGenerallyAvailable: false
+                SKUs:
+                  - Okta Identity Engine
           required:
             - auth_req_id
     TokenRequestClientCredentials:

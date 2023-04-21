@@ -25,9 +25,6 @@ servers:
         default: subdomain.okta.com
         description: The domain of your organization. This can be an official Okta domain (okta.com, oktapreview.com, etc) or one of your configured custom domains.
 tags:
-  - name: AppAuthenticator
-    x-displayName: App Authenticators
-    description: The MyAccount App Authenticators API provides operations to enroll, update, and delete an app authenticator. The API also allows users to view and verify pending notification challenges. The API only supports custom authenticators. See the [Custom authenticator integration guide](https://developer.okta.com/docs/guides/authenticators-custom-authenticator/android/main/).
   - name: Email
     description: The MyAccount Email API provides operations to enroll, update, and delete emails. The API also provides utilities to create, view, and answer verification challenges.
   - name: Password
@@ -37,50 +34,196 @@ tags:
   - name: Profile
     description: The MyAccount Profile API provides operations to enroll, and update profile fields. The API also allows viewing of all allowed profile fields.
 paths:
-  /idp/myaccount/app-authenticators/challenge/{challengeId}/verify:
-    parameters:
-      - $ref: '#/components/parameters/appAuthenticatorChallengeId'
+  /idp/myaccount/app-authenticators:
     post:
-      summary: Verify a push notification challenge response from the app authenticator
-      description: Verifies a push notification challenge from the app authenticator
-      operationId: verifyAppAuthenticatorPushNotificationChallenge
+      summary: Create an app authenticator enrollment
+      description: Creates an app authenticator enrollment
+      operationId: createAppAuthenticatorEnrollment
       requestBody:
         content:
-          application/json;okta-version=1.0.0:
+          application/json, okta-version=1.0.0:
             schema:
-              $ref: '#/components/schemas/PushNotificationVerification'
+              $ref: '#/components/schemas/AppAuthenticatorEnrollmentRequest'
             examples:
-              Push Notification Challenge Response:
-                $ref: '#/components/examples/VerifyPushNotificationChallengeRequest'
-              JWT Header:
-                $ref: '#/components/examples/VerifyPushNotificationChallengeJWTHeader'
-              JWT Payload:
-                $ref: '#/components/examples/VerifyPushNotificationChallengeJWTPayload'
+              Create-App-Authenticator-Enrollment:
+                $ref: '#/components/examples/CreateAppAuthenticatorEnrollment'
       responses:
         '200':
-          description: Verification Success
-        '204':
-          description: User denied challenge attempt
+          description: OK
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/AppAuthenticatorEnrollment'
         '400':
           description: Bad Request
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Access Denied
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
       security: []
       tags:
         - AppAuthenticator
       x-okta-lifecycle:
-        lifecycle: GA
-        isGenerallyAvailable: true
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
   /idp/myaccount/app-authenticators/{enrollmentId}:
     parameters:
       - $ref: '#/components/parameters/appAuthenticatorEnrollmentId'
+    patch:
+      summary: Update an app authenticator enrollment
+      description: |-
+        Updates an app authenticator enrollment
+
+        The following update operations are allowed:
+        * Update the user verification key
+        * Remove the user verification key
+        * Update the push token
+        * Update the push method transaction types
+
+        For more information, see [Access token management](https://developer.okta.com/docs/guides/authenticators-custom-authenticator/android/main/#access-token-management) in the Custom authenticator integration guide.
+      operationId: updateAppAuthenticatorEnrollment
+      requestBody:
+        content:
+          application/merge-patch+json;okta-version=1.0.0:
+            schema:
+              $ref: '#/components/schemas/UpdateAppAuthenticatorEnrollmentRequest'
+            examples:
+              Update App Authenticator Enrollment Push Token:
+                $ref: '#/components/examples/UpdateAppAuthenticatorEnrollmentPushToken'
+              Enroll App Authenticator Enrollment User Verification Key:
+                $ref: '#/components/examples/UpdateAppAuthenticatorEnrollmentUserVerificationKey'
+              Unenroll App Authenticator Enrollment User Verification Key:
+                $ref: '#/components/examples/UnenrollAppAuthenticatorEnrollmentUserVerificationKey'
+              Update App Authenticator Enrollment Transaction Type:
+                $ref: '#/components/examples/UpdateAppAuthenticatorEnrollmentTransactionType'
+              Update App Authenticator Enrollment Push Token and Enroll User Verification Key:
+                $ref: '#/components/examples/UpdateAppAuthenticatorEnrollmentPushTokenAndUserVerificationKey'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/AppAuthenticatorEnrollment'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Access Denied
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: []
+      tags:
+        - AppAuthenticator
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+    delete:
+      summary: Delete an app authenticator enrollment
+      description: Deletes an app authenticator enrollment
+      operationId: deleteAppAuthenticatorEnrollment
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Access Denied
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: []
+      tags:
+        - AppAuthenticator
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
   /idp/myaccount/app-authenticators/{enrollmentId}/push/notifications:
     parameters:
       - $ref: '#/components/parameters/appAuthenticatorEnrollmentId'
+    get:
+      summary: List all pending push notification challenges
+      description: Lists all pending push notification challenges
+      operationId: listAppAuthenticatorPendingPushNotificationChallenges
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PushNotificationChallenge'
+              examples:
+                Success Response:
+                  $ref: '#/components/examples/GetPendingNotificationsSuccessResponse'
+                JWT Header:
+                  $ref: '#/components/examples/GetPendingNotificationsJWTHeader'
+                JWT Payload:
+                  $ref: '#/components/examples/GetPendingNotificationsJWTPayload'
+        '401':
+          $ref: '#/components/responses/Error-IdpMyAccountNotEnabled-Response-401'
+      security: []
+      tags:
+        - AppAuthenticator
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
   /idp/myaccount/emails:
     get:
       summary: List all Emails
       description: |-
         Lists all of the current user's email information: a collection of links for each email that describe the acceptable operations.
-         > **Note:** Admin users can't make POST requests to the `/idp/myaccount/emails` endpoint.
+
+        > **Note:** Admin users can't make POST requests to the `/idp/myaccount/emails` endpoint.
       operationId: listEmails
       responses:
         '200':
@@ -99,7 +242,8 @@ paths:
       summary: Create an Email
       description: |-
         Creates a primary or secondary email address for the user's account. The new email address has an `UNVERIFIED` status.
-         > **Note:** Admin users can't make POST requests to the `/idp/myaccount/emails` endpoint.
+
+        > **Note:** Admin users can't make POST requests to the `/idp/myaccount/emails` endpoint.
       operationId: createEmail
       requestBody:
         content:
@@ -2687,10 +2831,6 @@ components:
           authorizationUrl: /oauth2/v1/authorize
           tokenUrl: /oauth2/v1/token
           scopes:
-            okta.myAccount.appAuthenticator.maintenance.manage: Write access to non-sensitive attributes of user app authenticator enrollments
-            okta.myAccount.appAuthenticator.maintenance.read: Read access to non-sensitive attributes of user app authenticator enrollments
-            okta.myAccount.appAuthenticator.manage: Write access to user app authenticator enrollments
-            okta.myAccount.appAuthenticator.read: Read access to user app authenticator enrollments
             okta.myAccount.email.manage: Write access to user emails
             okta.myAccount.email.read: Read access to user emails
             okta.myAccount.password.manage: Write access to user password
