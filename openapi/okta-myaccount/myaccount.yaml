@@ -34,12 +34,6 @@ tags:
   - name: Profile
     description: The MyAccount Profile API provides operations to enroll, and update profile fields. The API also allows viewing of all allowed profile fields.
 paths:
-  /idp/myaccount/app-authenticators/{enrollmentId}:
-    parameters:
-      - $ref: '#/components/parameters/appAuthenticatorEnrollmentId'
-  /idp/myaccount/app-authenticators/{enrollmentId}/push/notifications:
-    parameters:
-      - $ref: '#/components/parameters/appAuthenticatorEnrollmentId'
   /idp/myaccount/emails:
     get:
       summary: List all Emails
