@@ -1972,8 +1972,12 @@ paths:
     parameters:
       - $ref: '#/components/parameters/pathAppId'
     post:
-      summary: Upload a Logo
-      description: Uploads a logo for the application. The file must be in PNG, JPG, or GIF format, and less than 1 MB in size. For best results use landscape orientation, a transparent background, and a minimum size of 420px by 120px to prevent upscaling.
+      summary: Upload an application Logo
+      description: |
+        Uploads a logo for the application.
+        If the app already has a logo, this operation replaces the previous logo.
+        The file must be in PNG, JPG, SVG, or GIF format, and less than 1 MB in size.
+        For best results, use an image with a transparent background and a square dimension of 200 x 200 pixels to prevent upscaling.
       operationId: uploadApplicationLogo
       requestBody:
         content:
@@ -1984,11 +1988,12 @@ paths:
                 file:
                   type: string
                   format: binary
+                  description: Image file containing the logo
               required:
                 - file
       responses:
         '201':
-          description: Created
+          description: Content Created
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -2011,8 +2016,13 @@ paths:
       - $ref: '#/components/parameters/pathAppId'
       - $ref: '#/components/parameters/pathPolicyId'
     put:
-      summary: Assign an Application to a Policy
-      description: Assigns an application to a policy identified by `policyId`. If the application was previously assigned to another policy, this removes that assignment.
+      summary: Assign an application to a Policy
+      description: |-
+        Assigns an application to an [authentication policy](/openapi/okta-management/management/tag/Policy/), identified by `policyId`.
+        If the application was previously assigned to another policy, this operation replaces that assignment with the updated policy identified by `policyId`.
+
+        > **Note:** When you [merge duplicate authentication policies](https://help.okta.com/okta_help.htm?type=oie&id=ext-merge-auth-policies),
+        the policy and mapping CRUD operations may be unavailable during the consolidation. When the consolidation is complete, you receive an email.
       operationId: assignApplicationPolicy
       responses:
         '204':
@@ -2165,8 +2175,8 @@ paths:
     parameters:
       - $ref: '#/components/parameters/pathAppId'
     get:
-      summary: List all Assigned Users
-      description: Lists all assigned [application users](#application-user-model) for an application
+      summary: List all assigned Users
+      description: Lists all assigned users for an app
       operationId: listApplicationUsers
       parameters:
         - name: q
@@ -2223,7 +2233,15 @@ paths:
         isGenerallyAvailable: true
     post:
       summary: Assign a User
-      description: Assigns an user to an application with [credentials](#application-user-credentials-object) and an app-specific [profile](#application-user-profile-object). Profile mappings defined for the application are first applied before applying any profile properties specified in the request.
+      description: |-
+        Assigns a user to an app with credentials and an app-specific [profile](/openapi/okta-management/management/tag/Application/#tag/Application/operation/assignUserToApplication!c=200&path=profile&t=response).
+        Profile mappings defined for the app are applied first before applying any profile properties that are specified in the request.
+
+        > **Notes:**
+        > * You need to specify the `id` and omit the `credentials` parameter in the request body only for
+        `signOnMode` or authentication schemes (`credentials.scheme`) that don't require credentials.
+        > * You can only specify profile properties that aren't defined by profile mappings when Universal Directory is enabled.
+        > * If your SSO app requires a profile but doesn't have provisioning enabled, you need to add a profile to the request body.
       operationId: assignUserToApplication
       x-codegen-request-body-name: appUser
       requestBody:
@@ -2261,8 +2279,8 @@ paths:
       - $ref: '#/components/parameters/pathAppId'
       - $ref: '#/components/parameters/pathUserId'
     get:
-      summary: Retrieve an Assigned User
-      description: Retrieves a specific user assignment for application by `id`
+      summary: Retrieve an assigned User
+      description: Retrieves a specific user assignment for app by `id`
       operationId: getApplicationUser
       parameters:
         - name: expand
@@ -2292,7 +2310,7 @@ paths:
         lifecycle: GA
         isGenerallyAvailable: true
     post:
-      summary: Update an Application Profile for Assigned User
+      summary: Update an App Profile for an assigned User
       description: Updates a user's profile for an application
       operationId: updateApplicationUser
       x-codegen-request-body-name: appUser
@@ -2327,7 +2345,7 @@ paths:
         lifecycle: GA
         isGenerallyAvailable: true
     delete:
-      summary: Unassign a User
+      summary: Unassign an App User
       description: Unassigns a user from an application
       operationId: unassignUserFromApplication
       parameters:
@@ -2371,7 +2389,7 @@ paths:
                   $ref: '#/components/schemas/Authenticator'
                 type: array
               examples:
-                Org Authenticators:
+                OrgAuthenticatorsEx:
                   $ref: '#/components/examples/AuthenticatorsResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
@@ -2381,6 +2399,40 @@ paths:
         - apiToken: []
         - oauth2:
             - okta.authenticators.read
+      tags:
+        - Authenticator
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+    post:
+      summary: Create an Authenticator
+      description: Creates an authenticator
+      operationId: createAuthenticator
+      parameters:
+        - in: query
+          name: activate
+          description: Whether to execute the activation lifecycle operation when Okta creates the authenticator
+          schema:
+            type: boolean
+            default: false
+      x-codegen-request-body-name: authenticator
+      requestBody:
+        $ref: '#/components/requestBodies/AuthenticatorRequestBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/AuthenticatorResponse'
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.authenticators.manage
       tags:
         - Authenticator
       x-okta-lifecycle:
@@ -6382,7 +6434,7 @@ paths:
         - $ref: '#/components/parameters/queryLimit'
         - name: search
           in: query
-          description: SCIM filter expression that filters the results. Searches include all Device `profile` properties, as well as the Device `id`, `status` and `lastUpdated` properties.
+          description: A SCIM filter expression that filters the results. Searches include all Device `profile` properties and the Device `id`, `status`, and `lastUpdated` properties.
           schema:
             type: string
           examples:
@@ -6613,6 +6665,41 @@ paths:
         - apiToken: []
         - oauth2:
             - okta.devices.manage
+      tags:
+        - Device
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+  /api/v1/devices/{deviceId}/users:
+    parameters:
+      - $ref: '#/components/parameters/pathDeviceId'
+    get:
+      summary: List all Users for a Device
+      description: Lists all Users for a Device by `deviceId`
+      operationId: listDeviceUsers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+              examples:
+                Listusersdevice:
+                  summary: List all users for a specific device
+                  $ref: '#/components/examples/ListUsersDeviceResponse'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.devices.read
       tags:
         - Device
       x-okta-lifecycle:
@@ -8532,6 +8619,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/HookKey'
+              examples:
+                ResponseExample:
+                  $ref: '#/components/examples/ListAllKeysResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '429':
@@ -8547,7 +8637,12 @@ paths:
         isGenerallyAvailable: true
     post:
       summary: Create a key
-      description: Creates a key
+      description: |
+        Creates a key for use with other parts of the application, such as inline hooks
+
+        Use the key name to access this key for inline hook operations.
+
+        The total number of keys that you can create in an Okta org is limited to 50.
       operationId: createHookKey
       x-codegen-request-body-name: keyRequest
       requestBody:
@@ -8563,6 +8658,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HookKey'
+              examples:
+                ResponseExample:
+                  $ref: '#/components/examples/CreateHookKeyResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -8592,6 +8690,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JsonWebKey'
+              examples:
+                ResponseExample:
+                  $ref: '#/components/examples/RetrievePublicKeyResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -8621,6 +8722,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HookKey'
+                examples:
+                  ResponseExample:
+                    $ref: '#/components/examples/RetrieveKeyResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -8638,7 +8742,12 @@ paths:
         isGenerallyAvailable: true
     put:
       summary: Replace a key
-      description: Replaces a key by `hookKeyId`
+      description: |
+        Replaces a key by `hookKeyId`
+
+        This request replaces existing properties after passing validation.
+
+        Note: The only parameter that you can update is the name of the key, which must be unique at all times.
       operationId: replaceHookKey
       x-codegen-request-body-name: keyRequest
       requestBody:
@@ -8654,6 +8763,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HookKey'
+                examples:
+                  ResponseExample:
+                    $ref: '#/components/examples/ReplaceKeyResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -8673,7 +8785,10 @@ paths:
         isGenerallyAvailable: true
     delete:
       summary: Delete a key
-      description: Deletes a key by `hookKeyId`. Once deleted, the Hook Key is unrecoverable. As a safety precaution, unused keys are eligible for deletion.
+      description: |
+        Deletes a key by `hookKeyId`. After being deleted, the key is unrecoverable.
+
+        As a safety precaution, only keys that aren't being used are eligible for deletion.
       operationId: deleteHookKey
       responses:
         '204':
@@ -11791,6 +11906,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/UserType'
+              examples:
+                ListsAllUserTypes:
+                  $ref: '#/components/examples/ListsAllUserTypes'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '429':
@@ -11816,6 +11934,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/UserType'
+            examples:
+              CreateUserRequest:
+                $ref: '#/components/examples/CreateUserRequest'
         required: true
       responses:
         '200':
@@ -11824,6 +11945,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserType'
+              examples:
+                CreateUserResponse:
+                  $ref: '#/components/examples/CreateUserResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -11853,6 +11977,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserType'
+              examples:
+                GetUserResponse:
+                  $ref: '#/components/examples/GetUserResponse'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -11872,14 +11999,17 @@ paths:
       summary: Update a User Type
       description: |-
         Updates an existing User Type.
-        > **Note**: You can only update the `displayName` and `description` elements.
+        > **Note**: You can only update the `displayName` and `description` elements. The `name` of an existing User Type can't be changed.
       operationId: updateUserType
       x-codegen-request-body-name: userType
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserType'
+              $ref: '#/components/schemas/UserTypePostRequest'
+            examples:
+              UpdateUserTypePostRequest:
+                $ref: '#/components/examples/UpdateUserTypePostRequest'
         required: true
       responses:
         '200':
@@ -11888,6 +12018,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserType'
+              examples:
+                UpdateUserTypePutRequest:
+                  $ref: '#/components/examples/UpdateUserTypePostResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -11909,15 +12042,17 @@ paths:
       summary: Replace a User Type
       description: |-
         Replaces an existing User Type.
-        > **Note**: You can only replace the `displayName` and `description` elements.
+        > **Note**: The `name` of an existing User Type can't be changed, but must be part of the request body. You can only replace the `displayName` and `description` elements.
       operationId: replaceUserType
       x-codegen-request-body-name: userType
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserType'
-        required: true
+              $ref: '#/components/schemas/UserTypePutRequest'
+            examples:
+              ReplaceUserTypePutRequest:
+                $ref: '#/components/examples/ReplaceUserTypePutRequest'
       responses:
         '200':
           description: Success
@@ -11925,6 +12060,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserType'
+              examples:
+                ReplaceUserTypePutResponse:
+                  $ref: '#/components/examples/ReplaceUserTypePutResponse'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -15533,7 +15671,7 @@ paths:
       description: Unenrolls an existing factor for the specified user, allowing the user to enroll a new factor
       operationId: unenrollFactor
       parameters:
-        - name: removeEnrollmentRecovery
+        - name: removeRecoveryEnrollment
           in: query
           schema:
             type: boolean
@@ -17727,6 +17865,7 @@ components:
               allow:
                 - POST
     AuthenticatorResponseSecurityQuestion:
+      summary: Security Question
       value:
         type: security_question
         id: aut1nbvIgEenhwE6c0g4
@@ -17778,6 +17917,7 @@ components:
               allow:
                 - POST
     AuthenticatorsResponse:
+      summary: Org Authenticators
       value:
         - value:
             type: email
@@ -17978,6 +18118,22 @@ components:
         username: admin
         domain: example.com
         brandId: bnd100iSrkcN6aR680g1
+    CreateHookKeyResponse:
+      summary: Create a key response example
+      value:
+        id: HKY1p7jWLndGQV9M60g4
+        keyId: 7fbc27fd-e3df-4522-86bf-1930110256ad
+        name: My new key
+        created: '2022-08-31T18:09:58.000Z'
+        lastUpdated: '2022-08-31T18:09:58.000Z'
+        isUsed: 'false'
+        _embedded:
+          kty: RSA
+          alg: RSA
+          kid: 7fbc27fd-e3df-4522-86bf-1930110256ad
+          use: 'null'
+          e: AQAB
+          'n': 2naqCnv6r4xNQs7207lRtKQvdtnlVND-8k5iYBIiqoKGY3CqUmRm1jleoOniiQoMkFX8Wj2DmVqr002efF3vOQ7_gjtTatBTVUNbNIQLybun4dkVoUtfP7pRc5SLpcP3eGPRVar734ZrpQXzmCEdpqBt3jrVjwYjNE5DqOjbYXFJtMsy8CWE9LRJ3kyHEoHPzo22dG_vMrXH0_sAQoCk_4TgNCbvyzVmGVYXI_BkUnp0hv2pR4bQVRYzGB9dKJdctOh8zULqc_EJ8tiYsS05YnF7whrWEyARK0rH-e4d4W-OmBTga_zhY4kJ4NsoQ4PyvcatZkxjPO92QHQOFDnf3w`
     CreateUpdateEmailCustomizationRequest:
       value:
         language: fr
@@ -18024,6 +18180,29 @@ components:
               - city
               - state
               - zipCode
+    CreateUserRequest:
+      summary: Create a user type request
+      value:
+        description: A new custom user type
+        displayName: New User Type
+        name: newUserType
+    CreateUserResponse:
+      summary: Create a user type response
+      value:
+        id: otyfnly5cQjJT9PnR0g4
+        displayName: New User Type
+        name: newUserType
+        description: A new custom user type
+        createdBy: sprz9fj1ycBcsgopy1d6
+        lastUpdatedBy: sprz9fj1ycBcsgopy1d6
+        created: '2021-07-05T20:40:38.000Z'
+        lastUpdated: '2021-07-05T20:40:38.000Z'
+        default: false
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/meta/schemas/user/oscz9fj2jMiRBC1ZT1d6
+          schema:
+            href: https://{yourOktaDomain}/api/v1/meta/schemas/user/oscz9fj2jMiRBC1ZT1d6
     DefaultRealmResponse:
       value:
         id: guox9jQ16k9V8IQWL0g3
@@ -18487,6 +18666,23 @@ components:
             hints:
               allow:
                 - POST
+    GetUserResponse:
+      summary: Retrieve a user type response
+      value:
+        id: otyfnly5cQjJT9PnR0g4
+        displayName: New User Type
+        name: newUserType
+        description: A new custom user type
+        createdBy: sprz9fj1ycBcsgopy1d6
+        lastUpdatedBy: sprz9fj1ycBcsgopy1d6
+        created: '2021-07-05T20:40:38.000Z'
+        lastUpdated: '2021-07-05T20:40:38.000Z'
+        default: false
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/meta/schemas/user/oscz9fj2jMiRBC1ZT1d6
+          schema:
+            href: https://{yourOktaDomain}/api/v1/meta/schemas/user/oscz9fj2jMiRBC1ZT1d6
     GroupSchemaAddRequest:
       value:
         definitions:
@@ -18548,6 +18744,21 @@ components:
               - $ref: '#/definitions/base'
         title: Okta group
         type: object
+    ListAllKeysResponse:
+      summary: List All Keys response example
+      value:
+        - id: HKY1i2htmXF5UNQhL0g4
+          keyId: bb5bed7d-6e4d-488f-9c86-59b93a2bb3fb
+          name: My new key
+          created: '2022-08-22T16:34:33.000Z'
+          lastUpdated: '2022-08-22T16:34:33.000Z'
+          isUsed: 'true'
+        - id: HKY1p7jWLndGQV9M60g4
+          keyId: 7fbc27fd-e3df-4522-86bf-1930110256ad
+          name: Test key
+          created: '2022-08-31T18:09:58.000Z'
+          lastUpdated: '2022-08-31T18:09:58.000Z'
+          isUsed: 'false'
     ListBrandsResponse:
       value:
         - id: bnd114iNkrcN6aR680g4
@@ -18708,6 +18919,64 @@ components:
       value:
         - type: DEVICE_BASED
           appliesTo: UNKNOWN_DEVICES
+    ListUsersDeviceResponse:
+      value:
+        created: '2021-08-20T17:13:35.000Z'
+        managementStatus: NOT_MANAGED
+        user:
+          id: 00u17vh0q8ov8IU881d7
+          status: ACTIVE
+          created: '2021-08-20T16:08:25.000Z'
+          activated: null
+          statusChanged: '2021-08-20T16:39:41.000Z'
+          lastLogin: '2023-04-18T17:54:12.000Z'
+          lastUpdated: '2021-12-20T18:27:30.000Z'
+          passwordChanged: '2021-12-20T18:27:30.000Z'
+          type:
+            id: oty17vh0n2EHVnbYF1d7
+          profile:
+            firstName: Bunk
+            lastName: Moreland
+            mobilePhone: null
+            secondEmail: null
+            login: bunk.moreland@example.com
+            email: bunk.moreland@example.com
+          credentials:
+            password: null
+            provider:
+              type: OKTA
+              name: OKTA
+          _links:
+            suspend:
+              href: https://{yourOktaDomain}/api/v1/users/00u17vh0q8ov8IU881d7/lifecycle/suspend
+              method: POST
+            schema:
+              href: https://{yourOktaDomain}/api/v1/meta/schemas/user/osc17vh0n2EHVnbYF1d7
+            resetPassword:
+              href: https://{yourOktaDomain}/api/v1/users/00u17vh0q8ov8IU881d7/lifecycle/reset_password
+              method: POST
+            forgotPassword:
+              href: https://{yourOktaDomain}/api/v1/users/00u17vh0q8ov8IU881d7/credentials/forgot_password
+              method: POST
+            expirePassword:
+              href: https://{yourOktaDomain}/api/v1/users/00u17vh0q8ov8IU881d7/lifecycle/expire_password
+              method: POST
+            changeRecoveryQuestion:
+              href: https://{yourOktaDomain}/api/v1/users/00u17vh0q8ov8IU881d7/credentials/change_recovery_question
+              method: POST
+            self:
+              href: https://{yourOktaDomain}/api/v1/users/00u17vh0q8ov8IU881d7
+            resetFactors:
+              href: https://{yourOktaDomain}/api/v1/users/00u17vh0q8ov8IU881d7/lifecycle/reset_factors
+              method: POST
+            type:
+              href: https://{yourOktaDomain}/api/v1/meta/types/user/oty17vh0n2EHVnbYF1d7
+            changePassword:
+              href: https://{yourOktaDomain}/api/v1/users/00u17vh0q8ov8IU881d7/credentials/change_password
+              method: POST
+            deactivate:
+              href: https://{yourOktaDomain}/api/v1/users/00u17vh0q8ov8IU881d7/lifecycle/deactivate
+              method: POST
     ListUsersResponse:
       value:
         - id: 00u118oQYT4TBGuay0g4
@@ -18735,6 +19004,37 @@ components:
           _links:
             self:
               href: http://your-subdomain.okta.com/api/v1/users/00u118oQYT4TBGuay0g4
+    ListsAllUserTypes:
+      summary: Lists all user types
+      value:
+        - id: otyfnly5cQjJT9PnR0g4
+          displayName: New User Type
+          name: newUserType
+          description: A new custom user type
+          createdBy: sprz9fj1ycBcsgopy1d6
+          lastUpdatedBy: sprz9fj1ycBcsgopy1d6
+          created: '2021-07-05T20:40:38.000Z'
+          lastUpdated: '2021-07-05T20:40:38.000Z'
+          default: false
+          _links:
+            self:
+              href: https://{yourOktaDomain}/api/v1/meta/schemas/user/oscz9fj2jMiRBC1ZT1d6
+            schema:
+              href: https://{yourOktaDomain}/api/v1/meta/schemas/user/oscz9fj2jMiRBC1ZT1d6
+        - id: otyz9fj2jMiRBC1ZT1d6
+          displayName: User
+          name: user
+          description: Okta user profile template with default permission settings
+          createdBy: sprz9fj1ycBcsgopy1d6
+          lastUpdatedBy: sprz9fj1ycBcsgopy1d6
+          created: '2021-07-05T20:40:38.000Z'
+          lastUpdated: '2021-07-05T20:40:38.000Z'
+          default: true
+          _links:
+            self:
+              href: https://{yourOktaDomain}/api/v1/meta/schemas/user/oscz9fj2jMiRBC1ZT1d6
+            schema:
+              href: https://{yourOktaDomain}/api/v1/meta/schemas/user/oscz9fj2jMiRBC1ZT1d6
     ListsOwnerOneResponse:
       summary: Lists a response with one owner
       value:
@@ -19427,6 +19727,38 @@ components:
         _links:
           self:
             href: https://{yourOktaDomain}/api/v1/mappings/prm1k48weFSOnEUnw0g4
+    ReplaceKeyResponse:
+      summary: Replace a key response example
+      value:
+        id: HKY1p7jWLndGQV9M60g4
+        keyId: 7fbc27fd-e3df-4522-86bf-1930110256ad
+        name: My updated new key
+        created: '2022-08-31T18:09:58.000Z'
+        lastUpdated: '2022-08-31T18:16:59.000Z'
+        isUsed: 'false'
+    ReplaceUserTypePutRequest:
+      summary: Replace user type request
+      value:
+        displayName: Replacement Display Name
+        description: Replacement description
+        name: newUserType
+    ReplaceUserTypePutResponse:
+      summary: Replace user type response
+      value:
+        id: otyfnly5cQjJT9PnR0g4
+        displayName: Replacement Display Name
+        name: newUserType
+        description: Replacement description
+        createdBy: sprz9fj1ycBcsgopy1d6
+        lastUpdatedBy: sprz9fj1ycBcsgopy1d6
+        created: '2021-07-05T20:40:38.000Z'
+        lastUpdated: '2021-07-05T20:40:38.000Z'
+        default: false
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/meta/schemas/user/oscz9fj2jMiRBC1ZT1d6
+          schema:
+            href: https://{yourOktaDomain}/api/v1/meta/schemas/user/oscz9fj2jMiRBC1ZT1d6
     ResourceSetBindingAddMembersRequestExample:
       value:
         additions:
@@ -19585,6 +19917,15 @@ components:
         _links:
           next:
             href: https://{yourOktaDomain}/api/v1/iam/resource-sets?after=iamoJDFKaJxGIr0oamd0q
+    RetrieveKeyResponse:
+      summary: Retrieve a key by hookKeyId response example
+      value:
+        id: HKY1p7jWLndGQV9M60g4
+        keyId: 7fbc27fd-e3df-4522-86bf-1930110256ad
+        name: My new key
+        created: '2022-08-31T18:09:58.000Z'
+        lastUpdated: '2022-08-31T18:09:58.000Z'
+        isUsed: 'false'
     RetrieveMappingsResponse:
       summary: Retrieve a single Profile Mapping
       value:
@@ -19617,6 +19958,16 @@ components:
         _links:
           self:
             href: https://{yourOktaDomain}/api/v1/mappings/prm1k48weFSOnEUnw0g4
+    RetrievePublicKeyResponse:
+      summary: Retrieve Public Key response example
+      value:
+        _embedded:
+          kty: RSA
+          alg: RSA
+          kid: 7fbc27fd-e3df-4522-86bf-1930110256ad
+          use: null
+          e: AQAB
+          'n': 2naqCnv6r4xNQs7207lRtKQvdtnlVND-8k5iYBIiqoKGY3CqUmRm1jleoOniiQoMkFX8Wj2DmVqr002efF3vOQ7_gjtTatBTVUNbNIQLybun4dkVoUtfP7pRc5SLpcP3eGPRVar734ZrpQXzmCEdpqBt3jrVjwYjNE5DqOjbYXFJtMsy8CWE9LRJ3kyHEoHPzo22dG_vMrXH0_sAQoCk_4TgNCbvyzVmGVYXI_BkUnp0hv2pR4bQVRYzGB9dKJdctOh8zULqc_EJ8tiYsS05YnF7whrWEyARK0rH-e4d4W-OmBTga_zhY4kJ4NsoQ4PyvcatZkxjPO92QHQOFDnf3w`
     RiskEventsRequestExample:
       summary: Risk Events payload example
       value:
@@ -19827,6 +20178,27 @@ components:
         _links:
           self:
             href: https://{yourOktaDomain}/api/v1/mappings/prm1k48weFSOnEUnw0g4
+    UpdateUserTypePostRequest:
+      summary: Update user type request
+      value:
+        displayName: Updated Display Name
+    UpdateUserTypePostResponse:
+      summary: Update user type response
+      value:
+        id: otyfnly5cQjJT9PnR0g4
+        displayName: Updated Display Name
+        name: newUserType
+        description: A new custom user type
+        createdBy: sprz9fj1ycBcsgopy1d6
+        lastUpdatedBy: sprz9fj1ycBcsgopy1d6
+        created: '2021-07-05T20:40:38.000Z'
+        lastUpdated: '2021-07-05T20:40:38.000Z'
+        default: false
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/meta/schemas/user/oscz9fj2jMiRBC1ZT1d6
+          schema:
+            href: https://{yourOktaDomain}/api/v1/meta/schemas/user/oscz9fj2jMiRBC1ZT1d6
     UpdatedEmailDomainResponse:
       value:
         id: OeD114iNkrcN6aR680g4
@@ -20792,7 +21164,7 @@ components:
               $ref: '#/components/examples/AuthenticatorResponsePhone'
             WebAuthn:
               $ref: '#/components/examples/AuthenticatorResponseWebAuthn'
-            Security Question:
+            SecurityQuestion:
               $ref: '#/components/examples/AuthenticatorResponseSecurityQuestion'
   schemas:
     APIServiceIntegrationInstance:
@@ -20935,12 +21307,21 @@ components:
         condition:
           type: string
     AcsEndpoint:
+      description: An array of ACS endpoints. You can configure a maximum of 100 endpoints.
       type: object
       properties:
         index:
           type: integer
+          description: Index of the URL in the array of ACS endpoints
+          example: 0
         url:
           type: string
+          description: URL of the ACS
+          maxLength: 1024
+          example: https://www.example.com/sso/saml
+      required:
+        - url
+        - index
     ActivateFactorRequest:
       type: object
       properties:
@@ -21193,71 +21574,171 @@ components:
           type: integer
           readOnly: true
     AppUser:
+      title: Application User
+      description: The App User object defines a user's app-specific profile and credentials for an app.
       type: object
       properties:
         created:
           type: string
+          description: Timestamp when the App User object was created
           format: date-time
           readOnly: true
+          example: '2014-06-24T15:27:59.000Z'
         credentials:
           $ref: '#/components/schemas/AppUserCredentials'
         externalId:
           type: string
+          description: |-
+            The ID of the user in the target app that's linked to the Okta App User object.
+            This value is the native app-specific identifier or primary key for the user in the target app.
+
+            The `externalId` is set during import when the user is confirmed (reconciled) or during provisioning when the user has been successfully created in the target app.
+            This value isn't populated for SSO app assignments (for example, SAML or SWA) because it isn't synchronized with a target app.
           readOnly: true
+          example: 70c14cc17d3745e8a9f98d599a68329c
         id:
           type: string
-          readOnly: false
+          description: Unique identifier of the App User object (only required for apps with `signOnMode` or authentication schemes that don't require credentials)
+          example: 00u11z6WHMYCGPCHCRFK
         lastSync:
           type: string
+          description: Timestamp of the last synchronization operation. This value is only updated for apps with the `IMPORT_PROFILE_UPDATES` or `PUSH PROFILE_UPDATES` feature.
           format: date-time
           readOnly: true
+          example: '2014-06-24T15:27:59.000Z'
         lastUpdated:
           type: string
+          description: Timestamp when App User was last updated
           format: date-time
           readOnly: true
+          example: '2014-06-24T15:28:14.000Z'
         passwordChanged:
           type: string
+          description: Timestamp when the App User password was last changed
           format: date-time
           readOnly: true
           nullable: true
+          example: '2014-06-24T15:27:59.000Z'
         profile:
-          type: object
-          additionalProperties:
-            type: object
-            properties: {}
+          $ref: '#/components/schemas/AppUserProfile'
         scope:
           type: string
+          description: Toggles the assignment between user or group scope
+          enum:
+            - USER
+            - GROUP
+          example: USER
         status:
-          type: string
-          readOnly: true
+          $ref: '#/components/schemas/AppUserStatus'
         statusChanged:
           type: string
+          description: Timestamp when the App User status was last changed
           format: date-time
           readOnly: true
+          example: '2014-06-24T15:28:14.000Z'
         syncState:
-          type: string
-          readOnly: true
+          $ref: '#/components/schemas/AppUserSyncState'
         _embedded:
           type: object
+          description: Embedded resources related to the App User using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
           additionalProperties:
             type: object
             properties: {}
           readOnly: true
         _links:
-          $ref: '#/components/schemas/LinksSelf'
+          $ref: '#/components/schemas/LinksAppAndUser'
+      required:
+        - created
+        - lastUpdated
+        - scope
+        - status
+        - statusChanged
+        - _links
     AppUserCredentials:
+      description: Specifies a user's credentials for the app. The authentication scheme of the app determines whether a username or password can be assigned to a user.
       type: object
       properties:
         password:
           $ref: '#/components/schemas/AppUserPasswordCredential'
         userName:
           type: string
+          description: Username for the app
+          minLength: 1
+          maxLength: 100
+          example: testuser
     AppUserPasswordCredential:
+      description: Specifies a password for a user. This is a write-only property. An empty `password` object is returned to indicate that a password value exists.
       type: object
       properties:
         value:
+          description: Password value
           type: string
           format: password
+          writeOnly: true
+    AppUserProfile:
+      description: |-
+        App user profiles are app-specific and can be customized by the Profile Editor in the Admin Console.
+        SSO apps typically don't support app user profiles, while apps with user provisioning features have app-specific profiles.
+        Properties that are visible in the Admin Console for an app assignment can also be assigned through the API.
+        Some properties are reference properties that are imported from the target app and can't be configured.
+      additionalProperties:
+        type: object
+        properties: {}
+      type: object
+    AppUserStatus:
+      description: Status of an App User
+      example: ACTIVE
+      type: string
+      enum:
+        - ACTIVE
+        - APPROVED
+        - DEPROVISIONED
+        - IMPLICIT
+        - IMPORTED
+        - INACTIVE
+        - MATCHED
+        - PENDING
+        - PROVISIONED
+        - REVOKED
+        - STAGED
+        - SUSPENDED
+        - UNASSIGNED
+      x-enumDescriptions:
+        ACTIVE: The App User is provisioned and is enabled to use the app. This status also occurs if the app has the `IMPORT_PROFILE_UPDATES` feature enabled and user import is confirmed, or if the app doesn't have provisioning enabled.
+        INACTIVE: The App User is provisioned, but isn't enabled to use the app. App Users in this status can be reactivated with a password reset or permanently deleted.
+        IMPORTED: The App User is created based on imported data.
+        MATCHED: The imported user is matched with an existing App User.
+        UNASSIGNED: The App User was imported, but the user-matching operation was skipped.
+        SUSPENDED: The App User is provisioned, but isn't enabled to use the app. App Users in this status can be reactivated without a password reset.
+        PENDING: The App User is provisioned, but in a pending state and can't use the app. The status moves to `ACTIVE` when the App User is activated.
+        APPROVED: The App User was created but not provisioned. This status can occur when manual provisioning acknowledgment is required.
+        REVOKED: The App User is disabled and waiting for deprovisioning acknowledgment. The App User can be deleted after deprovisioning acknowledgment.
+        IMPLICIT: The App User is now migrated to use implicit app assignment.
+        STAGED: The App User doesn't have `externalId` set and the background provisioning operation is queued. This applies to apps with the `PUSH_NEW_USERS` feature enabled.
+        PROVISIONED: The background provisioning operation completed and the App User was assigned an `externalId` successfully.
+        DEPROVISIONED: The user was removed by the provisioning operation and the `externalId` property is unassigned.
+      readOnly: true
+    AppUserSyncState:
+      description: |-
+        The synchronization state for the App User.
+        The App User's `syncState` depends on whether the `PROFILE_MASTERING` feature is enabled for the app.
+
+        > **Note:** User provisioning currently must be configured through the Admin Console.
+      example: SYNCHRONIZED
+      type: string
+      enum:
+        - DISABLED
+        - ERROR
+        - OUT_OF_SYNC
+        - SYNCHRONIZED
+        - SYNCING
+      x-enumDescriptions:
+        DISABLED: The provisioning feature is disabled for the app (`PROFILE_MASTERING` feature is disabled).
+        OUT_OF_SYNC: The App User has changes that haven't been pushed to the target app.
+        SYNCING: A background provisioning operation is running to update the user's profile in the target app.
+        SYNCHRONIZED: All changes to the App User profile have successfully been synchronized with the target app.
+        ERROR: A background provisioning operation failed to update the user's profile in the target app. You must resolve the provisioning task in the Admin Console before you retry the operation.
+      readOnly: true
     Application:
       type: object
       properties:
@@ -23899,22 +24380,28 @@ components:
         created:
           type: string
           format: date-time
+          description: Timestamp when the key was created.
           readOnly: true
         id:
           type: string
+          description: The unique identifier for the key.
           readOnly: true
         isUsed:
           type: string
           format: boolean
+          description: Whether this key is currently in use by other hooks.
         keyId:
           type: string
+          description: The alias of the public key.
           readOnly: true
         lastUpdated:
           type: string
           format: date-time
+          description: Timestamp when the key was updated.
           readOnly: true
         name:
           type: string
+          description: Display name of the key.
           readOnly: false
         _embedded:
           $ref: '#/components/schemas/JsonWebKey'
@@ -23957,6 +24444,10 @@ components:
       allOf:
         - $ref: '#/components/schemas/HrefObject'
         - description: Link to activate the resource
+    HrefObjectAppLink:
+      allOf:
+        - $ref: '#/components/schemas/HrefObject'
+        - description: Link to the app resource
     HrefObjectClientLink:
       allOf:
         - $ref: '#/components/schemas/HrefObject'
@@ -23973,6 +24464,10 @@ components:
       allOf:
         - $ref: '#/components/schemas/HrefObject'
         - description: Link to the resource (self)
+    HrefObjectUserLink:
+      allOf:
+        - $ref: '#/components/schemas/HrefObject'
+        - description: Link to the user resource
     HttpMethod:
       type: string
       enum:
@@ -24126,6 +24621,13 @@ components:
               $ref: '#/components/schemas/PolicyAccountLink'
             conditions:
               $ref: '#/components/schemas/PolicyRuleConditions'
+            mapAMRClaims:
+              type: boolean
+              description: Enable mapping AMR from IdP to Okta to downstream apps
+              default: false
+              x-okta-lifecycle:
+                lifecycle: GA
+                isGenerallyAvailable: true
             maxClockSkew:
               type: integer
             provisioning:
@@ -24553,6 +25055,15 @@ components:
       type: string
       enum:
         - USER
+    LinksAppAndUser:
+      description: Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. This object is used for dynamic discovery of resources related to the App User.
+      type: object
+      properties:
+        app:
+          $ref: '#/components/schemas/HrefObjectAppLink'
+        user:
+          $ref: '#/components/schemas/HrefObjectUserLink'
+      readOnly: true
     LinksNext:
       description: Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the current status of an application using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. Use the `LinksNext` object for dynamic discovery of related resources and lifecycle operations.
       type: object
@@ -27502,19 +28013,21 @@ components:
       required:
         - name
         - clientId
+        - action
+        - id
+        - _links
     RiskProviderAction:
-      description: |-
-        The action taken by Okta during authentication attempts based on the risk events sent by this provider.
-        Possible values:
-          * `none`: No action
-          * `log_only`: Include risk event information in the System Log
-          * `enforce_and_log`: Use risk event information to evaluate risk during authentication attempts and include risk event information in the System Log
+      description: Action taken by Okta during authentication attempts based on the risk events sent by this provider
       default: log_only
       type: string
       enum:
         - enforce_and_log
         - log_only
         - none
+      x-enumDescriptions:
+        log_only: Include risk event information in the System Log
+        none: No action
+        enforce_and_log: Use risk event information to evaluate risks during authentication attempts and include risk event information in the System Log
     RiskScorePolicyRuleCondition:
       type: object
       properties:
@@ -29050,10 +29563,14 @@ components:
           readOnly: true
         name:
           type: string
-          description: The name of the User Type
-          readOnly: true
+          description: |-
+            The name of the User Type. The name must start with A-Z or a-z and contain only A-Z, a-z, 0-9, or underscore (_) characters. 
+             This value becomes read-only after creation and can't be updated.
         _links:
-          $ref: '#/components/schemas/LinksSelf'
+          $ref: '#/components/schemas/UserTypeLinks'
+      required:
+        - name
+        - displayName
     UserTypeCondition:
       properties:
         exclude:
@@ -29064,6 +29581,40 @@ components:
           items:
             type: string
           type: array
+    UserTypeLinks:
+      allOf:
+        - $ref: '#/components/schemas/LinksSelf'
+        - type: object
+          properties:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/HrefObject'
+                - description: The associated schema
+    UserTypePostRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          description: The updated human-readable description of the User Type
+        displayName:
+          type: string
+          description: The updated human-readable display name for the User Type
+    UserTypePutRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          description: The human-readable description of the User Type
+        displayName:
+          type: string
+          description: The human-readable name of the User Type
+        name:
+          type: string
+          description: The name of the existing type
+      required:
+        - name
+        - displayName
+        - description
     UserVerificationEnum:
       description: User verification setting
       type: string
@@ -29394,6 +29945,8 @@ components:
             okta.principalRateLimits.read: Allows the app to read information about Principal Rate Limits in your Okta organization.
             okta.profileMappings.manage: Allows the app to manage user profile mappings in your Okta organization.
             okta.profileMappings.read: Allows the app to read user profile mappings in your Okta organization.
+            okta.pushProviders.manage: Allows the app to create and manage push notification providers such as APNs and FCM.
+            okta.pushProviders.read: Allows the app to read push notification providers such as APNs and FCM.
             okta.rateLimits.manage: Allows the app to create and manage rate limits in your Okta organization.
             okta.rateLimits.read: Allows the app to read information about rate limits in your Okta organization.
             okta.realms.manage: Allows the app to create new realms and to manage their details.

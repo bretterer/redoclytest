@@ -219,6 +219,85 @@ paths:
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: true
+  /oauth2/v1/challenge:
+    x-okta-lifecycle:
+      lifecycle: EA
+      isGenerallyAvailable: false
+      SKUs: []
+    post:
+      summary: /challenge
+      description: |-
+        Initiates the challenge of subsequent factor(s) in a Direct Authentication flow after the token endpoint has responded with 'mfa_required'. This endpoint is optional if the client is able to proceed without it, for example, when the client knows it needs to follow up with an OTP and can prompt the end user for one.
+
+        > **Note:** The `/challenge` endpoint requires client authentication. The method is configured per client application. See [Client authentication methods](/openapi/okta-oauth/guides/client-auth/).
+      operationId: challenge
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChallengeRequest'
+            examples:
+              challengeRequest:
+                $ref: '#/components/examples/ChallengeRequestExample'
+      responses:
+        '200':
+          description: The next factor type to challenge is returned and in the case of out-of-band factors, any information needed for the out-of-band transaction.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChallengeResponse'
+              examples:
+                challengeResponseOtp:
+                  $ref: '#/components/examples/ChallengeResponseMfaOtpExample'
+                challengeResponseOob:
+                  $ref: '#/components/examples/ChallengeResponseMfaOobExample'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                invalidMfaToken:
+                  $ref: '#/components/examples/ChallengeErrorInvalidMfaToken'
+                grantTypeDisabled:
+                  $ref: '#/components/examples/OobAuthenticateErrorGrantTypeDisabled'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                invalidClientSecret:
+                  $ref: '#/components/examples/OobAuthenticateErrorInvalidClientSecret'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                authenticatorCannotBeUsed:
+                  $ref: '#/components/examples/ChallengeErrorInvalidMfaToken'
+                invalidChallengeType:
+                  $ref: '#/components/examples/ChallengeErrorInvalidChallengeType'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                userRateLimit:
+                  $ref: '#/components/examples/OobAuthenticateErrorRateLimit'
+      security:
+        - Client authentication `client_secret_basic`: []
+        - Client authentication `client_secret_post`: []
+        - Client authentication `client_secret_jwt`: []
+        - Client authentication `private_key_jwt`: []
+      tags:
+        - OrgAS
   /oauth2/v1/clients:
     get:
       summary: List all Client Applications
@@ -645,6 +724,83 @@ paths:
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: true
+  /oauth2/v1/oob-authenticate:
+    x-okta-lifecycle:
+      lifecycle: EA
+      isGenerallyAvailable: false
+      SKUs: []
+    post:
+      summary: /oob-authenticate
+      description: |-
+        Initiates direct authentication with an out-of-band authenticator
+
+        > **Note:** The `/oob-authenticate` endpoint requires client authentication. The method is configured per client application. See [Client authentication methods](/openapi/okta-oauth/guides/client-auth/).
+      operationId: oob-authenticate
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OobAuthenticateRequest'
+            examples:
+              oobRequest:
+                $ref: '#/components/examples/OobAuthenticateRequestExample'
+      responses:
+        '200':
+          description: Out-of-band authentication has successfully been initiated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OobAuthenticateResponse'
+              examples:
+                oobResponse:
+                  $ref: '#/components/examples/OobAuthenticateResponseExample'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                invalidChannelHint:
+                  $ref: '#/components/examples/OobAuthenticateErrorInvalidChannelHint'
+                userNotAssigned:
+                  $ref: '#/components/examples/OobAuthenticateErrorUserNotAssignedApp'
+                grantTypeDisabled:
+                  $ref: '#/components/examples/OobAuthenticateErrorGrantTypeDisabled'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                invalidClientSecret:
+                  $ref: '#/components/examples/OobAuthenticateErrorInvalidClientSecret'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                authenticatorCannotBeUsed:
+                  $ref: '#/components/examples/OobAuthenticateErrorAuthenticatorCannotBeUsed'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                userRateLimit:
+                  $ref: '#/components/examples/OobAuthenticateErrorRateLimit'
+      security:
+        - Client authentication `client_secret_basic`: []
+        - Client authentication `client_secret_post`: []
+        - Client authentication `client_secret_jwt`: []
+        - Client authentication `private_key_jwt`: []
+      tags:
+        - OrgAS
   /oauth2/v1/par:
     options:
       summary: /par
@@ -1194,8 +1350,86 @@ paths:
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
   /oauth2/{authorizationServerId}/v1/challenge:
+    x-okta-lifecycle:
+      lifecycle: EA
+      isGenerallyAvailable: false
+      SKUs: []
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
+    post:
+      summary: /challenge
+      description: |-
+        Initiates the challenge of subsequent factor(s) in a Direct Authentication flow after the token endpoint has responded with 'mfa_required'. This endpoint is optional if the client is able to proceed without it, for example, the client knows it needs to follow up with an OTP and can prompt the end user for one.
+
+        > **Note:** The `/challenge` endpoint requires client authentication. The method is configured per client application. See [Client authentication methods](/openapi/okta-oauth/guides/client-auth/).
+      operationId: challenge-custom-as
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChallengeRequest'
+            examples:
+              challengeRequest:
+                $ref: '#/components/examples/ChallengeRequestExample'
+      responses:
+        '200':
+          description: The next factor type to challenge is returned and in the case of out-of-band factors, any information needed for the out-of-band transaction.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChallengeResponse'
+              examples:
+                challengeResponseOtp:
+                  $ref: '#/components/examples/ChallengeResponseMfaOtpExample'
+                challengeResponseOob:
+                  $ref: '#/components/examples/ChallengeResponseMfaOobExample'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                invalidMfaToken:
+                  $ref: '#/components/examples/ChallengeErrorInvalidMfaToken'
+                grantTypeDisabled:
+                  $ref: '#/components/examples/OobAuthenticateErrorGrantTypeDisabled'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                invalidClientSecret:
+                  $ref: '#/components/examples/OobAuthenticateErrorInvalidClientSecret'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                authenticatorCannotBeUsed:
+                  $ref: '#/components/examples/ChallengeErrorInvalidMfaToken'
+                invalidChallengeType:
+                  $ref: '#/components/examples/ChallengeErrorInvalidChallengeType'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                userRateLimit:
+                  $ref: '#/components/examples/OobAuthenticateErrorRateLimit'
+      security:
+        - Client authentication `client_secret_basic`: []
+        - Client authentication `client_secret_post`: []
+        - Client authentication `client_secret_jwt`: []
+        - Client authentication `private_key_jwt`: []
+      tags:
+        - CustomAS
   /oauth2/{authorizationServerId}/v1/device/authorize:
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
@@ -1390,8 +1624,84 @@ paths:
         lifecycle: GA
         isGenerallyAvailable: true
   /oauth2/{authorizationServerId}/v1/oob-authenticate:
+    x-okta-lifecycle:
+      lifecycle: EA
+      isGenerallyAvailable: false
+      SKUs: []
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
+    post:
+      summary: /oob-authenticate
+      description: |-
+        Initiates Direct Authentication with an out-of-band authenticator
+
+        > **Note:** The `/oob-authenticate` endpoint requires client authentication. The method is configured per client application. See [Client authentication methods](/openapi/okta-oauth/guides/client-auth/).
+      operationId: oob-authenticate-custom-as
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OobAuthenticateRequest'
+            examples:
+              oobRequest:
+                $ref: '#/components/examples/OobAuthenticateRequestExample'
+      responses:
+        '200':
+          description: Out-of-band authentication has successfully been initiated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OobAuthenticateResponse'
+              examples:
+                oobResponse:
+                  $ref: '#/components/examples/OobAuthenticateResponseExample'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                invalidChannelHint:
+                  $ref: '#/components/examples/OobAuthenticateErrorInvalidChannelHint'
+                userNotAssigned:
+                  $ref: '#/components/examples/OobAuthenticateErrorUserNotAssignedApp'
+                grantTypeDisabled:
+                  $ref: '#/components/examples/OobAuthenticateErrorGrantTypeDisabled'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                invalidClientSecret:
+                  $ref: '#/components/examples/OobAuthenticateErrorInvalidClientSecret'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                authenticatorCannotBeUsed:
+                  $ref: '#/components/examples/OobAuthenticateErrorAuthenticatorCannotBeUsed'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthError'
+              examples:
+                userRateLimit:
+                  $ref: '#/components/examples/OobAuthenticateErrorRateLimit'
+      security:
+        - Client authentication `client_secret_basic`: []
+        - Client authentication `client_secret_post`: []
+        - Client authentication `client_secret_jwt`: []
+        - Client authentication `private_key_jwt`: []
+      tags:
+        - CustomAS
   /oauth2/{authorizationServerId}/v1/par:
     options:
       summary: /par
@@ -1730,6 +2040,37 @@ paths:
         isGenerallyAvailable: true
 components:
   examples:
+    ApplicationTargetResponse:
+      value:
+        - name: google,
+          displayName: Google Workspace,
+          description: Gmail, Google Drive, Google Calendar, and Google Sites,
+          status: ACTIVE,
+          lastUpdated: 2021-06-23T22:23:29.000Z,
+          category: COLLABORATION,
+          verificationStatus: OKTA_VERIFIED,
+          website: http://www.example.com/google-apps.html,
+          signOnModes:
+            - SAML_2_0
+          features:
+            - DOWNLOAD_USERS_FOR_ROGUE_REPORT,
+            - EXCHANGE_ACTIVE_SYNC,
+            - GROUP_PUSH,
+            - IMPORT_NEW_USERS,
+            - IMPORT_PROFILE_UPDATES,
+            - IMPORT_USER_SCHEMA,
+            - PROFILE_MASTERING,
+            - PUSH_NEW_USERS,
+            - PUSH_PASSWORD_UPDATES,
+            - PUSH_PROFILE_UPDATES,
+            - PUSH_USER_DEACTIVATION,
+            - REACTIVATE_USERS
+          _links:
+            logo:
+              - name: medium,
+              - href: https://www.example.com/gfs3qpyglct9KMswo0g7
+            self:
+              href: https://{yourOktaDomain}/api/v1/catalog/apps/google
     BCAuthorizeRequestIdTokenHintExample:
       value:
         client_id: 0jrabyQWm4B9zVJPbotY
@@ -2149,6 +2490,33 @@ components:
           - ES512
         device_authorization_endpoint: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/device/authorize
         pushed_authorization_request_endpoint: https://{yourOktaDomain}/oauth2/aus59pz16qgMvHvBS0g7/v1/par
+    CustomRoleAssignmentRequest:
+      value:
+        type: CUSTOM,
+        role: cr04cxy6yzSCtNciD0g7,
+        resource-set: iam4cxy6z7hhaZCSk0g7
+    CustomRoleAssignmentResponse:
+      value:
+        id: irb4ey26fpFI3vQ8y0g7,
+        label: view_minimal,
+        type: CUSTOM,
+        status: ACTIVE,
+        created: 2023-05-01T15:16:47.000Z,
+        lastUpdated: 2023-05-01T15:16:47.000Z,
+        assignmentType: CLIENT,
+        resource-set: iam4cxy6z7hhaZCSk0g7,
+        role: cr04cxy6yzSCtNciD0g7,
+        _links:
+          role:
+            href: https://{yourOktaDomain}/api/v1/iam/roles/cr04cxy6yzSCtNciD0g7
+          resource-set:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iam4cxy6z7hhaZCSk0g7
+          permissions:
+            href: https://{yourOktaDomain}/api/v1/iam/roles/cr04cxy6yzSCtNciD0g7/permissions
+          member:
+            href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iam4cxy6z7hhaZCSk0g7/bindings/cr04cxy6yzSCtNciD0g7/members/irb4ey26fpFI3vQ8y0g7
+          assignee:
+            href: https://{yourOktaDomain}/oauth2/v1/clients/0oa4ee9vgbIuqTUvd0g7
     DeviceAuthorizeResponseExample:
       value:
         user_code: RGTCFDTL
@@ -2189,6 +2557,30 @@ components:
         errorLink: E0000047
         errorId: sampleQPivGUj_ND5v78vbYWW
         errorCauses: []
+    GroupTargetResponse:
+      value:
+        - id: 00g4cweckiXJaEqWl0g7,
+          created: 2023-01-20T08:28:32.000Z,
+          lastUpdated: 2023-01-20T08:28:32.000Z,
+          lastMembershipUpdated: 2023-01-20T08:54:49.000Z,
+          objectClass:
+            - okta:user_group
+          type: OKTA_GROUP,
+          profile:
+            name: nirav_group,
+            description: null
+          _links:
+            logo:
+              - name: medium,
+                href: https://www.example.com/okta-medium.png,
+                type: image/png
+              - name: large,
+                href: https://www.example.com/okta-large.png,
+                type: image/png
+            users:
+              href: https://{yourOktaDomain}/api/v1/groups/00g4cweckiXJaEqWl0g7/users
+            apps:
+              href: https://{yourOktaDomain}/api/v1/groups/00g4cweckiXJaEqWl0g7/apps
     IntrospectionAccessToken:
       value:
         active: true
@@ -2281,6 +2673,38 @@ components:
             - implicit
           token_endpoint_auth_method: client_secret_basic
           application_type: web
+    ListRoleAssignments:
+      value:
+        - id: JBCUYUC7IRCVGS27IFCE2SKO,
+          label: Help Desk Administrator,
+          type: HELP_DESK_ADMIN,
+          status: ACTIVE,
+          created: 2023-05-01T14:24:54.000Z,
+          lastUpdated: 2023-05-01T14:24:54.000Z,
+          assignmentType: CLIENT,
+          _links:
+            assignee:
+              href: https://{yourOktaDomain}/oauth2/v1/clients/0jrabyQWm4B9zVJPbotY/roles
+        - id: irb4ey26fpFI3vQ8y0g7,
+          label: view_minimal,
+          type: CUSTOM,
+          status: ACTIVE,
+          created: 2023-05-01T15:16:47.000Z,
+          lastUpdated: 2023-05-01T15:16:47.000Z,
+          assignmentType: CLIENT,
+          resource-set: iam4cxy6z7hhaZCSk0g7,
+          role: cr04cxy6yzSCtNciD0g7,
+          _links:
+            role:
+              href: https://{yourOktaDomain}/api/v1/iam/roles/cr04cxy6yzSCtNciD0g7
+            resource-set:
+              href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iam4cxy6z7hhaZCSk0g7
+            permissions:
+              href: https://{yourOktaDomain}/api/v1/iam/roles/cr04cxy6yzSCtNciD0g7/permissions
+            member:
+              href: https://{yourOktaDomain}/api/v1/iam/resource-sets/iam4cxy6z7hhaZCSk0g7/bindings/cr04cxy6yzSCtNciD0g7/members/irb4ey26fpFI3vQ8y0g7
+            assignee:
+              href: https://{yourOktaDomain}/oauth2/v1/clients/0oa4ee9vgbIuqTUvd0g7
     OAuthError400InvalidGrant_InvalidAuthCode:
       value:
         error: invalid_grant
@@ -2503,6 +2927,21 @@ components:
       value:
         request_uri: urn:okta:Y1hIQ3ZqYjFodEZMOVJ3TUF4ZHRPZjJuNFZRV2ZWQ044MmFoX2VIT2oyNDo
         expires_in: 3600
+    StandardRoleAssignmentRequest:
+      value:
+        type: HELP_DESK_ADMIN,
+    StandardRoleAssignmentResponse:
+      value:
+        id: JBCUYUC7IRCVGS27IFCE2SKO,
+        label: Help Desk Administrator,
+        type: HELP_DESK_ADMIN,
+        status: ACTIVE,
+        created: 2023-05-01T14:24:54.000Z,
+        lastUpdated: 2023-05-01T14:24:54.000Z,
+        assignmentType: CLIENT,
+        _links:
+          assignee:
+            href: https://{yourOktaDomain}/oauth2/v1/clients/0jrabyQWm4B9zVJPbotY/roles
     TokenRequestAuthorizationCodeWithCredsExample:
       value:
         client_id: 0jrabyQWm4B9zVJPbotY
@@ -2581,6 +3020,20 @@ components:
           country: US
         phone_number: +1 (425) 555-1212
   parameters:
+    pathAppInstanceId:
+      name: appInstanceId
+      in: path
+      schema:
+        type: string
+      description: '`id` of the application instance'
+      required: true
+    pathAppName:
+      name: appName
+      in: path
+      schema:
+        type: string
+      description: '`name` of the application'
+      required: true
     pathAuthorizationServerId:
       name: authorizationServerId
       in: path
@@ -2594,6 +3047,20 @@ components:
       schema:
         type: string
       description: '`client_id` of the Client application'
+      required: true
+    pathGroupId:
+      name: groupId
+      in: path
+      schema:
+        type: string
+      description: '`id` of the group'
+      required: true
+    pathRoleId:
+      name: roleId
+      in: path
+      schema:
+        type: string
+      description: '`role_id` of the role'
       required: true
     queryAfter:
       name: after
@@ -2787,6 +3254,46 @@ components:
       type: string
       enum:
         - none
+    ChallengeRequest:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+      type: object
+      properties:
+        challenge_types_supported:
+          type: array
+          description: List of direct authentication challenge types supported by the client
+          items:
+            $ref: '#/components/schemas/ChallengeType'
+        mfa_token:
+          type: string
+          description: The value returned from a previous token or challenge request for identifying the multifactor transaction across multiple requests
+      required:
+        - mfa_token
+    ChallengeResponse:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+      type: object
+      properties:
+        binding_method:
+          $ref: '#/components/schemas/BindingMethod'
+        challenge_type:
+          type: string
+          description: The challenge type used for authentication
+        channel:
+          $ref: '#/components/schemas/Channel'
+        expires_in:
+          type: integer
+          description: Number of seconds until the `oob_code` expires
+        interval:
+          type: integer
+          description: The minimum amount of time in seconds that the client should wait between polling requests to the token endpoint
+        oob_code:
+          type: string
+          description: A unique identifier for identifying the out-of-band transaction across multiple requests
     ChallengeType:
       type: string
       enum:
@@ -2880,6 +3387,20 @@ components:
       type: string
       enum:
         - S256
+    CustomRoleAssignmentSchema:
+      type: object
+      properties:
+        resource-set:
+          type: string
+          description: Resource Set ID
+        role:
+          type: string
+          description: Custom Role ID
+        type:
+          type: string
+          description: Standard role type
+          enum:
+            - CUSTOM
     DeviceAuthorizeRequest:
       type: object
       properties:
@@ -2957,6 +3478,10 @@ components:
         - urn:ietf:params:oauth:grant-type:saml2-bearer
         - urn:ietf:params:oauth:grant-type:token-exchange
         - urn:openid:params:grant-type:ciba
+        - urn:okta:params:oauth:grant-type:otp
+        - urn:okta:params:oauth:grant-type:oob
+        - http://auth0.com/oauth/grant-type/mfa-otp
+        - http://auth0.com/oauth/grant-type/mfa-oob
     IntrospectionRequest:
       type: object
       properties:
@@ -3198,6 +3723,40 @@ components:
             userinfo_endpoint:
               description: URL of the authorization server's userinfo endpoint.
               type: string
+    OobAuthenticateRequest:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+      type: object
+      properties:
+        channel_hint:
+          $ref: '#/components/schemas/Channel'
+        login_hint:
+          type: string
+          description: The user sign-in information for whom authentication is being requested
+      required:
+        - login_hint
+    OobAuthenticateResponse:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+      type: object
+      properties:
+        binding_method:
+          $ref: '#/components/schemas/BindingMethod'
+        channel:
+          $ref: '#/components/schemas/Channel'
+        expires_in:
+          type: integer
+          description: Number of seconds until the `oob_code` expires
+        interval:
+          type: integer
+          description: The minimum amount of time in seconds that the client should wait between polling requests to the token endpoint
+        oob_code:
+          type: string
+          description: A unique identifier for identifying the out-of-band transaction across multiple requests
     ParRequest:
       description: See `/authorize` query parameters for more information.
       type: object
@@ -3321,6 +3880,12 @@ components:
         - RS256
         - RS384
         - RS512
+    StandardRoleAssignmentSchema:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Standard role type
     SubjectType:
       type: string
       enum:
@@ -3345,6 +3910,10 @@ components:
           urn:ietf:params:oauth:grant-type:saml2-bearer: '#/components/schemas/TokenRequestSamlBearer'
           urn:ietf:params:oauth:grant-type:token-exchange: '#/components/schemas/TokenRequestTokenExchange'
           urn:openid:params:grant-type:ciba: '#/components/schemas/TokenRequestCiba'
+          urn:okta:params:oauth:grant-type:otp: '#/components/schemas/TokenRequestDirectAuthenticationOtp'
+          urn:okta:params:oauth:grant-type:oob: '#/components/schemas/TokenRequestDirectAuthenticationOob'
+          http://auth0.com/oauth/grant-type/mfa-otp: '#/components/schemas/TokenRequestDirectAuthenticationMfaOtp'
+          http://auth0.com/oauth/grant-type/mfa-oob: '#/components/schemas/TokenRequestDirectAuthenticationMfaOob'
     TokenRequestAuthorizationCode:
       allOf:
         - $ref: '#/components/schemas/TokenRequest'
@@ -3377,6 +3946,122 @@ components:
               description: The scopes requested.
           required:
             - scope
+    TokenRequestDirectAuthReferenceValue:
+      allOf:
+        - $ref: '#/components/schemas/TokenRequestDirectAuthenticationOtp'
+        - $ref: '#/components/schemas/TokenRequestDirectAuthenticationMfaOtp'
+        - $ref: '#/components/schemas/TokenRequestDirectAuthenticationOob'
+        - $ref: '#/components/schemas/TokenRequestDirectAuthenticationMfaOob'
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+    TokenRequestDirectAuthenticationMfaOob:
+      allOf:
+        - $ref: '#/components/schemas/TokenRequest'
+        - type: object
+          properties:
+            grant_types_supported:
+              description: A list of the grant type values that this authorization server supports
+              type: array
+              items:
+                $ref: '#/components/schemas/GrantType'
+            mfa_token:
+              type: string
+              description: The value returned from a previous token or challenge request for identifying the multifactor transaction across multiple requests
+            oob_code:
+              type: string
+              description: The value returned from a previous oob-authenticate or challenge request for identifying an out-of-band transaction across multiple requests
+            scope:
+              type: string
+              description: The scopes requested
+          required:
+            - grant_type
+            - mfa_token
+            - oob_code
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+    TokenRequestDirectAuthenticationMfaOtp:
+      allOf:
+        - $ref: '#/components/schemas/TokenRequest'
+        - type: object
+          properties:
+            grant_types_supported:
+              description: A list of the grant type values that this authorization server supports
+              type: array
+              items:
+                $ref: '#/components/schemas/GrantType'
+            mfa_token:
+              type: string
+              description: The value returned from a previous token or challenge request for identifying the multifactor transaction across multiple requests
+            otp:
+              type: string
+              description: The one-time passcode for an enrolled authenticator of the user for whom authentication is being requested
+            scope:
+              type: string
+              description: The scopes requested
+          required:
+            - grant_type
+            - mfa_token
+            - otp
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+    TokenRequestDirectAuthenticationOob:
+      allOf:
+        - $ref: '#/components/schemas/TokenRequest'
+        - type: object
+          properties:
+            grant_types_supported:
+              description: A list of the grant type values that this authorization server supports
+              type: array
+              items:
+                $ref: '#/components/schemas/GrantType'
+            oob_code:
+              type: string
+              description: The value returned from a previous oob-authenticate or challenge request for identifying an out-of-band transaction across multiple requests
+            scope:
+              type: string
+              description: The scopes requested
+          required:
+            - grant_type
+            - scope
+            - oob_code
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
+    TokenRequestDirectAuthenticationOtp:
+      allOf:
+        - $ref: '#/components/schemas/TokenRequest'
+        - type: object
+          properties:
+            grant_types_supported:
+              description: A list of the grant type values that the client supports
+              type: array
+              items:
+                $ref: '#/components/schemas/GrantType'
+            login_hint:
+              type: string
+              description: The user sign-in information for whom authentication is being requested
+            otp:
+              type: string
+              description: The one-time passcode for an enrolled authenticator of the user for whom authentication is being requested
+            scope:
+              type: string
+              description: The scopes requested
+          required:
+            - grant_type
+            - scope
+            - login_hint
+            - otp
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: false
+        SKUs: []
     TokenRequestPassword:
       allOf:
         - $ref: '#/components/schemas/TokenRequest'
@@ -3535,6 +4220,8 @@ components:
             okta.clients.manage: Allows the app to manage clients in your Okta organization
             okta.clients.read: Allows the app to read information about clients in your Okta organization
             okta.clients.register: Allows the app to register new clients in your Okta organization
+            okta.roles.manage: Allows the app to manage administrative role assignments for clients in your Okta org
+            okta.roles.read: Allows the app to read administrative role assignments for clients in your Okta org
             openid: Identifies the request as an OpenID Connect request
             phone: Requests access to the `phone_number` and `phone_number_verified` claims
             profile: Requests access to the end user's default profile claims
